@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint
+      - run: npm test
+      - name: Check the packages publish no extracted data
+        run: node scripts/check-pack.mjs --list
+      - name: Smoke test the Finder from an empty folder with no key
+        run: node scripts/smoke.mjs --cache "${{ runner.temp }}/sc2-asset-catalog-cache"
+        env:
+          TYPESAFE_API_KEY: ""
+          # Lists the gallery through GitHub's API above its limit for unauthenticated calls.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check the real extraction
+        run: npx vitest run tests/extracted.test.ts
+        working-directory: packages/sc2-asset-catalog
+        env:
+          SC2_ASSET_CATALOG_EXTRACTED: ${{ runner.temp }}/sc2-asset-catalog-cache/extracted

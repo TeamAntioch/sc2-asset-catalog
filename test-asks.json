@@ -1,0 +1,497 @@
+{
+  "about": "Asks the test command runs (npm run test-asks): each ask with the doodads it should find, best first. The first ones come from the Search Parts of three Doodad Searches (each part asked by its name and by its line); the rest are typical mappers' asks. An ask marked reviewed: false hasn't had its expected ids checked by hand yet. Asks never name a map, campaign or story.",
+  "asks": [
+    {
+      "ask": "belt",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "PortZionGridFloorDoodad",
+        "ConveyorBeltBridge",
+        "UmojanLabCatwalkAnimated",
+        "MarSaraConveyorBelt",
+        "PortZionScrapConveyorBelt",
+        "HighYieldConveyorBelt",
+        "Shadow_Platform_Rail"
+      ],
+      "from": "crushing press search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "a long, low conveyor the press stands over: a flat moving surface near floor height, wide enough to carry a crate or a Marine, that reads as a production line from the game camera",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "PortZionGridFloorDoodad",
+        "ConveyorBeltBridge",
+        "UmojanLabCatwalkAnimated",
+        "MarSaraConveyorBelt",
+        "PortZionScrapConveyorBelt",
+        "HighYieldConveyorBelt",
+        "Shadow_Platform_Rail"
+      ],
+      "from": "crushing press search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "frame",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "PortCity_IndustrialCrane",
+        "DefendersCity_IndustrialCrane",
+        "SpaceDockArch",
+        "AircraftAssembly",
+        "CerberusConstructionLarge",
+        "Korhal_ConstructionCranes",
+        "ConstructionCrane"
+      ],
+      "from": "crushing press search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "a heavy gantry or housing that holds the press head over the belt: uprights and a crossbeam, open underneath so the belt runs through",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "PortCity_IndustrialCrane",
+        "DefendersCity_IndustrialCrane",
+        "SpaceDockArch",
+        "AircraftAssembly",
+        "CerberusConstructionLarge",
+        "Korhal_ConstructionCranes",
+        "ConstructionCrane"
+      ],
+      "from": "crushing press search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "press head",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "Tarsonis_BuildingWall_Blockers",
+        "ElectricConduitPathSmall",
+        "DOM_Crate",
+        "MilitaryFenceStraightShort",
+        "CliffArmorOneHigh",
+        "Korhal_PerimeterWall",
+        "PortZionStorage",
+        "TarsonisWall2",
+        "Korhal_SpacePort_Container"
+      ],
+      "from": "crushing press search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "a square, angular, metal block that drops onto the belt: no crusher detail, only hard edges and plain metal; it reads as heavy, and a little narrower than the 6-cell-wide belt (about 5 cells across), in a dark industrial, space-dock look (dark metal, orange strips)",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "Tarsonis_BuildingWall_Blockers",
+        "ElectricConduitPathSmall",
+        "DOM_Crate",
+        "MilitaryFenceStraightShort",
+        "CliffArmorOneHigh",
+        "Korhal_PerimeterWall",
+        "PortZionStorage",
+        "TarsonisWall2",
+        "Korhal_SpacePort_Container"
+      ],
+      "from": "crushing press search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "warning light",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "AlarmLight",
+        "UmojanLabAlarms",
+        "SpacePlatform_Lantern_Red_Blink",
+        "SpaceTankTrap",
+        "PortCity_StreetAlarms"
+      ],
+      "from": "crushing press search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "a light on or beside the press that flashes before it drops: the telegraph the player times a crossing by",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "AlarmLight",
+        "UmojanLabAlarms",
+        "SpacePlatform_Lantern_Red_Blink",
+        "SpaceTankTrap",
+        "PortCity_StreetAlarms"
+      ],
+      "from": "crushing press search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "crush-zone marking",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "Decal",
+        "Korhal_Spaceport_Markings",
+        "SpacePlatformGroundDecals",
+        "DecalSpace",
+        "BattleStation_Line_Decals",
+        "DOM_Decals",
+        "Tarsonis_GroundTrims"
+      ],
+      "from": "crushing press search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "paint on the floor under the press: hazard stripes boxing the zone it drops on, readable from the game camera",
+      "object": "crushing press over a conveyor belt",
+      "expected": [
+        "Decal",
+        "Korhal_Spaceport_Markings",
+        "SpacePlatformGroundDecals",
+        "DecalSpace",
+        "BattleStation_Line_Decals",
+        "DOM_Decals",
+        "Tarsonis_GroundTrims"
+      ],
+      "from": "crushing press search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "hatch at the top",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "CompoundMansion_GratesExit",
+        "Shadow_Platform_Rail",
+        "CompoundSewers_Vent",
+        "CompoundMansion_RobotVent",
+        "PortZionScrapElevatorLeft",
+        "CompoundSewers_Grates",
+        "TerrainObjectHybridGasVentDoodad"
+      ],
+      "from": "chute search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "an opening in a catwalk's edge that a hero drops into, about two Marines wide: a framed hole or lip that clearly goes down, not a floor plate or an elevator",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "CompoundMansion_GratesExit",
+        "Shadow_Platform_Rail",
+        "CompoundSewers_Vent",
+        "CompoundMansion_RobotVent",
+        "PortZionScrapElevatorLeft",
+        "CompoundSewers_Grates",
+        "TerrainObjectHybridGasVentDoodad"
+      ],
+      "from": "chute search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "the slide itself",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "Shadow_Platform_Rail_Long",
+        "CompoundSewers_CanalWalls",
+        "ConveyorBeltBridge",
+        "MarSaraConveyorBelt",
+        "PortZionScrapConveyorBelt",
+        "DefensiveWall45RampDoodad",
+        "GenericSpacePipes",
+        "SpaceScrap"
+      ],
+      "from": "chute search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "an inclined trough or tube about 9 cells long, dropping two cliff levels, with sides a unit can visibly ride down: metal, industrial, clearly sloped from the game camera",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "Shadow_Platform_Rail_Long",
+        "CompoundSewers_CanalWalls",
+        "ConveyorBeltBridge",
+        "MarSaraConveyorBelt",
+        "PortZionScrapConveyorBelt",
+        "DefensiveWall45RampDoodad",
+        "GenericSpacePipes",
+        "SpaceScrap"
+      ],
+      "from": "chute search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "supports",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "MonoTrackPost",
+        "SpaceDockArch",
+        "LavaPillars",
+        "CliffScaffolding",
+        "JarbanMinor_CliffElevator",
+        "Korhal_Platform_CliffStructures",
+        "CerberusConstructionLarge"
+      ],
+      "from": "chute search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "legs or a frame holding the slide up over the hall: industrial steel, tall enough to reach from the hall floor to the slide's underside, so the slide doesn't float",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "MonoTrackPost",
+        "SpaceDockArch",
+        "LavaPillars",
+        "CliffScaffolding",
+        "JarbanMinor_CliffElevator",
+        "Korhal_Platform_CliffStructures",
+        "CerberusConstructionLarge"
+      ],
+      "from": "chute search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "mouth at the bottom",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "PortZionGarbagePile",
+        "Korhal_Platform_Debris",
+        "PortZionDumpster",
+        "PortZionJunkPile",
+        "CompoundSewers_Vent",
+        "FanVentCliff",
+        "HybridCliffGasVent"
+      ],
+      "from": "chute search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "where the chute comes out on the hall floor: an outlet or bin that says things get dumped here, so a unit landing reads as arriving, about a Marine high",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "PortZionGarbagePile",
+        "Korhal_Platform_Debris",
+        "PortZionDumpster",
+        "PortZionJunkPile",
+        "CompoundSewers_Vent",
+        "FanVentCliff",
+        "HybridCliffGasVent"
+      ],
+      "from": "chute search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "warning and marking",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "AlarmLight",
+        "Decal",
+        "SpacePlatform_Lantern_Red_Blink",
+        "Shadow_Platform_Rail",
+        "UmojanLabAlarms"
+      ],
+      "from": "chute search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "something at the hatch that tells the player this is the way down, one way: a warning light and floor markings, read from the game camera",
+      "object": "chute: a one-way slide from a catwalk hatch down two cliff levels to a hall floor, about 9 cells long",
+      "expected": [
+        "AlarmLight",
+        "Decal",
+        "SpacePlatform_Lantern_Red_Blink",
+        "Shadow_Platform_Rail",
+        "UmojanLabAlarms"
+      ],
+      "from": "chute search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "wall opening",
+      "object": "chute opening: an open mouth in a catwalk's wall where a slide comes out into a hall",
+      "expected": [
+        "DOM_Corridor",
+        "SpacePlatformWallDamage",
+        "MarSaraTunnel",
+        "MarSaraCliffDoodadLarge",
+        "FurnaceSmall",
+        "SpaceArmoredDoorDiagonal",
+        "SpacePlatformCliffDoor",
+        "JarbanMinor_IndustrialGarage",
+        "PortCity_SubwayEntrance"
+      ],
+      "from": "chute opening search, part name",
+      "reviewed": true
+    },
+    {
+      "ask": "a dark, open mouth set into a vertical wall (a 4-unit cliff face), about 2-3 cells wide and 2-3 tall, hero-sized or a bit bigger, that a slide comes out of: from the game camera a hole into the wall, not a panel, vent grille or closed door",
+      "object": "chute opening: an open mouth in a catwalk's wall where a slide comes out into a hall",
+      "expected": [
+        "DOM_Corridor",
+        "SpacePlatformWallDamage",
+        "MarSaraTunnel",
+        "MarSaraCliffDoodadLarge",
+        "FurnaceSmall",
+        "SpaceArmoredDoorDiagonal",
+        "SpacePlatformCliffDoor",
+        "JarbanMinor_IndustrialGarage",
+        "PortCity_SubwayEntrance"
+      ],
+      "from": "chute opening search, part line",
+      "reviewed": true
+    },
+    {
+      "ask": "palm tree",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "snowy pine trees for an ice map",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "dead tree with bare branches",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "wrecked siege tank",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "oil barrels",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "street lamp for a city road",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "waterfall off a cliff",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "xel'naga statue",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "road barricade",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "power lines on pylons",
+      "expected": [
+        "PowerCables",
+        "PowerCablesWarfield"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "big glowing protoss crystal",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "steel bridge over a gap",
+      "expected": [
+        "KorhalBridge"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "ice bridge",
+      "expected": [
+        "IceBridge"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "observation window in a lab wall",
+      "expected": [
+        "CastanarWindowLarge"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "hanging jungle vines",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "sandbag wall for a military camp",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "pile of bones",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    },
+    {
+      "ask": "lava flowing down rocks",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "typical mapper ask",
+      "reviewed": true
+    }
+  ]
+}

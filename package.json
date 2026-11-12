@@ -1,0 +1,30 @@
+{
+  "name": "sc2-asset-catalog-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The SC2 asset catalog and the Doodad Finder, as npm workspaces.",
+  "type": "module",
+  "workspaces": [
+    "packages/sc2-asset-catalog",
+    "packages/sc2-doodad-finder"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "lint": "npm run build -w @teamantioch/sc2-asset-catalog && npm run lint --workspaces",
+    "test": "npm run build -w @teamantioch/sc2-asset-catalog && npm test --workspaces",
+    "smoke": "node scripts/smoke.mjs",
+    "test-asks": "npm run build && node packages/sc2-doodad-finder/dist/cli/test-asks.js",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run build && changeset publish"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.0",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

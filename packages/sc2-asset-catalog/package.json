@@ -1,0 +1,59 @@
+{
+  "name": "@teamantioch/sc2-asset-catalog",
+  "version": "0.1.0",
+  "description": "StarCraft II doodads described in words, with Doodad Uses, a keyword search, and an extractor that builds names, packages and categories from SC2GameData into your cache.",
+  "keywords": [
+    "starcraft",
+    "sc2",
+    "doodads",
+    "map-editor",
+    "galaxy-editor"
+  ],
+  "license": "MIT AND CC-BY-4.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAntioch/sc2-asset-catalog.git",
+    "directory": "packages/sc2-asset-catalog"
+  },
+  "homepage": "https://github.com/TeamAntioch/sc2-asset-catalog#readme",
+  "bugs": "https://github.com/TeamAntioch/sc2-asset-catalog/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./catalog/*": "./dist/catalog/*",
+    "./util/*": "./dist/util/*",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "sc2-asset-catalog": "bin/sc2-asset-catalog.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "data/doodad-descriptions.json",
+    "data/doodad-uses",
+    "scripts/build-whiteoutflakes.sh",
+    "LICENSE",
+    "LICENSE-DATA",
+    "THIRD-PARTY-NOTICES.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepack": "tsc -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  }
+}
