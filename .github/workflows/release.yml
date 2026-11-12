@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  release:
+    # Off until npm is set up for trusted publishing from this workflow: set the repository variable
+    # RELEASE to "on" after the first publish (README: Releasing).
+    if: vars.RELEASE == 'on'
+    runs-on: ubuntu-latest
+    # Publishing needs only id-token (OIDC) and read access; opening and updating the version pull
+    # request needs write access to contents and pull requests.
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      # Trusted publishing (OIDC) needs npm 11.5.1 or later; no NPM_TOKEN is used.
+      - run: npm install -g npm@^11.5.1
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: node scripts/check-pack.mjs
+      - name: Open the version pull request, or publish once it is merged
+        uses: changesets/action@v1
+        with:
+          version: npm run version-packages
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
