@@ -37,7 +37,7 @@ const run = (command, args, cwd) => execFileSync(command, args, { cwd, stdio: ["
 
 let finder;
 try {
-  for (const pkg of ["@teamantioch/sc2-asset-catalog", "@teamantioch/sc2-doodad-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
+  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-doodad-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
   const tarballs = (await readdir(packs)).filter((file) => file.endsWith(".tgz")).map((file) => path.join(packs, file));
   console.log(`Packed ${tarballs.map((file) => path.basename(file)).join(", ")}`);
   await writeFile(path.join(app, "package.json"), `${JSON.stringify({ name: "smoke", private: true, type: "module" })}\n`);
@@ -56,14 +56,14 @@ try {
   console.log("npx sc2-doodad-finder logout works");
 
   // The renderer can't be used before setup (on macOS) or at all (elsewhere), and says which. Nothing is built.
-  if (!existsSync(path.join(app, "node_modules", "@teamantioch", "sc2-asset-catalog", "scripts", "build-whiteoutflakes.sh"))) throw new Error("The catalog package has no build-whiteoutflakes.sh");
+  if (!existsSync(path.join(app, "node_modules", "@team-antioch", "sc2-asset-catalog", "scripts", "build-whiteoutflakes.sh"))) throw new Error("The catalog package has no build-whiteoutflakes.sh");
   const render = spawnSync("npx", ["--no-install", "sc2-asset-catalog", "render"], { cwd: app, env, encoding: "utf8", shell: win });
-  const expected = process.platform === "darwin" ? /run `npx @teamantioch\/sc2-asset-catalog setup-renderer`/ : /Rendering isn't supported on (Windows|Linux) yet/;
+  const expected = process.platform === "darwin" ? /run `npx @team-antioch\/sc2-asset-catalog setup-renderer`/ : /Rendering isn't supported on (Windows|Linux) yet/;
   if (render.status === 0 || !expected.test(render.stderr)) throw new Error(`npx sc2-asset-catalog render exited ${render.status}: ${render.stderr}`);
   console.log(`npx sc2-asset-catalog render says: ${render.stderr.split("\n").find((line) => expected.test(line))}`);
 
   // Run the installed bin with node itself, so the test can stop it on every platform.
-  const bin = path.join(app, "node_modules", "@teamantioch", "sc2-doodad-finder", "bin", "sc2-doodad-finder.js");
+  const bin = path.join(app, "node_modules", "@team-antioch", "sc2-doodad-finder", "bin", "sc2-doodad-finder.js");
   const started = Date.now();
   finder = spawn(process.execPath, [bin, "--port", "0"], { cwd: app, env, stdio: ["ignore", "pipe", "pipe"] });
   let output = "";

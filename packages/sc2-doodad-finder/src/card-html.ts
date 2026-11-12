@@ -4,8 +4,8 @@
 // for a card the choice provides. The picture and the escaping are the catalog's doodad-card-html.ts. A sheet is served by the Finder's process, since a page served over
 // HTTP can't load a file.
 
-import { dependencyName, escapeHtml, pictureHtml } from "@teamantioch/sc2-asset-catalog/catalog/doodad-card-html.js";
-import type { DoodadPicture } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { dependencyName, escapeHtml, pictureHtml } from "@team-antioch/sc2-asset-catalog/catalog/doodad-card-html.js";
+import type { DoodadPicture } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 import type { CandidateCard } from "./cards.ts";
 import { LEVELS } from "./wording.ts";

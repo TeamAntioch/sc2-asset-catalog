@@ -104,7 +104,7 @@ async function takeHome(homesDir: string): Promise<{ home: string; release: () =
 /** A ModelRenderer drawing models with the WhiteoutFlakes viewer. */
 export function whiteoutFlakesRenderer({ viewer, sc2Path, workDir, run = execViewer }: WhiteoutFlakesOptions): ModelRenderer {
   const checkedViewer = (): string => {
-    if (!existsSync(viewer)) throw new Error(`No WhiteoutFlakes viewer at ${viewer}: run \`npx @teamantioch/sc2-asset-catalog setup-renderer\` to build it`);
+    if (!existsSync(viewer)) throw new Error(`No WhiteoutFlakes viewer at ${viewer}: run \`npx @team-antioch/sc2-asset-catalog setup-renderer\` to build it`);
     return viewer;
   };
 

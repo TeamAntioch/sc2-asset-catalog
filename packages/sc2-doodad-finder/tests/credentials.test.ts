@@ -61,7 +61,7 @@ describe("openRanker", () => {
     const opened = openRanker({ env: env() });
     expect(opened.ranker).toBeUndefined();
     expect(opened.off).toBe(NO_JEV_KEY);
-    expect(NO_JEV_KEY).toContain("npx @teamantioch/sc2-doodad-finder login");
+    expect(NO_JEV_KEY).toContain("npx @team-antioch/sc2-doodad-finder login");
     expect(NO_JEV_KEY).toContain("TYPESAFE_API_KEY");
   });
 });

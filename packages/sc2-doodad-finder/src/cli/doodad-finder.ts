@@ -14,7 +14,7 @@ import { execFile } from "node:child_process";
 import path from "node:path";
 import { parseArgs } from "node:util";
 
-import { runCatalogCli } from "@teamantioch/sc2-asset-catalog";
+import { runCatalogCli } from "@team-antioch/sc2-asset-catalog";
 
 import { keySourceText } from "../credentials.ts";
 import { login, logout } from "../login.ts";

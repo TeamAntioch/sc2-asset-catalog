@@ -11,6 +11,6 @@ export default defineConfig({
   },
   resolve: {
     extensions: [".ts", ".js"],
-    alias: { "@teamantioch/sc2-asset-catalog/catalog": fileURLToPath(new URL("../sc2-asset-catalog/src/catalog", import.meta.url)) },
+    alias: { "@team-antioch/sc2-asset-catalog/catalog": fileURLToPath(new URL("../sc2-asset-catalog/src/catalog", import.meta.url)) },
   },
 });

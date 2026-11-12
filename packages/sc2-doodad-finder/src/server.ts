@@ -34,7 +34,7 @@ import { createServer, type IncomingMessage, type Server, type ServerResponse } 
 import type { AddressInfo } from "node:net";
 import path from "node:path";
 
-import { type DoodadPicture, doodadPictures, type DoodadSearchSources } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { type DoodadPicture, doodadPictures, type DoodadSearchSources } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 import { type AskEvent, type AskMode, type AskRequest, type AskTiming, ASK_TIMING, createAsker } from "./asker.ts";
 import type { CandidateCard } from "./cards.ts";

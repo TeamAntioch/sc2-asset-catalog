@@ -12,8 +12,8 @@ Two npm packages:
 
 | Package | What it is |
 | --- | --- |
-| [`@teamantioch/sc2-doodad-finder`](packages/sc2-doodad-finder) | The Finder: the page, the Jev ranker and the `sc2-doodad-finder` command. |
-| [`@teamantioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, and the extractor (`sc2-asset-catalog extract`). |
+| [`@team-antioch/sc2-doodad-finder`](packages/sc2-doodad-finder) | The Finder: the page, the Jev ranker and the `sc2-doodad-finder` command. |
+| [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, and the extractor (`sc2-asset-catalog extract`). |
 
 ## Install and start
 
@@ -22,17 +22,17 @@ You need [Node.js](https://nodejs.org/) 22.18 or later, on Windows, macOS or Lin
 Start it without installing anything:
 
 ```sh
-npx @teamantioch/sc2-doodad-finder --open
+npx @team-antioch/sc2-doodad-finder --open
 ```
 
 Or install it once and start it by name:
 
 ```sh
-npm install -g @teamantioch/sc2-doodad-finder
+npm install -g @team-antioch/sc2-doodad-finder
 sc2-doodad-finder --open
 ```
 
-The page is at `http://127.0.0.1:4634/`. The Finder listens on your own machine only. Ctrl-C stops it. To have Jev rank the cards, run `npx @teamantioch/sc2-doodad-finder login` once ([Ranking with Jev](#ranking-with-jev)).
+The page is at `http://127.0.0.1:4634/`. The Finder listens on your own machine only. Ctrl-C stops it. To have Jev rank the cards, run `npx @team-antioch/sc2-doodad-finder login` once ([Ranking with Jev](#ranking-with-jev)).
 
 The first start takes a minute or so. It downloads the game's doodad data from SC2GameData (about 22 MB, read and then thrown away) and builds the catalog's names, packages, categories and gallery picture names into your cache folder. It also downloads the embeddings model (gte-small, about 34 MB) and embeds every card. Later starts take a few seconds and need no connection, except to Jev and for the pictures.
 
@@ -43,7 +43,7 @@ Options:
 - `--tick-log <folder>`: logs every tick to `<folder>/ticks.jsonl` (see [Tests](#tests-and-the-test-asks)).
 - `--open`: opens the page in your browser.
 
-`npx @teamantioch/sc2-doodad-finder extract` (`sc2-doodad-finder extract` where it is installed) builds the catalog's extracted fields again, for instance after a game patch, and starts nothing. It is the catalog's own `sc2-asset-catalog extract`.
+`npx @team-antioch/sc2-doodad-finder extract` (`sc2-doodad-finder extract` where it is installed) builds the catalog's extracted fields again, for instance after a game patch, and starts nothing. It is the catalog's own `sc2-asset-catalog extract`.
 
 The extraction lists the gallery's pictures through GitHub's API, which allows 60 calls an hour from one address without a token. Past that, or with `GITHUB_TOKEN` unset on a shared address, it lists them with `git` instead (a shallow clone with no pictures in it, a second or so). Without either, set `GITHUB_TOKEN` or install git.
 
@@ -76,7 +76,7 @@ The Finder narrows each ask on your machine, with a keyword search and the local
 **Saving it.** Run:
 
 ```sh
-npx @teamantioch/sc2-doodad-finder login
+npx @team-antioch/sc2-doodad-finder login
 ```
 
 Paste the key and press Enter. Nothing shows as you paste. `login` checks the key with TypeSafe by listing your account's models, which asks Jev nothing and uses no tokens, then saves it and says whether TypeSafe accepted it. If TypeSafe refuses the key, nothing is saved. If TypeSafe can't be reached, the key is saved unchecked. From then on the Finder ranks with Jev each time it starts. Only the Finder's process reads the key, and the page never sees it.
@@ -86,7 +86,7 @@ The key is kept in `typesafe-key` in your config folder (on macOS and Linux, a f
 - Windows: `%APPDATA%\sc2-asset-catalog\`
 - macOS and Linux: `$XDG_CONFIG_HOME/sc2-asset-catalog/`, else `~/.config/sc2-asset-catalog/`
 
-`SC2_ASSET_CATALOG_CONFIG` puts the folder somewhere else. `npx @teamantioch/sc2-doodad-finder logout` deletes the key file.
+`SC2_ASSET_CATALOG_CONFIG` puts the folder somewhere else. `npx @team-antioch/sc2-doodad-finder logout` deletes the key file.
 
 **Or set `TYPESAFE_API_KEY`**, for CI or if you'd rather keep keys in your shell. The variable wins over the saved key while it is set.
 
@@ -120,7 +120,7 @@ This step is optional, and only tried on macOS. It needs:
 First build the renderer, once:
 
 ```sh
-npx @teamantioch/sc2-asset-catalog setup-renderer
+npx @team-antioch/sc2-asset-catalog setup-renderer
 ```
 
 It checks for the above and says what's missing and how to get it. Then it builds the [WhiteoutFlakes](https://github.com/FernandoS27/WhiteoutFlakes) model viewer from source into the cache folder's `whiteoutflakes/`, installing cmake, ninja, vulkan-loader and molten-vk with Homebrew. It records the viewer's path in your config folder (`renderer.json`, beside the Jev key). The build took about 3 minutes on an M1 Max, plus the downloads. Running it again skips the steps already done.
@@ -128,7 +128,7 @@ It checks for the above and says what's missing and how to get it. Then it build
 Then render, for every doodad or only the ids you name:
 
 ```sh
-npx @teamantioch/sc2-asset-catalog render [doodad ids…] [--jobs 4] [--force]
+npx @team-antioch/sc2-asset-catalog render [doodad ids…] [--jobs 4] [--force]
 ```
 
 The viewer reads each model straight from the game's storage. A full render of about 2,600 doodads takes roughly half an hour with 4 jobs on an M1 Max. Some doodads always fail, such as decals that draw nothing on a turntable and helpers with no model. Renders go in the cache folder's `thumbnails/doodads/` and sheets in `catalog-sheets/doodads/`. A doodad already drawn by the same viewer build is skipped, a failed one is tried again next time, and one whose renders you deleted is drawn again (a deleted sheet is built again from its renders). Two `render` runs can share a cache folder at once: each viewer run gets a home of its own for its caches, and the record of what was drawn keeps both runs' results. Give them different doodads, or both draw the ones they share. The viewer sometimes writes a garbled frame, or a white or black background. Each frame is checked, a garbled model is rendered again (up to 3 times), and the background is keyed out. `--viewer <WhiteoutFlakes.app>` or `SC2_ASSET_CATALOG_VIEWER` runs a viewer other than the one setup built.
@@ -157,16 +157,16 @@ export default {
 ## Using the library
 
 ```js
-import { readStockDoodadSources, searchDoodads } from "@teamantioch/sc2-asset-catalog";
+import { readStockDoodadSources, searchDoodads } from "@team-antioch/sc2-asset-catalog";
 
-// After `npx @teamantioch/sc2-asset-catalog extract` (or the Finder's first start):
+// After `npx @team-antioch/sc2-asset-catalog extract` (or the Finder's first start):
 const sources = readStockDoodadSources();
 const { results } = searchDoodads({ words: ["crate"], biome: ["desert"], limit: 10 }, sources);
 ```
 
 A search works out its candidates once per sources object, so keep the sources you read for later searches. `cachedStockDoodadSources()` does that for you: it reads them once per set of folders, until `forgetStockDoodadSources()` (call it when a source file changes). Pictures are looked for under the cache folder; `pictureFallback` (a function from a picture's path to another place to look) lets them be found elsewhere too.
 
-Every module can also be imported on its own, as `@teamantioch/sc2-asset-catalog/catalog/<name>.js`. The Finder can be started from code with `startFinder` from `@teamantioch/sc2-doodad-finder`. Its options beyond `port`, `budget`, `tickLog` and `cacheDir` are for sc2-adjutant and may change.
+Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalog/catalog/<name>.js`. The Finder can be started from code with `startFinder` from `@team-antioch/sc2-doodad-finder`. Its options beyond `port`, `budget`, `tickLog` and `cacheDir` are for sc2-adjutant and may change.
 
 ## Tests and the test asks
 

@@ -3,7 +3,7 @@
 // packages they need, on the clipboard. The page copies with the browser's clipboard during the
 // click, from text the process sent with its state, so the copy counts as the click.
 
-import { dependencyName } from "@teamantioch/sc2-asset-catalog/catalog/doodad-card-html.js";
+import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-card-html.js";
 
 import type { Tag } from "./narrow.ts";
 

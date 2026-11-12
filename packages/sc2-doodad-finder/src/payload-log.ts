@@ -4,7 +4,7 @@
 import { appendFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 
-import { catalogCacheDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 
 import type { PayloadLog } from "./ranker.ts";
 

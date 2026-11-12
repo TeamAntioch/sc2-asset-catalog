@@ -1,7 +1,7 @@
 // A fetch that answers as SC2GameData and the gallery's file list would, for five doodads the
 // shipped descriptions describe: what the Finder extracts on its first start, with no network.
-import { GALLERY_TREE_URL } from "@teamantioch/sc2-asset-catalog/catalog/extract-catalog.js";
-import { SC2_GAME_DATA_URL } from "@teamantioch/sc2-asset-catalog/catalog/extract-doodads.js";
+import { GALLERY_TREE_URL } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
+import { SC2_GAME_DATA_URL } from "@team-antioch/sc2-asset-catalog/catalog/extract-doodads.js";
 
 const catalog = (body: string) => `<?xml version="1.0" encoding="us-ascii"?>\n<Catalog>\n${body}\n</Catalog>\n`;
 

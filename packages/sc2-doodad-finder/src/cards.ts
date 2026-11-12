@@ -4,7 +4,7 @@
 // tilesets and Doodad Use phrases. Where a use came from (its `from`) stays out: it names a search,
 // not the doodad. An undescribed doodad's card is its name and id words alone.
 
-import { allDoodadEntries, type DoodadEntry, type DoodadSearchSources, idWords } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { allDoodadEntries, type DoodadEntry, type DoodadSearchSources, idWords } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 export type CandidateCard = {
   readonly id: string;

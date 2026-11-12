@@ -192,7 +192,7 @@ export type RenderCatalogSheetsOptions = RenderThumbnailsOptions & {
 export async function renderCatalogSheets(options: RenderCatalogSheetsOptions): Promise<RenderThumbnailsResult & { readonly sheets: number }> {
   const cacheDir = options.cacheDir ?? catalogCacheDir();
   const extracted = extractedDirOf(cacheDir);
-  if (!hasExtractedCatalog(extracted)) throw new Error(`Nothing extracted in ${cacheDir} yet: run sc2-asset-catalog extract first (npx @teamantioch/sc2-asset-catalog extract)`);
+  if (!hasExtractedCatalog(extracted)) throw new Error(`Nothing extracted in ${cacheDir} yet: run sc2-asset-catalog extract first (npx @team-antioch/sc2-asset-catalog extract)`);
   const doodads = readDoodads(extracted);
   const unknown = (options.ids ?? []).filter((id) => !Object.hasOwn(doodads, id));
   if (unknown.length) throw new Error(`The catalog has no doodad ${unknown.join(", ")}`);

@@ -7,9 +7,9 @@ import { type FSWatcher, watch } from "node:fs";
 import { stat } from "node:fs/promises";
 import path from "node:path";
 
-import { providesDependency } from "@teamantioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
-import { catalogCacheDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
-import { type DoodadSearchSources, matchDoodads } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import { type DoodadSearchSources, matchDoodads } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 import { type CandidateCard, candidateCards } from "./cards.ts";
 import type { Embedder } from "./embedder.ts";

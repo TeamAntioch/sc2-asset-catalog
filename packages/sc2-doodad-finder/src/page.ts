@@ -6,7 +6,7 @@
 // sc2-adjutant), the tray is kept for one, named or reopened there, and each ask's line can be
 // edited. It shares the catalog's card style and zoom (doodad-card-html.ts).
 
-import { DOODAD_PAGE_STYLE, ZOOM_SCRIPT } from "@teamantioch/sc2-asset-catalog/catalog/doodad-card-html.js";
+import { DOODAD_PAGE_STYLE, ZOOM_SCRIPT } from "@team-antioch/sc2-asset-catalog/catalog/doodad-card-html.js";
 
 const STYLE = `
 .bar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.5rem 0; }

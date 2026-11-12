@@ -2,7 +2,7 @@
 // replay (tests/recorded/). Run by hand only, with TYPESAFE_API_KEY set or a key saved by `login`: never in the test suite. Only response bodies are kept: no headers, no credential.
 // It spends a little (under a cent); run it again only when a ranker's request changes shape.
 //
-//   npm run build -w @teamantioch/sc2-asset-catalog && node packages/sc2-doodad-finder/tests/record-ranker-responses.ts
+//   npm run build -w @team-antioch/sc2-asset-catalog && node packages/sc2-doodad-finder/tests/record-ranker-responses.ts
 
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -31,7 +31,7 @@ function recording() {
 async function main() {
   const request: RankRequest = { ...RECORDED_REQUEST, candidates: candidateCards(sources()) };
   const key = jevApiKey();
-  if (!key) throw new Error("No TypeSafe key: run `npx @teamantioch/sc2-doodad-finder login`, or set TYPESAFE_API_KEY");
+  if (!key) throw new Error("No TypeSafe key: run `npx @team-antioch/sc2-doodad-finder login`, or set TYPESAFE_API_KEY");
   const jev = recording();
   const jevRanking = await jevRanker({ apiKey: key, fetch: jev.fetch }).rank(request);
   await writeFile(recordedFile("jev"), `${JSON.stringify(jev.seen.body, null, 2)}\n`);
