@@ -41,8 +41,7 @@
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "npm run clean && tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
-    "prepack": "npm run build"
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=22.18"

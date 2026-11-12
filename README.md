@@ -190,6 +190,6 @@ New and better descriptions and Doodad Uses are welcome: see [CONTRIBUTING.md](C
 
 Releases go through [Changesets](https://github.com/changesets/changesets) and the [release workflow](.github/workflows/release.yml), which publishes with npm trusted publishing: no npm token is stored anywhere. Once the repository variable `RELEASE` is `on`, each push to `main` opens or updates a version pull request from the changesets, and merging it publishes the new versions. Setting it up, once:
 
-1. Publish 0.1.0 of both packages by hand, so they exist on npm: `npm ci`, then `npm publish` in `packages/sc2-asset-catalog` and then in `packages/sc2-doodad-finder` (each builds itself first).
+1. Publish 0.1.0 of both packages by hand, so they exist on npm: `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog` and then in `packages/sc2-doodad-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
 2. On npmjs.com, add a trusted publisher to each package: GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
 3. Set the repository variable `RELEASE` to `on`.
