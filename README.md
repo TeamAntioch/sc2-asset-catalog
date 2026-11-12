@@ -36,6 +36,8 @@ The page is at `http://127.0.0.1:4634/`. The Finder listens on your own machine 
 
 The first start takes a minute or so. It downloads the game's doodad data from SC2GameData (about 22 MB, read and then thrown away) and builds the catalog's names, packages, categories and gallery picture names into your cache folder. It also downloads the embeddings model (gte-small, about 34 MB) and embeds every card. Later starts take a few seconds and need no connection, except to Jev and for the pictures.
 
+Newer npm versions may warn that install scripts were blocked (for `onnxruntime-node`, `protobufjs` and others). You can ignore it: the Finder doesn't need those scripts, and it starts and searches with them blocked.
+
 Options:
 
 - `--port <n>`: another port (`0` for any free one).
