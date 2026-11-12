@@ -83,7 +83,7 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   }
   if (command === "setup-renderer") {
     await setupRenderer({ cacheDir, configDir, log, system: options.setupSystem ?? { ...thisMachine, platform, arch } });
-    log("Set up: run `npx @teamantioch/sc2-asset-catalog render` to render the sheets");
+    log("Set up: run `npx @team-antioch/sc2-asset-catalog render` to render the sheets");
     return;
   }
   if (command === "render") {

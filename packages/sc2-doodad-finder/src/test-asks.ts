@@ -7,7 +7,7 @@
 
 import { readFile } from "node:fs/promises";
 
-import { parseJsonFile, TextSchema as Text } from "@teamantioch/sc2-asset-catalog/util/parse-json.js";
+import { parseJsonFile, TextSchema as Text } from "@team-antioch/sc2-asset-catalog/util/parse-json.js";
 import { z } from "zod";
 
 import type { Tag } from "./narrow.ts";

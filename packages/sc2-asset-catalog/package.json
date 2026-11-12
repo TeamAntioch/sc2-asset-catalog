@@ -1,5 +1,5 @@
 {
-  "name": "@teamantioch/sc2-asset-catalog",
+  "name": "@team-antioch/sc2-asset-catalog",
   "version": "0.1.0",
   "description": "StarCraft II doodads described in words, with Doodad Uses, a keyword search, and an extractor that builds names, packages and categories from SC2GameData into your cache.",
   "keywords": [

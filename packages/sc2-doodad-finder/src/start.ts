@@ -9,8 +9,8 @@
 
 import path from "node:path";
 
-import { catalogCacheDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
-import type { ListGitTree } from "@teamantioch/sc2-asset-catalog/catalog/extract-catalog.js";
+import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import type { ListGitTree } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
 
 import { type KeySource, openRanker } from "./credentials.ts";
 import { type Embedder, localEmbedder } from "./embedder.ts";

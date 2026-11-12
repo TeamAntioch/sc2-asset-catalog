@@ -21,7 +21,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 
-import { catalogCacheDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 
 import { keySourceText, openRanker } from "../credentials.ts";
 import { FINDER_MODEL, localEmbedder } from "../embedder.ts";

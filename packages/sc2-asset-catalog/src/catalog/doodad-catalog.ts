@@ -128,7 +128,7 @@ export type DoodadCatalogFiles = {
  */
 export function readDoodadCatalog(extractedDir: string, descriptionsFile: string = DOODAD_DESCRIPTIONS_PATH): DoodadCatalogFiles {
   const extractedFile = path.join(extractedDir, DOODAD_EXTRACTED_FILE);
-  if (!existsSync(extractedFile)) throw new Error(`No extracted doodads in ${extractedDir}: run the extract command first (npx @teamantioch/sc2-asset-catalog extract)`);
+  if (!existsSync(extractedFile)) throw new Error(`No extracted doodads in ${extractedDir}: run the extract command first (npx @team-antioch/sc2-asset-catalog extract)`);
   const descriptions = parseDoodadDescriptions(readFileSync(descriptionsFile, "utf8"), descriptionsFile);
   const extracted = JSON.parse(readFileSync(extractedFile, "utf8")) as Record<string, ExtractedDoodad>;
   return { descriptions, extracted, ...joinDoodadCatalog(descriptions, extracted) };

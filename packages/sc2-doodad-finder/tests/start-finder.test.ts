@@ -129,7 +129,7 @@ describe("startFinder with the public defaults", () => {
     const starting = startFinder({ cacheDir: cache(), embedder: fakeEmbedder(), env: noKey(), port: 0, fetch: failing, listGitTree });
     await expect(starting).rejects.toThrow(/fetch failed/);
     // In the form an npx user can run, too.
-    await expect(starting).rejects.toThrow(/npx @teamantioch\/sc2-doodad-finder extract/);
+    await expect(starting).rejects.toThrow(/npx @team-antioch\/sc2-doodad-finder extract/);
   });
 
   it("shows a sheet rendered while it runs on its card", async () => {

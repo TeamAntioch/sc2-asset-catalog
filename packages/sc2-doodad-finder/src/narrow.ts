@@ -5,7 +5,7 @@
 // nothing outside the two searches' matches. Tags raise the candidates they match; a pinned tag
 // keeps only those it matches.
 
-import type { DoodadSearchQuery } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import type { DoodadSearchQuery } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 import type { CandidateCard } from "./cards.ts";
 import type { Neighbour } from "./embedding-index.ts";

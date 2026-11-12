@@ -10,7 +10,7 @@ import { readFileSync } from "node:fs";
 import { chmod, mkdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { type CachePlatform, catalogConfigDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import { type CachePlatform, catalogConfigDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 
 /** The platform, environment and home folder the config folder is worked out from, as for the cache folder. */
 export type ConfigPlatform = CachePlatform;

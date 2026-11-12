@@ -113,7 +113,7 @@ export async function login(options: LoginOptions = {}): Promise<number> {
     read = await readHidden(input);
     output.write("\n");
   } else {
-    if ((output as { isTTY?: boolean }).isTTY) say("The input isn't a terminal, so the key will show as you paste it. Pipe it in instead: `echo <key> | npx @teamantioch/sc2-doodad-finder login`. Or paste it and press Enter:");
+    if ((output as { isTTY?: boolean }).isTTY) say("The input isn't a terminal, so the key will show as you paste it. Pipe it in instead: `echo <key> | npx @team-antioch/sc2-doodad-finder login`. Or paste it and press Enter:");
     read = await readLine(input);
   }
   if (read === CANCELLED) return say("Cancelled: nothing was saved."), 130;
@@ -131,7 +131,7 @@ export async function login(options: LoginOptions = {}): Promise<number> {
   await saveKeyFile(key, options);
   const file = keyFile(options);
   say(checked.ok ? `TypeSafe accepted the key. Saved it to ${file}.` : hide(`Saved the key to ${file}, but couldn't check it: ${checked.reason}`));
-  say("The Finder ranks with Jev from its next start. `npx @teamantioch/sc2-doodad-finder logout` deletes the key.");
+  say("The Finder ranks with Jev from its next start. `npx @team-antioch/sc2-doodad-finder logout` deletes the key.");
   if (env.TYPESAFE_API_KEY?.trim()) say("TYPESAFE_API_KEY is set here too, and while it is set it wins over the saved key.");
   return 0;
 }

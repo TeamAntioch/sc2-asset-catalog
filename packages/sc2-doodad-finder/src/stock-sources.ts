@@ -5,10 +5,10 @@
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-import { extractedDir } from "@teamantioch/sc2-asset-catalog/catalog/catalog-dirs.js";
-import { SHEET_FOLDERS } from "@teamantioch/sc2-asset-catalog/catalog/catalog-sheets.js";
-import { type DoodadSearchSources, readStockDoodadSources, stockDoodadSourceFiles } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
-import { extractCatalog, type FetchOptions, hasExtractedCatalog } from "@teamantioch/sc2-asset-catalog/catalog/extract-catalog.js";
+import { extractedDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
+import { SHEET_FOLDERS } from "@team-antioch/sc2-asset-catalog/catalog/catalog-sheets.js";
+import { type DoodadSearchSources, readStockDoodadSources, stockDoodadSourceFiles } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { extractCatalog, type FetchOptions, hasExtractedCatalog } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
 
 /** What the cards are made from, read afresh on each change, and the files whose changes write them again. */
 export type FinderSources = { readonly load: () => Promise<DoodadSearchSources>; readonly watch: readonly string[] };
@@ -35,7 +35,7 @@ export async function ensureCatalog(cacheDir: string, { log = () => {}, ...fetch
     await extractCatalog({ extractedDir: dir, log, ...fetching });
   } catch (error) {
     throw new Error(
-      `Couldn't extract the catalog: ${(error as Error).message}. Check the connection, then run npx @teamantioch/sc2-doodad-finder extract (or sc2-doodad-finder extract, where it is installed)`,
+      `Couldn't extract the catalog: ${(error as Error).message}. Check the connection, then run npx @team-antioch/sc2-doodad-finder extract (or sc2-doodad-finder extract, where it is installed)`,
       { cause: error },
     );
   }

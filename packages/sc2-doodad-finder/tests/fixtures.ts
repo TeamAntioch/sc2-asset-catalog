@@ -1,5 +1,5 @@
 // Synthetic catalogs for the Doodad Finder's tests: no campaign content.
-import type { DoodadSearchSources } from "@teamantioch/sc2-asset-catalog/catalog/doodad-search.js";
+import type { DoodadSearchSources } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
 export const VOID_CAMPAIGN = "bnet:Void (Campaign)/0.0/999,file:Campaigns/Void.SC2Campaign";
 

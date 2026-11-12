@@ -1,7 +1,7 @@
-// @teamantioch/sc2-asset-catalog: StarCraft II doodads described in words, their Doodad Uses, the
+// @team-antioch/sc2-asset-catalog: StarCraft II doodads described in words, their Doodad Uses, the
 // keyword search over them, the extractor that builds the game's own fields into the user's
 // cache, and the built-in renderer that draws its reference sheets on macOS. Every module is also
-// importable on its own, as @teamantioch/sc2-asset-catalog/catalog/<name>.js.
+// importable on its own, as @team-antioch/sc2-asset-catalog/catalog/<name>.js.
 
 export { catalogCacheDir, catalogConfigDir, DOODAD_DESCRIPTIONS_PATH, DOODAD_USES_DIR, extractedDir, PACKAGE_DATA_DIR } from "./catalog/catalog-dirs.js";
 export { type DoodadCatalogEntry, type DoodadDescription, type ExtractedDoodad, joinDoodadCatalog, parseDoodadDescriptions, readDoodadCatalog } from "./catalog/doodad-catalog.js";
