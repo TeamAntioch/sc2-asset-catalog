@@ -68,6 +68,22 @@ function runtimeInstalled(): boolean {
   return ["vcruntime140.dll", "vcruntime140_1.dll", "msvcp140.dll"].every((dll) => existsSync(path.join(system32, dll)));
 }
 
+/** A network failure's words and codes, as fetch and Node give them. */
+const NETWORK = /fetch failed|network|ENOTFOUND|EAI_AGAIN|ECONNRESET|ECONNREFUSED|ETIMEDOUT|getaddrinfo|socket hang up/i;
+
+/** Why the model didn't load, in words: the connection when a download failed, else the cache. */
+export function modelLoadError(model: string, error: unknown, cacheDir: string): Error {
+  const cause = error instanceof Error ? error : new Error(String(error));
+  const said = `${cause.message} ${(cause.cause as { code?: string } | undefined)?.code ?? ""}`;
+  const message = cause.message.replace(/[.\s]+$/, "");
+  return new Error(
+    NETWORK.test(said)
+      ? `The embeddings model (${model}) couldn't download: ${message}. Check the connection and start again: it downloads once.`
+      : `The embeddings model (${model}) couldn't load: ${message}. If it keeps failing, delete its cache folder, ${cacheDir}, and start again to download it afresh.`,
+    { cause: error },
+  );
+}
+
 /** At most this many texts per call to the model, so a cold start's thousands of cards don't make one huge batch. */
 const BATCH = 32;
 
@@ -82,10 +98,7 @@ export async function localEmbedder(options: { readonly model?: string; readonly
     env.cacheDir = options.cacheDir ?? modelCacheDir();
     extract = await pipeline("feature-extraction", model, { dtype: "q8" });
   } catch (error) {
-    throw (
-      missingRuntime(error) ??
-      new Error(`The embeddings model (${model}) couldn't load: ${(error as Error).message}. A first start downloads it (about 34 MB), so check the connection and start again.`, { cause: error })
-    );
+    throw missingRuntime(error) ?? modelLoadError(model, error, options.cacheDir ?? modelCacheDir());
   }
   return {
     model,

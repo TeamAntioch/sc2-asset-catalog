@@ -234,6 +234,21 @@ describe("createAsker", () => {
     expect(kinds()).toEqual(["failed press at 500"]);
   });
 
+  it("says a failed narrowing at the spend cap, and narrows again on the next Enter", async () => {
+    let narrows = 0;
+    const flakyNarrow = async (text: string): Promise<Narrowing> => {
+      if (narrows++ === 0) throw new Error("the embeddings model failed");
+      return narrow(text);
+    };
+    asker = createAsker({ narrow: flakyNarrow, ranker: slowRanker(100), budget: spendCap(0), emit: (event) => events.push({ ...event, at: Date.now() - started }) });
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(events).toEqual([expect.objectContaining({ type: "failed", error: "the embeddings model failed", narrowed: false })]);
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(kinds()).toEqual(["failed press at 0", "narrowed press at 10", "capped press at 10"]);
+  });
+
   it("counts what a ranker's failed but answered call cost against the spend cap", async () => {
     const cap = spendCap(1);
     const billed: Ranker = { name: "jev", rank: async () => Promise.reject(new RankerError("jev", "no score for X", { cost: 0.25 })) };

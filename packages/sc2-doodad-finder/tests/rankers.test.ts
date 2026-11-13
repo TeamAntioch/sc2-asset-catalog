@@ -67,7 +67,9 @@ describe("the Jev ranker", () => {
     const ranker = jevRanker({ apiKey: "ts-secret-key", fetch: (async () => Promise.reject(new Error("refused with Bearer ts-secret-key"))) as unknown as typeof globalThis.fetch, log: (entry) => log.push(entry) });
     const failed = await ranker.rank(request).catch((error: unknown) => error as Error);
     expect(failed).toBeInstanceOf(RankerError);
-    expect(JSON.stringify({ message: (failed as Error).message, cause: (failed as Error).cause, log })).not.toContain("ts-secret-key");
+    const cause = (failed as Error).cause as Error;
+    expect(cause.message).toContain("refused with Bearer [the key]");
+    expect(JSON.stringify({ message: (failed as Error).message, cause: cause.message, log })).not.toContain("ts-secret-key");
   });
 
   it("throws when a candidate's answer is missing", async () => {

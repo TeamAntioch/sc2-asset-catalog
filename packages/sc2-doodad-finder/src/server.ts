@@ -175,8 +175,10 @@ export type FinderServer = {
 const FAILURE_REPEAT_MS = 60_000;
 
 /** A failed ask in words, the same on the page and in the log. */
-export const failureText = (event: { readonly error: string; readonly narrowed: boolean }): string =>
-  event.narrowed ? `The ranker failed: ${event.error}. The narrowing's order is shown.` : `The search failed: ${event.error}.`;
+export const failureText = ({ error, narrowed }: { readonly error: string; readonly narrowed: boolean }): string => {
+  const said = error.replace(/[.\s]+$/, "");
+  return narrowed ? `The ranker failed: ${said}. The narrowing's order is shown.` : `The search failed: ${said}.`;
+};
 
 /** A card as an event gives it to the page. */
 type CardOut = { readonly id: string; readonly html: string; readonly level?: number; readonly levelName?: string };
@@ -280,8 +282,9 @@ export async function startFinderServer(options: FinderServerOptions): Promise<F
     if (event.type === "failed") {
       const line = failureText(event);
       // A failure that lasts (a revoked key, an outage) comes again on every Enter and idle pause:
-      // said once a minute while it fails the same way, numbers aside (a timeout's milliseconds).
-      const same = line.replace(/\d+/g, "#");
+      // said once a minute while it fails the same way, long numbers aside (a timeout's
+      // milliseconds; a status code still tells two failures apart). A ranking that works ends it.
+      const same = line.replace(/\d{4,}/g, "#");
       const now = Date.now();
       if (same !== lastFailure?.same || now - lastFailure.at >= FAILURE_REPEAT_MS) {
         options.log?.(line);
@@ -291,6 +294,7 @@ export async function startFinderServer(options: FinderServerOptions): Promise<F
     }
     if (event.type === "capped") return send("capped", event);
     if (event.type === "ranked") {
+      lastFailure = undefined;
       grades.delete(event.text.trim());
       grades.set(event.text.trim(), { tags: event.tags, levels: new Map(event.candidates.map(({ id, level }) => [id, level])) });
       if (grades.size > KEPT_GRADES) grades.delete(grades.keys().next().value!);

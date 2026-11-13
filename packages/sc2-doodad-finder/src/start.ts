@@ -82,19 +82,7 @@ export type RunningFinder = {
 export async function startFinder(options: StartFinderOptions = {}): Promise<RunningFinder> {
   const log = options.log ?? (() => {});
   const cacheDir = options.cacheDir ?? catalogCacheDir();
-  // The catalog and the model together: on a first start both download. A machine that can't load
-  // the model (on Windows, without the Visual C++ runtime) is told so at once; any other failure
-  // waits for the catalog, whose own failure (offline, say) is the one worth saying.
-  const catalog = options.sources ? Promise.resolve() : ensureCatalog(cacheDir, { log, ...(options.fetch ? { fetch: options.fetch } : {}), ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
-  catalog.catch(() => {}); // awaited below
-  let embedder: Embedder;
-  try {
-    embedder = typeof options.embedder === "function" ? await options.embedder() : (options.embedder ?? (await localEmbedder()));
-  } catch (error) {
-    if (!(error instanceof MissingRuntimeError)) await catalog;
-    throw error;
-  }
-  await catalog;
+  const embedder = await loadTogether(cacheDir, options, log);
   const sources = options.sources ?? stockSources(cacheDir);
   const logFile = payloadLogFile("finder-", cacheDir);
   const opened: { readonly ranker?: Ranker | undefined; readonly off?: string | undefined; readonly keySource?: KeySource | undefined } =
@@ -146,4 +134,38 @@ export async function startFinder(options: StartFinderOptions = {}): Promise<Run
       await server.close();
     },
   };
+}
+
+/**
+ * The catalog (extracted on a first start) and the model, loaded together: on a first start both
+ * download. Whichever fails first is said, and a machine that can't load the model (on Windows,
+ * without the Visual C++ runtime) is told so at once, the extraction stopped and quiet. Any other
+ * model failure waits on the catalog, whose own failure (offline, say) is the one worth saying.
+ */
+async function loadTogether(cacheDir: string, options: StartFinderOptions, log: (line: string) => void): Promise<Embedder> {
+  const stop = new AbortController();
+  const fetch = options.fetch ?? globalThis.fetch;
+  const stoppable: typeof globalThis.fetch = (input, init) => fetch(input, { ...init, signal: stop.signal });
+  const quiet = (line: string) => {
+    if (!stop.signal.aborted) log(line);
+  };
+  const catalog = options.sources ? Promise.resolve() : ensureCatalog(cacheDir, { log: quiet, fetch: stoppable, ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
+  const model = typeof options.embedder === "function" ? options.embedder() : options.embedder ? Promise.resolve(options.embedder) : localEmbedder();
+  const first = await Promise.race([
+    model.then((embedder) => ({ embedder }), (error: unknown) => ({ modelError: error })),
+    // The catalog's success doesn't end the race: only its failure does.
+    catalog.then(() => new Promise<never>(() => {}), (error: unknown) => ({ catalogError: error })),
+  ]);
+  if ("catalogError" in first) throw first.catalogError;
+  if ("modelError" in first) {
+    if (first.modelError instanceof MissingRuntimeError) {
+      stop.abort();
+      catalog.catch(() => {});
+      throw first.modelError;
+    }
+    await catalog;
+    throw first.modelError;
+  }
+  await catalog;
+  return first.embedder;
 }

@@ -135,10 +135,32 @@ describe("startFinder with the public defaults", () => {
     await expect(starting).rejects.toThrow(npxHint("@team-antioch/sc2-doodad-finder extract"));
   });
 
-  it("says a missing runtime at once, without waiting on a first start's extraction", async () => {
-    const hanging = (() => new Promise<never>(() => {})) as unknown as typeof globalThis.fetch;
-    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging });
+  it("says a missing runtime at once, and stops a first start's extraction, quietly", async () => {
+    const signals: AbortSignal[] = [];
+    const hanging = ((_url: unknown, init?: RequestInit) =>
+      new Promise<never>((_resolve, reject) => {
+        signals.push(init!.signal!);
+        init!.signal!.addEventListener("abort", () => reject(new Error("aborted")));
+      })) as unknown as typeof globalThis.fetch;
+    const lines: string[] = [];
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging, log: (line) => lines.push(line) });
     await expect(starting).rejects.toBeInstanceOf(MissingRuntimeError);
+    expect(signals.length).toBeGreaterThan(0);
+    expect(signals.every((signal) => signal.aborted)).toBe(true);
+    const said = lines.length;
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(lines).toHaveLength(said);
+  });
+
+  it("says the extraction's failure as soon as it comes, without waiting on the model", async () => {
+    const failing = (async () => {
+      throw new TypeError("fetch failed");
+    }) as unknown as typeof globalThis.fetch;
+    const listGitTree = async (): Promise<string[]> => {
+      throw new Error("git: not found");
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: () => new Promise<never>(() => {}), env: noKey(), port: 0, fetch: failing, listGitTree });
+    await expect(starting).rejects.toThrow(/Couldn't extract the catalog/);
   });
 
   it("says the extraction's failure, not the model's, when a first start is offline", async () => {

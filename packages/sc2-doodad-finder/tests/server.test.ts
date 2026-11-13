@@ -122,6 +122,24 @@ describe("startFinderServer", () => {
     expect(lines).toEqual(["The ranker failed: 401 Unauthorized. The narrowing's order is shown."]);
   });
 
+  it("says a different failure, or one back after a ranking worked, at once", async () => {
+    const lines: string[] = [];
+    const answers = [new Error("status 401."), new Error("status 503"), undefined, new Error("status 503")];
+    const flaky: Ranker = { name: "jev", rank: async (request) => { const failure = answers.shift(); if (failure) throw failure; return ranker.rank(request); } };
+    await open({ ranker: flaky, log: (line) => lines.push(line) });
+    const listening = await listen();
+    await listening.next("state");
+    for (const [i, kind] of (["failed", "failed", "ranked", "failed"] as const).entries()) {
+      await post("/ask", { text: `steel ${i}`, mode: "enter" });
+      await listening.next(kind);
+    }
+    expect(lines).toEqual([
+      "The ranker failed: status 401. The narrowing's order is shown.",
+      "The ranker failed: status 503. The narrowing's order is shown.",
+      "The ranker failed: status 503. The narrowing's order is shown.",
+    ]);
+  });
+
   it("says a failed narrowing as the search failing, not the ranker", async () => {
     const lines: string[] = [];
     const failing = { ...finder, narrow: async () => Promise.reject(new Error("the embeddings model failed")) };

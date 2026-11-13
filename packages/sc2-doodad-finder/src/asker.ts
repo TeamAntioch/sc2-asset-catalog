@@ -183,16 +183,24 @@ export function createAsker(options: AskerOptions): Asker {
 
   const rankNow = async (ask: Ask): Promise<void> => {
     const { ranker } = options;
-    if (!ranker) {
-      // With no ranker, a failed narrowing is the ask's only failure: said, not dropped.
-      return showNarrowing(ask).catch((error: unknown) => {
-        if (!stale(ask)) options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, error: (error as Error).message, narrowed: false });
-      });
-    }
+    // With no ranker, or none allowed, a failed narrowing is the ask's only failure: said, not dropped.
+    const narrowOrSay = (): Promise<boolean> =>
+      showNarrowing(ask).then(
+        () => true,
+        (error: unknown) => {
+          if (!stale(ask)) options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, error: (error as Error).message, narrowed: false });
+          return false;
+        },
+      );
+    if (!ranker) return void (await narrowOrSay());
     if (ask.rankStarted) return;
     ask.rankStarted = true;
     if (budget && !budget.allows() && !known(ask, ranker)) {
-      await showNarrowing(ask);
+      if (!(await narrowOrSay())) {
+        // Not capped yet as far as this ask goes: the next Enter narrows again.
+        ask.rankStarted = false;
+        return;
+      }
       if (!stale(ask)) options.emit({ type: "capped", text: ask.request.text, version: ask.request.version, reason: budget.reason });
       return;
     }
