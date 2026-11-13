@@ -143,8 +143,16 @@ describe("startFinder with the public defaults", () => {
         init!.signal!.addEventListener("abort", () => reject(new Error("aborted")));
       })) as unknown as typeof globalThis.fetch;
     const lines: string[] = [];
-    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging, log: (line) => lines.push(line) });
+    let cloned = false;
+    const listGitTree = async (): Promise<string[]> => {
+      cloned = true;
+      return [];
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging, listGitTree, log: (line) => lines.push(line) });
     await expect(starting).rejects.toBeInstanceOf(MissingRuntimeError);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    // The stopped API listing doesn't fall back to git.
+    expect(cloned).toBe(false);
     expect(signals.length).toBeGreaterThan(0);
     expect(signals.every((signal) => signal.aborted)).toBe(true);
     const said = lines.length;

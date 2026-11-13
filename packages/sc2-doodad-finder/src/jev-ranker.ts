@@ -47,8 +47,14 @@ export function jevRanker(options: JevOptions): Ranker {
         const hide = (text: string) => (options.apiKey ? text.split(options.apiKey).join("[the key]") : text);
         options.log?.({ ranker: "jev", at, ms: performance.now() - sent, request: payload, error: hide(String(error)) });
         // The SDK's error is kept as a copy with the key hidden: its name, message and status.
-        const failure = error as Error & { status?: number };
-        const cause = Object.assign(new Error(hide(failure.message)), { name: failure.name, ...(failure.status !== undefined ? { status: failure.status } : {}) });
+        // Its network code too (ENOTFOUND, say), from its own cause, so an outage still reads as one.
+        const failure = error as Error & { status?: number; cause?: { code?: unknown } };
+        const code = failure.cause?.code;
+        const cause = Object.assign(new Error(hide(failure.message)), {
+          name: failure.name,
+          ...(failure.status !== undefined ? { status: failure.status } : {}),
+          ...(typeof code === "string" ? { code } : {}),
+        });
         throw new RankerError("jev", `the request failed: ${cause.message}`, { cause });
       }
       const answered = performance.now();

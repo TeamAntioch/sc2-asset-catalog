@@ -10,7 +10,7 @@
 import path from "node:path";
 
 import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
-import type { ListGitTree } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
+import { gitTreeFiles, type ListGitTree } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
 
 import { type KeySource, openRanker } from "./credentials.ts";
 import { type Embedder, localEmbedder, MissingRuntimeError } from "./embedder.ts";
@@ -149,7 +149,9 @@ async function loadTogether(cacheDir: string, options: StartFinderOptions, log: 
   const quiet = (line: string) => {
     if (!stop.signal.aborted) log(line);
   };
-  const catalog = options.sources ? Promise.resolve() : ensureCatalog(cacheDir, { log: quiet, fetch: stoppable, ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
+  // A stopped API listing must not fall back to a git clone that nothing could stop.
+  const listGitTree: ListGitTree = (url, folder) => (stop.signal.aborted ? Promise.reject(new Error("stopped")) : (options.listGitTree ?? gitTreeFiles)(url, folder));
+  const catalog = options.sources ? Promise.resolve() : ensureCatalog(cacheDir, { log: quiet, fetch: stoppable, listGitTree });
   const model = typeof options.embedder === "function" ? options.embedder() : options.embedder ? Promise.resolve(options.embedder) : localEmbedder();
   const first = await Promise.race([
     model.then((embedder) => ({ embedder }), (error: unknown) => ({ modelError: error })),
