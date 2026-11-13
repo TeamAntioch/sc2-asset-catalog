@@ -110,6 +110,48 @@ describe("startFinderServer", () => {
     expect(page).toContain("<title>Doodad Finder</title>");
   });
 
+  it("says a failed ranking in its log as well as on the page, once while it fails the same way", async () => {
+    const lines: string[] = [];
+    await open({ ranker: { name: "jev", rank: async () => Promise.reject(new Error("401 Unauthorized")) }, log: (line) => lines.push(line) });
+    const listening = await listen();
+    await listening.next("state");
+    await post("/ask", { text: "steel", mode: "enter" });
+    expect(await listening.next("failed")).toMatchObject({ text: "steel", error: "401 Unauthorized", narrowed: true });
+    await post("/ask", { text: "steel press", mode: "enter" });
+    await listening.next("failed");
+    expect(lines).toEqual(["The ranker failed: 401 Unauthorized. The narrowing's order is shown."]);
+  });
+
+  it("says a different failure, or one back after a ranking worked, at once", async () => {
+    const lines: string[] = [];
+    const answers = [new Error("status 401."), new Error("status 503"), undefined, new Error("status 503")];
+    const flaky: Ranker = { name: "jev", rank: async (request) => { const failure = answers.shift(); if (failure) throw failure; return ranker.rank(request); } };
+    await open({ ranker: flaky, log: (line) => lines.push(line) });
+    const listening = await listen();
+    await listening.next("state");
+    for (const [i, kind] of (["failed", "failed", "ranked", "failed"] as const).entries()) {
+      await post("/ask", { text: `steel ${i}`, mode: "enter" });
+      await listening.next(kind);
+    }
+    expect(lines).toEqual([
+      "The ranker failed: status 401. The narrowing's order is shown.",
+      "The ranker failed: status 503. The narrowing's order is shown.",
+      "The ranker failed: status 503. The narrowing's order is shown.",
+    ]);
+  });
+
+  it("says a failed narrowing as the search failing, not the ranker", async () => {
+    const lines: string[] = [];
+    const failing = { ...finder, narrow: async () => Promise.reject(new Error("the embeddings model failed")) };
+    await open({ finder: failing, log: (line) => lines.push(line) });
+    const listening = await listen();
+    await listening.next("state");
+    await post("/ask", { text: "steel", mode: "enter" });
+    // The page shows the same words the log says.
+    expect(await listening.next("failed")).toMatchObject({ error: "the embeddings model failed", narrowed: false, message: "The search failed: the embeddings model failed." });
+    expect(lines).toEqual(["The search failed: the embeddings model failed."]);
+  });
+
   it("says at /status that it is the Doodad Finder, with its pid, its ranker and what its caller adds", async () => {
     await open({ ranker: undefined, off: "no TypeSafe key", status: { project: dir } });
     const status = (await (await fetch(new URL("/status", server!.url))).json()) as Record<string, unknown>;

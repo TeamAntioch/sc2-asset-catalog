@@ -6,6 +6,8 @@ StarCraft II doodads described in words (look, kind, size, role, story, biome), 
 npx @team-antioch/sc2-asset-catalog extract
 ```
 
+On Windows, type `npx.cmd` in place of `npx`: PowerShell's default policy refuses `npx`.
+
 ```js
 import { readStockDoodadSources, searchDoodads } from "@team-antioch/sc2-asset-catalog";
 

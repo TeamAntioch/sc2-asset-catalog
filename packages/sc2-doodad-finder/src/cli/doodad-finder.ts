@@ -92,7 +92,6 @@ export async function main(argv: readonly string[] = process.argv.slice(2)): Pro
 // Run as a file in a checkout (node src/cli/doodad-finder.ts); the package's bin calls main.
 if (isMainModule(import.meta.url)) {
   main().catch((error: unknown) => {
-    console.error(error instanceof Error ? error.message : error);
-    process.exitCode = 1;
+    process.stdout.write("", () => process.stderr.write(`${error instanceof Error ? error.message : error}\n`, () => process.exit(1)));
   });
 }

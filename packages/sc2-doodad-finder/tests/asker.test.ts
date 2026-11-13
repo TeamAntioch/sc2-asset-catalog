@@ -183,7 +183,7 @@ describe("createAsker", () => {
     ask.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(kinds()).toEqual(["narrowed press at 100", "failed press at 100"]);
-    expect(events[1]).toMatchObject({ error: "jev: the call failed" });
+    expect(events[1]).toMatchObject({ error: "jev: the call failed", narrowed: true });
   });
 
   it("ranks a failed ask again on the next Enter", async () => {
@@ -211,12 +211,19 @@ describe("createAsker", () => {
     asker.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(kinds()).toEqual(["failed press at 0"]);
-    expect(events[0]).toMatchObject({ error: "the embeddings model failed" });
+    expect(events[0]).toMatchObject({ error: "the embeddings model failed", narrowed: false });
     expect(ranker.calls).toHaveLength(0);
     asker.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(narrows).toBe(2);
     expect(kinds()).toEqual(["failed press at 0", "ranked press at 1100"]);
+  });
+
+  it("says the narrowing failed with no ranker on, rather than dropping it", async () => {
+    asker = createAsker({ narrow: async () => Promise.reject(new Error("the embeddings model failed")), emit: (event) => events.push({ ...event, at: Date.now() - started }) });
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(events).toEqual([expect.objectContaining({ type: "failed", text: "press", error: "the embeddings model failed", narrowed: false })]);
   });
 
   it("says the narrowing failed when it fails after the ranker's wait", async () => {
@@ -225,6 +232,21 @@ describe("createAsker", () => {
     asker.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(kinds()).toEqual(["failed press at 500"]);
+  });
+
+  it("says a failed narrowing at the spend cap, and narrows again on the next Enter", async () => {
+    let narrows = 0;
+    const flakyNarrow = async (text: string): Promise<Narrowing> => {
+      if (narrows++ === 0) throw new Error("the embeddings model failed");
+      return narrow(text);
+    };
+    asker = createAsker({ narrow: flakyNarrow, ranker: slowRanker(100), budget: spendCap(0), emit: (event) => events.push({ ...event, at: Date.now() - started }) });
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(events).toEqual([expect.objectContaining({ type: "failed", error: "the embeddings model failed", narrowed: false })]);
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(kinds()).toEqual(["failed press at 0", "narrowed press at 10", "capped press at 10"]);
   });
 
   it("counts what a ranker's failed but answered call cost against the spend cap", async () => {

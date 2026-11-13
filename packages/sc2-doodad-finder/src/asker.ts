@@ -54,7 +54,16 @@ export type AskEvent =
       readonly ms: number;
       readonly cost: number;
     }
-  | { readonly type: "failed"; readonly text: string; readonly version: number; readonly ranker: RankerName; readonly error: string }
+  | {
+      readonly type: "failed";
+      readonly text: string;
+      readonly version: number;
+      /** The ranker the ask was for; none when no ranker is on. */
+      readonly ranker?: RankerName;
+      readonly error: string;
+      /** Whether the narrowing's order is shown: false when the narrowing itself failed. */
+      readonly narrowed: boolean;
+    }
   | { readonly type: "capped"; readonly text: string; readonly version: number; readonly reason: string };
 
 export type AskTiming = { readonly debounceMs: number; readonly idleMs: number; readonly budgetMs: number };
@@ -174,11 +183,24 @@ export function createAsker(options: AskerOptions): Asker {
 
   const rankNow = async (ask: Ask): Promise<void> => {
     const { ranker } = options;
-    if (!ranker) return showNarrowing(ask);
+    // With no ranker, or none allowed, a failed narrowing is the ask's only failure: said, not dropped.
+    const narrowOrSay = (): Promise<boolean> =>
+      showNarrowing(ask).then(
+        () => true,
+        (error: unknown) => {
+          if (!stale(ask)) options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, error: (error as Error).message, narrowed: false });
+          return false;
+        },
+      );
+    if (!ranker) return void (await narrowOrSay());
     if (ask.rankStarted) return;
     ask.rankStarted = true;
     if (budget && !budget.allows() && !known(ask, ranker)) {
-      await showNarrowing(ask);
+      if (!(await narrowOrSay())) {
+        // Not capped yet as far as this ask goes: the next Enter narrows again.
+        ask.rankStarted = false;
+        return;
+      }
       if (!stale(ask)) options.emit({ type: "capped", text: ask.request.text, version: ask.request.version, reason: budget.reason });
       return;
     }
@@ -196,9 +218,9 @@ export function createAsker(options: AskerOptions): Asker {
       delete ask.ranking;
       ask.rankStarted = false;
       // The narrowing's order is shown when the narrowing worked; when it failed, it isn't run again now.
-      if (ask.narrowing) await showNarrowing(ask).catch(() => {});
+      const narrowed = ask.narrowing ? await showNarrowing(ask).then(() => true, () => false) : false;
       if (stale(ask)) return;
-      options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, ranker: ranker.name, error: (error as Error).message });
+      options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, ranker: ranker.name, error: (error as Error).message, narrowed });
     }
   };
 

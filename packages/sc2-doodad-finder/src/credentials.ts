@@ -6,9 +6,10 @@
 import { type ConfigPlatform, keyFile, readKeyFile } from "./key-file.ts";
 import { jevRanker } from "./jev-ranker.ts";
 import type { PayloadLog, Ranker } from "./ranker.ts";
+import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
 
 export const NO_JEV_KEY =
-  "no TypeSafe key: run `npx @team-antioch/sc2-doodad-finder login`, or set TYPESAFE_API_KEY, to rank with Jev; until then the narrowing's order is shown";
+  `no TypeSafe key: run \`${npxHint("@team-antioch/sc2-doodad-finder login")}\`, or set TYPESAFE_API_KEY, to rank with Jev; until then the narrowing's order is shown`;
 
 /** Where a key came from: what /status and the CLI may say, never the key. */
 export type KeySource = "environment" | "key file";
@@ -37,7 +38,7 @@ export function openRanker({ env, log }: { readonly env?: Readonly<Record<string
   try {
     found = jevKey(on);
   } catch (error) {
-    return { off: `can't read the key file ${keyFile(on)} (${(error as Error).message}): run \`npx @team-antioch/sc2-doodad-finder login\` again, or set TYPESAFE_API_KEY` };
+    return { off: `can't read the key file ${keyFile(on)} (${(error as Error).message}): run \`${npxHint("@team-antioch/sc2-doodad-finder login")}\` again, or set TYPESAFE_API_KEY` };
   }
   return found ? { ranker: jevRanker({ apiKey: found.key, ...(log ? { log } : {}) }), keySource: found.source } : { off: NO_JEV_KEY };
 }

@@ -9,8 +9,11 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
+
 import { parseFinderArgs } from "../src/cli/doodad-finder.ts";
 import { NO_JEV_KEY } from "../src/credentials.ts";
+import { MissingRuntimeError } from "../src/embedder.ts";
 import { saveKeyFile } from "../src/key-file.ts";
 import { type RunningFinder, startFinder } from "../src/start.ts";
 import { fakeEmbedder } from "./fake-embedder.ts";
@@ -129,7 +132,54 @@ describe("startFinder with the public defaults", () => {
     const starting = startFinder({ cacheDir: cache(), embedder: fakeEmbedder(), env: noKey(), port: 0, fetch: failing, listGitTree });
     await expect(starting).rejects.toThrow(/fetch failed/);
     // In the form an npx user can run, too.
-    await expect(starting).rejects.toThrow(/npx @team-antioch\/sc2-doodad-finder extract/);
+    await expect(starting).rejects.toThrow(npxHint("@team-antioch/sc2-doodad-finder extract"));
+  });
+
+  it("says a missing runtime at once, and stops a first start's extraction, quietly", async () => {
+    const signals: AbortSignal[] = [];
+    const hanging = ((_url: unknown, init?: RequestInit) =>
+      new Promise<never>((_resolve, reject) => {
+        signals.push(init!.signal!);
+        init!.signal!.addEventListener("abort", () => reject(new Error("aborted")));
+      })) as unknown as typeof globalThis.fetch;
+    const lines: string[] = [];
+    let cloned = false;
+    const listGitTree = async (): Promise<string[]> => {
+      cloned = true;
+      return [];
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging, listGitTree, log: (line) => lines.push(line) });
+    await expect(starting).rejects.toBeInstanceOf(MissingRuntimeError);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    // The stopped API listing doesn't fall back to git.
+    expect(cloned).toBe(false);
+    expect(signals.length).toBeGreaterThan(0);
+    expect(signals.every((signal) => signal.aborted)).toBe(true);
+    const said = lines.length;
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(lines).toHaveLength(said);
+  });
+
+  it("says the extraction's failure as soon as it comes, without waiting on the model", async () => {
+    const failing = (async () => {
+      throw new TypeError("fetch failed");
+    }) as unknown as typeof globalThis.fetch;
+    const listGitTree = async (): Promise<string[]> => {
+      throw new Error("git: not found");
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: () => new Promise<never>(() => {}), env: noKey(), port: 0, fetch: failing, listGitTree });
+    await expect(starting).rejects.toThrow(/Couldn't extract the catalog/);
+  });
+
+  it("says the extraction's failure, not the model's, when a first start is offline", async () => {
+    const failing = (async () => {
+      throw new TypeError("fetch failed");
+    }) as unknown as typeof globalThis.fetch;
+    const listGitTree = async (): Promise<string[]> => {
+      throw new Error("git: not found");
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new Error("model download failed")), env: noKey(), port: 0, fetch: failing, listGitTree });
+    await expect(starting).rejects.toThrow(/Couldn't extract the catalog/);
   });
 
   it("shows a sheet rendered while it runs on its card", async () => {

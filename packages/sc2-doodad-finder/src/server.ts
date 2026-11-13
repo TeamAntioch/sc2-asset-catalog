@@ -160,6 +160,8 @@ export type FinderServerOptions = {
   readonly port?: number;
   /** More for /status to say. */
   readonly status?: Readonly<Record<string, unknown>>;
+  /** Lines worth showing the user as the Finder runs, such as a failed ranking. */
+  readonly log?: (line: string) => void;
 };
 
 export type FinderServer = {
@@ -167,6 +169,15 @@ export type FinderServer = {
   /** US dollars the ranker's calls have cost since the process started, estimated. */
   readonly spend: number;
   close(): Promise<void>;
+};
+
+/** How often a failure that lasts is said again in the log. */
+const FAILURE_REPEAT_MS = 60_000;
+
+/** A failed ask in words, the same on the page and in the log. */
+export const failureText = ({ error, narrowed }: { readonly error: string; readonly narrowed: boolean }): string => {
+  const said = error.replace(/[.\s]+$/, "");
+  return narrowed ? `The ranker failed: ${said}. The narrowing's order is shown.` : `The search failed: ${said}.`;
 };
 
 /** A card as an event gives it to the page. */
@@ -265,10 +276,25 @@ export async function startFinderServer(options: FinderServerOptions): Promise<F
     }));
   };
 
+  /** The last failure the log said, and when, so a lasting one isn't said on every ask. */
+  let lastFailure: { readonly same: string; readonly at: number } | undefined;
   const emit = (event: AskEvent) => {
-    if (event.type === "failed") return send("failed", event);
+    if (event.type === "failed") {
+      const line = failureText(event);
+      // A failure that lasts (a revoked key, an outage) comes again on every Enter and idle pause:
+      // said once a minute while it fails the same way, long numbers aside (a timeout's
+      // milliseconds; a status code still tells two failures apart). A ranking that works ends it.
+      const same = line.replace(/\d{4,}/g, "#");
+      const now = Date.now();
+      if (same !== lastFailure?.same || now - lastFailure.at >= FAILURE_REPEAT_MS) {
+        options.log?.(line);
+        lastFailure = { same, at: now };
+      }
+      return send("failed", { ...event, message: line });
+    }
     if (event.type === "capped") return send("capped", event);
     if (event.type === "ranked") {
+      lastFailure = undefined;
       grades.delete(event.text.trim());
       grades.set(event.text.trim(), { tags: event.tags, levels: new Map(event.candidates.map(({ id, level }) => [id, level])) });
       if (grades.size > KEPT_GRADES) grades.delete(grades.keys().next().value!);
