@@ -110,6 +110,16 @@ describe("startFinderServer", () => {
     expect(page).toContain("<title>Doodad Finder</title>");
   });
 
+  it("says a failed ranking in its log as well as on the page, never the key", async () => {
+    const lines: string[] = [];
+    await open({ ranker: { name: "jev", rank: async () => Promise.reject(new Error("401 Unauthorized")) }, log: (line) => lines.push(line) });
+    const listening = await listen();
+    await listening.next("state");
+    await post("/ask", { text: "steel", mode: "enter" });
+    expect(await listening.next("failed")).toMatchObject({ text: "steel", error: "401 Unauthorized" });
+    expect(lines).toEqual([`The ranker failed on "steel": 401 Unauthorized. The page shows the narrowing's order.`]);
+  });
+
   it("says at /status that it is the Doodad Finder, with its pid, its ranker and what its caller adds", async () => {
     await open({ ranker: undefined, off: "no TypeSafe key", status: { project: dir } });
     const status = (await (await fetch(new URL("/status", server!.url))).json()) as Record<string, unknown>;

@@ -114,6 +114,7 @@ export async function startFinder(options: StartFinderOptions = {}): Promise<Run
       saveSettings: (settings: FinderSettings) => writeFinderSettings(settingsFile, settings),
       port: options.port ?? FINDER_PORT,
       ...(options.status ? { status: options.status } : {}),
+      log,
     });
   } catch (error) {
     finder.close();

@@ -100,7 +100,8 @@ export class EmbeddingIndex {
     this.#vectors = vectors;
     this.#nearest = nearest;
     if (missing.size || forgot) await writeCache(this.#file, this.#embedder.model, vectors);
-    return { embedded: missing.size, nearest };
+    // Counted in cards, not texts: cards that share a text share its one vector.
+    return { embedded: hashes.filter((hash) => missing.has(hash)).length, nearest };
   }
 
   /** The last update's cards most like a unit vector (see Nearest). */

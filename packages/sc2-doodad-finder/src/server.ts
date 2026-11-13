@@ -160,6 +160,8 @@ export type FinderServerOptions = {
   readonly port?: number;
   /** More for /status to say. */
   readonly status?: Readonly<Record<string, unknown>>;
+  /** Lines worth showing the user as the Finder runs, such as a failed ranking. */
+  readonly log?: (line: string) => void;
 };
 
 export type FinderServer = {
@@ -266,7 +268,10 @@ export async function startFinderServer(options: FinderServerOptions): Promise<F
   };
 
   const emit = (event: AskEvent) => {
-    if (event.type === "failed") return send("failed", event);
+    if (event.type === "failed") {
+      options.log?.(`The ranker failed on "${event.text.trim()}": ${event.error}. The page shows the narrowing's order.`);
+      return send("failed", event);
+    }
     if (event.type === "capped") return send("capped", event);
     if (event.type === "ranked") {
       grades.delete(event.text.trim());

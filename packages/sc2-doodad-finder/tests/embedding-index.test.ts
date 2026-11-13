@@ -57,6 +57,15 @@ describe("EmbeddingIndex", () => {
     expect(warm.calls.flat()).toEqual([changed.find((card) => card.id === "SupplyCrate")!.text]);
   });
 
+  it("counts the cards it embedded, not the texts, so two cards with one text both count", async () => {
+    const embedder = fakeEmbedder();
+    const index = await EmbeddingIndex.open(embedder, await cacheFile());
+    const cards = candidateCards(sources());
+    const twin = { ...cards[0]!, id: `${cards[0]!.id}Twin` };
+    expect(await index.update([...cards, twin])).toMatchObject({ embedded: cards.length + 1 });
+    expect(embedder.calls.flat()).toHaveLength(cards.length);
+  });
+
   it("takes a cache file cut short as no cache, and embeds every card again", async () => {
     const file = await cacheFile();
     const cards = candidateCards(sources());

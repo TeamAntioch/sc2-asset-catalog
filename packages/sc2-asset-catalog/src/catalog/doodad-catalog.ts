@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { parseJsonFile, TextSchema as Text } from "../util/parse-json.js";
 import { DOODAD_DESCRIPTIONS_PATH } from "./catalog-dirs.js";
+import { npxHint } from "../util/npx.js";
 
 // The doodad catalog is two files joined by doodad id (docs/adr/0001):
 // - data/doodad-descriptions.json, what we write and ship: each described doodad's description,
@@ -128,7 +129,7 @@ export type DoodadCatalogFiles = {
  */
 export function readDoodadCatalog(extractedDir: string, descriptionsFile: string = DOODAD_DESCRIPTIONS_PATH): DoodadCatalogFiles {
   const extractedFile = path.join(extractedDir, DOODAD_EXTRACTED_FILE);
-  if (!existsSync(extractedFile)) throw new Error(`No extracted doodads in ${extractedDir}: run the extract command first (npx @team-antioch/sc2-asset-catalog extract)`);
+  if (!existsSync(extractedFile)) throw new Error(`No extracted doodads in ${extractedDir}: run the extract command first (${npxHint("@team-antioch/sc2-asset-catalog extract")})`);
   const descriptions = parseDoodadDescriptions(readFileSync(descriptionsFile, "utf8"), descriptionsFile);
   const extracted = JSON.parse(readFileSync(extractedFile, "utf8")) as Record<string, ExtractedDoodad>;
   return { descriptions, extracted, ...joinDoodadCatalog(descriptions, extracted) };
