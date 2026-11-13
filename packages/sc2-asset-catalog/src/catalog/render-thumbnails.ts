@@ -21,6 +21,7 @@ import { buildSheets, montageSheet, SHEET_FOLDERS, sheetPath, sheetRenders } fro
 import { type DoodadInfo, readDoodadModels, readDoodads } from "./doodads.js";
 import { hasExtractedCatalog } from "./extract-catalog.js";
 import { modelPathCandidates, THUMBNAIL_ANGLES, thumbnailFileName, type ThumbnailJob } from "./doodad-thumbnails.js";
+import { npxHint } from "../util/npx.js";
 
 /** Thumbnails are this many pixels square. */
 export const THUMBNAIL_SIZE = 512;
@@ -192,7 +193,7 @@ export type RenderCatalogSheetsOptions = RenderThumbnailsOptions & {
 export async function renderCatalogSheets(options: RenderCatalogSheetsOptions): Promise<RenderThumbnailsResult & { readonly sheets: number }> {
   const cacheDir = options.cacheDir ?? catalogCacheDir();
   const extracted = extractedDirOf(cacheDir);
-  if (!hasExtractedCatalog(extracted)) throw new Error(`Nothing extracted in ${cacheDir} yet: run sc2-asset-catalog extract first (npx @team-antioch/sc2-asset-catalog extract)`);
+  if (!hasExtractedCatalog(extracted)) throw new Error(`Nothing extracted in ${cacheDir} yet: run sc2-asset-catalog extract first (${npxHint("@team-antioch/sc2-asset-catalog extract")})`);
   const doodads = readDoodads(extracted);
   const unknown = (options.ids ?? []).filter((id) => !Object.hasOwn(doodads, id));
   if (unknown.length) throw new Error(`The catalog has no doodad ${unknown.join(", ")}`);

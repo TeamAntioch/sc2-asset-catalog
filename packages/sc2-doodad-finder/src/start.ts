@@ -13,7 +13,7 @@ import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog
 import type { ListGitTree } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
 
 import { type KeySource, openRanker } from "./credentials.ts";
-import { type Embedder, localEmbedder } from "./embedder.ts";
+import { type Embedder, localEmbedder, MissingRuntimeError } from "./embedder.ts";
 import { openFinder, vectorCacheFile } from "./finder.ts";
 import { payloadLog, payloadLogFile } from "./payload-log.ts";
 import type { Ranker } from "./ranker.ts";
@@ -50,8 +50,8 @@ export type StartFinderOptions = {
   readonly cacheDir?: string;
   /** Where the page's settings are kept (in the cache folder by default). */
   readonly settingsFile?: string;
-  /** For tests: the embeddings model in place of the local one. */
-  readonly embedder?: Embedder;
+  /** For tests: the embeddings model in place of the local one, or what loads it. */
+  readonly embedder?: Embedder | (() => Promise<Embedder>);
   /** For tests: the fetch a first start extracts the catalog with, and what lists the gallery when GitHub's API refuses. */
   readonly fetch?: typeof globalThis.fetch;
   readonly listGitTree?: ListGitTree;
@@ -82,10 +82,19 @@ export type RunningFinder = {
 export async function startFinder(options: StartFinderOptions = {}): Promise<RunningFinder> {
   const log = options.log ?? (() => {});
   const cacheDir = options.cacheDir ?? catalogCacheDir();
-  // The model first: a machine that can't load it (on Windows, without the Visual C++ runtime) is
-  // told so before a first start's extraction, not after it.
-  const embedder = options.embedder ?? (await localEmbedder());
-  if (!options.sources) await ensureCatalog(cacheDir, { log, ...(options.fetch ? { fetch: options.fetch } : {}), ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
+  // The catalog and the model together: on a first start both download. A machine that can't load
+  // the model (on Windows, without the Visual C++ runtime) is told so at once; any other failure
+  // waits for the catalog, whose own failure (offline, say) is the one worth saying.
+  const catalog = options.sources ? Promise.resolve() : ensureCatalog(cacheDir, { log, ...(options.fetch ? { fetch: options.fetch } : {}), ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
+  catalog.catch(() => {}); // awaited below
+  let embedder: Embedder;
+  try {
+    embedder = typeof options.embedder === "function" ? await options.embedder() : (options.embedder ?? (await localEmbedder()));
+  } catch (error) {
+    if (!(error instanceof MissingRuntimeError)) await catalog;
+    throw error;
+  }
+  await catalog;
   const sources = options.sources ?? stockSources(cacheDir);
   const logFile = payloadLogFile("finder-", cacheDir);
   const opened: { readonly ranker?: Ranker | undefined; readonly off?: string | undefined; readonly keySource?: KeySource | undefined } =

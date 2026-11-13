@@ -119,7 +119,7 @@ describe("startFinderServer", () => {
     expect(await listening.next("failed")).toMatchObject({ text: "steel", error: "401 Unauthorized", narrowed: true });
     await post("/ask", { text: "steel press", mode: "enter" });
     await listening.next("failed");
-    expect(lines).toEqual(["The ranker failed: 401 Unauthorized. The page shows the narrowing's order."]);
+    expect(lines).toEqual(["The ranker failed: 401 Unauthorized. The narrowing's order is shown."]);
   });
 
   it("says a failed narrowing as the search failing, not the ranker", async () => {
@@ -129,8 +129,9 @@ describe("startFinderServer", () => {
     const listening = await listen();
     await listening.next("state");
     await post("/ask", { text: "steel", mode: "enter" });
-    expect(await listening.next("failed")).toMatchObject({ error: "the embeddings model failed", narrowed: false });
-    expect(lines).toEqual(["The search failed before ranking: the embeddings model failed."]);
+    // The page shows the same words the log says.
+    expect(await listening.next("failed")).toMatchObject({ error: "the embeddings model failed", narrowed: false, message: "The search failed: the embeddings model failed." });
+    expect(lines).toEqual(["The search failed: the embeddings model failed."]);
   });
 
   it("says at /status that it is the Doodad Finder, with its pid, its ranker and what its caller adds", async () => {

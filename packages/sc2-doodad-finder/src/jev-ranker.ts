@@ -43,8 +43,10 @@ export function jevRanker(options: JevOptions): Ranker {
       try {
         result = await client.systemOne(payload, signal ? { signal } : {});
       } catch (error) {
-        options.log?.({ ranker: "jev", at, ms: performance.now() - sent, request: payload, error: String(error) });
-        throw new RankerError("jev", `the request failed: ${(error as Error).message}`, { cause: error });
+        // The key never goes further than the client: not into the log, the terminal or the page.
+        const hide = (text: string) => text.split(options.apiKey).join("[the key]");
+        options.log?.({ ranker: "jev", at, ms: performance.now() - sent, request: payload, error: hide(String(error)) });
+        throw new RankerError("jev", `the request failed: ${hide((error as Error).message)}`);
       }
       const answered = performance.now();
       options.log?.({ ranker: "jev", at, ms: answered - sent, request: payload, response: result });

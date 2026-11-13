@@ -62,6 +62,14 @@ describe("the Jev ranker", () => {
     expect(log.at(-1)).toMatchObject({ ranker: "jev", error: expect.any(String) });
   });
 
+  it("keeps the key out of a failed call's error and its log line", async () => {
+    const log: PayloadEntry[] = [];
+    const ranker = jevRanker({ apiKey: "ts-secret-key", fetch: (async () => Promise.reject(new Error("refused with Bearer ts-secret-key"))) as unknown as typeof globalThis.fetch, log: (entry) => log.push(entry) });
+    const failed = await ranker.rank(request).catch((error: unknown) => error as Error);
+    expect(failed).toBeInstanceOf(RankerError);
+    expect(JSON.stringify({ message: (failed as Error).message, cause: (failed as Error).cause, log })).not.toContain("ts-secret-key");
+  });
+
   it("throws when a candidate's answer is missing", async () => {
     const answer = recorded("jev") as { answers: Record<string, unknown> };
     delete answer.answers.c3;

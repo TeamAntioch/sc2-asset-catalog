@@ -19,7 +19,7 @@ Two npm packages:
 
 You need [Node.js](https://nodejs.org/) 22.18 or later, on Windows, macOS or Linux. No StarCraft II install is needed.
 
-On Windows, you also need the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) for the embeddings model. Many machines already have it; a fresh Windows doesn't, and Node doesn't install it. Without it the Finder stops on its first start and says where to get it. You can also install it with `winget install Microsoft.VCRedist.2015+.x64` (or `.arm64` on an ARM PC).
+On Windows, you also need the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) for the embeddings model. Many machines already have it; a fresh Windows doesn't, and Node doesn't install it. Without it the Finder stops on its first start and says where to get it. You can also install it with `winget install Microsoft.VCRedist.2015+.x64`, or `.arm64` if your Node is the ARM64 build (`node -p process.arch` says which).
 
 Start it without installing anything:
 

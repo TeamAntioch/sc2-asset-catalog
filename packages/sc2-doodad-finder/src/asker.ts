@@ -58,7 +58,8 @@ export type AskEvent =
       readonly type: "failed";
       readonly text: string;
       readonly version: number;
-      readonly ranker: RankerName;
+      /** The ranker the ask was for; none when no ranker is on. */
+      readonly ranker?: RankerName;
       readonly error: string;
       /** Whether the narrowing's order is shown: false when the narrowing itself failed. */
       readonly narrowed: boolean;
@@ -182,7 +183,12 @@ export function createAsker(options: AskerOptions): Asker {
 
   const rankNow = async (ask: Ask): Promise<void> => {
     const { ranker } = options;
-    if (!ranker) return showNarrowing(ask);
+    if (!ranker) {
+      // With no ranker, a failed narrowing is the ask's only failure: said, not dropped.
+      return showNarrowing(ask).catch((error: unknown) => {
+        if (!stale(ask)) options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, error: (error as Error).message, narrowed: false });
+      });
+    }
     if (ask.rankStarted) return;
     ask.rankStarted = true;
     if (budget && !budget.allows() && !known(ask, ranker)) {

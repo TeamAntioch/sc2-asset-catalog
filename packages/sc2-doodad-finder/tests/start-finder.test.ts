@@ -13,6 +13,7 @@ import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
 
 import { parseFinderArgs } from "../src/cli/doodad-finder.ts";
 import { NO_JEV_KEY } from "../src/credentials.ts";
+import { MissingRuntimeError } from "../src/embedder.ts";
 import { saveKeyFile } from "../src/key-file.ts";
 import { type RunningFinder, startFinder } from "../src/start.ts";
 import { fakeEmbedder } from "./fake-embedder.ts";
@@ -132,6 +133,23 @@ describe("startFinder with the public defaults", () => {
     await expect(starting).rejects.toThrow(/fetch failed/);
     // In the form an npx user can run, too.
     await expect(starting).rejects.toThrow(npxHint("@team-antioch/sc2-doodad-finder extract"));
+  });
+
+  it("says a missing runtime at once, without waiting on a first start's extraction", async () => {
+    const hanging = (() => new Promise<never>(() => {})) as unknown as typeof globalThis.fetch;
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new MissingRuntimeError("install the runtime")), env: noKey(), port: 0, fetch: hanging });
+    await expect(starting).rejects.toBeInstanceOf(MissingRuntimeError);
+  });
+
+  it("says the extraction's failure, not the model's, when a first start is offline", async () => {
+    const failing = (async () => {
+      throw new TypeError("fetch failed");
+    }) as unknown as typeof globalThis.fetch;
+    const listGitTree = async (): Promise<string[]> => {
+      throw new Error("git: not found");
+    };
+    const starting = startFinder({ cacheDir: cache(), embedder: async () => Promise.reject(new Error("model download failed")), env: noKey(), port: 0, fetch: failing, listGitTree });
+    await expect(starting).rejects.toThrow(/Couldn't extract the catalog/);
   });
 
   it("shows a sheet rendered while it runs on its card", async () => {

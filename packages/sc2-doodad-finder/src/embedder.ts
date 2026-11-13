@@ -49,17 +49,23 @@ export function missingRuntime(
   // The same words come for any DLL missing (onnxruntime.dll quarantined, a partial npx cache):
   // the runtime is only blamed when its own DLLs aren't there.
   if (hasRuntime()) return undefined;
-  const download = `https://aka.ms/vs/17/release/vc_redist.${arch === "arm64" ? "arm64" : "x64"}.exe`;
-  return new Error(
-    `The embeddings model can't load: ONNX Runtime needs the Microsoft Visual C++ Redistributable, which isn't installed. Install it from ${download} (or \`winget install Microsoft.VCRedist.2015+.${arch === "arm64" ? "arm64" : "x64"}\`), then start the Finder again. (ONNX Runtime said: ${message.split(/\r?\n/)[0]})`,
+  const redist = arch === "arm64" ? "arm64" : "x64";
+  return new MissingRuntimeError(
+    `The embeddings model can't load: ONNX Runtime needs the Microsoft Visual C++ Redistributable (${redist}, to match this Node), which isn't installed or is too old. Install it from https://aka.ms/vs/17/release/vc_redist.${redist}.exe (or \`winget install Microsoft.VCRedist.2015+.${redist}\`), then start the Finder again. (ONNX Runtime said: ${message.split(/\r?\n/)[0]})`,
     { cause: error },
   );
+}
+
+/** The embeddings model can't load on this machine until something is installed: no use waiting on the rest of a start. */
+export class MissingRuntimeError extends Error {
+  override name = "MissingRuntimeError";
 }
 
 /** Whether the Visual C++ runtime's DLLs are in Windows's System32. */
 function runtimeInstalled(): boolean {
   const system32 = path.join(process.env.SystemRoot ?? "C:\\Windows", "System32");
-  return ["vcruntime140.dll", "msvcp140.dll"].every((dll) => existsSync(path.join(system32, dll)));
+  // vcruntime140_1.dll came with the 2019 runtime: a 2015 or 2017 one has the other two without it.
+  return ["vcruntime140.dll", "vcruntime140_1.dll", "msvcp140.dll"].every((dll) => existsSync(path.join(system32, dll)));
 }
 
 /** At most this many texts per call to the model, so a cold start's thousands of cards don't make one huge batch. */
@@ -76,7 +82,10 @@ export async function localEmbedder(options: { readonly model?: string; readonly
     env.cacheDir = options.cacheDir ?? modelCacheDir();
     extract = await pipeline("feature-extraction", model, { dtype: "q8" });
   } catch (error) {
-    throw missingRuntime(error) ?? error;
+    throw (
+      missingRuntime(error) ??
+      new Error(`The embeddings model (${model}) couldn't load: ${(error as Error).message}. A first start downloads it (about 34 MB), so check the connection and start again.`, { cause: error })
+    );
   }
   return {
     model,

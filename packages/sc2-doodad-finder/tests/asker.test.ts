@@ -219,6 +219,13 @@ describe("createAsker", () => {
     expect(kinds()).toEqual(["failed press at 0", "ranked press at 1100"]);
   });
 
+  it("says the narrowing failed with no ranker on, rather than dropping it", async () => {
+    asker = createAsker({ narrow: async () => Promise.reject(new Error("the embeddings model failed")), emit: (event) => events.push({ ...event, at: Date.now() - started }) });
+    asker.ask({ text: "press", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(10);
+    expect(events).toEqual([expect.objectContaining({ type: "failed", text: "press", error: "the embeddings model failed", narrowed: false })]);
+  });
+
   it("says the narrowing failed when it fails after the ranker's wait", async () => {
     const slowFailing = (): Promise<Narrowing> => new Promise((_, reject) => setTimeout(() => reject(new Error("the narrowing timed out")), 500));
     asker = createAsker({ narrow: slowFailing, ranker: slowRanker(100), emit: (event) => events.push({ ...event, at: Date.now() - started }) });
