@@ -6,6 +6,9 @@
 // download to a machine cache the first time it runs, never into the repo. Tests use a fake behind
 // the same interface, so they need no model.
 
+import { existsSync } from "node:fs";
+import path from "node:path";
+
 import { modelCacheDir } from "./cache-dir.ts";
 
 export { modelCacheDir } from "./cache-dir.ts";
@@ -37,14 +40,26 @@ export const MODELS: Readonly<Record<string, { readonly pooling: "cls" | "mean";
  * only "The specified module could not be found". The error that says what to install, for that
  * failure; else none.
  */
-export function missingRuntime(error: unknown, platform: NodeJS.Platform = process.platform, arch: string = process.arch): Error | undefined {
+export function missingRuntime(
+  error: unknown,
+  { platform = process.platform, arch = process.arch, hasRuntime = runtimeInstalled }: { readonly platform?: NodeJS.Platform; readonly arch?: string; readonly hasRuntime?: () => boolean } = {},
+): Error | undefined {
   const message = error instanceof Error ? error.message : String(error);
   if (platform !== "win32" || !/specified module could not be found/i.test(message) || !/onnxruntime/i.test(message)) return undefined;
+  // The same words come for any DLL missing (onnxruntime.dll quarantined, a partial npx cache):
+  // the runtime is only blamed when its own DLLs aren't there.
+  if (hasRuntime()) return undefined;
   const download = `https://aka.ms/vs/17/release/vc_redist.${arch === "arm64" ? "arm64" : "x64"}.exe`;
   return new Error(
-    `The embeddings model can't load: ONNX Runtime needs the Microsoft Visual C++ Redistributable, which isn't installed. Install it from ${download} (or \`winget install Microsoft.VCRedist.2015+.${arch === "arm64" ? "arm64" : "x64"}\`), then start the Finder again.`,
+    `The embeddings model can't load: ONNX Runtime needs the Microsoft Visual C++ Redistributable, which isn't installed. Install it from ${download} (or \`winget install Microsoft.VCRedist.2015+.${arch === "arm64" ? "arm64" : "x64"}\`), then start the Finder again. (ONNX Runtime said: ${message.split(/\r?\n/)[0]})`,
     { cause: error },
   );
+}
+
+/** Whether the Visual C++ runtime's DLLs are in Windows's System32. */
+function runtimeInstalled(): boolean {
+  const system32 = path.join(process.env.SystemRoot ?? "C:\\Windows", "System32");
+  return ["vcruntime140.dll", "msvcp140.dll"].every((dll) => existsSync(path.join(system32, dll)));
 }
 
 /** At most this many texts per call to the model, so a cold start's thousands of cards don't make one huge batch. */

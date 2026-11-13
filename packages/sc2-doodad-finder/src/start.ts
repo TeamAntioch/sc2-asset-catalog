@@ -82,12 +82,14 @@ export type RunningFinder = {
 export async function startFinder(options: StartFinderOptions = {}): Promise<RunningFinder> {
   const log = options.log ?? (() => {});
   const cacheDir = options.cacheDir ?? catalogCacheDir();
+  // The model first: a machine that can't load it (on Windows, without the Visual C++ runtime) is
+  // told so before a first start's extraction, not after it.
+  const embedder = options.embedder ?? (await localEmbedder());
   if (!options.sources) await ensureCatalog(cacheDir, { log, ...(options.fetch ? { fetch: options.fetch } : {}), ...(options.listGitTree ? { listGitTree: options.listGitTree } : {}) });
   const sources = options.sources ?? stockSources(cacheDir);
   const logFile = payloadLogFile("finder-", cacheDir);
   const opened: { readonly ranker?: Ranker | undefined; readonly off?: string | undefined; readonly keySource?: KeySource | undefined } =
     options.ranker === null ? { off: "ranking is turned off" } : options.ranker ? { ranker: options.ranker } : openRanker({ ...(options.env ? { env: options.env } : {}), log: payloadLog(logFile) });
-  const embedder = options.embedder ?? (await localEmbedder());
   const finder = await openFinder({
     load: sources.load,
     embedder,

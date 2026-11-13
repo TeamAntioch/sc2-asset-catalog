@@ -15,7 +15,7 @@
     "smoke": "node scripts/smoke.mjs",
     "test-asks": "npm run build && node packages/sc2-doodad-finder/dist/cli/test-asks.js",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && npm install --package-lock-only",
     "release": "npm run build && changeset publish"
   },
   "engines": {

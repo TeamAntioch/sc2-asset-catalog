@@ -15,7 +15,6 @@ import { fileURLToPath } from "node:url";
 
 import { writeWhole } from "../util/write-whole.js";
 import { catalogCacheDir, catalogConfigDir } from "./catalog-dirs.js";
-import { npxHint } from "../util/npx.js";
 
 /** The script that builds the viewer, shipped in this package's scripts/. */
 export const BUILD_SCRIPT = fileURLToPath(new URL("../../scripts/build-whiteoutflakes.sh", import.meta.url));
@@ -136,7 +135,7 @@ export function findViewer({ flag, env = process.env, configDir = catalogConfigD
   try {
     viewer = (JSON.parse(readFileSync(record, "utf8")) as { viewer?: unknown }).viewer;
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") throw new Error(`The renderer isn't set up yet: run \`${npxHint("@team-antioch/sc2-asset-catalog setup-renderer")}\` first (macOS), or pass --viewer <WhiteoutFlakes.app>`);
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") throw new Error("The renderer isn't set up yet: run `npx @team-antioch/sc2-asset-catalog setup-renderer` first (macOS), or pass --viewer <WhiteoutFlakes.app>");
     throw new Error(`${record} can't be read (${error instanceof Error ? error.message : error}): run setup-renderer again`);
   }
   if (typeof viewer !== "string") throw new Error(`${record} has no viewer path: run setup-renderer again`);

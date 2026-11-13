@@ -183,7 +183,7 @@ describe("createAsker", () => {
     ask.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(kinds()).toEqual(["narrowed press at 100", "failed press at 100"]);
-    expect(events[1]).toMatchObject({ error: "jev: the call failed" });
+    expect(events[1]).toMatchObject({ error: "jev: the call failed", narrowed: true });
   });
 
   it("ranks a failed ask again on the next Enter", async () => {
@@ -211,7 +211,7 @@ describe("createAsker", () => {
     asker.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);
     expect(kinds()).toEqual(["failed press at 0"]);
-    expect(events[0]).toMatchObject({ error: "the embeddings model failed" });
+    expect(events[0]).toMatchObject({ error: "the embeddings model failed", narrowed: false });
     expect(ranker.calls).toHaveLength(0);
     asker.ask({ text: "press", mode: "enter", version: 1 });
     await vi.advanceTimersByTimeAsync(1000);

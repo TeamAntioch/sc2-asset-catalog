@@ -54,7 +54,15 @@ export type AskEvent =
       readonly ms: number;
       readonly cost: number;
     }
-  | { readonly type: "failed"; readonly text: string; readonly version: number; readonly ranker: RankerName; readonly error: string }
+  | {
+      readonly type: "failed";
+      readonly text: string;
+      readonly version: number;
+      readonly ranker: RankerName;
+      readonly error: string;
+      /** Whether the narrowing's order is shown: false when the narrowing itself failed. */
+      readonly narrowed: boolean;
+    }
   | { readonly type: "capped"; readonly text: string; readonly version: number; readonly reason: string };
 
 export type AskTiming = { readonly debounceMs: number; readonly idleMs: number; readonly budgetMs: number };
@@ -196,9 +204,9 @@ export function createAsker(options: AskerOptions): Asker {
       delete ask.ranking;
       ask.rankStarted = false;
       // The narrowing's order is shown when the narrowing worked; when it failed, it isn't run again now.
-      if (ask.narrowing) await showNarrowing(ask).catch(() => {});
+      const narrowed = ask.narrowing ? await showNarrowing(ask).then(() => true, () => false) : false;
       if (stale(ask)) return;
-      options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, ranker: ranker.name, error: (error as Error).message });
+      options.emit({ type: "failed", text: ask.request.text, version: ask.request.version, ranker: ranker.name, error: (error as Error).message, narrowed });
     }
   };
 

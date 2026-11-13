@@ -267,13 +267,19 @@ export async function startFinderServer(options: FinderServerOptions): Promise<F
     }));
   };
 
+  /** The last failure the log said, so a lasting one is said once. */
+  let lastFailure: string | undefined;
   const emit = (event: AskEvent) => {
     if (event.type === "failed") {
-      options.log?.(`The ranker failed on "${event.text.trim()}": ${event.error}. The page shows the narrowing's order.`);
+      const line = event.narrowed ? `The ranker failed: ${event.error}. The page shows the narrowing's order.` : `The search failed before ranking: ${event.error}.`;
+      // A failure that lasts (a revoked key, an outage) comes again on every Enter and idle pause: said once until it changes.
+      if (line !== lastFailure) options.log?.(line);
+      lastFailure = line;
       return send("failed", event);
     }
     if (event.type === "capped") return send("capped", event);
     if (event.type === "ranked") {
+      lastFailure = undefined;
       grades.delete(event.text.trim());
       grades.set(event.text.trim(), { tags: event.tags, levels: new Map(event.candidates.map(({ id, level }) => [id, level])) });
       if (grades.size > KEPT_GRADES) grades.delete(grades.keys().next().value!);

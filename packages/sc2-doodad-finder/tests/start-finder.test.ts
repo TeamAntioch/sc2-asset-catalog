@@ -9,6 +9,8 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
+
 import { parseFinderArgs } from "../src/cli/doodad-finder.ts";
 import { NO_JEV_KEY } from "../src/credentials.ts";
 import { saveKeyFile } from "../src/key-file.ts";
@@ -129,7 +131,7 @@ describe("startFinder with the public defaults", () => {
     const starting = startFinder({ cacheDir: cache(), embedder: fakeEmbedder(), env: noKey(), port: 0, fetch: failing, listGitTree });
     await expect(starting).rejects.toThrow(/fetch failed/);
     // In the form an npx user can run, too.
-    await expect(starting).rejects.toThrow(/npx(\.cmd)? @team-antioch\/sc2-doodad-finder extract/);
+    await expect(starting).rejects.toThrow(npxHint("@team-antioch/sc2-doodad-finder extract"));
   });
 
   it("shows a sheet rendered while it runs on its card", async () => {

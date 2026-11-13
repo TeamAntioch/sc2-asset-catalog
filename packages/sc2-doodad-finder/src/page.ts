@@ -140,7 +140,7 @@ events.addEventListener("ranked", (event) => {
 });
 events.addEventListener("failed", (event) => {
   const data = JSON.parse(event.data);
-  if (data.text.trim() === currentAsk()) showError(new Error("The ranker failed: " + data.error + ". The narrowing's order is shown."));
+  if (data.text.trim() === currentAsk()) showError(new Error(data.narrowed ? "The ranker failed: " + data.error + ". The narrowing's order is shown." : "The search failed: " + data.error + "."));
 });
 events.addEventListener("capped", (event) => {
   const data = JSON.parse(event.data);

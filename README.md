@@ -19,7 +19,7 @@ Two npm packages:
 
 You need [Node.js](https://nodejs.org/) 22.18 or later, on Windows, macOS or Linux. No StarCraft II install is needed.
 
-On Windows, you also need the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) for the embeddings model. Many machines already have it; a fresh Windows doesn't, and Node doesn't install it. Without it the Finder stops on its first start and says where to get it. You can also install it with `winget install Microsoft.VCRedist.2015+.x64` (or `.arm64` on an ARM PC). Open a new terminal after installing Node, so it finds `npx`.
+On Windows, you also need the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) for the embeddings model. Many machines already have it; a fresh Windows doesn't, and Node doesn't install it. Without it the Finder stops on its first start and says where to get it. You can also install it with `winget install Microsoft.VCRedist.2015+.x64` (or `.arm64` on an ARM PC).
 
 Start it without installing anything:
 
@@ -38,7 +38,7 @@ The page is at `http://127.0.0.1:4634/`. The Finder listens on your own machine 
 
 The first start takes a minute or so. It downloads the game's doodad data from SC2GameData (about 22 MB, read and then thrown away) and builds the catalog's names, packages, categories and gallery picture names into your cache folder. It also downloads the embeddings model (gte-small, about 34 MB) and embeds every card. Later starts take a few seconds and need no connection, except to Jev and for the pictures.
 
-On Windows, PowerShell's default policy refuses to run `npx`, so type `npx.cmd` instead, as in `npx.cmd @team-antioch/sc2-doodad-finder --open`. It works in PowerShell and cmd.exe alike, and the Finder's own hints say `npx.cmd` there. When you stop it with Ctrl-C, Windows asks "Terminate batch job (Y/N)?" after the Finder has stopped; answer Y.
+On Windows, PowerShell's default policy refuses to run `npx`, so type `npx.cmd` instead, as in `npx.cmd @team-antioch/sc2-doodad-finder --open`. It works in PowerShell and cmd.exe alike, and the Finder's own hints say `npx.cmd` there. After installing Node, open a new terminal so it finds `npx.cmd`. When you stop it with Ctrl-C, Windows asks "Terminate batch job (Y/N)?" after the Finder has stopped; answer Y.
 
 Some npm versions warn that install scripts were blocked (for `onnxruntime-node`, `protobufjs` and others). You can ignore it: the Finder doesn't need those scripts, and it starts and searches with them blocked.
 

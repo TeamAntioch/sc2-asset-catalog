@@ -118,7 +118,7 @@ describe("runCatalogCli", () => {
     dir = await mkdtemp(path.join(tmpdir(), "catalog-cli-"));
     const { options, viewers } = await builtIn(dir);
     await runCatalogCli(["extract", "--cache", "cache"], options);
-    await expect(runCatalogCli(["render", "--cache", "cache", "--sc2", "sc2"], options)).rejects.toThrow(/run `npx(\.cmd)? @team-antioch\/sc2-asset-catalog setup-renderer`/);
+    await expect(runCatalogCli(["render", "--cache", "cache", "--sc2", "sc2"], options)).rejects.toThrow(/run `npx @team-antioch\/sc2-asset-catalog setup-renderer`/);
     await expect(runCatalogCli(["render", "--cache", "cache", "--viewer", viewers.other], { ...options, env: { ...options.env, SC2_ASSET_CATALOG_SC2_PATH: path.join(dir, "nowhere") } })).rejects.toThrow(
       /No StarCraft II install at .*nowhere.*--sc2 <folder> or SC2_ASSET_CATALOG_SC2_PATH/,
     );

@@ -6,6 +6,8 @@ Ask for StarCraft II doodads in plain words and see ranked cards at once: a loca
 npx @team-antioch/sc2-doodad-finder --open
 ```
 
+On Windows, type `npx.cmd` in place of `npx` (PowerShell's default policy refuses `npx`), and install the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) first if the machine doesn't have it: the embeddings model needs it. Ctrl-C stops the Finder; answer Y if Windows then asks "Terminate batch job (Y/N)?".
+
 The first start extracts the catalog's fields from SC2GameData into your cache folder and downloads the embeddings model. `npx @team-antioch/sc2-doodad-finder extract` extracts again. `login` asks for your TypeSafe key and saves it in your config folder, and `logout` deletes it. Options: `--port <n>`, `--budget <dollars>` (Jev's spend cap per session, $1.00 by default), `--tick-log <folder>`, `--open`.
 
 Getting a TypeSafe key, where it is kept, what each ask sends, the cost and the cap, the cache folders and the platforms: see the [repo's README](https://github.com/TeamAntioch/sc2-asset-catalog#readme).

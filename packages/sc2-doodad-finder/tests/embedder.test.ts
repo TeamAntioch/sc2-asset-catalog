@@ -6,18 +6,25 @@ import { missingRuntime } from "../src/embedder.ts";
 const loadFailure = new Error(
   "The specified module could not be found.\r\n\\\\?\\C:\\cache\\_npx\\1\\node_modules\\onnxruntime-node\\bin\\napi-v6\\win32\\arm64\\onnxruntime_binding.node",
 );
+const noRuntime = () => false;
 
 describe("missingRuntime", () => {
-  it("names the Visual C++ Redistributable for this architecture when ONNX Runtime can't load on Windows", () => {
-    const error = missingRuntime(loadFailure, "win32", "arm64");
+  it("names the Visual C++ Redistributable for this architecture when ONNX Runtime can't load on Windows without it", () => {
+    const error = missingRuntime(loadFailure, { platform: "win32", arch: "arm64", hasRuntime: noRuntime });
     expect(error?.message).toContain("Microsoft Visual C++ Redistributable");
     expect(error?.message).toContain("https://aka.ms/vs/17/release/vc_redist.arm64.exe");
+    // What ONNX Runtime said, too: the bin prints the message alone, not its cause.
+    expect(error?.message).toContain("(ONNX Runtime said: The specified module could not be found.)");
     expect(error?.cause).toBe(loadFailure);
-    expect(missingRuntime(loadFailure, "win32", "x64")?.message).toContain("vc_redist.x64.exe");
+    expect(missingRuntime(loadFailure, { platform: "win32", arch: "x64", hasRuntime: noRuntime })?.message).toContain("vc_redist.x64.exe");
+  });
+
+  it("doesn't blame the runtime when its DLLs are there, as when onnxruntime.dll itself is missing", () => {
+    expect(missingRuntime(loadFailure, { platform: "win32", arch: "x64", hasRuntime: () => true })).toBeUndefined();
   });
 
   it("leaves other failures, and other platforms, as they are", () => {
-    expect(missingRuntime(loadFailure, "darwin", "arm64")).toBeUndefined();
-    expect(missingRuntime(new Error("fetch failed"), "win32", "x64")).toBeUndefined();
+    expect(missingRuntime(loadFailure, { platform: "darwin", arch: "arm64", hasRuntime: noRuntime })).toBeUndefined();
+    expect(missingRuntime(new Error("fetch failed"), { platform: "win32", arch: "x64", hasRuntime: noRuntime })).toBeUndefined();
   });
 });

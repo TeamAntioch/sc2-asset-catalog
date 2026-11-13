@@ -26,7 +26,6 @@ import { writeWhole } from "../util/write-whole.js";
 import { THUMBNAIL_ANGLES } from "./doodad-thumbnails.js";
 import { type ModelRenderer, THUMBNAIL_SIZE } from "./render-thumbnails.js";
 import { angleFrames, type FrameBackground, frameBackground, keyBackground, magentaShare, thumbnailRecipe } from "./whiteoutflakes-frames.js";
-import { npxHint } from "../util/npx.js";
 
 /** Runs the viewer program with these arguments and environment, giving its output; rejects on a timeout or a failed start. */
 export type RunViewer = (
@@ -105,7 +104,7 @@ async function takeHome(homesDir: string): Promise<{ home: string; release: () =
 /** A ModelRenderer drawing models with the WhiteoutFlakes viewer. */
 export function whiteoutFlakesRenderer({ viewer, sc2Path, workDir, run = execViewer }: WhiteoutFlakesOptions): ModelRenderer {
   const checkedViewer = (): string => {
-    if (!existsSync(viewer)) throw new Error(`No WhiteoutFlakes viewer at ${viewer}: run \`${npxHint("@team-antioch/sc2-asset-catalog setup-renderer")}\` to build it`);
+    if (!existsSync(viewer)) throw new Error(`No WhiteoutFlakes viewer at ${viewer}: run \`npx @team-antioch/sc2-asset-catalog setup-renderer\` to build it`);
     return viewer;
   };
 

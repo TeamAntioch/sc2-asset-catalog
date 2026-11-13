@@ -24,7 +24,6 @@ import { extractCatalog } from "./catalog/extract-catalog.js";
 import { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbnails.js";
 import { checkRenderPlatform, findSc2, findViewer, rendererDir, type SetupSystem, setupRenderer, thisMachine } from "./catalog/renderer-setup.js";
 import { type RunViewer, whiteoutFlakesRenderer } from "./catalog/whiteoutflakes.js";
-import { npxHint } from "./util/npx.js";
 
 export const CATALOG_USAGE = [
   "Usage: sc2-asset-catalog extract [--cache <folder>]",
@@ -84,7 +83,7 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   }
   if (command === "setup-renderer") {
     await setupRenderer({ cacheDir, configDir, log, system: options.setupSystem ?? { ...thisMachine, platform, arch } });
-    log(`Set up: run \`${npxHint("@team-antioch/sc2-asset-catalog render")}\` to render the sheets`);
+    log("Set up: run `npx @team-antioch/sc2-asset-catalog render` to render the sheets");
     return;
   }
   if (command === "render") {

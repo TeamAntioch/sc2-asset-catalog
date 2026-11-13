@@ -7,6 +7,8 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
+
 import { jevApiKey, jevKey, NO_JEV_KEY, openRanker } from "../src/credentials.ts";
 import { saveKeyFile } from "../src/key-file.ts";
 
@@ -61,7 +63,8 @@ describe("openRanker", () => {
     const opened = openRanker({ env: env() });
     expect(opened.ranker).toBeUndefined();
     expect(opened.off).toBe(NO_JEV_KEY);
-    expect(NO_JEV_KEY).toMatch(/npx(\.cmd)? @team-antioch\/sc2-doodad-finder login/);
+    // npx.cmd on Windows, npx elsewhere: as this platform runs it.
+    expect(NO_JEV_KEY).toContain(npxHint("@team-antioch/sc2-doodad-finder login"));
     expect(NO_JEV_KEY).toContain("TYPESAFE_API_KEY");
   });
 });
