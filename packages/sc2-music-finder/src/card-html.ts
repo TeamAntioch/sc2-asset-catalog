@@ -4,6 +4,7 @@
 // markup with data attributes the page's script reads: it plays from a section's start, and the
 // mapper's in-point goes into what the tray copies.
 
+import { escapeHtml } from "@team-antioch/sc2-asset-catalog/catalog/doodad-card-html.js";
 import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
 
 import { type MusicCard, type MusicPiece, mmss } from "./cards.ts";
@@ -11,15 +12,16 @@ import { levelName as levelNameOf } from "./wording.ts";
 
 export const levelName = levelNameOf;
 
-export const escapeHtml = (text: string): string => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+export { escapeHtml };
 
 /** What a card can say about hearing a file: no Audio folder given, the file isn't in it, or it is. */
 export type AudioState = "none" | "missing" | "ready";
 
-/** A section's start, `0:38` or `00:38`, in seconds. */
+/** A section's start in seconds: `0:38`, `00:38` or `1:02:03`; 0 when it isn't a clock time, so a button never seeks to NaN. */
 export const sectionSeconds = (start: string): number => {
-  const [minutes, seconds] = start.split(":");
-  return Number(minutes) * 60 + Number(seconds);
+  const parts = start.trim().split(":");
+  if (parts.length < 2 || parts.length > 3 || parts.some((part) => !/^\d+(?:\.\d+)?$/.test(part))) return 0;
+  return parts.reduce((seconds, part) => seconds * 60 + Number(part), 0);
 };
 
 /** The badges a card wears: what a map needs to call it, and why it is shown when it normally wouldn't be. */
