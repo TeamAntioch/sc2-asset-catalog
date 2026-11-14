@@ -7,5 +7,9 @@
     "use": "lattice girders as a wrecked ship's skeleton",
     "variation": 7,
     "from": "debris-field search, 2026-11-13"
+  },
+  {
+    "use": "torn hull at a breach open to space",
+    "from": "interiors search, 2026-11-13"
   }
 ]
