@@ -27,6 +27,31 @@ describe("cards", () => {
     expect(text).toContain("energy 3, tension 4, valence 2, length 1:30 (of 5)");
   });
 
+  it("embeds a card's text without the id's own words, which the keyword search keeps and the ranker reads", () => {
+    const { text, embedText } = card("TenseApproach");
+    expect(text).toContain("TenseApproach (tense approach)");
+    expect(embedText).not.toMatch(/TenseApproach|tense approach/i);
+    expect(embedText?.split("\n")[0]).toBe("a Soundtrack, cutscene, full cue");
+    expect(embedText).toContain("A tense, slow build");
+    expect(embedText).toContain("energy 3, tension 4, valence 2, length 1:30 (of 5)");
+  });
+
+  it("builds the text and the embedded text from one name line and one body, so they differ only in the name line", () => {
+    for (const { text, embedText } of musicCards(SOURCES)) {
+      const [name = "", ...body] = text.split("\n");
+      expect(embedText, name).toBe([name.slice(name.indexOf("): ") + 3), ...body].join("\n"));
+      expect(name).toContain("): ");
+      expect(embedText?.split("\n")[0]).toBe(name.split("): ").slice(1).join("): "));
+    }
+  });
+
+  it("keeps a layer's text in both the text and the embedded text: it is what a wrapper knows of the track, not the id's own words", () => {
+    const layered = musicCards(SOURCES, (entry) => (entry.id === "TenseApproach" ? { text: "album: Nowhere" } : undefined)).find(({ id }) => id === "TenseApproach")!;
+    expect(layered.embedText).toContain("album: Nowhere");
+    expect(layered.embedText).not.toMatch(/TenseApproach|tense approach/i);
+    expect(layered.text.endsWith("album: Nowhere")).toBe(true);
+  });
+
   it("adds a layer's text to the card, and keeps its facts for the page", () => {
     const layered = musicCards(SOURCES, (entry) => (entry.id === "TenseApproach" ? { text: "album: Nowhere", facts: [{ label: "Album", value: "Nowhere" }] } : undefined)).find(({ id }) => id === "TenseApproach")!;
     expect(layered.text).toContain("album: Nowhere");

@@ -5,13 +5,18 @@
 export type FinderCard = {
   readonly id: string;
   readonly name: string;
-  /** The card's text: what the embeddings model embeds and what the ranker reads. */
+  /** The card's text: what the ranker reads and the keyword search may use; the embeddings model embeds it too unless `embedText` is set. */
   readonly text: string;
+  /** What the embeddings model embeds when that differs from `text`; absent, it embeds `text` (see `embeddedText`). */
+  readonly embedText?: string;
   /** The map dependency it needs, absent when the default brings it in. */
   readonly dependency?: string;
   /** For a map's dependencies: whether its dependencies already bring it in. */
   readonly provided?: boolean;
 };
+
+/** What the embeddings model reads of a card: its `embedText`, else its `text`. The one place that is decided. */
+export const embeddedText = (card: FinderCard): string => card.embedText ?? card.text;
 
 /** A facet tag, such as `story: industry`. A pinned tag filters; the rest only raise. */
 export type Tag = { readonly facet: string; readonly value: string; readonly pinned?: boolean | undefined };

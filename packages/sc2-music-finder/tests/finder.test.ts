@@ -37,6 +37,15 @@ describe("narrowing", () => {
     expect(found?.keyword).toBeUndefined();
   });
 
+  it("embeds the cards without their ids' words", async () => {
+    const embedder = fakeEmbedder();
+    finder = await openFinder({ load: async () => SOURCES, embedder, cacheFile: path.join(dir, "vectors.bin"), watch: [] });
+    const embedded = embedder.calls.flat();
+    expect(embedded.length).toBeGreaterThan(0);
+    expect(embedded.some((text) => /TenseApproach|tense approach/i.test(text))).toBe(false);
+    expect(embedded.some((text) => text.includes("A tense, slow build"))).toBe(true);
+  });
+
   it("hides the silent, unplayable and map-local ids by default, and shows them for show: everything", async () => {
     await open();
     expect(await ids("marching patrol silent nothing plays")).not.toContain("MapOnlyTrack");
