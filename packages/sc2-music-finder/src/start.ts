@@ -121,6 +121,12 @@ export async function startMusicFinder(options: StartFinderOptions = {}): Promis
     cacheFile: musicVectorCacheFile(embedder.model, cacheDir),
     watch: sources.watch,
     ...(options.layer ? { layer: options.layer } : {}),
+    // Said once, the first time an ask is cut: every ask this long is, and a line a keystroke would drown the rest.
+    onCut: ((said = false) => ({ kept, cut }: { kept: number; cut: number }) => {
+      if (said) return;
+      said = true;
+      log(`Jev takes about 55,000 tokens of tracks in one request, so an ask's ${kept + cut} candidates are cut to the best ${kept}; the rest aren't ranked or shown`);
+    })(),
     onReload: ({ embedded }) => log(`Cards written again${embedded ? `, ${embedded} embedded` : ""}`),
     onError: (error) => log(`Reading the cards again failed: ${(error as Error).message}`),
   });

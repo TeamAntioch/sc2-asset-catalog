@@ -18,3 +18,7 @@ An in-point is the mapper's choice on the page, which the process never sees: th
 
 - A tag whose value isn't one the facet reads (`energy: nonsense`) matches nothing. The page offers selects and numbers, so only a hand-made request makes one.
 - The Music Finder keeps its vectors in `music-vectors-<model>.bin` in the shared cache folder, so it and the Doodad Finder don't replace each other's.
+
+## Since the first test run: Jev's token limit
+
+The first ranked run of the test asks had Jev refuse 4 of 15 with `400 max_tokens_exceeded`. A request is one question per candidate, and the music's cards are long (about 640 characters, with the four levels repeated in each question), so a candidate costs about 355 input tokens. The 11 asks Jev took had 168 to 187 candidates (57k to 65.7k tokens); the 4 it refused had 189 to 198. The narrowing returns about 200, so the Music Finder opens the kit's finder with `MUSIC_RANK_BUDGET` (the kit's `jevRankBudget`, 55,000 estimated tokens, ADR 0002) and each ask's candidates are cut to it, lowest ranked first. About 145 candidates are ranked and shown for a typical ask. The first cut of a session is said in the log.
