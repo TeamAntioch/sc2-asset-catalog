@@ -12,6 +12,7 @@ import { readMusicNotes } from "@team-antioch/sc2-asset-catalog/catalog/music-no
 import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
 
 import type { MusicSources } from "./cards.ts";
+import { PACKAGE_NAME } from "./package-name.ts";
 
 /** What the cards are made from, read afresh on each change, and the files whose changes write them again. */
 export type FinderSources = { readonly load: () => Promise<MusicSources>; readonly watch: readonly string[] };
@@ -23,7 +24,7 @@ export function stockSources(cacheDir: string): FinderSources {
     load: async () => {
       const file = path.join(dir, MUSIC_EXTRACTED_FILE);
       const text = await readFile(file, "utf8").catch((error: NodeJS.ErrnoException) => {
-        throw error.code === "ENOENT" ? new Error(`${file} isn't there: run \`${npxHint("@team-antioch/sc2-music-finder extract")}\` first`, { cause: error }) : error;
+        throw error.code === "ENOENT" ? new Error(`${file} isn't there: run \`${npxHint(`${PACKAGE_NAME} extract`)}\` first`, { cause: error }) : error;
       });
       const notes = readMusicNotes();
       return { catalog: joinMusicCatalog(parseMusicExtracted(text, MUSIC_EXTRACTED_FILE), notes), notes };
@@ -43,6 +44,6 @@ export async function ensureMusic(cacheDir: string, { log = () => {}, ...fetchin
   try {
     await extractMusic({ extractedDir: dir, log, ...fetching });
   } catch (error) {
-    throw new Error(`Couldn't extract the music: ${(error as Error).message}. Check the connection, then run ${npxHint("@team-antioch/sc2-music-finder extract")} (or sc2-music-finder extract, where it is installed)`, { cause: error });
+    throw new Error(`Couldn't extract the music: ${(error as Error).message}. Check the connection, then run ${npxHint(`${PACKAGE_NAME} extract`)} (or sc2-music-finder extract, where it is installed)`, { cause: error });
   }
 }

@@ -10,6 +10,7 @@ import vm from "node:vm";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import { joinMusicCatalog } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
 import { npxHint } from "@team-antioch/sc2-asset-catalog/util/npx.js";
 import { MissingRuntimeError } from "@team-antioch/sc2-finder-kit/embedder.js";
 
@@ -17,7 +18,7 @@ import { parseFinderArgs } from "../src/cli/music-finder.ts";
 import { NO_JEV_KEY } from "../src/credentials.ts";
 import { ensureMusic, type RunningFinder, startMusicFinder, stockSources } from "../src/start.ts";
 import { fakeEmbedder } from "./fake-embedder.ts";
-import { SOURCES, VOID_CAMPAIGN } from "./fixtures.ts";
+import { RECORDS, SOURCES, VOID_CAMPAIGN } from "./fixtures.ts";
 
 let dir: string;
 let running: RunningFinder | undefined;
@@ -100,6 +101,13 @@ describe("the page and its routes", () => {
     expect((await get("/state").then((r) => r.json())).tickLog).toBe(false);
     const { MUSIC_FINDER_PORT } = await import("../src/server.ts");
     expect(MUSIC_FINDER_PORT).toBe(4635);
+  });
+
+  it("says once how many listening notes it left out because no id plays their file", async () => {
+    const notes = new Map([...SOURCES.notes, ["orphan_one", SOURCES.notes.get("tenseapproach")!], ["orphan_two", SOURCES.notes.get("tenseapproach")!]]);
+    const lines: string[] = [];
+    await start({ sources: { load: async () => ({ catalog: joinMusicCatalog(RECORDS, notes), notes }), watch: [] }, log: (line) => lines.push(line) });
+    expect(lines.filter((line) => /listening notes/.test(line))).toEqual(["2 listening notes are for files no extracted music id plays, and are left out: orphan_one, orphan_two"]);
   });
 
   it("refuses a request that names another host", async () => {

@@ -12,7 +12,9 @@ import path from "node:path";
 
 import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 import type { ExtractMusicOptions } from "@team-antioch/sc2-asset-catalog/catalog/extract-music.js";
-import { type Embedder, localEmbedder, MissingRuntimeError } from "@team-antioch/sc2-finder-kit/embedder.js";
+import { unextractedNotesReport } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
+import type { Embedder } from "@team-antioch/sc2-finder-kit/embedder.js";
+import { loadTogether } from "@team-antioch/sc2-finder-kit/load-together.js";
 import { payloadLog, payloadLogFile } from "@team-antioch/sc2-finder-kit/payload-log.js";
 import type { Ranker } from "@team-antioch/sc2-finder-kit/ranker.js";
 import { type FinderSettings, readFinderSettings, writeFinderSettings } from "@team-antioch/sc2-finder-kit/settings.js";
@@ -89,8 +91,27 @@ export async function startMusicFinder(options: StartFinderOptions = {}): Promis
   // A bad Audio folder is said before anything downloads.
   const audio = typeof options.audio === "string" ? await indexAudioFolder(options.audio) : options.audio;
   if (audio?.duplicates.length) log(`${audio.duplicates.length} file names are in the Audio folder more than once; the first of each is used`);
-  const embedder = await loadTogether(cacheDir, options, log);
-  const sources = options.sources ?? stockSources(cacheDir);
+  const embedder = await loadTogether({
+    ...(options.embedder ? { embedder: options.embedder } : {}),
+    ...(options.fetch ? { fetch: options.fetch } : {}),
+    log,
+    extract: options.sources
+      ? undefined
+      : ({ log: quiet, fetch }) => ensureMusic(cacheDir, { log: quiet, fetch, ...(options.listMirrorFiles ? { listMirrorFiles: options.listMirrorFiles } : {}), ...(options.env ? { env: options.env } : {}) }),
+  });
+  const chosen = options.sources ?? stockSources(cacheDir);
+  // Notes whose file no id plays are left out; the first read says how many.
+  let reported = false;
+  const sources: FinderSources = {
+    watch: chosen.watch,
+    load: async () => {
+      const loaded = await chosen.load();
+      const report = reported ? undefined : unextractedNotesReport(loaded.catalog);
+      reported = true;
+      if (report) log(report);
+      return loaded;
+    },
+  };
   const logFile = payloadLogFile("music-finder-", cacheDir);
   const opened: { readonly ranker?: Ranker | undefined; readonly off?: string | undefined; readonly keySource?: KeySource | undefined } =
     options.ranker === null ? { off: "ranking is turned off" } : options.ranker ? { ranker: options.ranker } : openRanker({ ...(options.env ? { env: options.env } : {}), log: payloadLog(logFile) });
@@ -142,40 +163,4 @@ export async function startMusicFinder(options: StartFinderOptions = {}): Promis
       await server.close();
     },
   };
-}
-
-/**
- * The music ids (extracted on a first start) and the model, loaded together: on a first start both
- * download. Whichever fails first is said, and a machine that can't load the model (on Windows,
- * without the Visual C++ runtime) is told so at once, the extraction stopped and quiet. Any other
- * model failure waits on the extraction, whose own failure (offline, say) is the one worth saying.
- */
-async function loadTogether(cacheDir: string, options: StartFinderOptions, log: (line: string) => void): Promise<Embedder> {
-  const stop = new AbortController();
-  const fetch = options.fetch ?? globalThis.fetch;
-  const stoppable: typeof globalThis.fetch = (input, init) => fetch(input, { ...init, signal: stop.signal });
-  const quiet = (line: string) => {
-    if (!stop.signal.aborted) log(line);
-  };
-  const extraction = options.sources
-    ? Promise.resolve()
-    : ensureMusic(cacheDir, { log: quiet, fetch: stoppable, ...(options.listMirrorFiles ? { listMirrorFiles: options.listMirrorFiles } : {}), ...(options.env ? { env: options.env } : {}) });
-  const model = typeof options.embedder === "function" ? options.embedder() : options.embedder ? Promise.resolve(options.embedder) : localEmbedder();
-  const first = await Promise.race([
-    model.then((embedder) => ({ embedder }), (error: unknown) => ({ modelError: error })),
-    // The extraction's success doesn't end the race: only its failure does.
-    extraction.then(() => new Promise<never>(() => {}), (error: unknown) => ({ extractionError: error })),
-  ]);
-  if ("extractionError" in first) throw first.extractionError;
-  if ("modelError" in first) {
-    if (first.modelError instanceof MissingRuntimeError) {
-      stop.abort();
-      extraction.catch(() => {});
-      throw first.modelError;
-    }
-    await extraction;
-    throw first.modelError;
-  }
-  await extraction;
-  return first.embedder;
 }

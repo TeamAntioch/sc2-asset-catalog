@@ -4,8 +4,9 @@
 // markup with data attributes the page's script reads: it plays from a section's start, and the
 // mapper's in-point goes into what the tray copies.
 
-import { type MusicCard, type MusicPiece, clock } from "./cards.ts";
-import { dependencyName } from "./narrow.ts";
+import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+
+import { type MusicCard, type MusicPiece, mmss } from "./cards.ts";
 import { levelName as levelNameOf } from "./wording.ts";
 
 export const levelName = levelNameOf;
@@ -33,7 +34,7 @@ export function badges(card: MusicCard): { readonly text: string; readonly warn:
 
 function pieceHtml(piece: MusicPiece, audio: AudioState): string {
   const { note } = piece;
-  const length = note ? ` <span class="length">${clock(note.duration_s)}</span>` : "";
+  const length = note ? ` <span class="length">${mmss(note.duration_s)}</span>` : "";
   const hear =
     audio === "ready"
       ? `<button type="button" class="play" data-key="${escapeHtml(piece.key)}" data-from="0">Play</button>`
@@ -45,7 +46,7 @@ function pieceHtml(piece: MusicPiece, audio: AudioState): string {
       ? `<details><summary>${note.sections.length} section${note.sections.length === 1 ? "" : "s"}</summary><ol class="sections">${note.sections
           .map((section) => {
             const at = sectionSeconds(section.start);
-            const start = audio === "ready" ? `<button type="button" class="play" data-key="${escapeHtml(piece.key)}" data-from="${at}">${escapeHtml(clock(at))}</button>` : `<span class="at">${escapeHtml(clock(at))}</span>`;
+            const start = audio === "ready" ? `<button type="button" class="play" data-key="${escapeHtml(piece.key)}" data-from="${at}">${escapeHtml(mmss(at))}</button>` : `<span class="at">${escapeHtml(mmss(at))}</span>`;
             return `<li>${start} ${escapeHtml(section.description)}</li>`;
           })
           .join("")}</ol></details>`
@@ -61,7 +62,7 @@ export function cardHtml(card: MusicCard, audio: (key: string) => AudioState): s
   const moods = [...new Set(notes.flatMap((note) => note.mood))];
   const used = entry.usedIn.map((place) => `${place.file.split("/").at(-1)}:${place.line}${place.func ? ` (${place.func})` : ""}`);
   const ratings = [entry.energy !== undefined ? `energy ${entry.energy}` : "", entry.tension !== undefined ? `tension ${entry.tension}` : "", entry.valence !== undefined ? `valence ${entry.valence}` : ""].filter(Boolean).join(" · ");
-  const length = entry.seconds ? (entry.seconds.min === entry.seconds.max ? clock(entry.seconds.min) : `${clock(entry.seconds.min)}-${clock(entry.seconds.max)}`) : "";
+  const length = entry.seconds ? (entry.seconds.min === entry.seconds.max ? mmss(entry.seconds.min) : `${mmss(entry.seconds.min)}-${mmss(entry.seconds.max)}`) : "";
   return [
     `<header><label><input type="checkbox" class="tick" aria-label="Tick ${escapeHtml(id)}"> <span class="name">${escapeHtml(name)}</span></label> <span class="kind">${escapeHtml(entry.kind)}${id !== name ? " (same id as a Soundtrack)" : ""}</span></header>`,
     `<p class="facts"><span class="level"></span>${badges(card)

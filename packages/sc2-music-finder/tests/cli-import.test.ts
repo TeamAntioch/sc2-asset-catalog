@@ -3,7 +3,7 @@
 // argv[1] is.
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { isMainModule } from "../src/cli/is-main.ts";
+import { isMainModule } from "@team-antioch/sc2-finder-kit/is-main.js";
 
 const argv = [...process.argv];
 afterEach(() => {

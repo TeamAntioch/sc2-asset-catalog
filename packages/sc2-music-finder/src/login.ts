@@ -2,9 +2,11 @@
 
 import { login as kitLogin, type LoginOptions as KitLoginOptions } from "@team-antioch/sc2-finder-kit/login.js";
 
+import { PACKAGE_NAME } from "./package-name.ts";
+
 export { logout, type KeyCheck, type KeyCheckResult, typesafeKeyCheck } from "@team-antioch/sc2-finder-kit/login.js";
 
 export type LoginOptions = Omit<KitLoginOptions, "command">;
 
 /** Asks for the key, checks it and saves it. Returns the exit code: 0 saved, 1 not, 130 cancelled. */
-export const login = (options: LoginOptions = {}): Promise<number> => kitLogin({ ...options, command: "@team-antioch/sc2-music-finder" });
+export const login = (options: LoginOptions = {}): Promise<number> => kitLogin({ ...options, command: PACKAGE_NAME });

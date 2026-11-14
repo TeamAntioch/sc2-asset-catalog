@@ -1,4 +1,4 @@
-// An object's tags (docs/adr/0001): facets of the cards the mapper has ticked so far, such as
+// An object's tags (docs/adr/0001, 0004): facets of the cards the mapper has ticked so far, such as
 // `mood: tense` or `faction: zerg`, shown above the results. They raise matching results in the
 // narrowing and go to the ranker as context. The mapper can drop one, which hides it, or pin one,
 // which makes it a filter and keeps it whatever is ticked later. The page's own filters are pinned
@@ -7,22 +7,23 @@
 import type { ObjectTag, TagChoice, TagChoices } from "@team-antioch/sc2-finder-kit/card.js";
 
 import type { MusicCard } from "./cards.ts";
+import type { Facet } from "./narrow.ts";
 
 export type { ObjectTag, TagChoice, TagChoices } from "@team-antioch/sc2-finder-kit/card.js";
 
 /** The facets tags are made from, in the order they're shown: what kind of track, whose, how it feels, what for. */
-export const TAG_FACETS = ["kind", "faction", "mood", "role"] as const;
+export const TAG_FACETS = ["kind", "faction", "mood", "role"] as const satisfies readonly Facet[];
 
 const keyOf = ({ facet, value }: TagChoice): string => `${facet.toLowerCase()}\n${value.toLowerCase()}`;
 
 /** A card's values for each tag facet. */
-function cardFacets(card: MusicCard): [facet: (typeof TAG_FACETS)[number], value: string][] {
+function cardFacets(card: MusicCard): (readonly [facet: (typeof TAG_FACETS)[number], value: string])[] {
   return [
     ...card.entry.kinds.map((value) => ["kind", value] as const),
     ...card.factions.map((value) => ["faction", value] as const),
     ...card.pieces.flatMap(({ note }) => note?.mood ?? []).map((value) => ["mood", value] as const),
     ...(card.entry.role !== "other" ? [["role", card.entry.role] as const] : []),
-  ].map(([facet, value]) => [facet, value]);
+  ];
 }
 
 /**

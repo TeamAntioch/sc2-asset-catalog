@@ -1,4 +1,4 @@
-// A track's in-point, as the page writes it into what it copies (docs/adr/0001): the page keeps the
+// A track's in-point, as the page writes it into what it copies (docs/adr/0004): the page keeps the
 // in-point the mapper set on each card, and puts it in the copy text the process sent with its
 // state. This is the page's own script, as plain JavaScript, so a test can run the very text the
 // page runs.
