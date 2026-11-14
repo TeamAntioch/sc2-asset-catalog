@@ -67,8 +67,7 @@
       "expected": [
         "Evolution_3_FULL",
         "Directorate Menace H",
-        "ZergSC2-06",
-        "Music_ZergRolloutD"
+        "ZergSC2-06"
       ],
       "from": "zerg dread",
       "reviewed": false
@@ -78,7 +77,8 @@
       "expected": [
         "Music_PProphecy",
         "Music_SadOminousNoChoir",
-        "Music_RedEnvelope_Intro7"
+        "Music_RedEnvelope_Intro7",
+        "Music_ZergRolloutD"
       ],
       "from": "protoss awe",
       "reviewed": false
@@ -89,7 +89,7 @@
         "Broken Wings H",
         "HumanDefeat",
         "Ambience_SM_WarCouncil_quad_loop",
-        "BroodWarAria"
+        "holiday_emitter_long_03"
       ],
       "from": "mournful aftermath",
       "reviewed": false
@@ -99,8 +99,7 @@
       "expected": [
         "Human2",
         "Cities_In_Ruin_FULL",
-        "P05CinePart05",
-        "Fury H"
+        "P05CinePart05"
       ],
       "from": "chase",
       "reviewed": false
@@ -108,9 +107,7 @@
     {
       "ask": "a barely-there underscore for a briefing, low and steady so voices stay clear",
       "expected": [
-        "Music_Interstitial_B",
-        "Ambience_SM_WarCouncil_quad_loop",
-        "holiday_emitter_long_03"
+        "Music_Interstitial_B"
       ],
       "from": "briefing underscore",
       "reviewed": false
