@@ -6,7 +6,9 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import { type Finder, musicVectorCacheFile, openFinder } from "../src/finder.ts";
+import { fitToBudget, type Narrowed } from "@team-antioch/sc2-finder-kit/narrow.js";
+
+import { type Finder, MUSIC_RANK_BUDGET, musicVectorCacheFile, openFinder } from "../src/finder.ts";
 import { fakeEmbedder } from "./fake-embedder.ts";
 import { SOURCES } from "./fixtures.ts";
 
@@ -76,5 +78,33 @@ describe("narrowing", () => {
     await open();
     expect(finder!.cards.get("Dual (Sound)")?.entry.kind).toBe("Sound");
     expect(finder!.cards.get("Dual")?.entry.kind).toBe("Soundtrack");
+  });
+});
+
+describe("the rank budget", () => {
+  const longCard = (i: number) => ({ id: `Track${i}`, name: `Track ${i}`, text: "x".repeat(640) });
+
+  it("is Jev's, counted for the music's wording, and cuts a 198-candidate ask, which Jev refused, to one that fits", () => {
+    expect(MUSIC_RANK_BUDGET.limit).toBe(55_000);
+    const all: Narrowed[] = Array.from({ length: 198 }, (_, i) => ({ id: `Track${i}`, card: longCard(i), score: 1 - i / 1000 }));
+    const before = all.reduce((total, { card }) => total + MUSIC_RANK_BUDGET.cost(card as never), 0);
+    expect(before).toBeGreaterThan(MUSIC_RANK_BUDGET.limit);
+    const { kept, cut, cost } = fitToBudget(all as never, MUSIC_RANK_BUDGET as never);
+    expect(cost).toBeLessThanOrEqual(MUSIC_RANK_BUDGET.limit);
+    expect(kept.length + cut).toBe(198);
+    expect(cut).toBeGreaterThan(0);
+  });
+
+  it("cuts an ask's candidates to the budget it was opened with, says how many, and leaves a short ask whole", async () => {
+    const said: { kept: number; cut: number }[] = [];
+    finder = await openFinder({ load: async () => SOURCES, embedder: fakeEmbedder(), cacheFile: path.join(dir, "vectors.bin"), watch: [], rankBudget: { limit: 2, cost: () => 1 }, onCut: (cut) => said.push(cut) });
+    const found = await finder.narrow("music");
+    expect(found.candidates).toHaveLength(2);
+    expect(found.cut).toBeGreaterThan(0);
+    expect(said).toEqual([{ kept: 2, cut: found.cut }]);
+    finder.close();
+    finder = await openFinder({ load: async () => SOURCES, embedder: fakeEmbedder(), cacheFile: path.join(dir, "vectors2.bin"), watch: [], onCut: (cut) => said.push(cut) });
+    expect((await finder.narrow("music")).cut).toBe(0);
+    expect(said).toHaveLength(1);
   });
 });
