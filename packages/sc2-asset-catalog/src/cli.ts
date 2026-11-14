@@ -54,6 +54,8 @@ export type CatalogCliOptions = {
   /** For tests: what runs the viewer, and the machine setup-renderer checks and builds on. */
   readonly runViewer?: RunViewer;
   readonly setupSystem?: SetupSystem;
+  /** For tests: the notes file `extract-music` reports against (the shipped one by default). */
+  readonly notesFile?: string;
 };
 
 /** A renderer module's default export, checked to be a ModelRenderer. */
@@ -92,8 +94,13 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   }
   if (command === "extract-music") {
     await extractMusic({ extractedDir: extractedDir(cacheDir), log, env, ...(options.fetch ? { fetch: options.fetch } : {}) });
-    const report = unextractedNotesReport(readMusicCatalog({ extractedDir: extractedDir(cacheDir) }));
-    if (report) log(report);
+    // The extraction is written: a report that can't be made (the notes file won't parse, say) is a warning, not a failed extraction.
+    try {
+      const report = unextractedNotesReport(readMusicCatalog({ extractedDir: extractedDir(cacheDir), ...(options.notesFile ? { notesFile: options.notesFile } : {}) }));
+      if (report) log(report);
+    } catch (error) {
+      log(`The music was extracted, but its notes couldn't be read to report on them: ${(error as Error).message}`);
+    }
     return;
   }
   if (command === "setup-renderer") {

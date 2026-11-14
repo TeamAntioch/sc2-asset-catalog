@@ -160,6 +160,25 @@ describe("runCatalogCli", () => {
     expect(lines.at(-1)).toMatch(/^\d+ listening notes are for files no extracted music id plays, and are left out: .*, …$/);
   });
 
+  it("keeps the extraction and only warns when the notes it would report against can't be read", async () => {
+    dir = await mkdtemp(path.join(tmpdir(), "catalog-cli-"));
+    const soundtracks = "campaigns/void.sc2campaign/base.sc2data/GameData/SoundtrackData.xml";
+    const table: Record<string, string> = {
+      [MUSIC_MIRROR_TREE_URL]: JSON.stringify({ tree: [{ path: soundtracks, type: "blob" }] }),
+      [`${MUSIC_MIRROR_RAW_URL}/${soundtracks}`]: catalog(`    <CSoundtrack id="Space_1"/>`),
+    };
+    await writeFile(path.join(dir, "notes.json"), "{ not json");
+    const lines: string[] = [];
+    await runCatalogCli(["extract-music", "--cache", "cache"], {
+      cwd: dir,
+      log: (line) => lines.push(line),
+      notesFile: path.join(dir, "notes.json"),
+      fetch: (async (url: string | URL) => (table[String(url)] === undefined ? new Response("", { status: 404 }) : new Response(table[String(url)]))) as typeof globalThis.fetch,
+    });
+    expect(existsSync(path.join(dir, "cache", "extracted", MUSIC_EXTRACTED_FILE))).toBe(true);
+    expect(lines.at(-1)).toMatch(/^The music was extracted, but its notes couldn't be read to report on them: /);
+  });
+
   it("prints the usage for --help or no command", async () => {
     const lines: string[] = [];
     await runCatalogCli(["--help"], { log: (line) => lines.push(line) });

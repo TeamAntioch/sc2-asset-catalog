@@ -200,14 +200,14 @@ describe("finding where music is used", () => {
 
   it("finds the ids named in a script, with the function they sit in", () => {
     const found = scanMusicUsage(PATHS.script, SCRIPT, ids);
-    expect(found.get("Space_Main")).toEqual([{ file: PATHS.script, line: 5, func: "gt_Intro_Func" }]);
+    expect(found.get("Space_Main")).toEqual([{ file: PATHS.script, line: 5, func: "gt_Intro_Func", call: "soundtrack" }]);
     expect(found.get("Lonely_Cue")).toHaveLength(1);
   });
 
   it("finds the soundLinks of a cutscene file", () => {
     const found = scanMusicUsage(PATHS.cutscene, CUTSCENE, ids);
     expect([...found.keys()].sort()).toEqual(["Door_Click", "Lonely_Cue"]);
-    expect(found.get("Lonely_Cue")?.[0]).toEqual({ file: PATHS.cutscene, line: 1, func: "SC2Cutscene" });
+    expect(found.get("Lonely_Cue")?.[0]).toEqual({ file: PATHS.cutscene, line: 1, func: "SC2Cutscene", call: "sound" });
   });
 });
 
@@ -235,14 +235,54 @@ describe("the records", () => {
     expect(get("Lonely_Cue")).not.toHaveProperty("mapLocal");
     expect(get("Map_Only")).toMatchObject({ mapLocal: "pcamp01.sc2map" });
     expect(get("Map_Only")).not.toHaveProperty("dependency");
-    expect(get("Space_Main")).toMatchObject({ mapLocal: "pcamp01.sc2map", continuous: true, delay_s: 2.5, next: "Space_Tail", sounds: ["Map_Main_Sound"] });
+    // The campaign defines it too, so other maps can play it: it isn't the map's alone, and its dependency is the campaign's.
+    expect(get("Space_Main")).not.toHaveProperty("mapLocal");
+    expect(get("Space_Main")).toMatchObject({ package: "campaigns/void.sc2campaign", dependency: "bnet:Void (Campaign)/0.0/999,file:Campaigns/Void.SC2Campaign", continuous: true, delay_s: 2.5, next: "Space_Tail", sounds: ["Map_Main_Sound"] });
     expect(get("Space_Tail")).toMatchObject({ usedCount: 1, usedIn: [{ line: 9 }], empty: true });
+  });
+
+  it("don't take an id's use for a Soundtrack's when a Sound of the same id is called by SoundPlay, and the other way round", () => {
+    const sounds = parseSoundData(`<Catalog>\n    <CSound id="Both" parent="P">\n        <AssetArray File="Assets\\Music\\Both.ogg"/>\n    </CSound>\n    <CSound id="Both_S" parent="P">\n        <AssetArray File="Assets\\Music\\BothS.ogg"/>\n    </CSound>\n    <CSound id="P" default="1">\n        <Category value="Music"/>\n    </CSound>\n</Catalog>`, "s.xml");
+    const tracks = parseSoundtrackData(`<Catalog>\n    <CSoundtrack id="Both">\n        <MasterLayer Sound="Both_S"/>\n    </CSoundtrack>\n</Catalog>`, "t.xml");
+    const script = `void f () {\n    SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryMusic, "Both", 0, true);\n    SoundPlayForPlayer(SoundLink("Both", -1), 1, 100.0, 0.0, 0.0);\n    gv_x = "Both";\n}\n`;
+    const records = buildExtractedMusic(resolveMusic(tracks, sounds), scanMusicUsage("x.galaxy", script, new Set(["Both"])));
+    const lines = (kind: string) => records.find((record) => record.id === "Both" && record.kind === kind)!.usedIn.map((use) => use.line);
+    expect(lines("Soundtrack")).toEqual([2, 4]); // its own call, and the line that says nothing of which
+    expect(lines("Sound")).toEqual([3, 4]);
+    expect(records.find((record) => record.kind === "Soundtrack")!.usedIn[0]).not.toHaveProperty("call");
   });
 
   it("work out a role from the words of the id", () => {
     expect(musicRole("ZSpace02MusicCutscene19_KerriganSavesRaynor")).toBe("cutscene");
     expect(musicRole("Terran_Victory_01")).toBe("victory");
     expect(musicRole("Sparkle")).toBe("other");
+  });
+
+  it("match a role's words where a word of the id starts, not inside one", () => {
+    expect(musicRole("TerranHalt01")).toBe("other"); // not `alt`, an event
+    expect(musicRole("Music_ZergHalloween")).toBe("other"); // not `low`
+    expect(musicRole("Music_Stinger_Descending")).toBe("stinger"); // not `ending`
+    expect(musicRole("ZSpace02MusicMain")).toBe("main"); // Music|Main, a camel-case word start
+    expect(musicRole("PAiur02_Music_S2")).toBe("event"); // `_s2` starts with an underscore
+    expect(musicRole("Cutscene_Low")).toBe("cutscene");
+  });
+
+  it("don't give a campaign map's own data a package that loads after it", () => {
+    // A package outside the load order's list ranks after the mods and before maps, never after a map.
+    const defs = [{ file: "mods/unlisted/x.sc2mod/base.sc2data/GameData/SoundData.xml", line: 1 }, { file: PATHS.mapSounds, line: 1 }];
+    const sounds = resolveMusic([], [
+      { id: "P", isDefault: true, file: "m", line: 1, assets: [], category: "Music" },
+      { id: "Cue", parent: "P", isDefault: false, file: defs[1]!.file, line: 1, assets: ["Assets\\Music\\Map.ogg"] },
+      { id: "Cue", parent: "P", isDefault: false, file: defs[0]!.file, line: 1, assets: ["Assets\\Music\\Mod.ogg"] },
+    ]);
+    expect(sounds.find((music) => music.id === "Cue")?.assets).toEqual(["Assets\\Music\\Map.ogg"]);
+  });
+
+  it("find a function by any galaxy return type, and read a one-line element whole", () => {
+    const script = `trigger gf_Make () {\n    SoundtrackPlay(PlayerGroupAll(), c_soundtrackCategoryMusic, "Space_Main", 0, true);\n}\nplayergroup gf_Group () {\n    return PlayerGroupAll();\n}\n`;
+    expect(scanMusicUsage("a.galaxy", script, new Set(["Space_Main"])).get("Space_Main")?.[0]).toMatchObject({ func: "gf_Make" });
+    const oneLine = `<Catalog>\n    <CSound id="A" parent="P"></CSound>\n    <CSound id="B" parent="P">\n        <AssetArray File="Assets\\Music\\B.ogg"/>\n    </CSound>\n</Catalog>`;
+    expect(parseSoundData(oneLine, "o.xml").map((sound) => `${sound.id}:${sound.assets.length}`)).toEqual(["A:0", "B:1"]);
   });
 
   it("find the package folder in a path", () => {
@@ -299,6 +339,28 @@ describe("extracting the music", () => {
     delete table[`${MUSIC_MIRROR_RAW_URL}/${PATHS.script.split("/").map(encodeURIComponent).join("/")}`];
     await expect(extractMusic({ fetch: fakeFetch(table).fetch, extractedDir: dir })).rejects.toThrow(/MapScript\.galaxy: HTTP 404/);
     expect(hasExtractedMusic(dir)).toBe(false);
+  });
+
+  it("waits and tries again when a file's fetch fails with a 429, a 5xx or a dropped connection, and gives up after four tries", async () => {
+    dir = await mkdtemp(path.join(tmpdir(), "music-extract-"));
+    const table = mirror();
+    let calls = 0;
+    const flaky = (async (url: string | URL): Promise<Response> => {
+      if (String(url).endsWith("MapScript.galaxy") && calls++ < 2) return calls === 1 ? new Response("", { status: 429 }) : Promise.reject(new Error("socket hang up"));
+      return fakeFetch(table).fetch(url);
+    }) as typeof globalThis.fetch;
+    const waits: number[] = [];
+    await extractMusic({ fetch: flaky, extractedDir: dir, wait: async (ms) => void waits.push(ms) });
+    expect(waits).toEqual([500, 1000]);
+
+    waits.length = 0;
+    const down = (async (url: string | URL) => (String(url).endsWith("MapScript.galaxy") ? new Response("", { status: 503 }) : fakeFetch(table).fetch(url))) as typeof globalThis.fetch;
+    await expect(extractMusic({ fetch: down, extractedDir: dir, wait: async (ms) => void waits.push(ms) })).rejects.toThrow(/MapScript\.galaxy: HTTP 503/);
+    expect(waits).toEqual([500, 1000, 2000]);
+  });
+
+  it("refuses a concurrency below 1, which would fetch nothing", async () => {
+    await expect(extractMusic({ fetch: fakeFetch(mirror()).fetch, concurrency: 0 })).rejects.toThrow(/concurrency must be a whole number of 1 or more/);
   });
 
   it("refuses a listing with no music data", async () => {

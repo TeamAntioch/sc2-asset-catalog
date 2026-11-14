@@ -14,7 +14,9 @@
 // find it.
 
 import { readFileSync, writeFileSync } from "node:fs";
-import path from "node:path";
+
+// The one rule for a file's key, shared with the join (needs a build first, as check-music-notes does).
+import { musicFileName } from "../packages/sc2-asset-catalog/dist/catalog/music-notes.js";
 
 const [tracksFile, outFile = "packages/sc2-asset-catalog/data/music-notes.json"] = process.argv.slice(2);
 if (!tracksFile) {
@@ -23,7 +25,6 @@ if (!tracksFile) {
 }
 
 const catalogue = JSON.parse(readFileSync(tracksFile, "utf8"));
-const baseName = (asset) => path.posix.parse(asset.replaceAll("\\", "/")).name;
 const round = (value, places) => (typeof value === "number" ? Number(value.toFixed(places)) : undefined);
 const strings = (list) => (Array.isArray(list) ? list.filter((item) => typeof item === "string" && item.trim()).map((item) => item.trim()) : []);
 
@@ -72,7 +73,7 @@ const notes = new Map();
 let twice = 0;
 for (const piece of catalogue.pieces) {
   if (!piece.in_install || !piece.listened || piece.duration_s == null) continue;
-  const key = baseName(piece.asset);
+  const key = musicFileName(piece.asset);
   const built = note(piece);
   const known = notes.get(key.toLowerCase());
   // The same file under two folders (Mission_MusicCue001, in Music/ and Music/MissionMusic/) has the
