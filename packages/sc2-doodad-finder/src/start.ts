@@ -11,11 +11,11 @@ import path from "node:path";
 
 import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 import { gitTreeFiles, type ListGitTree } from "@team-antioch/sc2-asset-catalog/catalog/extract-catalog.js";
+import { loadTogether } from "@team-antioch/sc2-finder-kit/load-together.js";
 
 import { type KeySource, openRanker } from "./credentials.ts";
 import type { Embedder } from "./embedder.ts";
 import { openFinder, vectorCacheFile } from "./finder.ts";
-import { loadTogether } from "@team-antioch/sc2-finder-kit/load-together.js";
 import { payloadLog, payloadLogFile } from "./payload-log.ts";
 import type { Ranker } from "./ranker.ts";
 import { type Badges, FINDER_PORT, startFinderServer, type TrayAction, type TrayObjects } from "./server.ts";

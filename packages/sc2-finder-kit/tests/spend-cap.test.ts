@@ -10,7 +10,7 @@ import { DEFAULT_BUDGET, spendCap } from "../src/spend-cap.ts";
 import { TOYS } from "./toy.ts";
 
 const CARDS = [...TOYS];
-const narrow = async (): Promise<Narrowing> => ({ candidates: CARDS.map((card, i) => ({ id: card.id, card, score: 1 / (i + 1) })), timings: { keyword: 1, embed: 1, nearest: 1, merge: 1, total: 4 } });
+const narrow = async (): Promise<Narrowing> => ({ candidates: CARDS.map((card, i) => ({ id: card.id, card, score: 1 / (i + 1) })), cut: 0, timings: { keyword: 1, embed: 1, nearest: 1, merge: 1, total: 4 } });
 
 /** Costs 40 cents a call, and grades the last card highest. */
 const calls: RankRequest[] = [];
@@ -33,6 +33,16 @@ beforeEach(() => {
 afterEach(() => {
   asker?.close();
   vi.useRealTimers();
+});
+
+describe("the narrowed event", () => {
+  it("carries how many candidates the rank budget cut, so a finder can say the list was trimmed", async () => {
+    const trimmed = async (): Promise<Narrowing> => ({ ...(await narrow()), cut: 7 });
+    asker = createAsker({ narrow: trimmed, emit: (event) => events.push(event) });
+    asker.ask({ text: "ball", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(400);
+    expect((events.find(({ type }) => type === "narrowed") as Extract<AskEvent, { type: "narrowed" }>).cut).toBe(7);
+  });
 });
 
 describe("the spend cap", () => {

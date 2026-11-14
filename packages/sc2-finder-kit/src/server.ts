@@ -311,7 +311,9 @@ export async function startFinderServer<C extends FinderCard>(options: FinderSer
       if (grades.size > KEPT_GRADES) grades.delete(grades.keys().next().value!);
       return send("ranked", { text: event.text, ranker: event.ranker, ms: Math.round(event.ms), cost: event.cost, spend: spent(), cards: cardsOut(event.candidates) });
     }
-    send("narrowed", { text: event.text, ms: Math.round(event.ms * 10) / 10, cards: cardsOut(event.candidates) });
+    // The rank budget trimmed this ask's candidates: the log says so, and the page's event carries the count.
+    if (event.cut > 0) options.log?.(`"${event.text.trim()}": ${event.cut} candidates cut to fit what the ranker takes in one request.`);
+    send("narrowed", { text: event.text, ms: Math.round(event.ms * 10) / 10, cut: event.cut, cards: cardsOut(event.candidates) });
   };
 
   const onRanking = (cost: number) => {

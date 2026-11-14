@@ -5,7 +5,6 @@
 import { providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
 import { type DoodadSearchSources, matchDoodads } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 import { type Finder as KitFinder, type FinderOptions as KitFinderOptions, openFinder as kitOpenFinder } from "@team-antioch/sc2-finder-kit/finder.js";
-
 import { jevRankBudget } from "@team-antioch/sc2-finder-kit/jev-ranker.js";
 
 import { type CandidateCard, candidateCards } from "./cards.ts";

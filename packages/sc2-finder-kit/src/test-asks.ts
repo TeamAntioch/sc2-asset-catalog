@@ -122,14 +122,21 @@ export const TOP_RANKED = 10;
 /** A first call's cost, guessed before any ranker has answered: well above what a 200-card ask costs. */
 export const FIRST_CALL_GUESS = 0.01;
 
+/** How long a warm start may take before it is killed: a hung start must not hang the test command. */
+export const WARM_START_TIMEOUT_MS = 180_000;
+
 /**
  * A warm start, in a process of its own so nothing is loaded yet: Node starting, the model, the
  * sources, the cards and the cache. `command` is the CLI module that takes `--start-only --model`.
  */
 export function warmStartMs(command: string, model: string): number {
   const started = performance.now();
-  const run = spawnSync(process.execPath, [command, "--start-only", "--model", model], { encoding: "utf8" });
+  const run = spawnSync(process.execPath, [command, "--start-only", "--model", model], { encoding: "utf8", timeout: WARM_START_TIMEOUT_MS });
   const ms = performance.now() - started;
+  if (run.error || run.signal) {
+    const why = run.signal ? `was killed by ${run.signal}${run.error ? ` (${run.error.message})` : ""}` : `could not run: ${run.error!.message}`;
+    throw new Error(`The warm start ${why} after ${Math.round(ms / 1000)} s (it is given ${WARM_START_TIMEOUT_MS / 1000} s).`);
+  }
   if (run.status !== 0) throw new Error(`The warm start failed: ${run.stderr.trim()}`);
   return ms;
 }

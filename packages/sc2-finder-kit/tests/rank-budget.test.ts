@@ -24,6 +24,16 @@ describe("jevRankBudget", () => {
     });
   });
 
+  it("counts bytes, not characters: a card of multi-byte text costs more than an ASCII one of the same length", () => {
+    const budget = jevRankBudget(MUSIC_WORDING);
+    const ascii = card("a", 300);
+    const accented = { ...ascii, text: "é".repeat(300) };
+    expect(budget.cost(accented)).toBeGreaterThan(budget.cost(ascii));
+    const request = jevRequest({ ask: "a scene", candidates: [accented] }, MUSIC_WORDING);
+    const sent = Buffer.byteLength(JSON.stringify(request.questions.c0)) + `"c0":,`.length;
+    expect(budget.cost(accented)).toBeGreaterThanOrEqual(Math.floor(sent / JEV_BYTES_PER_TOKEN) - 1);
+  });
+
   it("is the 55,000-token default, and another limit when one is asked for", () => {
     expect(jevRankBudget(toyWording).limit).toBe(JEV_TOKEN_BUDGET);
     expect(JEV_TOKEN_BUDGET).toBe(55_000);

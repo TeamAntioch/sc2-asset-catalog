@@ -41,7 +41,9 @@ export type AskRequest = AskContext & {
 export type RankedCandidate = Narrowed & { readonly level: number };
 
 export type AskEvent =
-  | { readonly type: "narrowed"; readonly text: string; readonly version: number; readonly candidates: readonly Narrowed[]; readonly ms: number }
+  | { readonly type: "narrowed"; readonly text: string; readonly version: number; readonly candidates: readonly Narrowed[]; readonly ms: number;
+      /** How many candidates the rank budget dropped from the narrowing: 0 when none, so a finder can say the list was trimmed. */
+      readonly cut: number }
   | {
       readonly type: "ranked";
       readonly text: string;
@@ -138,7 +140,7 @@ export function createAsker(options: AskerOptions): Asker {
     const narrowing = await narrowNow(ask);
     if (stale(ask) || ask.shown) return;
     ask.shown = "narrowed";
-    options.emit({ type: "narrowed", text: ask.request.text, version: ask.request.version, candidates: narrowing.candidates, ms: narrowing.timings.total });
+    options.emit({ type: "narrowed", text: ask.request.text, version: ask.request.version, candidates: narrowing.candidates, ms: narrowing.timings.total, cut: narrowing.cut });
   };
 
   const rankingOf = (ask: Ask, ranker: Ranker): Promise<AskRanking> => {
