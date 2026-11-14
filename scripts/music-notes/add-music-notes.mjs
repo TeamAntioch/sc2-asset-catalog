@@ -5,8 +5,11 @@
 //   node scripts/music-notes/add-music-notes.mjs <gemini.json> <audio.json> [--notes <file>] [--replace]
 //
 // A file is added when Gemini listened to it (no error) and audio_measure.py measured it (no
-// error), and the notes have no note for its base name yet. --replace puts the new note in place
-// of an existing one, for a file you've listened to again. A listing that has the same base name
+// error, a length above 0), and the notes have no note for its base name yet. --replace puts the
+// new note in place of an existing one, for a file you've listened to again: Gemini's words and
+// the measurements are the new ones, and the existing note's `energy_measured` (a score over every
+// measured file, not over this one) is kept. It exits 1 when nothing was added or replaced and
+// something was left out for a reason (two folders' results that don't match, say). A listing that has the same base name
 // in two folders is refused when the two lengths differ. The notes are written in the file's
 // layout (one a line, in key order), then checked against the schema.
 //
@@ -39,15 +42,24 @@ const entries = new Map(Object.entries(existing.notes).map(([key, built]) => [ke
 
 const added = [];
 const replaced = [];
-const skipped = { heard_only: [], measured_only: [], failed: [], known: [] };
+const skipped = { heard_failed: [], measure_failed: [], heard_only: [], measured_only: [], known: [] };
 const seen = new Map();
 for (const [file, listened] of Object.entries(gemini)) {
   const measured = audio[file];
-  if (listened.error || (measured && measured.error)) {
-    skipped.failed.push(file);
+  if (listened.error) {
+    skipped.heard_failed.push(file);
     continue;
   }
-  if (!measured || measured.duration_s == null) {
+  if (measured?.error) {
+    skipped.measure_failed.push(file);
+    continue;
+  }
+  // A length of 0 is a file that decoded to nothing, not a note.
+  if (measured && !(measured.duration_s > 0)) {
+    skipped.measure_failed.push(file);
+    continue;
+  }
+  if (!measured) {
     skipped.heard_only.push(file);
     continue;
   }
@@ -62,11 +74,15 @@ for (const [file, listened] of Object.entries(gemini)) {
     skipped.known.push(key);
     continue;
   }
-  const built = note({ listened, measured, duration_s: measured.duration_s, silent: listened.kind === "silence" });
+  const before = entries.get(key.toLowerCase())?.note;
+  const built = note({ listened, measured, duration_s: measured.duration_s, silent: listened.kind === "silence", energy_measured: before?.energy_measured });
   (entries.has(key.toLowerCase()) ? replaced : added).push(key);
   entries.set(key.toLowerCase(), { key: entries.get(key.toLowerCase())?.key ?? key, note: built });
 }
-for (const file of Object.keys(audio)) if (!(file in gemini) && !audio[file].error) skipped.measured_only.push(file);
+for (const file of Object.keys(audio)) {
+  if (file in gemini) continue;
+  (audio[file].error ? skipped.measure_failed : skipped.measured_only).push(file);
+}
 
 writeFileSync(notesFile, notesText(existing.about, entries.values()));
 
@@ -82,3 +98,12 @@ try {
 console.log(`${added.length} notes added, ${replaced.length} replaced, ${skipped.known.length} already had one -> ${notesFile}`);
 for (const [why, files] of Object.entries(skipped)) if (files.length && why !== "known") console.log(`skipped (${why.replace("_", " ")}): ${files.length}, e.g. ${files.slice(0, 3).join(", ")}`);
 if (added.length) console.log(`added: ${added.slice(0, 10).join(", ")}${added.length > 10 ? ", …" : ""}`);
+const left = Object.entries(skipped).filter(([why, files]) => why !== "known" && files.length).reduce((count, [, files]) => count + files.length, 0);
+if (!added.length && !replaced.length && (left > 0 || skipped.known.length === 0)) {
+  console.error(
+    left > 0
+      ? "Nothing was added: every file was left out (see above). If the two result files are from different Audio folders, their keys won't match: run both scripts on the same folder."
+      : "Nothing was added: the result files hold no files.",
+  );
+  process.exitCode = 1;
+}

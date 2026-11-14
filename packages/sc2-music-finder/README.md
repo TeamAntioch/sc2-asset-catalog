@@ -56,7 +56,9 @@ You need Xcode's Command Line Tools (`xcode-select --install`) and [cmake](https
 
 ```sh
 mkdir sc2music && cd sc2music
-git clone --depth 1 https://github.com/ladislav-zezula/CascLib.git casclib
+git init casclib
+git -C casclib fetch --depth 1 https://github.com/ladislav-zezula/CascLib.git 6b889ec8f421cbc9baccec296c582362ab917887
+git -C casclib checkout FETCH_HEAD
 cmake -S casclib -B casclib/build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCASC_BUILD_STATIC_LIB=ON -DCASC_BUILD_SHARED_LIB=OFF
 cmake --build casclib/build
 curl -LO https://raw.githubusercontent.com/TeamAntioch/sc2-asset-catalog/main/scripts/extract-music/cascx.cpp
@@ -76,7 +78,7 @@ The list ends with a count, `772 files`, and the extraction writes them under `a
 npx @team-antioch/sc2-music-finder --audio audio --open
 ```
 
-It says how many files it found ("Playing from your Audio folder: 767 files": five names are in the install twice, and the first of each is used). Tried with CascLib at commit `6b889ec` (2026-10-25) and the Battle.net app's StarCraft II, on an Apple silicon Mac. The CascLib build takes a few seconds, and the whole process less than a minute.
+It says how many files it found ("Playing from your Audio folder: 767 files": five names are in the install twice, and the first of each is used). Tried with CascLib at commit `6b889ec` (2026-10-25), the one the directions above check out (a newer CascLib may build differently) and the Battle.net app's StarCraft II, on an Apple silicon Mac. The CascLib build takes a few seconds, and the whole process less than a minute.
 
 ### Windows (not yet tried on Windows)
 

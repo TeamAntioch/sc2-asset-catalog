@@ -23,6 +23,13 @@ describe("an expected track", () => {
     expect(cardsFor("NoSuchFile", cards)).toEqual([]);
   });
 
+  it("counts a track no card plays as expected and never found, so the hit rate can't be inflated or an ask score 0 of 0", () => {
+    const tracks = [cardsFor("NoSuchFile", cards), cardsFor("HeroicVictory", cards)];
+    expect(tracks[0]).toEqual([]);
+    expect(trackHits(tracks, new Set(["HeroicVictory"]))).toEqual({ found: 1, of: 2 });
+    expect(trackHits([cardsFor("NoSuchFile", cards)], new Set(["HeroicVictory"]))).toEqual({ found: 0, of: 1 });
+  });
+
   it("counts as found when any card that plays it is among the candidates", () => {
     const tracks = [cardsFor("DualFile", cards), cardsFor("HeroicVictory", cards)];
     expect(trackHits(tracks, new Set(["Dual (Sound)"]))).toEqual({ found: 1, of: 2 });

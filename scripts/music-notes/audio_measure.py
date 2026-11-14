@@ -25,9 +25,14 @@ res = json.load(open(out)) if os.path.exists(out) else {}
 
 
 def decode(path):
-    p = subprocess.run(['ffmpeg', '-v', 'quiet', '-i', path, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'],
+    p = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'],
                        capture_output=True)
-    return np.frombuffer(p.stdout, dtype='<i2').astype(np.float32) / 32768.0
+    x = np.frombuffer(p.stdout, dtype='<i2').astype(np.float32) / 32768.0
+    # A file ffmpeg can't read gives no samples, not an error of ours: say so, so it isn't a 0 s file.
+    if x.size == 0:
+        tail = p.stderr.decode('utf-8', 'replace').strip().splitlines()[-1:] or ['no audio decoded']
+        raise RuntimeError('ffmpeg could not decode it: ' + tail[0])
+    return x
 
 
 def loudness(path):
@@ -110,7 +115,8 @@ for dp, dn, fn in os.walk(root):
 files.sort()
 for n, p in enumerate(files):
     key = os.path.relpath(p, root).lower().replace('\\', '/')
-    if key in res:
+    # A file that failed is tried again, as gemini_describe.py and essentia_tag.py do.
+    if key in res and 'error' not in res[key]:
         continue
     try:
         r = features(decode(p))

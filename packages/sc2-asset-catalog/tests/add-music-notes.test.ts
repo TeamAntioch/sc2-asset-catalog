@@ -81,11 +81,52 @@ describe("add-music-notes", () => {
     write("audio.json", { "a_failed.ogg": measured(5), "d_measured_only.ogg": measured(5), "c_ok.ogg": measured(5) });
     const said = run();
     expect(said).toContain("1 notes added");
-    expect(said).toContain("skipped (failed): 1");
+    expect(said).toContain("skipped (heard failed): 1");
     expect(said).toContain("skipped (heard only): 1");
     expect(said).toContain("skipped (measured only): 1");
     expect(Object.keys(notes())).toContain("c_ok");
     expect(Object.keys(notes())).not.toContain("b_heard_only");
+  });
+
+  it("keeps the existing note's energy_measured when it replaces the note", () => {
+    const file = JSON.parse(readFileSync(path.join(dir, "notes.json"), "utf8"));
+    file.notes.Zeta_Old.energy_measured = 4;
+    write("notes.json", file);
+    expect(notes().Zeta_Old?.energy_measured).toBe(4);
+    write("gemini.json", { "zeta_old.ogg": heard("The new words.") });
+    write("audio.json", { "zeta_old.ogg": measured(10) });
+    run("--replace");
+    expect(notes().Zeta_Old).toMatchObject({ description: "The new words.", energy_measured: 4 });
+  });
+
+  it("doesn't take a file of no length as a note, and counts it with the measurements that failed", () => {
+    write("gemini.json", { "empty.ogg": heard("Heard nothing."), "fine.ogg": heard("Fine.") });
+    write("audio.json", { "empty.ogg": measured(0), "fine.ogg": measured(5), "broken.ogg": { error: "ffmpeg could not decode it" } });
+    const said = run();
+    expect(said).toContain("1 notes added");
+    expect(said).toContain("skipped (measure failed): 2");
+    expect(Object.keys(notes())).not.toContain("empty");
+  });
+
+  it("exits 1 saying why when nothing was added because the two files came from different folders", () => {
+    write("gemini.json", { "a/one.ogg": heard("One.") });
+    write("audio.json", { "b/one.ogg": measured(5) });
+    let failure: { status?: number; stderr?: string; stdout?: string } | undefined;
+    try {
+      run();
+    } catch (error) {
+      failure = error as typeof failure;
+    }
+    expect(failure?.status).toBe(1);
+    expect(failure?.stderr).toMatch(/different Audio folders/);
+    expect(failure?.stdout).toContain("skipped (heard only): 1");
+    expect(failure?.stdout).toContain("skipped (measured only): 1");
+  });
+
+  it("exits 0 when every file already had a note", () => {
+    write("gemini.json", { "zeta_old.ogg": heard("Words.") });
+    write("audio.json", { "zeta_old.ogg": measured(10) });
+    expect(run()).toContain("0 notes added, 0 replaced, 1 already had one");
   });
 
   it("refuses two different files that share a base name", () => {
