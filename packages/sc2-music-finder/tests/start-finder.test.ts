@@ -297,6 +297,13 @@ describe("the CLI's arguments", () => {
     expect(parseFinderArgs(["--audio", path.resolve("/abs")], cwd).audio).toBe(path.resolve("/abs"));
   });
 
+  it("refuses an empty --port or --budget, which Number() would read as 0", () => {
+    for (const empty of ["", " "]) {
+      expect(() => parseFinderArgs(["--port", empty], cwd)).toThrow(/--port takes a port number/);
+      expect(() => parseFinderArgs(["--budget", empty], cwd)).toThrow(/--budget takes US dollars/);
+    }
+  });
+
   it("reads a command", () => {
     expect(parseFinderArgs(["extract"], cwd)).toMatchObject({ extract: true });
     expect(parseFinderArgs(["login"], cwd)).toMatchObject({ login: true });

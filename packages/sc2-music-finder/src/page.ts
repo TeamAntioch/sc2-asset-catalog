@@ -209,14 +209,21 @@ grid.addEventListener("click", (event) => {
   }
 });
 
+/** What the player does once the file it is loading has its length: the one start still waiting. */
+let waiting;
+
 /** Starts a file at a position in the one player. */
 function start(card, key, from) {
   playerBar.hidden = false;
   nowPlaying.textContent = key;
   const begin = () => { player.currentTime = from; player.play().catch(showError); };
+  // A file still loading when another is chosen mustn't start the old position on the new file.
+  if (waiting) player.removeEventListener("loadedmetadata", waiting);
+  waiting = undefined;
   if (playing.key === key && player.readyState >= 1) begin();
   else {
     playing = { key, card };
+    waiting = begin;
     player.addEventListener("loadedmetadata", begin, { once: true });
     player.src = "/audio/" + encodeURIComponent(key);
   }
@@ -251,7 +258,11 @@ async function setFilter(facet, value) {
 }
 const pinnedValue = (facet) => state.tags.find((tag) => tag.pinned && tag.facet === facet)?.value ?? "";
 /** A range's value from its two ends: 3, 2-4, 2- or -4; empty for none. */
-const rangeValue = (min, max) => (min && max ? (min === max ? min : min + "-" + max) : min ? min + "-" : max ? "-" + max : "");
+const rangeValue = (min, max) => {
+  // 4-2 is 2-4: the ends are swapped, not sent as a range nothing is in.
+  if (min && max && Number(min) > Number(max)) [min, max] = [max, min];
+  return min && max ? (min === max ? min : min + "-" + max) : min ? min + "-" : max ? "-" + max : "";
+};
 const rangeEnds = (value) => { const m = /^(\\d*(?:\\.\\d+)?)(-?)(\\d*(?:\\.\\d+)?)$/.exec(value); return !m ? ["", ""] : m[2] ? [m[1], m[3]] : [m[1], m[1]]; };
 
 for (const facet of ["energy", "tension", "valence", "length"]) {
@@ -264,13 +275,16 @@ for (const facet of ["kind", "faction"]) $("#" + facet).addEventListener("change
 $("#show").addEventListener("change", (event) => setFilter("show", event.target.checked ? "everything" : ""));
 $("#deps").addEventListener("change", () => setFilter("map has", [...document.querySelectorAll("#deps input:checked")].map((box) => box.value).join(", ")));
 
+/** Sets a filter's field from the page's state, unless it is being edited: a state event mustn't overwrite what is half typed. */
+const settle = (field, value) => { if (document.activeElement !== field) field.value = value; };
+
 function renderFilters() {
   for (const facet of ["energy", "tension", "valence", "length"]) {
     const [min, max] = rangeEnds(pinnedValue(facet));
-    $("#" + facet + "-min").value = min;
-    $("#" + facet + "-max").value = max;
+    settle($("#" + facet + "-min"), min);
+    settle($("#" + facet + "-max"), max);
   }
-  for (const facet of ["kind", "faction"]) $("#" + facet).value = pinnedValue(facet);
+  for (const facet of ["kind", "faction"]) settle($("#" + facet), pinnedValue(facet));
   $("#show").checked = pinnedValue("show") === "everything";
   const have = pinnedValue("map has").split(",").map((name) => name.trim()).filter(Boolean);
   for (const box of document.querySelectorAll("#deps input")) box.checked = have.includes(box.value);

@@ -1,13 +1,14 @@
 // The Audio folder (GLOSSARY.md): a folder of the game's music .ogg files that the user extracted
 // from their own install and gave `--audio`. The Finder indexes it once, by each file's base name
 // (lower case, whatever folder it is in), and serves a file to the page only from that index: a
-// request names a key, never a path, so nothing outside the folder can be asked for. The audio is
+// request names a key, never a path, so nothing the index doesn't hold can be asked for (a symbolic link inside the folder to a file elsewhere is held). The audio is
 // Blizzard's and never ships with the package.
 
 import { createReadStream } from "node:fs";
 import { readdir, stat } from "node:fs/promises";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import path from "node:path";
+import { pipeline } from "node:stream";
 
 import { musicFileKey } from "@team-antioch/sc2-asset-catalog/catalog/music-notes.js";
 import { HttpError } from "@team-antioch/sc2-finder-kit/server.js";
@@ -46,11 +47,17 @@ export async function indexAudioFolder(folder: string): Promise<AudioIndex> {
   return { folder: resolved, files, duplicates: [...duplicates].sort() };
 }
 
-/** A single `Range: bytes=` header's span of a file of `size` bytes: the whole file when there is none, undefined when it can't be met. */
+/**
+ * A `Range: bytes=` header's span of a file of `size` bytes, as RFC 9110 has it: the whole file when
+ * there is no header or the player's isn't one this takes (another unit, several ranges, a spec that
+ * is invalid, such as 20-10), and undefined, a 416, only for a well-formed single range the file
+ * can't meet (it starts at or past the end, or asks for the last 0 bytes).
+ */
 export function byteRange(header: string | undefined, size: number): { readonly start: number; readonly end: number; readonly partial: boolean } | undefined {
-  if (header === undefined) return { start: 0, end: size - 1, partial: false };
+  const whole = { start: 0, end: size - 1, partial: false };
+  if (header === undefined) return whole;
   const match = /^bytes=(\d*)-(\d*)$/.exec(header.trim());
-  if (!match || (match[1] === "" && match[2] === "")) return undefined;
+  if (!match || (match[1] === "" && match[2] === "")) return whole;
   let start: number;
   let end: number;
   if (match[1] === "") {
@@ -63,7 +70,9 @@ export function byteRange(header: string | undefined, size: number): { readonly 
     start = Number(match[1]);
     end = match[2] === "" ? size - 1 : Math.min(Number(match[2]), size - 1);
   }
-  if (!(start <= end) || start >= size) return undefined;
+  // Last before first is an invalid spec, which is ignored; a start at or past the end is the one that can't be met.
+  if (match[1] !== "" && match[2] !== "" && Number(match[2]) < start) return whole;
+  if (start >= size) return undefined;
   return { start, end, partial: true };
 }
 
@@ -103,7 +112,8 @@ export async function serveAudio(index: AudioIndex | undefined, url: URL, reques
     ...(range.partial ? { "content-range": `bytes ${range.start}-${range.end}/${size}` } : {}),
   });
   // A file removed between the stat and the read ends the answer early, not the process.
-  createReadStream(file, { start: range.start, end: range.end })
-    .on("error", () => response.destroy())
-    .pipe(response);
+  // pipeline, not pipe: when the player hangs up or the file goes, the file is closed too, and an aborted range request leaks no descriptor.
+  pipeline(createReadStream(file, { start: range.start, end: range.end }), response, (error) => {
+    if (error) response.destroy();
+  });
 }

@@ -46,6 +46,9 @@ export function finderArgs(
   cwd: string,
   usage = USAGE,
 ): FinderArgs {
+  // Number("") is 0 and Number(" ") too: an empty value is no number.
+  if (values.port !== undefined && !values.port.trim()) throw new Error(`--port takes a port number\n${usage}`);
+  if (values.budget !== undefined && !values.budget.trim()) throw new Error(`--budget takes US dollars, 0 or more\n${usage}`);
   const port = Number(values.port ?? MUSIC_FINDER_PORT);
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error(`--port takes a port number\n${usage}`);
   const budget = values.budget === undefined ? undefined : Number(values.budget);
