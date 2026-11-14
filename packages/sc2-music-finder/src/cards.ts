@@ -59,10 +59,22 @@ const wordCount = (text: string): number => text.split(/\s+/).filter(Boolean).le
 /** About 90 words: a card stops adding moods and uses past this. */
 const MAX_WORDS = 90;
 
-/** A card's text: its name line, then the description, mood and style, what it suits and its ratings, each when it has one. */
-export function cardText(entry: MusicEntry, pieces: readonly MusicPiece[], layer?: MusicLayerFields): string {
+/** What a card's first line says after its name: the kind of id, its role and the kinds of its files (`a Soundtrack, cutscene, full cue`). */
+const kindLine = (entry: MusicEntry): string => `${entry.kind === "Sound" ? "a Sound" : "a Soundtrack"}, ${entry.role}${entry.kinds.length ? `, ${entry.kinds.join(" / ")}` : ""}`;
+
+/**
+ * A card's text and what the embeddings model reads of it, made together. The text is a name line
+ * (the id, its words and the kind line), then the description, mood and style, what it suits and its
+ * ratings, each when it has one, then a layer's text. The embedded text is the same with the name
+ * line cut to the kind line: the id's words drown the meaning in the vector, while the keyword search
+ * and the ranker still read them (research: docs/research/music-embeddings). A layer's text stays in
+ * both: it is what a wrapper knows of the track (an album, a composer), not the id's own words.
+ */
+export function cardTexts(entry: MusicEntry, pieces: readonly MusicPiece[], layer?: MusicLayerFields): { readonly text: string; readonly embedText: string } {
   const notes = pieces.flatMap(({ note }) => (note ? [note] : []));
-  const lines = [`${entry.id} (${musicIdWords(entry.id).join(" ")}): ${entry.kind === "Sound" ? "a Sound" : "a Soundtrack"}, ${entry.role}${entry.kinds.length ? `, ${entry.kinds.join(" / ")}` : ""}`];
+  const kind = kindLine(entry);
+  const nameLine = `${entry.id} (${musicIdWords(entry.id).join(" ")}): ${kind}`;
+  const lines: string[] = [];
   const descriptions = [...new Set(notes.map((note) => note.description))].slice(0, 2);
   if (descriptions.length) lines.push(descriptions.join(" "));
   const moods = [...new Set(notes.flatMap((note) => note.mood))].slice(0, 8);
@@ -70,7 +82,8 @@ export function cardText(entry: MusicEntry, pieces: readonly MusicPiece[], layer
   const factions = factionsOf(notes);
   const feel = [moods.length ? `mood: ${moods.join(", ")}` : "", style.length ? `style: ${style.join("; ")}` : "", factions.length ? `faction: ${factions.join(", ")}` : ""].filter(Boolean).join("; ");
   if (feel) lines.push(feel);
-  let budget = MAX_WORDS - wordCount(lines.join(" "));
+  // The name line is part of the budget, as it is part of the text the ranker reads.
+  let budget = MAX_WORDS - wordCount(nameLine) - wordCount(lines.join(" "));
   const uses: string[] = [];
   for (const use of [...new Set(notes.flatMap((note) => note.use_for))]) {
     const cost = wordCount(use);
@@ -87,18 +100,11 @@ export function cardText(entry: MusicEntry, pieces: readonly MusicPiece[], layer
   ].filter(Boolean);
   if (ratings.length) lines.push(`${ratings.join(", ")} (of 5)`);
   if (layer?.text) lines.push(layer.text);
-  return lines.join("\n");
+  return { text: [nameLine, ...lines].join("\n"), embedText: [kind, ...lines].join("\n") };
 }
 
-/**
- * What the embeddings model embeds: the card's text with its name line cut to the kind (`a Soundtrack,
- * cutscene`). The id's words drown the meaning in the vector, while the keyword search and the ranker
- * still read them (research: docs/research/music-embeddings).
- */
-export function embedText(text: string): string {
-  const [name = "", ...rest] = text.split("\n");
-  return [name.slice(name.indexOf("): ") + 3), ...rest].join("\n");
-}
+/** A card's text: its name line, then what its notes say (see cardTexts). */
+export const cardText = (entry: MusicEntry, pieces: readonly MusicPiece[], layer?: MusicLayerFields): string => cardTexts(entry, pieces, layer).text;
 
 /** The card for every id the catalog holds, silent, unplayable and map-local ones too: the page's toggle shows or hides them. */
 export function musicCards({ catalog, notes }: MusicSources, layerOf?: MusicLayer): MusicCard[] {
@@ -113,12 +119,12 @@ export function musicCards({ catalog, notes }: MusicSources, layerOf?: MusicLaye
       pieces.push({ key, name: musicFileName(asset), ...(note ? { note } : {}) });
     }
     const layer = layerOf?.(entry);
-    const text = cardText(entry, pieces, layer);
+    const { text, embedText } = cardTexts(entry, pieces, layer);
     return {
       id: cardIdOf(entry, catalog),
       name: entry.id,
       text,
-      embedText: embedText(text),
+      embedText,
       entry,
       pieces,
       factions: factionsOf(pieces.flatMap(({ note }) => (note ? [note] : []))),

@@ -1,5 +1,5 @@
 // A finder's vectors of its cards (docs/adr/0001), and their cache: a git-ignored file keyed by
-// a hash of each card's text, so a start embeds only the cards whose text changed. The vectors are
+// a hash of the text each card is embedded as (`embeddedText`), so a start embeds only the cards whose embedded text changed. The vectors are
 // tied to one model, and are only a copy of committed text: deleting the file costs a cold start.
 //
 // The file is a 4-byte header length, a JSON header ({ model, dimensions, hashes }), then each
@@ -9,7 +9,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import type { FinderCard } from "./card.ts";
+import { embeddedText, type FinderCard } from "./card.ts";
 import type { Embedder } from "./embedder.ts";
 
 export type Neighbour = { readonly id: string; readonly similarity: number };
@@ -56,7 +56,7 @@ async function writeCache(file: string, model: string, vectors: ReadonlyMap<stri
 }
 
 export class EmbeddingIndex {
-  /** By card text's hash: every vector the cache holds that a card still uses. */
+  /** By the hash of the text a card is embedded as (`embeddedText`): every vector the cache holds that a card still uses. */
   #vectors: Map<string, Float32Array>;
   /** The last update's cards' nearest. */
   #nearest: Nearest = () => [];
@@ -76,12 +76,13 @@ export class EmbeddingIndex {
   }
 
   /**
-   * Takes these cards as the whole set: embeds the ones whose text it has no vector for, forgets the
+   * Takes these cards as the whole set: embeds the ones whose embedded text (`embeddedText`:
+   * `embedText`, else `text`) it has no vector for, forgets the
    * rest, and saves the cache when it changed. Gives these cards' own nearest, which later updates
    * leave as it is, so a caller can swap it in with the cards it was made for.
    */
   async update(cards: readonly FinderCard[]): Promise<{ embedded: number; nearest: Nearest }> {
-    const texts = cards.map((card) => card.embedText ?? card.text);
+    const texts = cards.map((card) => embeddedText(card));
     const hashes = texts.map(textHash);
     const missing = new Map<string, string>();
     hashes.forEach((hash, i) => {
