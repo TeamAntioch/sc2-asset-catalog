@@ -43,6 +43,16 @@ Both Python scripts resume where they stopped, and `gemini_describe.py` retries 
 
 Read what Gemini wrote before you open the pull request. It is a model's hearing and is sometimes wrong, and a note never names a map, a campaign, a character or a story.
 
+## Check the notes for names that must not ship
+
+Gemini describes what it hears, but a note can still name something it shouldn't (a campaign's mission, character or place, from a file name or a guess). Keep those names in a file of your own, outside the repo, one a line (blank lines and `#` comments are skipped), and run, from the repo root after `npm run build`:
+
+```sh
+MUSIC_NOTES_DENYLIST=~/my-names.txt npm run check-music-notes
+```
+
+It lists each note that names one as a whole word, in any case, and exits 1. Without the variable it does nothing. The names themselves never go in the repo.
+
 ## A note's `energy_measured`
 
 The notes shipped with the package have an `energy_measured`, a 1-5 score of loudness, onset density and brightness made over all the game's files at once. It can't be made for a few files, so new notes have none (the field is optional), and everything else about them is the same.

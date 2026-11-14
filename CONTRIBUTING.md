@@ -60,7 +60,7 @@ Add to the end of a doodad's list, or start its file if it has none. A use that 
 
 For a file a game patch added, which has an id but no note, make one from your own copy of the audio: [`scripts/music-notes/`](scripts/music-notes) measures it, has Gemini listen to it and adds the note. Sending the audio to Gemini needs your own billed API key, and the guide says why.
 
-The one rule applies here as everywhere: a note describes what the music sounds like and what it suits, in general words. It never names a campaign, a map, a mission, a character or a story. "Tense build under a villain's reveal" is fine; the villain's name isn't.
+The one rule applies here as everywhere: a note describes what the music sounds like and what it suits, in general words. It never names a campaign, a map, a mission, a character or a story. "Tense build under a villain's reveal" is fine; the villain's name isn't. The tests can't know your campaign's names, so check your own: put them, one a line, in a file kept outside the repo and run `MUSIC_NOTES_DENYLIST=<that file> npm run check-music-notes` (after `npm run build`), which fails if any note names one as a whole word, in any case. With the variable set, `npm test` checks it too; without it, both do nothing.
 
 Music Uses (what a track has worked as, as Doodad Uses are for doodads) aren't taken yet.
 
