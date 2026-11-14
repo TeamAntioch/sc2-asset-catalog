@@ -7,6 +7,8 @@ export type FinderCard = {
   readonly name: string;
   /** The card's text: what the embeddings model embeds and what the ranker reads. */
   readonly text: string;
+  /** What the embeddings model embeds when that differs from `text`; absent, it embeds `text`. */
+  readonly embedText?: string;
   /** The map dependency it needs, absent when the default brings it in. */
   readonly dependency?: string;
   /** For a map's dependencies: whether its dependencies already bring it in. */

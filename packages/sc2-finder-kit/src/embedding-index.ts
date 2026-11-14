@@ -81,10 +81,11 @@ export class EmbeddingIndex {
    * leave as it is, so a caller can swap it in with the cards it was made for.
    */
   async update(cards: readonly FinderCard[]): Promise<{ embedded: number; nearest: Nearest }> {
-    const hashes = cards.map((card) => textHash(card.text));
+    const texts = cards.map((card) => card.embedText ?? card.text);
+    const hashes = texts.map(textHash);
     const missing = new Map<string, string>();
     hashes.forEach((hash, i) => {
-      if (!this.#vectors.has(hash)) missing.set(hash, cards[i]!.text);
+      if (!this.#vectors.has(hash)) missing.set(hash, texts[i]!);
     });
     const vectors = new Map<string, Float32Array>();
     if (missing.size) {

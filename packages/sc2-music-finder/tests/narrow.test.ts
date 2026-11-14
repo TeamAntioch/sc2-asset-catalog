@@ -27,6 +27,15 @@ describe("cards", () => {
     expect(text).toContain("energy 3, tension 4, valence 2, length 1:30 (of 5)");
   });
 
+  it("embeds a card's text without the id's own words, which the keyword search keeps and the ranker reads", () => {
+    const { text, embedText } = card("TenseApproach");
+    expect(text).toContain("TenseApproach (tense approach)");
+    expect(embedText).not.toMatch(/TenseApproach|tense approach/i);
+    expect(embedText?.split("\n")[0]).toBe("a Soundtrack, cutscene, full cue");
+    expect(embedText).toContain("A tense, slow build");
+    expect(embedText).toContain("energy 3, tension 4, valence 2, length 1:30 (of 5)");
+  });
+
   it("adds a layer's text to the card, and keeps its facts for the page", () => {
     const layered = musicCards(SOURCES, (entry) => (entry.id === "TenseApproach" ? { text: "album: Nowhere", facts: [{ label: "Album", value: "Nowhere" }] } : undefined)).find(({ id }) => id === "TenseApproach")!;
     expect(layered.text).toContain("album: Nowhere");
