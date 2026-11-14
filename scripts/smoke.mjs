@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-// The clean-folder smoke test: packs the three packages, installs the tarballs in an empty folder with no
+// The clean-folder smoke test: packs the four packages, installs the tarballs in an empty folder with no
 // sibling repos and no TypeSafe key, checks `npx sc2-doodad-finder --help` and `logout`, and that
 // `npx sc2-asset-catalog render` asks for setup-renderer (macOS) or refuses (elsewhere). Then it
 // starts the Finder with an empty cache folder. Its first start extracts the catalog from SC2GameData and downloads
 // the embeddings model; the test waits for the page, then asks for a doodad and checks the cards.
+// Then it does the same with the Music Finder, which extracts the music ids into the same cache
+// folder, and checks that it serves a file from an Audio folder and nothing outside it.
 // No Jev calls: TYPESAFE_API_KEY is removed from the Finder's environment, and its config folder is
 // a new empty one, so no key file a developer saved with `login` is found.
 //
@@ -37,7 +39,7 @@ const run = (command, args, cwd) => execFileSync(command, args, { cwd, stdio: ["
 
 let finder;
 try {
-  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-finder-kit", "@team-antioch/sc2-doodad-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
+  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-finder-kit", "@team-antioch/sc2-doodad-finder", "@team-antioch/sc2-music-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
   const tarballs = (await readdir(packs)).filter((file) => file.endsWith(".tgz")).map((file) => path.join(packs, file));
   console.log(`Packed ${tarballs.map((file) => path.basename(file)).join(", ")}`);
   await writeFile(path.join(app, "package.json"), `${JSON.stringify({ name: "smoke", private: true, type: "module" })}\n`);
@@ -112,10 +114,73 @@ try {
   const ids = narrowed.cards.map((card) => card.id);
   console.log(`"stack of supply crates" gave ${ids.length} cards, first ${ids.slice(0, 5).join(", ")}`);
   if (!narrowed.cards.some((card) => /raw\.githubusercontent\.com\/TeamAntioch\/sc2-mapping-reference/.test(card.html))) throw new Error("No card links a gallery picture");
+  finder.kill();
+
+  // The Music Finder, in the same cache folder: its first start extracts the music ids (the model is there already), with an Audio folder of one made-up file.
+  const musicBin = path.join(app, "node_modules", "@team-antioch", "sc2-music-finder", "bin", "sc2-music-finder.js");
+  const musicHelp = execFileSync("npx", ["--no-install", "sc2-music-finder", "--help"], { cwd: app, env, encoding: "utf8", shell: win });
+  if (!musicHelp.includes("Usage: sc2-music-finder")) throw new Error(`npx sc2-music-finder --help printed: ${musicHelp}`);
+  console.log("npx sc2-music-finder --help works");
+  const audio = path.join(work, "audio", "Assets", "Music");
+  await mkdir(audio, { recursive: true });
+  await writeFile(path.join(audio, "Smoke.ogg"), Buffer.alloc(64, 1));
+  await writeFile(path.join(work, "outside.ogg"), "not in the Audio folder");
+  const musicStarted = Date.now();
+  finder = spawn(process.execPath, [musicBin, "--port", "0", "--audio", path.join(work, "audio")], { cwd: app, env, stdio: ["ignore", "pipe", "pipe"] });
+  let musicOutput = "";
+  const musicUrl = await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`The Music Finder didn't start in ${START_TIMEOUT_MS / 1000} s:\n${musicOutput}`)), START_TIMEOUT_MS);
+    const read = (chunk) => {
+      process.stdout.write(chunk);
+      musicOutput += chunk;
+      const found = /The Music Finder is at (http:\/\/127\.0\.0\.1:\d+\/)/.exec(musicOutput);
+      if (found) {
+        clearTimeout(timer);
+        resolve(found[1]);
+      }
+    };
+    finder.stdout.setEncoding("utf8").on("data", read);
+    finder.stderr.setEncoding("utf8").on("data", read);
+    finder.on("exit", (code) => reject(new Error(`The Music Finder exited with ${code} before it started:\n${musicOutput}`)));
+  });
+  console.log(`Music Finder started in ${Math.round((Date.now() - musicStarted) / 1000)} s at ${musicUrl}`);
+  const musicCards = Number(/^(\d+) cards/m.exec(musicOutput)?.[1]);
+  if (!(musicCards > 1000)) throw new Error(`Expected over 1000 music cards, got ${musicCards}`);
+  if (!/Not ranking: no TypeSafe key/.test(musicOutput)) throw new Error("Expected the Music Finder to say it isn't ranking without a key");
+  if (!existsSync(path.join(cache, "extracted", "music-extracted.json"))) throw new Error(`No music extraction in ${cache}`);
+  const musicStatus = await (await fetch(new URL("/status", musicUrl))).json();
+  if (musicStatus.finder !== "music-finder") throw new Error(`/status said ${JSON.stringify(musicStatus)}`);
+  const facets = await (await fetch(new URL("/facets", musicUrl))).json();
+  if (!facets.kinds?.includes("full cue") || !facets.audio?.on || facets.audio.files !== 1) throw new Error(`/facets said ${JSON.stringify(facets)}`);
+  const played = await fetch(new URL("/audio/smoke", musicUrl), { headers: { range: "bytes=0-9" } });
+  if (played.status !== 206 || (await played.arrayBuffer()).byteLength !== 10) throw new Error(`/audio/smoke answered ${played.status}`);
+  for (const outside of ["/audio/outside", "/audio/..%2Foutside.ogg", "/audio/%2e%2e%2foutside"]) {
+    const refused = await fetch(new URL(outside, musicUrl));
+    if (refused.status !== 404) throw new Error(`${outside} answered ${refused.status}`);
+  }
+  const musicController = new AbortController();
+  const musicEvents = await fetch(new URL("/events", musicUrl), { signal: musicController.signal });
+  const musicReader = musicEvents.body.pipeThrough(new TextDecoderStream()).getReader();
+  const musicAsked = await fetch(new URL("/ask", musicUrl), { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: "tense build under an alien approach", mode: "enter" }) });
+  if (!musicAsked.ok) throw new Error(`/ask answered ${musicAsked.status}`);
+  let musicBuffer = "";
+  let musicNarrowed;
+  const musicDeadline = Date.now() + 30_000;
+  while (!musicNarrowed && Date.now() < musicDeadline) {
+    const { value, done } = await musicReader.read();
+    if (done) break;
+    musicBuffer += value;
+    for (const block of musicBuffer.split("\n\n").slice(0, -1)) if (/^event: narrowed$/m.test(block)) musicNarrowed = JSON.parse(/^data: (.*)$/m.exec(block)[1]);
+  }
+  musicController.abort();
+  if (!musicNarrowed?.cards?.length) throw new Error("The music ask gave no cards");
+  console.log(`"tense build under an alien approach" gave ${musicNarrowed.cards.length} cards, first ${musicNarrowed.cards.slice(0, 5).map((card) => card.id).join(", ")}`);
+  if (!musicNarrowed.cards.some((card) => /class="desc"/.test(card.html) && !/no listening notes/.test(card.html))) throw new Error("No card shows listening notes");
   console.log("Smoke test passed");
 } finally {
   finder?.kill();
   await rm(path.join(work, "app"), { recursive: true, force: true, maxRetries: 5 }).catch(() => {});
   await rm(packs, { recursive: true, force: true }).catch(() => {});
   await rm(path.join(work, "config"), { recursive: true, force: true }).catch(() => {});
+  await rm(path.join(work, "audio"), { recursive: true, force: true }).catch(() => {});
 }

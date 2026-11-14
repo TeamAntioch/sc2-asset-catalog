@@ -6,7 +6,8 @@
     [
       "@team-antioch/sc2-asset-catalog",
       "@team-antioch/sc2-finder-kit",
-      "@team-antioch/sc2-doodad-finder"
+      "@team-antioch/sc2-doodad-finder",
+      "@team-antioch/sc2-music-finder"
     ]
   ],
   "linked": [],

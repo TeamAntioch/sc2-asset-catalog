@@ -9,8 +9,7 @@ import type { DoodadPicture } from "./doodad-search.js";
 /** Text made safe for HTML. */
 export const escapeHtml = (text: string): string => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-/** A dependency's name, as `bnet:Void (Campaign)/0.0/999,file:…` gives it; a note for an unknown one as it is. */
-export const dependencyName = (dependency: string): string => /^bnet:([^/]+)\//.exec(dependency)?.[1] ?? dependency;
+export { dependencyName } from "./doodad-dependencies.js";
 
 /**
  * A card's picture, zoomable on a page with ZOOM_SCRIPT: a sheet by its file URL, or by `sheetSrc`
