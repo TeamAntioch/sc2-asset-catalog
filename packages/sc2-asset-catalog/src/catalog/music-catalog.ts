@@ -196,7 +196,10 @@ export type MusicMatch = {
 };
 
 const FACTION_FEEL = { terran: "frontier", protoss: "ancient", zerg: "swarm" } as const;
-const STOP_WORDS = new Set(["a", "an", "and", "are", "as", "at", "by", "for", "from", "in", "into", "is", "it", "its", "of", "on", "over", "some", "that", "the", "then", "this", "through", "to", "under", "very", "with"]);
+/** English function words: they say nothing about a scene. Words that are only common in the catalog (builds, sounds) are not listed here: their document frequency lowers their weight. */
+const STOP_WORDS = new Set(
+  "a an and are as at be been but by can could did do does each for from had has have he her him his how i if in into is it its just of on or our over she so some such than that the their them then there these they this through to under was we were what when where which while who will with would you your".split(" "),
+);
 
 const SUFFIXES = ["ions", "ion", "ings", "ing", "edly", "ed", "ly", "es", "e", "s"];
 
@@ -239,15 +242,42 @@ function buildTextGroups(entry: MusicEntry): TextGroups {
   ];
 }
 
+type DocumentFrequencies = { readonly entries: number; readonly counts: ReadonlyMap<string, number> };
+
+/** How many entries' text holds each stem, counted once per catalog: a word that most entries say tells little about which one a scene needs. */
+const frequenciesCache = new WeakMap<MusicCatalog, DocumentFrequencies>();
+
+function documentFrequencies(catalog: MusicCatalog): DocumentFrequencies {
+  const cached = frequenciesCache.get(catalog);
+  if (cached) return cached;
+  const counts = new Map<string, number>();
+  for (const entry of catalog.entries) {
+    const held = new Set<string>();
+    for (const [, stems] of textGroups(entry)) for (const stem of stems) held.add(stem);
+    for (const stem of held) counts.set(stem, (counts.get(stem) ?? 0) + 1);
+  }
+  const frequencies = { entries: catalog.entries.length, counts };
+  frequenciesCache.set(catalog, frequencies);
+  return frequencies;
+}
+
+/** What a word's match is worth by how few entries say it: about 0.7 for a word every entry says, 3.7 for one in 3% of them. */
+const rarity = ({ entries, counts }: DocumentFrequencies, stem: string): number => Math.log(1 + entries / (counts.get(stem) ?? 1));
+
 /**
  * The entries that fit a query, best first. A word counts by the best text it appears in (a mood
  * or a use beats a description beats an id word beats the arc), and an entry needs at least one
- * word to match when the query has words. An entry with no notes can match only by the words of
- * its id and its role, and a rating or length filter leaves it out (nothing is known of it).
- * Equal scores keep id order.
+ * word to match when the query has words. A word counts for more the fewer entries say it
+ * (inverse document frequency, over every entry, once per catalog): "alarm" in a few entries
+ * outweighs "builds" in half of them, so an entry that matches the rare word isn't buried under
+ * ones that match several common words. Function words (STOP_WORDS) count for nothing. An entry
+ * with no notes can match only by the words of its id and its role, and a rating or length filter
+ * leaves it out (nothing is known of it). Equal scores keep id order.
  */
 export function searchMusic(catalog: MusicCatalog, query: MusicQuery = {}): MusicMatch[] {
   const words = [...new Set(wordsOf(query.words ?? "").filter((word) => !STOP_WORDS.has(word)))];
+  const frequencies = words.length ? documentFrequencies(catalog) : undefined;
+  const worth = new Map(words.map((word) => [word, frequencies ? rarity(frequencies, stem(word)) : 1]));
   const wanted = query.dependencies;
   const matches: MusicMatch[] = [];
   for (const entry of catalog.entries) {
@@ -267,7 +297,7 @@ export function searchMusic(catalog: MusicCatalog, query: MusicQuery = {}): Musi
       for (const word of words) {
         const best = Math.max(0, ...groups.map(([weight, stems]) => (stems.has(stem(word)) ? weight : 0)));
         if (best > 0) {
-          score += best;
+          score += best * (worth.get(word) ?? 1);
           matched.push(word);
         }
       }

@@ -193,6 +193,44 @@ describe("searching", () => {
   });
 });
 
+describe("weighing the words of an ask", () => {
+  // Six entries say "builds" and "sounds" in their uses; one says "alarm". Everything else about them is the same.
+  const plain = (over: Partial<MusicNote> = {}) => note({ description: "Plain.", arc: "flat", mood: ["calm"], use_for: [], ...over });
+  const generic = ["Cue_A", "Cue_B", "Cue_C", "Cue_D", "Cue_E", "Cue_F"];
+  const weighed = joinMusicCatalog(
+    [...generic.map((id) => record(id, [id])), record("Siren_Cue", ["Siren_Cue"])],
+    new Map<string, MusicNote>([...generic.map((id) => [id.toLowerCase(), plain({ use_for: ["a wave that builds", "scene sounds"] })] as const), ["siren_cue", plain({ use_for: ["an alarm"] })]]),
+  );
+
+  it("counts a word more the fewer entries say it, so one rare word beats two common ones", () => {
+    const found = searchMusic(weighed, { words: "alarm builds sounds" });
+    expect(found[0]?.entry.id).toBe("Siren_Cue");
+    expect(found[0]?.matched).toEqual(["alarm"]);
+    // The common words still find what they find, below the rare word's match.
+    expect(found.slice(1).map((match) => match.matched)).toEqual(generic.map(() => ["builds", "sounds"]));
+  });
+
+  it("counts the document frequencies once per catalog, not once per search", () => {
+    let reads = 0;
+    const counted = { ...weighed, entries: new Proxy(weighed.entries, { get: (target, key, receiver) => (key === Symbol.iterator && ++reads, Reflect.get(target, key, receiver)) }) };
+    searchMusic(counted, { words: "alarm" });
+    expect(reads).toBe(2); // the frequencies, then the search
+    searchMusic(counted, { words: "builds" });
+    searchMusic(counted, { words: "alarm sounds" });
+    expect(reads).toBe(4); // one read per search after that
+  });
+
+  it("ignores function words", () => {
+    expect(searchMusic(weighed, { words: "when she was at the alarm" })[0]?.matched).toEqual(["alarm"]);
+    expect(searchMusic(weighed, { words: "when she was at the alarm" })).toHaveLength(1);
+  });
+
+  it("keeps the catalog's order (the extractor lists ids in id order) among equal scores", () => {
+    const tied = joinMusicCatalog([record("Alpha_Cue", ["Alpha_Cue"]), record("Mid_Cue", ["Mid_Cue"]), record("Zed_Cue", ["Zed_Cue"])], new Map<string, MusicNote>(["zed_cue", "alpha_cue", "mid_cue"].map((id) => [id, plain({ use_for: ["an alarm"] })] as const)));
+    expect(searchMusic(tied, { words: "alarm" }).map((match) => match.entry.id)).toEqual(["Alpha_Cue", "Mid_Cue", "Zed_Cue"]);
+  });
+});
+
 describe("reading the extracted music", () => {
   it("joins the extracted file to the shipped notes", async () => {
     dir = await mkdtemp(path.join(tmpdir(), "music-catalog-"));
