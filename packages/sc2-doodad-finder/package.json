@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-doodad-finder",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Ask for StarCraft II doodads in plain words and see ranked cards at once: a local page that narrows with a keyword search and a local embeddings model, then ranks with Jev.",
   "keywords": [
     "starcraft",
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",
-    "@team-antioch/sc2-asset-catalog": "0.1.2",
+    "@team-antioch/sc2-asset-catalog": "0.1.3",
     "@typesafe-ai/sdk": "^0.7.0",
     "zod": "^4.0.0"
   }
