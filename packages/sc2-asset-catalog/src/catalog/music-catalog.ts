@@ -218,27 +218,32 @@ const WEIGHTS = { mood: 3, useFor: 3, kind: 2, idWord: 2, style: 1.5, descriptio
 
 type TextGroups = ReadonlyArray<readonly [weight: number, stems: Set<string>]>;
 
-/** An entry's stemmed text never changes, so each entry's groups are built once, not once per query. */
-const groupsCache = new WeakMap<MusicEntry, TextGroups>();
+/**
+ * An entry's stemmed text never changes, so it is built once, not once per query: one set of groups
+ * for each file the entry has notes for, since an id that plays many files fits an ask as well as
+ * its best file does. Taken together, the words of fifty files would match nearly every ask. An entry
+ * with no notes has one set, from its id and role.
+ */
+const groupsCache = new WeakMap<MusicEntry, readonly TextGroups[]>();
 
-function textGroups(entry: MusicEntry): TextGroups {
+function fileGroups(entry: MusicEntry): readonly TextGroups[] {
   const cached = groupsCache.get(entry);
   if (cached) return cached;
-  const groups = buildTextGroups(entry);
+  const groups = entry.notes.length ? entry.notes.map((note) => buildTextGroups(entry, note)) : [buildTextGroups(entry, undefined)];
   groupsCache.set(entry, groups);
   return groups;
 }
 
-function buildTextGroups(entry: MusicEntry): TextGroups {
+function buildTextGroups(entry: MusicEntry, note: MusicNote | undefined): TextGroups {
   const stems = (texts: readonly (string | undefined)[]): Set<string> => new Set(texts.flatMap((text) => wordsOf(text ?? "")).map(stem));
   return [
-    [WEIGHTS.mood, stems(entry.notes.flatMap((note) => note.mood))],
-    [WEIGHTS.useFor, stems(entry.notes.flatMap((note) => note.use_for))],
-    [WEIGHTS.kind, stems([...entry.kinds, entry.role])],
+    [WEIGHTS.mood, stems(note?.mood ?? [])],
+    [WEIGHTS.useFor, stems(note?.use_for ?? [])],
+    [WEIGHTS.kind, stems([note?.kind, entry.role])],
     [WEIGHTS.idWord, stems(entry.idWords)],
-    [WEIGHTS.style, stems(entry.notes.flatMap((note) => [note.style, note.faction_feel, note.vocals, ...note.instrumentation]))],
-    [WEIGHTS.description, stems(entry.notes.map((note) => note.description))],
-    [WEIGHTS.other, stems(entry.notes.flatMap((note) => [note.arc, note.pulse, ...note.sections.map((section) => section.description)]))],
+    [WEIGHTS.style, stems(note ? [note.style, note.faction_feel, note.vocals, ...note.instrumentation] : [])],
+    [WEIGHTS.description, stems([note?.description])],
+    [WEIGHTS.other, stems(note ? [note.arc, note.pulse, ...note.sections.map((section) => section.description)] : [])],
   ];
 }
 
@@ -253,7 +258,7 @@ function documentFrequencies(catalog: MusicCatalog): DocumentFrequencies {
   const counts = new Map<string, number>();
   for (const entry of catalog.entries) {
     const held = new Set<string>();
-    for (const [, stems] of textGroups(entry)) for (const stem of stems) held.add(stem);
+    for (const groups of fileGroups(entry)) for (const [, stems] of groups) for (const stem of stems) held.add(stem);
     for (const stem of held) counts.set(stem, (counts.get(stem) ?? 0) + 1);
   }
   const frequencies = { entries: catalog.entries.length, counts };
@@ -267,7 +272,8 @@ const rarity = ({ entries, counts }: DocumentFrequencies, stem: string): number 
 /**
  * The entries that fit a query, best first. A word counts by the best text it appears in (a mood
  * or a use beats a description beats an id word beats the arc), and an entry needs at least one
- * word to match when the query has words. A word counts for more the fewer entries say it
+ * word to match when the query has words. An id that plays several files is scored as its best
+ * file is, not by all their words together, so a pool of fifty files doesn't match every ask. A word counts for more the fewer entries say it
  * (inverse document frequency, over every entry, once per catalog): "alarm" in a few entries
  * outweighs "builds" in half of them, so an entry that matches the rare word isn't buried under
  * ones that match several common words. Function words (STOP_WORDS) count for nothing. An entry
@@ -293,12 +299,20 @@ export function searchMusic(catalog: MusicCatalog, query: MusicQuery = {}): Musi
     let score = 0;
     const matched: string[] = [];
     if (words.length) {
-      const groups = textGroups(entry);
-      for (const word of words) {
-        const best = Math.max(0, ...groups.map(([weight, stems]) => (stems.has(stem(word)) ? weight : 0)));
-        if (best > 0) {
-          score += best * (worth.get(word) ?? 1);
-          matched.push(word);
+      // The best of the entry's files: its score, and the words that file matched.
+      for (const groups of fileGroups(entry)) {
+        let fileScore = 0;
+        const fileMatched: string[] = [];
+        for (const word of words) {
+          const best = Math.max(0, ...groups.map(([weight, stems]) => (stems.has(stem(word)) ? weight : 0)));
+          if (best > 0) {
+            fileScore += best * (worth.get(word) ?? 1);
+            fileMatched.push(word);
+          }
+        }
+        if (fileScore > score) {
+          score = fileScore;
+          matched.splice(0, matched.length, ...fileMatched);
         }
       }
       if (!matched.length) continue;
