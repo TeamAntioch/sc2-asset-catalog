@@ -210,6 +210,22 @@ describe("weighing the words of an ask", () => {
     expect(found.slice(1).map((match) => match.matched)).toEqual(generic.map(() => ["builds", "sounds"]));
   });
 
+  it("scores an id that plays several files as its best file, not by all their words together", () => {
+    const pool = joinMusicCatalog(
+      [record("Big_Pool", ["P_1", "P_2", "P_3"]), record("One_File", ["Single"])],
+      new Map<string, MusicNote>([
+        ["p_1", plain({ use_for: ["an alarm"] })],
+        ["p_2", plain({ use_for: ["a sunrise"] })],
+        ["p_3", plain({ use_for: ["a chase"] })],
+        ["single", plain({ use_for: ["an alarm at sunrise"] })],
+      ]),
+    );
+    const found = searchMusic(pool, { words: "alarm sunrise chase" });
+    expect(found.map((match) => match.entry.id)).toEqual(["One_File", "Big_Pool"]);
+    expect(found[0]?.matched).toEqual(["alarm", "sunrise"]);
+    expect(found[1]?.matched).toHaveLength(1); // one of its files, however many words the three hold
+  });
+
   it("counts the document frequencies once per catalog, not once per search", () => {
     let reads = 0;
     const counted = { ...weighed, entries: new Proxy(weighed.entries, { get: (target, key, receiver) => (key === Symbol.iterator && ++reads, Reflect.get(target, key, receiver)) }) };
