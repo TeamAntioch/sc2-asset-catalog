@@ -1,4 +1,4 @@
-// The Music Finder's CLI, `sc2-music-finder` (docs/adr/0001), with the public defaults: the stock
+// The Music Finder's CLI, `sc2-music-finder` (docs/adr/0004), with the public defaults: the stock
 // music (the ids extracted into the cache folder on a first start, joined to the shipped listening
 // notes), Jev when TYPESAFE_API_KEY or the key file holds a key (else the narrowing's order), a
 // spend cap of $1.00 a session unless --budget sets another, no Audio folder unless --audio names
@@ -16,12 +16,12 @@ import { parseArgs } from "node:util";
 
 import { runCatalogCli } from "@team-antioch/sc2-asset-catalog";
 import { keySourceText } from "@team-antioch/sc2-finder-kit/credentials.js";
+import { isMainModule } from "@team-antioch/sc2-finder-kit/is-main.js";
 import { DEFAULT_BUDGET, dollars } from "@team-antioch/sc2-finder-kit/spend-cap.js";
 
 import { login, logout } from "../login.ts";
 import { MUSIC_FINDER_PORT } from "../server.ts";
 import { type RunningFinder, startMusicFinder } from "../start.ts";
-import { isMainModule } from "./is-main.ts";
 
 export const USAGE = "Usage: sc2-music-finder [--audio <folder>] [--port n] [--budget dollars] [--tick-log <folder>] [--open]\n       sc2-music-finder extract | login | logout";
 

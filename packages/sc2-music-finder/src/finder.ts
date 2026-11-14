@@ -1,4 +1,4 @@
-// The Music Finder's narrowing over its sources (docs/adr/0001), as its process keeps it: the kit's
+// The Music Finder's narrowing over its sources (docs/adr/0001, 0002), as its process keeps it: the kit's
 // finder (@team-antioch/sc2-finder-kit/finder.js) with the music's cards, keyword search, tags and
 // dependencies, and with the default that hides what a map can't play.
 

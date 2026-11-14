@@ -1,4 +1,4 @@
-// The Music Finder's candidate cards (docs/adr/0001): each callable music id, a Soundtrack or a
+// The Music Finder's candidate cards (docs/adr/0003, 0004): each callable music id, a Soundtrack or a
 // Sound, as a few lines of text, about 60 to 90 words, that the embeddings model embeds and the
 // ranker reads. A card holds the id and its words, what kind of id it is and what it is for
 // (its role), the listening notes of the files it plays (description, mood, style, what it suits)
@@ -58,8 +58,8 @@ export function cardIdOf(entry: MusicEntry, catalog: MusicCatalog): string {
   return known.has(entry.id) ? `${entry.id} (Sound)` : entry.id;
 }
 
-/** 1:05 for 65 seconds. */
-export const clock = (seconds: number): string => `${Math.floor(Math.round(seconds) / 60)}:${String(Math.round(seconds) % 60).padStart(2, "0")}`;
+/** A length as minutes and seconds: 1:05 for 65 seconds. */
+export const mmss = (seconds: number): string => `${Math.floor(Math.round(seconds) / 60)}:${String(Math.round(seconds) % 60).padStart(2, "0")}`;
 
 const wordCount = (text: string): number => text.split(/\s+/).filter(Boolean).length;
 
@@ -90,7 +90,7 @@ export function cardText(entry: MusicEntry, pieces: readonly MusicPiece[], layer
     entry.energy !== undefined ? `energy ${entry.energy}` : "",
     entry.tension !== undefined ? `tension ${entry.tension}` : "",
     entry.valence !== undefined ? `valence ${entry.valence}` : "",
-    entry.seconds ? `length ${clock(entry.seconds.min)}${entry.seconds.max !== entry.seconds.min ? `-${clock(entry.seconds.max)}` : ""}` : "",
+    entry.seconds ? `length ${mmss(entry.seconds.min)}${entry.seconds.max !== entry.seconds.min ? `-${mmss(entry.seconds.max)}` : ""}` : "",
   ].filter(Boolean);
   if (ratings.length) lines.push(`${ratings.join(", ")} (of 5)`);
   if (layer?.text) lines.push(layer.text);

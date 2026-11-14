@@ -1,11 +1,10 @@
-// The Finder's tray (docs/adr/0001): the kit's, with what a click on "copy" puts on the clipboard
+// The Finder's tray (docs/adr/0002): the kit's, with what a click on "copy" puts on the clipboard
 // for music: one card's id and the dependency it needs, or the whole tray's ids and the
 // dependencies they need, once each. The page adds a track's in-point to these (in-point.ts): the
 // in-point is the mapper's choice on the page, which the process never sees.
 
+import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
 import type { CopyText, TrayItem } from "@team-antioch/sc2-finder-kit/tray.js";
-
-import { dependencyName } from "./narrow.ts";
 
 export { TICK_LOG_FILE, ticked, type TrayItem } from "@team-antioch/sc2-finder-kit/tray.js";
 

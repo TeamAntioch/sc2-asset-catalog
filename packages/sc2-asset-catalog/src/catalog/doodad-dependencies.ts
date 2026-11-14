@@ -50,3 +50,6 @@ export function missingDoodadDependencies(types: Iterable<string>, have: readonl
   }
   return missing;
 }
+
+/** A dependency's name, as `bnet:Void (Campaign)/0.0/999,file:…` gives it; a note for an unknown one as it is. */
+export const dependencyName = (dependency: string): string => /^bnet:([^/]+)\//.exec(dependency)?.[1] ?? dependency;

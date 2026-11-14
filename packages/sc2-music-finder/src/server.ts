@@ -1,4 +1,4 @@
-// The Music Finder's process (docs/adr/0001): the kit's server (@team-antioch/sc2-finder-kit/server.js),
+// The Music Finder's process (docs/adr/0002, 0004): the kit's server (@team-antioch/sc2-finder-kit/server.js),
 // given the music's page, cards, tags and copy text, and the routes that are its own:
 //
 //   GET  /facets       what the page's filters offer (kinds, factions, dependencies) and whether
@@ -9,11 +9,12 @@
 // The kit's routes and tray actions are documented there. The Finder offers no map choice and no
 // objects: its tray is the session's.
 
-import { dependencyName, KNOWN_DEPENDENCIES } from "./narrow.ts";
+import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
 import { type FinderKind, type FinderServer, type FinderServerOptions as KitFinderServerOptions, startFinderServer as startKitServer } from "@team-antioch/sc2-finder-kit/server.js";
 
 import { type AudioIndex, AUDIO_PREFIX, serveAudio } from "./audio.ts";
 import { type AudioState, cardHtml, levelName } from "./card-html.ts";
+import { KNOWN_DEPENDENCIES } from "./narrow.ts";
 import type { MusicCard } from "./cards.ts";
 import type { Finder } from "./finder.ts";
 import { finderPage } from "./page.ts";

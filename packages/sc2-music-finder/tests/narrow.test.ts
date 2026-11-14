@@ -2,7 +2,7 @@
 // how the keyword search takes the pinned ones, and the cards' ids and text.
 import { describe, expect, it } from "vitest";
 
-import { cardIdOf, cardText, clock, musicCards } from "../src/cards.ts";
+import { cardIdOf, cardText, mmss, musicCards } from "../src/cards.ts";
 import { KNOWN_DEPENDENCIES, keywordMatches, parseRange, queryFor, tagMatches, withDefaultShow } from "../src/narrow.ts";
 import { SOURCES, VOID_CAMPAIGN } from "./fixtures.ts";
 
@@ -34,7 +34,7 @@ describe("cards", () => {
   });
 
   it("formats lengths as minutes and seconds", () => {
-    expect([clock(5), clock(65), clock(600)]).toEqual(["0:05", "1:05", "10:00"]);
+    expect([mmss(5), mmss(65), mmss(600)]).toEqual(["0:05", "1:05", "10:00"]);
     expect(cardText(card("HeroicVictory").entry, card("HeroicVictory").pieces)).toContain("length 0:40");
   });
 });
@@ -144,5 +144,15 @@ describe("queryFor and keywordMatches", () => {
     expect(keywordMatches(SOURCES, "marching patrol", withDefaultShow())).toEqual([]);
     expect(keywordMatches(SOURCES, "marching patrol", [pin("show", "everything")]).map(({ id }) => id)).toEqual(["MapOnlyTrack"]);
     expect(keywordMatches(SOURCES, "steady industrial loop", withDefaultShow()).map(({ id }) => id).sort()).toEqual(["Dual", "Dual (Sound)"]);
+  });
+});
+
+describe("facets", () => {
+  it("name a tag's facet in any case, and nothing else", async () => {
+    const { facetOf, FACETS } = await import("../src/narrow.ts");
+    expect(facetOf("Energy")).toBe("energy");
+    expect(facetOf("MAP HAS")).toBe("map has");
+    expect(facetOf("tempo")).toBeUndefined();
+    expect(new Set(FACETS).size).toBe(FACETS.length);
   });
 });

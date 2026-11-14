@@ -10,8 +10,6 @@ export const LEVELS = [
   "Reads as exactly this: played as it is, from its start, it suits the scene.",
 ] as const;
 
-export const TOP_LEVEL = LEVELS.length - 1;
-
 /** What the state says the ask is about: a fact a model may lack. */
 export const ABOUT =
   "The author is scoring a StarCraft II map or cutscene and is looking for music: tracks from the game's own soundtrack, each described from listening to it. " +
