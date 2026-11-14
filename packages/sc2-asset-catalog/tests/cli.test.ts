@@ -11,6 +11,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { CATALOG_USAGE, runCatalogCli } from "../src/cli.js";
 import { GALLERY_TREE_URL } from "../src/catalog/extract-catalog.js";
 import { SC2_GAME_DATA_URL } from "../src/catalog/extract-doodads.js";
+import { MUSIC_EXTRACTED_FILE, MUSIC_MIRROR_RAW_URL, MUSIC_MIRROR_TREE_URL } from "../src/catalog/extract-music.js";
 import type { RunViewer } from "../src/catalog/whiteoutflakes.js";
 import { writeRgbaPng } from "../src/util/png.js";
 import { npxHint } from "../src/util/npx.ts";
@@ -136,6 +137,25 @@ describe("runCatalogCli", () => {
     await writeFile(path.join(dir, "renderer.mjs"), `import { writeFile } from "node:fs/promises";\nexport default { async render({ outputPaths }) { for (const file of outputPaths) await writeFile(file, "png"); } };\n`);
     await runCatalogCli(["render", "--cache", "cache", "--renderer", "renderer.mjs"], { ...options, platform: "win32" });
     expect(existsSync(path.join(dir, "cache", "catalog-sheets", "doodads", "Rock.jpg"))).toBe(true);
+  });
+
+  it("extracts the music into the cache folder --cache names, and says how many ids", async () => {
+    dir = await mkdtemp(path.join(tmpdir(), "catalog-cli-"));
+    const soundtracks = "campaigns/void.sc2campaign/base.sc2data/GameData/SoundtrackData.xml";
+    const sounds = "campaigns/void.sc2campaign/base.sc2data/GameData/SoundData.xml";
+    const table: Record<string, string> = {
+      [MUSIC_MIRROR_TREE_URL]: JSON.stringify({ tree: [soundtracks, sounds].map((file) => ({ path: file, type: "blob" })) }),
+      [`${MUSIC_MIRROR_RAW_URL}/${soundtracks}`]: catalog(`    <CSoundtrack id="Space_1">\n        <MasterLayer Sound="Space_1_Sound"/>\n    </CSoundtrack>`),
+      [`${MUSIC_MIRROR_RAW_URL}/${sounds}`]: catalog(`    <CSound id="Space_1_Sound">\n        <AssetArray File="Assets\\Music\\Space_1_FULL.ogg"/>\n    </CSound>`),
+    };
+    const lines: string[] = [];
+    await runCatalogCli(["extract-music", "--cache", "cache"], {
+      cwd: dir,
+      log: (line) => lines.push(line),
+      fetch: (async (url: string | URL) => (table[String(url)] === undefined ? new Response("", { status: 404 }) : new Response(table[String(url)]))) as typeof globalThis.fetch,
+    });
+    expect(existsSync(path.join(dir, "cache", "extracted", MUSIC_EXTRACTED_FILE))).toBe(true);
+    expect(lines.at(-1)).toMatch(/1 music ids \(1 Soundtracks, 0 Sounds\), 1 files/);
   });
 
   it("prints the usage for --help or no command", async () => {
