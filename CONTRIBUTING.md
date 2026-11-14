@@ -1,10 +1,10 @@
 # Contributing
 
-The catalog gets better one description and one Doodad Use at a time. Both live in [`packages/sc2-asset-catalog/data/`](packages/sc2-asset-catalog/data) and are published under [CC BY 4.0](LICENSE-DATA): by opening a pull request you agree to license what you add under it.
+The catalog gets better one description and one Doodad Use at a time, and the music one listening note at a time. They live in [`packages/sc2-asset-catalog/data/`](packages/sc2-asset-catalog/data) and are published under [CC BY 4.0](LICENSE-DATA): by opening a pull request you agree to license what you add under it.
 
 ## The one rule
 
-Descriptions and Doodad Uses are about the doodad, in general words a mapper would use. **They never name a campaign, a map, a mission, a character or a story**, yours or anyone's. Write "drop hatch at the edge of a raised floor", not "the hatch where the hero escapes in my third mission". The same goes for `from` and for pull request titles that end up in the history.
+Descriptions, Doodad Uses and music notes are about the doodad or the track, in general words a mapper would use. **They never name a campaign, a map, a mission, a character or a story**, yours or anyone's. Write "drop hatch at the edge of a raised floor", not "the hatch where the hero escapes in my third mission". The same goes for `from` and for pull request titles that end up in the history.
 
 ## Fixing or adding a description
 
@@ -54,6 +54,16 @@ A Doodad Use says what a doodad has worked as, in a mapper's words. It is often 
 
 Add to the end of a doodad's list, or start its file if it has none. A use that differs only in case or spacing from one already there is the same use.
 
+## Fixing or adding a music note
+
+`packages/sc2-asset-catalog/data/music-notes.json` holds our listening notes, one a line, keyed by a music file's base name (no folder, no extension, any case): `"P07CinePart02": {…}`. Gemini wrote the words from the audio, with no file name or context, so it is sometimes wrong: it takes a sound effect for music, or a cue for something it isn't. If your ears say a note is wrong, edit it directly and open a pull request, saying what you heard. A note's fields and what they hold are in `packages/sc2-asset-catalog/src/catalog/music-notes.ts` (the tests refuse any other field, a repeated key or keys out of order). Edit only the words and ratings: `duration_s`, `lufs`, `lra`, `onset_rate`, `peak_at` and the other measurements are readings of the audio, and a reading changes only when the file does.
+
+For a file a game patch added, which has an id but no note, make one from your own copy of the audio: [`scripts/music-notes/`](scripts/music-notes) measures it, has Gemini listen to it and adds the note. Sending the audio to Gemini needs your own billed API key, and the guide says why.
+
+The one rule applies here as everywhere: a note describes what the music sounds like and what it suits, in general words. It never names a campaign, a map, a mission, a character or a story. "Tense build under a villain's reveal" is fine; the villain's name isn't.
+
+Music Uses (what a track has worked as, as Doodad Uses are for doodads) aren't taken yet.
+
 ## Checking your change
 
 ```sh
@@ -61,7 +71,7 @@ npm install
 npm test
 ```
 
-The tests check every description and every uses file against the schema above, their order and layout, and that each uses file is for a described doodad. CI runs the same checks on your pull request.
+The tests check every description and every uses file against the schema above, their order and layout, that each uses file is for a described doodad, and that every music note has the fields of a note and no others. CI runs the same checks on your pull request.
 
 ## Code
 

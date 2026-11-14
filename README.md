@@ -1,6 +1,6 @@
 # sc2-asset-catalog
 
-Find StarCraft II doodads by asking for them in plain words.
+Find StarCraft II doodads and music by asking for them in plain words.
 
 The **Doodad Finder** is a small local web page for StarCraft II mappers. Type what you need ("a heavy press head over a conveyor", "snowy pine trees", "road barricade") and cards of matching doodads appear as you type, each with its gallery picture, its id, what it looks like and which dependency your map needs for it. Tick the ones you like, then copy their ids into the Editor.
 
@@ -156,6 +156,18 @@ export default {
 };
 ```
 
+## The Music Finder
+
+The **Music Finder** does the same for the game's music. Type what a scene needs ("a low, uneasy bed under dialogue", "a sharp string slide into a hit") and cards of tracks appear: each says what it sounds like, how long it is, which dependency your map needs to play it and where Blizzard used it. Filter by energy, tension, valence, length, kind and faction. Give it a folder of the game's music files, extracted from your own install, and every card plays, from any section or an in-point you set; the tray copies the id, the in-point and the dependency.
+
+```sh
+npx @team-antioch/sc2-music-finder --audio <your Audio folder> --open
+```
+
+It narrows and ranks as the Doodad Finder does (keyword search plus a local embeddings model, then Jev if you have a key), over the tracks' **listening notes**: what Gemini heard in each file, with no file name or context, and our measurements of it. The notes are a model's hearing, a good first draft and sometimes wrong. `--audio` is optional: without it you can still search and read the notes.
+
+The notes (`packages/sc2-asset-catalog/data/music-notes.json`) are all that ships of the music. The game's ids, files, dependencies and uses in Blizzard's scripts are extracted on your machine from a mirror of its data (about 170 MB, read and thrown away) on the first start, and no audio ships. How to get the music files out of your install on macOS and Windows, the options and what a card shows: the [Music Finder's README](packages/sc2-music-finder/README.md). Notes for tracks a patch adds, made from your own copy of the audio: [`scripts/music-notes/`](scripts/music-notes).
+
 ## Platforms
 
 - **macOS:** CI-tested and tried by hand.
@@ -184,9 +196,11 @@ Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalo
 
 [`test-asks.json`](test-asks.json) holds typical asks, each with the doodads it should find. `npm run test-asks` runs the narrowing on each of them with the real model and reports how many of the expected doodads it found and how fast. It also reads a tick log when given one with `--tick-log <folder>`, so the asks you ticked cards from count as tests too. With a key saved by `login` or in `TYPESAFE_API_KEY`, it also has Jev rank every ask, with live calls made only when you run it, and stops before the spend passes `--budget` ($0.50 by default). `--no-rank` makes no calls. CI never calls Jev.
 
+[`test-music-asks.json`](test-music-asks.json) does the same for the Music Finder: scene needs, each with the music files it should find (by base name, or card ids). The first asks are tracks the author picked by ear for real scenes, reworded without any map or story, and are `reviewed`; the rest were chosen from the notes' own words and are not. `npm run test-music-asks` runs the narrowing on them with the real model and reports the hit rate and speed (it starts by extracting the music ids into the cache folder if they aren't there), and has Jev rank them too when a key is saved. It needs no audio.
+
 ## Contributing
 
-New and better descriptions and Doodad Uses are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Why the Finder works the way it does: [docs/adr/](docs/adr/). Terms: [GLOSSARY.md](GLOSSARY.md).
+New and better descriptions, Doodad Uses and music listening notes are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Why the Finder works the way it does: [docs/adr/](docs/adr/). Terms: [GLOSSARY.md](GLOSSARY.md).
 
 ## Licences
 

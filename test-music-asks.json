@@ -1,0 +1,159 @@
+{
+  "about": "Asks the music test command runs (npm run test-music-asks): each ask with the tracks it should find, best first. Expected tracks are music files by base name (any case) or card ids; a track counts as found when any card that plays it is among the candidates. The first asks are scene needs whose tracks the author picked by ear on a listening sheet. The rest are typical needs whose expected tracks were chosen from the listening notes' words, so they are marked reviewed: false until someone has heard them. Asks never name a map, campaign, character or story. An ask may name tags, which the command pins as the page would: `show: everything` lists the silent, unplayable and map-local ids the page hides by default.",
+  "asks": [
+    {
+      "ask": "a sharp upward string slide that lands on a hard orchestral attack hit, a short stinger to play under a warning marker just before an enemy strikes",
+      "expected": [
+        "P07CinePart02"
+      ],
+      "from": "picked by ear: stinger for an enemy's arrival",
+      "reviewed": true
+    },
+    {
+      "ask": "a low, uneasy bed that sits under dialogue at a crime scene, steady and watchful with no big melody, long enough to play under black and fade out",
+      "expected": [
+        "P03Full"
+      ],
+      "from": "picked by ear: bed under a crime-scene cutscene",
+      "reviewed": true
+    },
+    {
+      "ask": "a short, deep hit that lands when a character decides to go in, an impact that punctuates one line without a melody",
+      "expected": [
+        "UI_Stinger_Hit02"
+      ],
+      "from": "picked by ear: stinger on a character's decision (its notes call it a sound effect, so the default view hides it)",
+      "reviewed": true,
+      "tags": [
+        {
+          "facet": "show",
+          "value": "everything"
+        }
+      ]
+    },
+    {
+      "ask": "a quiet ambient bed for creeping through a guarded space, tension that never draws attention",
+      "expected": [
+        "nDLC01_Music_Cue08",
+        "Ambience_CelestialArray_loop",
+        "Directorate Menace B",
+        "Building_Synth_Pulse_In_C"
+      ],
+      "from": "stealth bed",
+      "reviewed": false
+    },
+    {
+      "ask": "a heavy relentless boss fight cue with war drums, brass and chanting",
+      "expected": [
+        "Music_T11",
+        "Music_T06",
+        "nDLC01_Music_Cue06",
+        "Music_EFMS_Mx_Edit_PnP"
+      ],
+      "from": "boss fight",
+      "reviewed": false
+    },
+    {
+      "ask": "a short triumphant sting when an objective is won",
+      "expected": [
+        "Void_Victory_Stinger_02",
+        "LibertyMusicLightStinger_B"
+      ],
+      "from": "victory sting",
+      "reviewed": false
+    },
+    {
+      "ask": "slow dread as an alien swarm closes in, low menacing drones and ritual percussion",
+      "expected": [
+        "Evolution_3_FULL",
+        "Directorate Menace H",
+        "ZergSC2-06",
+        "Music_ZergRolloutD"
+      ],
+      "from": "zerg dread",
+      "reviewed": false
+    },
+    {
+      "ask": "sacred, reverent awe for an ancient alien place: chant, chimes and slow strings",
+      "expected": [
+        "Music_PProphecy",
+        "Music_SadOminousNoChoir",
+        "Music_RedEnvelope_Intro7"
+      ],
+      "from": "protoss awe",
+      "reviewed": false
+    },
+    {
+      "ask": "a mournful aftermath, a quiet piano or guitar melody over a battlefield after the fight",
+      "expected": [
+        "Broken Wings H",
+        "HumanDefeat",
+        "Ambience_SM_WarCouncil_quad_loop",
+        "BroodWarAria"
+      ],
+      "from": "mournful aftermath",
+      "reviewed": false
+    },
+    {
+      "ask": "a fast chase or escape with driving orchestral action",
+      "expected": [
+        "Human2",
+        "Cities_In_Ruin_FULL",
+        "P05CinePart05",
+        "Fury H"
+      ],
+      "from": "chase",
+      "reviewed": false
+    },
+    {
+      "ask": "a barely-there underscore for a briefing, low and steady so voices stay clear",
+      "expected": [
+        "Music_Interstitial_B",
+        "Ambience_SM_WarCouncil_quad_loop",
+        "holiday_emitter_long_03"
+      ],
+      "from": "briefing underscore",
+      "reviewed": false
+    },
+    {
+      "ask": "a tender, bittersweet farewell between two characters",
+      "expected": [
+        "HumanDefeat",
+        "Broken Wings H"
+      ],
+      "from": "farewell",
+      "reviewed": false
+    },
+    {
+      "ask": "eerie discovery in an empty, ruined place: cavernous drones, a single distant chime",
+      "expected": [
+        "Ambience_HyperionBridgeRumble",
+        "Big_Stingers_in_D4",
+        "Ambience_MissionLaunchRoom_quadLoop"
+      ],
+      "from": "eerie discovery",
+      "reviewed": false
+    },
+    {
+      "ask": "a ticking countdown that builds urgency as an alarm sounds",
+      "expected": [
+        "Fury H",
+        "Comradeship",
+        "Music_DangerAlertFull",
+        "BattleNet_MusicwithEndFade"
+      ],
+      "from": "countdown and alarm",
+      "reviewed": false
+    },
+    {
+      "ask": "a short ominous stinger for a villain's reveal that cuts out on a deep impact",
+      "expected": [
+        "Furiousity F",
+        "Horner_MM_Open_MX_Menace_A",
+        "LibertyMusicMysteryStinger_C"
+      ],
+      "from": "reveal stinger",
+      "reviewed": false
+    }
+  ]
+}
