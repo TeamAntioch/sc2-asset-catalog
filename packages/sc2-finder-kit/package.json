@@ -1,0 +1,47 @@
+{
+  "name": "@team-antioch/sc2-finder-kit",
+  "version": "0.1.2",
+  "description": "What the SC2 asset finders share: a local server and page shell, the embeddings model and its vector cache, the Jev ranker with its key file and spend cap, the ask timing, the tray and the test-ask cases. Built for the Doodad Finder and the Music Finder.",
+  "keywords": [
+    "starcraft",
+    "sc2",
+    "map-editor",
+    "galaxy-editor"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAntioch/sc2-asset-catalog.git",
+    "directory": "packages/sc2-finder-kit"
+  },
+  "homepage": "https://github.com/TeamAntioch/sc2-asset-catalog#readme",
+  "bugs": "https://github.com/TeamAntioch/sc2-asset-catalog/issues",
+  "exports": {
+    "./*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
+    "@team-antioch/sc2-asset-catalog": "0.1.2",
+    "@typesafe-ai/sdk": "^0.7.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fails if either package would publish anything extracted from the game or rendered from it (the
+// Fails if any package would publish anything extracted from the game or rendered from it (the
 // extracted doodads, models or catalog fields, thumbnails or sheets), or a repo-only command (the
 // test command, which reads the repo's test-asks.json), or would export one. Lists each package's files.
 //
@@ -17,7 +17,7 @@ const NOT_EXPORTED = { "sc2-doodad-finder": ["./cli/test-asks.js"] };
 const list = process.argv.includes("--list");
 
 let failed = false;
-for (const folder of ["sc2-asset-catalog", "sc2-doodad-finder"]) {
+for (const folder of ["sc2-asset-catalog", "sc2-finder-kit", "sc2-doodad-finder"]) {
   const output = JSON.parse(execFileSync("npm", ["pack", "--dry-run", "--json"], { cwd: path.join(ROOT, "packages", folder), encoding: "utf8", shell: process.platform === "win32", stdio: ["ignore", "pipe", "ignore"] }));
   // npm gives a list of packed packages, or (some versions, in a workspace) an object of them by name.
   const packed = Array.isArray(output) ? output[0] : Object.values(output)[0];

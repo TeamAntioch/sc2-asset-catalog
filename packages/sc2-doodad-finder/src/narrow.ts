@@ -1,40 +1,19 @@
 // The Doodad Finder's narrowing (docs/adr/0001): for an ask, the catalog's keyword search (about 100 results)
-// and the nearest cards by embedding (about 100), merged without duplicates into about 200. Each
-// search takes its hundred with the map's provided doodads first among its matches, as
-// the keyword search sorts them, so they aren't cut before the ranker sees them; being provided adds
-// nothing outside the two searches' matches. Tags raise the candidates they match; a pinned tag
-// keeps only those it matches.
+// and the nearest cards by embedding (about 100), merged without duplicates into about 200 by the
+// kit (@team-antioch/sc2-finder-kit/narrow.js). What a tag matches, and the words of an ask the
+// keyword search takes, are the doodads': here.
 
 import type { DoodadSearchQuery } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
+import { mergeNarrowing as kitMergeNarrowing, type MergeOptions as KitMergeOptions, type Narrowed as KitNarrowed } from "@team-antioch/sc2-finder-kit/narrow.js";
 
 import type { CandidateCard } from "./cards.ts";
 import type { Neighbour } from "./embedding-index.ts";
 
-/** A facet tag, as search.json's asks keep them: `story: industry`. A pinned tag filters; the rest only raise. */
-export type Tag = { readonly facet: string; readonly value: string; readonly pinned?: boolean | undefined };
+export { providedFirst, type Tag } from "@team-antioch/sc2-finder-kit/narrow.js";
+import type { Tag } from "@team-antioch/sc2-finder-kit/narrow.js";
 
-export type Narrowed = {
-  readonly id: string;
-  readonly card: CandidateCard;
-  /** Its place among the keyword results, provided first, then by words matched (1 is first). */
-  readonly keyword?: number;
-  /** Its place among the nearest cards (1 is nearest). */
-  readonly embeddings?: number;
-  /** The merge's score: higher first. */
-  readonly score: number;
-};
-
-export type MergeOptions = {
-  /** At most this many (200 by default). */
-  readonly limit?: number;
-  readonly tags?: readonly Tag[];
-};
-
-/** The reciprocal-rank constant: how much a list's first place outweighs its tenth. */
-const RANK_K = 60;
-/** What a matching tag adds: about what a keyword rank near the top adds. */
-const TAG_RAISE = 1 / RANK_K;
-const DEFAULT_LIMIT = 200;
+export type Narrowed = KitNarrowed<CandidateCard>;
+export type MergeOptions = Omit<KitMergeOptions<CandidateCard>, "tagMatches">;
 
 /** A card's values for a facet: its description's kind, size, role, use, story and biome, its tilesets, its source. */
 function facetValues(card: CandidateCard, facet: string): readonly string[] {
@@ -54,51 +33,11 @@ export function tagMatches(card: CandidateCard, tag: Tag): boolean {
 }
 
 /**
- * A search's matches with the ones the map's dependencies provide first, each part in the
- * search's order, cut to n: the search's rule for a map's dependencies. Without them no card is
- * provided, so it is the search's order.
+ * The keyword results and nearest cards as one list, each once, cut to the limit (the kit's merge,
+ * with the doodads' tags).
  */
-export function providedFirst<T extends { readonly id: string }>(matches: readonly T[], cards: ReadonlyMap<string, CandidateCard>, n: number): T[] {
-  const provided = matches.filter(({ id }) => cards.get(id)?.provided === true);
-  const rest = matches.filter(({ id }) => cards.get(id)?.provided !== true);
-  return [...provided, ...rest].slice(0, n);
-}
-
-/**
- * The keyword results and nearest cards as one list, each once, cut to the limit: each list's
- * places, in the order its search gave them, count by reciprocal rank, and every unpinned tag a
- * candidate matches raises it. Candidates a pinned tag doesn't match are left out, as are ids
- * with no card.
- */
-export function mergeNarrowing(
-  keyword: readonly { readonly id: string }[],
-  nearest: readonly Neighbour[],
-  cards: ReadonlyMap<string, CandidateCard>,
-  options: MergeOptions = {},
-): Narrowed[] {
-  const tags = options.tags ?? [];
-  const pinned = tags.filter((tag) => tag.pinned);
-  const raising = tags.filter((tag) => !tag.pinned);
-  const merged = new Map<string, { card: CandidateCard; keyword?: number; embeddings?: number }>();
-  const add = (id: string, field: "keyword" | "embeddings", place: number) => {
-    const card = cards.get(id);
-    if (!card || !pinned.every((tag) => tagMatches(card, tag))) return;
-    const known = merged.get(id) ?? { card };
-    known[field] ??= place;
-    merged.set(id, known);
-  };
-  keyword.forEach(({ id }, i) => add(id, "keyword", i + 1));
-  nearest.forEach(({ id }, i) => add(id, "embeddings", i + 1));
-  const scored: Narrowed[] = [...merged].map(([id, { card, ...places }]) => {
-    let score = 0;
-    if (places.keyword !== undefined) score += 1 / (RANK_K + places.keyword);
-    if (places.embeddings !== undefined) score += 1 / (RANK_K + places.embeddings);
-    score += TAG_RAISE * raising.filter((tag) => tagMatches(card, tag)).length;
-    return { id, card, ...places, score };
-  });
-  scored.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
-  return scored.slice(0, options.limit ?? DEFAULT_LIMIT);
-}
+export const mergeNarrowing = (keyword: readonly { readonly id: string }[], nearest: readonly Neighbour[], cards: ReadonlyMap<string, CandidateCard>, options: MergeOptions = {}): Narrowed[] =>
+  kitMergeNarrowing(keyword, nearest, cards, { ...options, tagMatches });
 
 /** Words of an ask that say nothing about a doodad: left out of the keyword search, which matches any word. */
 const STOP_WORDS = new Set(
