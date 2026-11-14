@@ -29,3 +29,7 @@
 **Test asks.** `test-asks.json`: typical asks, each with the doodads it should find, which the test command runs. An ask is `reviewed` once its expected doodads have been checked by hand.
 
 **Dependency.** The map dependency a doodad's package needs, such as `Void (Campaign)`: the Editor shows a doodad only when the map depends on the package that defines it.
+
+**Listening notes.** Our words and measurements for a music file: what it sounds like (description, mood, tension, valence, timestamped sections, what it suits) and what we measured of it (duration, energy, loudness, tempo). Gemini wrote the words from the audio, and a person's correction replaces them. Listening notes ship keyed by file base name, under CC BY 4.0. The audio never does.
+
+**Audio folder.** A folder of the game's music `.ogg` files that the user extracted from their own install and gave the Music Finder with `--audio`. Files are matched by base name, wherever they sit in the folder. Without one, cards still search and say how to hear them.
