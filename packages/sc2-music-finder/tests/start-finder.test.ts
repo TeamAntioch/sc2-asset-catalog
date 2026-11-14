@@ -133,6 +133,7 @@ describe("asking", () => {
     expect(narrowed.cards[0].html).toContain("A tense, slow build");
     expect(narrowed.cards[0].html).toContain("Blizzard used it in: Mission.galaxy:12 (Intro) and 1 more");
     expect(narrowed.cards[0].html).not.toContain("needs ");
+    expect(narrowed.cards[0].html).toContain("in Void (Mod), the default");
   });
 
   it("badges the cards that need a dependency and filters by pinned tags", async () => {

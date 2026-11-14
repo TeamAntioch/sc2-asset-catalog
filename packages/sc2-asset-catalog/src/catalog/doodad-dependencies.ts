@@ -16,6 +16,9 @@ const DEPENDENCY_FOR_PACKAGE: Record<string, string> = {
   "mods/novastoryassets.sc2mod": NOVA_ASSETS,
 };
 
+/** The name of the dependency every map has by default; what the base mods need, and so what an id with no `dependency` needs. */
+export const DEFAULT_DEPENDENCY_NAME = "Void (Mod)";
+
 const BASE_MODS = new Set(["core", "liberty", "swarm", "void"].map((mod) => `mods/${mod}.sc2mod`));
 
 /**

@@ -1,7 +1,11 @@
 // Small pieces of a card's markup (src/card-html.ts).
 import { describe, expect, it } from "vitest";
 
-import { escapeHtml, sectionSeconds } from "../src/card-html.ts";
+import { DEFAULT_DEPENDENCY_NAME } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+
+import { badges, escapeHtml, sectionSeconds } from "../src/card-html.ts";
+import { musicCards } from "../src/cards.ts";
+import { SOURCES } from "./fixtures.ts";
 
 describe("sectionSeconds", () => {
   it("reads m:ss, mm:ss and h:mm:ss", () => {
@@ -19,5 +23,23 @@ describe("sectionSeconds", () => {
 describe("escapeHtml", () => {
   it("makes the five characters safe", () => {
     expect(escapeHtml(`<a href="x">'&'</a>`)).toBe("&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;");
+  });
+});
+
+describe("the dependency badge", () => {
+  const cards = musicCards(SOURCES);
+  const card = (id: string) => cards.find((found) => found.id === id)!;
+
+  it("says what a card needs when it needs a campaign", () => {
+    expect(badges(card("CalmAmbient"))[0]).toEqual({ text: "needs Void (Campaign)", warn: false, quiet: false });
+  });
+
+  it("says the default brings in a card that needs nothing more, quietly", () => {
+    expect(DEFAULT_DEPENDENCY_NAME).toBe("Void (Mod)");
+    expect(badges(card("TenseApproach"))[0]).toEqual({ text: `in ${DEFAULT_DEPENDENCY_NAME}, the default`, warn: false, quiet: true });
+  });
+
+  it("is on every card", () => {
+    for (const each of cards) expect(badges(each)[0]!.text, each.id).toMatch(/needs |the default/);
   });
 });
