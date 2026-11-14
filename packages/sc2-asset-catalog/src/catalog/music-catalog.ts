@@ -196,7 +196,20 @@ const inRange = (value: number | undefined, range: RatingRange | undefined): boo
 /** How each kind of text counts toward a match: what a mapper would ask in ("mood", "use for") counts most. */
 const WEIGHTS = { mood: 3, useFor: 3, kind: 2, idWord: 2, style: 1.5, description: 1, other: 0.5 } as const;
 
-function textGroups(entry: MusicEntry): ReadonlyArray<readonly [weight: number, stems: Set<string>]> {
+type TextGroups = ReadonlyArray<readonly [weight: number, stems: Set<string>]>;
+
+/** An entry's stemmed text never changes, so each entry's groups are built once, not once per query. */
+const groupsCache = new WeakMap<MusicEntry, TextGroups>();
+
+function textGroups(entry: MusicEntry): TextGroups {
+  const cached = groupsCache.get(entry);
+  if (cached) return cached;
+  const groups = buildTextGroups(entry);
+  groupsCache.set(entry, groups);
+  return groups;
+}
+
+function buildTextGroups(entry: MusicEntry): TextGroups {
   const stems = (texts: readonly (string | undefined)[]): Set<string> => new Set(texts.flatMap((text) => wordsOf(text ?? "")).map(stem));
   return [
     [WEIGHTS.mood, stems(entry.notes.flatMap((note) => note.mood))],
