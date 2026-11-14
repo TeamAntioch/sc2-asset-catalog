@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Fails if any package would publish anything extracted from the game or rendered from it (the
-// extracted doodads, models or catalog fields, thumbnails or sheets), or a repo-only command (the
+// extracted doodads, models, catalog fields or music ids, thumbnails or sheets), or a repo-only command (the
 // test command, which reads the repo's test-asks.json), or would export one. Lists each package's files.
 //
 //   node scripts/check-pack.mjs [--list]
@@ -11,7 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const FORBIDDEN = [/(^|\/)doodads\.json$/, /doodad-extracted\.json$/, /doodad-models\.json$/, /extracted\.json$/, /thumbnails\//, /catalog-sheets\//, /\.(png|jpe?g|dds|m3)$/i, /(^|\/)tests?\//, /(^|\/)cli\/test-asks\./];
+const FORBIDDEN = [/(^|\/)doodads\.json$/, /doodad-extracted\.json$/, /doodad-models\.json$/, /extracted\.json$/, /music-extracted/, /thumbnails\//, /catalog-sheets\//, /\.(png|jpe?g|dds|m3)$/i, /(^|\/)tests?\//, /(^|\/)cli\/test-asks\./];
 /** Repo-only modules: each package's exports must shut them out (map them to null). */
 const NOT_EXPORTED = { "sc2-doodad-finder": ["./cli/test-asks.js"] };
 const list = process.argv.includes("--list");

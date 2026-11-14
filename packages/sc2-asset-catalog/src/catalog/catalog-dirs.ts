@@ -1,5 +1,5 @@
 // Where the catalog's files are. What we wrote ships in this package's data/: the doodad
-// descriptions and the Doodad Uses (CC BY 4.0, LICENSE-DATA). What is extracted from the game is
+// descriptions, the Doodad Uses and the music's listening notes (CC BY 4.0, LICENSE-DATA). What is extracted from the game is
 // never shipped: `extract` builds it from SC2GameData into the user's cache folder, which is
 // where each platform keeps caches: %LOCALAPPDATA% on Windows, ~/Library/Caches on macOS,
 // $XDG_CACHE_HOME (else ~/.cache) elsewhere, or SC2_ASSET_CATALOG_CACHE on any of them.
@@ -15,6 +15,9 @@ export const PACKAGE_DATA_DIR = fileURLToPath(new URL("../../data/", import.meta
 
 /** The hand-written descriptions, keyed by doodad id. */
 export const DOODAD_DESCRIPTIONS_PATH = path.join(PACKAGE_DATA_DIR, "doodad-descriptions.json");
+
+/** The listening notes for the game's music files, keyed by file base name (music-notes.ts). */
+export const MUSIC_NOTES_PATH = path.join(PACKAGE_DATA_DIR, "music-notes.json");
 
 /** The Doodad Uses, one file per doodad under doodads/. */
 export const DOODAD_USES_DIR = path.join(PACKAGE_DATA_DIR, "doodad-uses");
