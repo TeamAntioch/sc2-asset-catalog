@@ -1,4 +1,4 @@
-// Extracting the music's fields into the user's cache (ADR-0023 in sc2-adjutant; docs/adr/0001 here):
+// Extracting the music's fields into the user's cache (docs/adr/0003):
 // nothing taken from the game ships, so `extract-music` builds, from a mirror of the game's data,
 // one record for every id a map can play music with:
 //
@@ -108,7 +108,8 @@ function* blocks(text: string, tag: string): Generator<Block> {
     while (!head.includes(">") && end + 1 < lines.length) head += ` ${lines[++end]!}`;
     const opening = head.split(">")[0]!;
     const kids: { line: number; text: string }[] = [];
-    if (!opening.trimEnd().endsWith("/")) {
+    // `<CSound …/>` and `<CSound …></CSound>` are whole on their line: they take no following lines as children.
+    if (!opening.trimEnd().endsWith("/") && !head.includes(`</${tag}>`)) {
       end++;
       while (end < lines.length && !lines[end]!.includes(`</${tag}>`)) {
         kids.push({ line: end + 1, text: lines[end]!.trim() });
@@ -237,6 +238,7 @@ const LOAD_ORDER = [
   "mods/voidprologue",
   "mods/starcoop",
   "mods/war",
+  "mods/missionpacks",
   "campaigns/libertystory",
   "campaigns/liberty.",
   "campaigns/swarmstory",
@@ -245,9 +247,17 @@ const LOAD_ORDER = [
   "campaigns/void.",
 ];
 
+/** The map's own data comes after every package's: a map overrides its campaign and the mods. */
+const MAP_RANK = 50;
+
+/**
+ * Where a file loads. A package LOAD_ORDER doesn't list loads after the listed mods and before any
+ * map's own data (rank 99 put it after the maps': `mods/missionpacks` did, so it would have beaten a
+ * campaign map's definition of the same id).
+ */
 function loadRank(file: string): number {
   const at = LOAD_ORDER.findIndex((prefix) => file.startsWith(prefix));
-  return at < 0 ? 99 : at + (file.includes(".sc2map") ? 50 : 0);
+  return (at < 0 ? LOAD_ORDER.length : at) + (file.includes(".sc2map") ? MAP_RANK : 0);
 }
 
 const byLoadOrder = <Block extends { readonly file: string; readonly line: number }>(a: Block, b: Block): number =>
@@ -370,34 +380,51 @@ export function resolveMusic(soundtracks: readonly SoundtrackBlock[], sounds: re
 /** One place Blizzard's scripts or cutscenes name a music id. */
 export type MusicUse = { readonly file: string; readonly line: number; readonly func?: string };
 
-const FUNCTION_START = /^(?:static\s+)?(?:bool|void|int|fixed|string|text|unit|point)\s+(\w+)\s*\(/;
+/** A use as scanned: with, when the line says, whether it calls a Soundtrack (SoundtrackPlay) or a Sound (SoundPlay, SoundLink, a cutscene's soundLink). */
+export type ScannedUse = MusicUse & { readonly call?: "soundtrack" | "sound" };
+
+/** What a line of a script calls: a Soundtrack, a Sound, or neither or both (then it says nothing of which). */
+function callOf(line: string): ScannedUse["call"] {
+  const soundtrack = /Soundtrack/.test(line);
+  const sound = /\bSound(?:Play\w*|Link|Create\w*|Attach\w*)\b/.test(line);
+  return soundtrack === sound ? undefined : soundtrack ? "soundtrack" : "sound";
+}
+
+/**
+ * A function's start: a return type at the start of the line, then its name and `(`. Any galaxy
+ * type is taken (bool, void, int, fixed, string, text, unit, point, but also trigger, unitgroup,
+ * playergroup, sound, soundlink, color, bank, actor, timer, region…), as only a statement that
+ * isn't one starts a line with two words before `(`.
+ */
+const FUNCTION_START = /^(?:static\s+)?(?!(?:return|else|if|while|for|switch|case|break|continue|goto|include|struct|const|native)\b)[a-z][a-z0-9]*\s+(\w+)\s*\(/;
 
 /**
  * Where a script or cutscene file names a music id: every string literal in a .galaxy file equal
  * to an id (with the function it sits in, which catches ids held in variables too), and every
  * `soundLink` in a .SC2Cutscene file that names one.
  */
-export function scanMusicUsage(file: string, text: string, ids: ReadonlySet<string>): Map<string, MusicUse[]> {
-  const found = new Map<string, MusicUse[]>();
-  const add = (id: string, use: MusicUse) => found.set(id, [...(found.get(id) ?? []), use]);
+export function scanMusicUsage(file: string, text: string, ids: ReadonlySet<string>): Map<string, ScannedUse[]> {
+  const found = new Map<string, ScannedUse[]>();
+  const add = (id: string, use: ScannedUse) => found.set(id, [...(found.get(id) ?? []), use]);
   const lines = text.replace(/^\uFEFF/, "").split("\n");
   if (file.endsWith(".SC2Cutscene")) {
     lines.forEach((line, at) => {
-      for (const [, literal = ""] of line.matchAll(/soundLink="([^"]*)"/g)) if (ids.has(literal)) add(literal, { file, line: at + 1, func: "SC2Cutscene" });
+      for (const [, literal = ""] of line.matchAll(/soundLink="([^"]*)"/g)) if (ids.has(literal)) add(literal, { file, line: at + 1, func: "SC2Cutscene", call: "sound" });
     });
     return found;
   }
   let func: string | undefined;
   lines.forEach((line, at) => {
     func = FUNCTION_START.exec(line)?.[1] ?? func;
-    for (const [, literal = ""] of line.matchAll(/"([^"\\]*)"/g)) if (ids.has(literal)) add(literal, { file, line: at + 1, ...(func !== undefined ? { func } : {}) });
+    const call = callOf(line);
+    for (const [, literal = ""] of line.matchAll(/"([^"\\]*)"/g)) if (ids.has(literal)) add(literal, { file, line: at + 1, ...(func !== undefined ? { func } : {}), ...(call !== undefined ? { call } : {}) });
   });
   return found;
 }
 
 // ---------------------------------------------------------------- the records
 
-/** What an id is for, from words in it (the first role with a matching pattern wins, else "other"). */
+/** What an id is for, from words in it (the first role with a pattern matching at the start of a word wins, else "other"). */
 const ROLES: ReadonlyArray<readonly [role: string, pattern: RegExp]> = [
   ["boss", /boss|zurvan|archangel|titan|eradicator|mothership/],
   ["credits", /credits/],
@@ -413,7 +440,29 @@ const ROLES: ReadonlyArray<readonly [role: string, pattern: RegExp]> = [
   ["main", /main|low|high|general|music_t\d|sc2-0/],
 ];
 
-export const musicRole = (id: string): string => ROLES.find(([, pattern]) => pattern.test(id.toLowerCase()))?.[0] ?? "other";
+/** Whether position `at` of an id starts a word: its start, after a character that isn't a letter, or a capital after a lower-case letter or a digit (`Music|Main`) or before one (`TZ|Main`). */
+function startsWord(id: string, at: number): boolean {
+  if (at === 0 || !/\p{L}/u.test(id[at - 1]!)) return true;
+  const upper = (char: string | undefined) => char !== undefined && char !== char.toLowerCase();
+  return upper(id[at]) && (!upper(id[at - 1]) || (id[at + 1] !== undefined && !upper(id[at + 1]) && /\p{L}/u.test(id[at + 1]!)));
+}
+
+/**
+ * A role's pattern counts only where a word of the id starts, so "follow" and "Halloween" aren't
+ * `low`, "Halt" isn't `alt`, and "Descending" isn't `ending`. A match that starts with `_` or a
+ * digit does (`_cs1`, `_s2`).
+ */
+function matchesAtWord(pattern: RegExp, id: string): boolean {
+  const lower = id.toLowerCase();
+  const all = new RegExp(pattern.source, "g");
+  for (let match = all.exec(lower); match; match = all.exec(lower)) {
+    if (!/[a-z]/.test(match[0][0] ?? "") || startsWord(id, match.index)) return true;
+    if (match[0] === "") all.lastIndex++;
+  }
+  return false;
+}
+
+export const musicRole = (id: string): string => ROLES.find(([, pattern]) => matchesAtWord(pattern, id))?.[0] ?? "other";
 
 /** One music id as extracted. */
 export type ExtractedMusic = {
@@ -451,15 +500,25 @@ export function packageOf(file: string): string {
 }
 
 /** The records for the resolved music and its uses, in id order, a Soundtrack before a Sound of the same id. */
-export function buildExtractedMusic(resolved: readonly ResolvedMusic[], uses: ReadonlyMap<string, readonly MusicUse[]>): ExtractedMusic[] {
+export function buildExtractedMusic(resolved: readonly ResolvedMusic[], uses: ReadonlyMap<string, readonly ScannedUse[]>): ExtractedMusic[] {
   const records: ExtractedMusic[] = [];
+  // An id that is both a Soundtrack and a Sound: a use that calls the other kind isn't this record's.
+  const kindsOf = new Map<string, Set<string>>();
+  for (const { id, kind } of resolved) kindsOf.set(id, (kindsOf.get(id) ?? new Set()).add(kind));
   const order = (a: ResolvedMusic, b: ResolvedMusic) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0) || (a.kind === b.kind ? 0 : a.kind === "Soundtrack" ? -1 : 1);
   for (const music of [...resolved].sort(order)) {
     const last = music.defs.at(-1)!;
-    const map = MAP_FOLDER.exec(last.file)?.[1];
-    const pkg = packageOf(last.file);
+    // Only a map's own data defines it when every definition is in that one map.
+    const maps = music.defs.map((def) => MAP_FOLDER.exec(def.file)?.[1]);
+    const map = maps.every((name) => name !== undefined && name === maps[0]) ? maps[0] : undefined;
+    // What another map gets is the last definition outside any map; a map's own override reaches only that map.
+    const reachable = map === undefined ? (music.defs.filter((def) => !MAP_FOLDER.test(def.file)).at(-1) ?? last) : last;
+    const pkg = packageOf(reachable.file);
     const dependency = map === undefined ? packageDependency(pkg) : undefined;
-    const used = uses.get(music.id) ?? [];
+    const shared = (kindsOf.get(music.id)?.size ?? 1) > 1;
+    const used = (uses.get(music.id) ?? [])
+      .filter(({ call }) => !shared || call === undefined || call === music.kind.toLowerCase())
+      .map(({ file, line, func }): MusicUse => ({ file, line, ...(func !== undefined ? { func } : {}) }));
     const delay = music.delay !== undefined && Number.isFinite(Number(music.delay)) ? Number(music.delay) : undefined;
     records.push({
       id: music.id,
@@ -492,8 +551,10 @@ export type ExtractMusicOptions = {
   readonly fetch?: typeof globalThis.fetch;
   /** What lists the mirror's files when GitHub's API refuses (git, by default); tests pass a fake. */
   readonly listMirrorFiles?: ListMirrorFiles;
-  /** How many files are fetched at once. */
+  /** How many files are fetched at once (1 or more). */
   readonly concurrency?: number;
+  /** What pauses between a file's retries, in ms; tests pass a fake. */
+  readonly wait?: (ms: number) => Promise<void>;
   readonly log?: (line: string) => void;
   /** The folder to write to (the cache folder's extracted/ by default). */
   readonly extractedDir?: string;
@@ -543,11 +604,16 @@ export async function mirrorFiles({
   }
 }
 
-/** The text of a file of the mirror at the pinned commit, retried; throws naming the file when it can't be had. */
-async function fetchMirrorFile(fetch: typeof globalThis.fetch, file: string): Promise<string> {
+/** The pause before retry `attempt` (0 for the first), doubling: 0.5 s, 1 s, 2 s. */
+const backoffMs = (attempt: number): number => 500 * 2 ** attempt;
+const FETCH_ATTEMPTS = 4;
+
+/** The text of a file of the mirror at the pinned commit, retried after a pause that doubles (a 429 or a 5xx is usually a moment's); throws naming the file when it can't be had. A 404 isn't retried. */
+async function fetchMirrorFile(fetch: typeof globalThis.fetch, file: string, wait: (ms: number) => Promise<void>): Promise<string> {
   const url = `${MUSIC_MIRROR_RAW_URL}/${file.split("/").map(encodeURIComponent).join("/")}`;
   let failure = "";
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < FETCH_ATTEMPTS; attempt++) {
+    if (attempt > 0) await wait(backoffMs(attempt - 1));
     try {
       const response = await fetch(url);
       if (response.ok) return await response.text();
@@ -592,6 +658,8 @@ export async function extractMusic(options: ExtractMusicOptions = {}): Promise<{
   const log = options.log ?? (() => {});
   const fetch = options.fetch ?? globalThis.fetch;
   const concurrency = options.concurrency ?? 12;
+  if (!Number.isInteger(concurrency) || concurrency < 1) throw new Error(`concurrency must be a whole number of 1 or more, not ${concurrency}`);
+  const wait = options.wait ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
   const dir = options.extractedDir ?? extractedDirOf();
   const { data, usage } = selectMusicFiles(await mirrorFiles(options));
   if (!data.some((file) => file.endsWith("/SoundtrackData.xml"))) throw new Error("the game data's listing holds no SoundtrackData.xml, so there is no music to extract");
@@ -600,7 +668,7 @@ export async function extractMusic(options: ExtractMusicOptions = {}): Promise<{
   const soundtracks: SoundtrackBlock[] = [];
   const sounds: SoundBlock[] = [];
   await pooled(data, concurrency, async (file) => {
-    const text = await fetchMirrorFile(fetch, file);
+    const text = await fetchMirrorFile(fetch, file, wait);
     if (file.endsWith("/SoundtrackData.xml")) soundtracks.push(...parseSoundtrackData(text, file));
     else sounds.push(...parseSoundData(text, file));
   });
@@ -609,9 +677,9 @@ export async function extractMusic(options: ExtractMusicOptions = {}): Promise<{
 
   const ids = new Set(resolved.map((music) => music.id));
   for (const music of resolved) for (const sound of music.sounds) ids.add(sound.id);
-  const uses = new Map<string, MusicUse[]>();
+  const uses = new Map<string, ScannedUse[]>();
   await pooled(usage, concurrency, async (file) => {
-    const found = scanMusicUsage(file, await fetchMirrorFile(fetch, file), ids);
+    const found = scanMusicUsage(file, await fetchMirrorFile(fetch, file, wait), ids);
     for (const [id, places] of found) uses.set(id, [...(uses.get(id) ?? []), ...places]);
   });
   for (const places of uses.values()) places.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : 0) || a.line - b.line);

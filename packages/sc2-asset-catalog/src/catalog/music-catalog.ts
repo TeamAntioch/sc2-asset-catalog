@@ -9,7 +9,7 @@ import { providesDependency } from "./doodad-dependencies.js";
 import { type ExtractedMusic, MUSIC_EXTRACTED_FILE } from "./extract-music.js";
 import { musicFileKey, type MusicNote, readMusicNotes } from "./music-notes.js";
 
-// The music catalog is two things joined by file base name (ADR-0023 in sc2-adjutant):
+// The music catalog is two things joined by file base name (docs/adr/0003):
 // - data/music-notes.json, what we wrote and measured of each file (music-notes.ts), shipped;
 // - music-extracted.json, what is extracted from the game's data into the user's cache
 //   (extract-music.ts): every callable id, its files, dependency and uses.
@@ -102,7 +102,8 @@ export function joinMusicCatalog(extracted: readonly ExtractedMusic[], notes: Re
     const valence = mean(heard.map((note) => note.valence));
     const lengths = heard.map((note) => note.duration_s);
     const silent = files.length > 0 && files.every((file) => notes.get(file)?.silent === true);
-    const effectsOnly = heard.length > 0 && heard.every((note) => note.kind === "sound effect" || note.kind === "silence");
+    // Sound effects only when every file it plays is known to be one: a file with no note may be music.
+    const effectsOnly = heard.length > 0 && heard.length === files.length && heard.every((note) => note.kind === "sound effect" || note.kind === "silence");
     return {
       ...record,
       notes: heard,
@@ -258,8 +259,8 @@ function documentFrequencies(catalog: MusicCatalog): DocumentFrequencies {
   const counts = new Map<string, number>();
   for (const entry of catalog.entries) {
     const held = new Set<string>();
-    for (const groups of fileGroups(entry)) for (const [, stems] of groups) for (const stem of stems) held.add(stem);
-    for (const stem of held) counts.set(stem, (counts.get(stem) ?? 0) + 1);
+    for (const groups of fileGroups(entry)) for (const [, stems] of groups) for (const word of stems) held.add(word);
+    for (const word of held) counts.set(word, (counts.get(word) ?? 0) + 1);
   }
   const frequencies = { entries: catalog.entries.length, counts };
   frequenciesCache.set(catalog, frequencies);

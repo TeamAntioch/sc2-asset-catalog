@@ -49,7 +49,7 @@ export {
   readMusicCatalog,
   searchMusic,
 } from "./catalog/music-catalog.js";
-export { MUSIC_NOTE_FIELDS, type MusicNote, MusicNoteSchema, type MusicSection, musicFileKey, parseMusicNotes, readMusicNotes } from "./catalog/music-notes.js";
+export { MUSIC_NOTE_FIELDS, type MusicNote, MusicNoteSchema, type MusicSection, musicFileKey, musicFileName, parseMusicNotes, readMusicNotes } from "./catalog/music-notes.js";
 export { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbnails.js";
 export { DEFAULT_SC2_PATH, findSc2, findViewer, setupRenderer, type SetupRendererOptions } from "./catalog/renderer-setup.js";
 export { ModelNotFoundError, type RunViewer, whiteoutFlakesRenderer, type WhiteoutFlakesOptions } from "./catalog/whiteoutflakes.js";

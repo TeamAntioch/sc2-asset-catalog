@@ -6,7 +6,7 @@ import { z } from "zod";
 import { parseJsonFile, TextSchema as Text } from "../util/parse-json.js";
 import { MUSIC_NOTES_PATH } from "./catalog-dirs.js";
 
-// The listening notes (docs/adr in sc2-adjutant, ADR-0023): data/music-notes.json holds what we
+// The listening notes (docs/adr/0003): data/music-notes.json holds what we
 // wrote about each of the game's music files, keyed by the file's base name (no folder, no
 // extension, matched without regard to case). Gemini listened to each file with no name or context
 // and wrote the words; the measurements (length, loudness, tempo, fades, where it peaks) are ours,
@@ -103,12 +103,21 @@ export function parseMusicNotes(text: string, shown: string): Record<string, Mus
   return parseJsonFile(text, shown, MusicNotesFileSchema, "a valid listening notes file").notes as Record<string, MusicNote>;
 }
 
-/** A music file's key in the notes: its base name, without folder or extension, lower case. */
-export function musicFileKey(asset: string): string {
+/**
+ * A music file's name as the notes key it: its base name, without folder or extension (a `.` and
+ * 1 to 4 letters or digits at the end), in the case the game writes it. The one rule both the
+ * notes' builder (scripts/build-music-notes.mjs) and the join use, so a key made from a file is
+ * the key the join looks for: `Cue.Hero_Theme.ogg` is `Cue.Hero_Theme`, and `Cue.Hero_Theme`,
+ * whose last dot isn't an extension, stays whole.
+ */
+export function musicFileName(asset: string): string {
   const name = asset.replaceAll("\\", "/").split("/").at(-1) ?? asset;
   const dot = name.lastIndexOf(".");
-  return (dot > 0 && /^\.[A-Za-z0-9]{1,4}$/.test(name.slice(dot)) ? name.slice(0, dot) : name).toLowerCase();
+  return dot > 0 && /^\.[A-Za-z0-9]{1,4}$/.test(name.slice(dot)) ? name.slice(0, dot) : name;
 }
+
+/** A music file's key in the notes: its base name (musicFileName), lower case. */
+export const musicFileKey = (asset: string): string => musicFileName(asset).toLowerCase();
 
 /** The shipped notes by lower-case file base name (or those of `file`). */
 export function readMusicNotes(file: string = MUSIC_NOTES_PATH): Map<string, MusicNote> {
@@ -127,13 +136,14 @@ const escapeRegExp = (text: string): string => text.replace(/[.*+?^${}()|[\]\\]/
 
 /**
  * Which notes name a denied term (a campaign's mission, character or place that must not ship),
- * as whole words in any case: `{ note key, term }` pairs, in note order. The names themselves
+ * as whole words in any case, in the note's key (a file's base name) as well as its fields: `{ note key, term }` pairs, in note order. The names themselves
  * aren't in this repo: a contributor keeps them in a file of their own (`MUSIC_NOTES_DENYLIST`).
  */
 export function findDeniedNames(notes: Readonly<Record<string, unknown>>, terms: readonly string[]): { readonly note: string; readonly term: string }[] {
   const patterns = terms.map((term) => ({ term, pattern: new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(term)}($|[^\\p{L}\\p{N}])`, "iu") }));
   return Object.entries(notes).flatMap(([note, value]) => {
-    const text = JSON.stringify(value);
+    // A note's key is a file's name, which ships too: it is scanned with the note's words.
+    const text = `${note}\n${JSON.stringify(value)}`;
     return patterns.filter(({ pattern }) => pattern.test(text)).map(({ term }) => ({ note, term }));
   });
 }

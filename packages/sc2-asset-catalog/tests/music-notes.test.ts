@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { MUSIC_NOTES_PATH } from "../src/catalog/catalog-dirs.js";
-import { findDeniedNames, MUSIC_NOTE_FIELDS, musicFileKey, parseDenylist, parseMusicNotes, readMusicNotes } from "../src/catalog/music-notes.js";
+import { findDeniedNames, MUSIC_NOTE_FIELDS, musicFileKey, musicFileName, parseDenylist, parseMusicNotes, readMusicNotes } from "../src/catalog/music-notes.js";
 
 const text = readFileSync(MUSIC_NOTES_PATH, "utf8");
 const raw = JSON.parse(text) as { about: string; notes: Record<string, Record<string, unknown>> };
@@ -66,6 +66,14 @@ describe("a file's key", () => {
     expect(musicFileKey("Assets\\Music\\p01full")).toBe("p01full");
     expect(musicFileKey("Space_1_FULL.OGG")).toBe("space_1_full");
   });
+
+  it("strips only a real extension, so the notes' builder and the join agree on a name with a dot in it", () => {
+    // musicFileName is the rule scripts/build-music-notes.mjs keys the notes by.
+    expect(musicFileName("Assets\\Music\\Cue.Hero_Theme.ogg")).toBe("Cue.Hero_Theme");
+    expect(musicFileName("Assets\\Music\\Cue.Hero_Theme")).toBe("Cue.Hero_Theme");
+    expect(musicFileName("Cue.v2")).toBe("Cue");
+    expect(musicFileKey("Cue.Hero_Theme.ogg")).toBe("cue.hero_theme");
+  });
 });
 
 describe("parsing a notes file", () => {
@@ -93,6 +101,10 @@ describe("names that must not ship", () => {
       { note: "a", term: "Hot Zone" },
       { note: "c", term: "moloch" },
     ]);
+  });
+
+  it("finds a term in a note's key, the file's name, as well as in its fields", () => {
+    expect(findDeniedNames({ Moloch_Theme: { description: "Calm." }, Calm_Bed: { description: "Calm." } }, ["moloch"])).toEqual([{ note: "Moloch_Theme", term: "moloch" }]);
   });
 
   it("takes terms with regular-expression characters as they are", () => {

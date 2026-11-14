@@ -62,6 +62,7 @@ const NOTES = new Map<string, MusicNote>([
   ["quiet_bed", note({ energy: 1, tension: 1, valence: 4, mood: ["calm", "hopeful"], kind: "ambient bed", duration_s: 200, faction_feel: "frontier humans", use_for: ["a sunrise over a colony"], description: "Soft guitar over a pad." })],
   ["hush", note({ silent: true })],
   ["click", note({ kind: "sound effect" })],
+  ["click_too", note({ kind: "sound effect" })],
   ["orphan_note", note()],
 ]);
 
@@ -71,6 +72,8 @@ const EXTRACTED = [
   record("Plain_Dread_Loop", ["No_Note_Yet"]),
   record("Silent_Stinger", ["Hush"]),
   record("Door_Click", ["Click"], { kind: "Sound" }),
+  record("Click_And_Cue", ["Click", "No_Note_Yet"], { kind: "Sound" }),
+  record("Two_Clicks", ["Click", "Click_Too"], { kind: "Sound" }),
   record("Nothing", []),
   record("Map_Only_Cue", ["Ruins_1"], { mapLocal: "pcamp01.sc2map" }),
   record("Alien_Approach", ["Ruins_1"], { kind: "Sound", role: "other" }),
@@ -102,7 +105,12 @@ describe("joining the notes to the extracted ids", () => {
     expect(getMusicEntry(catalog, "Nothing")).toMatchObject({ unplayable: true });
     expect(getMusicEntry(catalog, "Silent_Stinger")).toMatchObject({ silent: true, unplayable: true });
     expect(getMusicEntry(catalog, "Door_Click")).toMatchObject({ unplayable: true });
+    expect(getMusicEntry(catalog, "Two_Clicks")).toMatchObject({ unplayable: true });
     expect(getMusicEntry(catalog, "ZSpace02MusicMain")).toMatchObject({ silent: false, unplayable: false });
+  });
+
+  it("doesn't call an id sound effects only while one of its files has no note: that file may be music", () => {
+    expect(getMusicEntry(catalog, "Click_And_Cue")).toMatchObject({ unplayable: false });
   });
 
   it("names a Soundtrack and a Sound of one id apart, the Soundtrack first", () => {
