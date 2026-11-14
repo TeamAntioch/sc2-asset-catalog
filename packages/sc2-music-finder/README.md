@@ -52,6 +52,8 @@ The page plays only files you extracted from your own StarCraft II install. It w
 
 You need Xcode's Command Line Tools (`xcode-select --install`) and [cmake](https://cmake.org/) (`brew install cmake`). Make a folder to work in, then build [CascLib](https://github.com/ladislav-zezula/CascLib) and our 60-line extractor, `cascx`:
 
+> The `curl` below fetches the extractor from `main`, so it works only once the Music Finder is merged there. Until then, copy `scripts/extract-music/cascx.cpp` from the pull request's branch. (Delete this note once it is on `main`.)
+
 ```sh
 mkdir sc2music && cd sc2music
 git clone --depth 1 https://github.com/ladislav-zezula/CascLib.git casclib

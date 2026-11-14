@@ -18,7 +18,6 @@
 // the cache folder first if they aren't there. A repo command only: it isn't published with the
 // package.
 
-import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,27 +28,21 @@ import { FINDER_MODEL, localEmbedder } from "@team-antioch/sc2-finder-kit/embedd
 import type { Narrowed } from "@team-antioch/sc2-finder-kit/narrow.js";
 import { payloadLog, payloadLogFile } from "@team-antioch/sc2-finder-kit/payload-log.js";
 import { orderByFit } from "@team-antioch/sc2-finder-kit/ranker.js";
-import { addHits, formatHits, type Hits, type NarrowingCase, percentile, readTestAsks, TICK_LOG_FILE, tickLogCases } from "@team-antioch/sc2-finder-kit/test-asks.js";
+import { isMainModule } from "@team-antioch/sc2-finder-kit/is-main.js";
+import { addHits, FIRST_CALL_GUESS, formatHits, type Hits, type NarrowingCase, NARROWING_P95_MS, percentile, readTestAsks, TICK_LOG_FILE, TOP_RANKED, tickLogCases, WARM_START_MS, warmStartMs } from "@team-antioch/sc2-finder-kit/test-asks.js";
 
 import type { MusicCard } from "../cards.ts";
 import { keySourceText, openRanker } from "../credentials.ts";
 import { type Finder, musicVectorCacheFile, openFinder } from "../finder.ts";
 import { ensureMusic, stockSources } from "../sources.ts";
-import { isMainModule } from "./is-main.ts";
 
 const USAGE = "Usage: npm run test-music-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--budget dollars] [--json]";
 
 /** The repo's test asks, from a checkout: packages/sc2-music-finder/{src,dist}/cli/ to the top. */
 const REPO_TEST_ASKS = fileURLToPath(new URL("../../../../test-music-asks.json", import.meta.url));
 
-/** The speed targets the command fails on. */
-export const NARROWING_P95_MS = 50;
-export const WARM_START_MS = 3000;
-
-/** How many of the ranked candidates the mapper sees first. */
-const TOP_RANKED = 10;
-/** A first call's cost, guessed before any ranker has answered: well above what a 200-card ask costs. */
-const FIRST_CALL_GUESS = 0.01;
+/** The speed targets the command fails on (the narrowing's and the warm start's) are the kit's. */
+export { NARROWING_P95_MS, WARM_START_MS };
 
 /** The card ids that play an expected track: the card with that id, or every card with a file of that base name. */
 export function cardsFor(expected: string, cards: ReadonlyMap<string, MusicCard>): string[] {
@@ -72,16 +65,6 @@ async function open(model: string): Promise<Opened> {
   const sources = stockSources(cacheDir);
   const finder = await openFinder({ load: sources.load, embedder, cacheFile: musicVectorCacheFile(model) });
   return { finder, embedded: finder.embeddedOnOpen, ms: performance.now() - started };
-}
-
-/** A warm start, in a process of its own so nothing is loaded yet: Node starting, the model, the sources, the cards and the cache. */
-function warmStart(model: string): number {
-  const started = performance.now();
-  const self = fileURLToPath(import.meta.url);
-  const run = spawnSync(process.execPath, [self, "--start-only", "--model", model], { encoding: "utf8" });
-  const ms = performance.now() - started;
-  if (run.status !== 0) throw new Error(`The warm start failed: ${run.stderr.trim()}`);
-  return ms;
 }
 
 type CaseResult = {
@@ -121,7 +104,7 @@ async function main(): Promise<void> {
   log(`Model ${model}`);
   const opened = await open(model);
   log(`Opened in ${Math.round(opened.ms)} ms (${opened.finder.cards.size} cards, ${opened.embedded} embedded now)`);
-  const warm = warmStart(model);
+  const warm = warmStartMs(fileURLToPath(import.meta.url), model);
   log(`Warm start in a new process: ${Math.round(warm)} ms`);
 
   const asked = await readTestAsks(asksFile);
