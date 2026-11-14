@@ -20,3 +20,6 @@ export const ABOUT =
 
 /** Jev's Score question, asked once per candidate with the candidate's card beside it. */
 export const JEV_QUESTION = "How well does `doodad` fit what `ask` asks for?";
+
+/** Everything Jev is told about doodads, for the kit's ranker. */
+export const JEV_WORDING = { about: ABOUT, question: JEV_QUESTION, field: "doodad", levels: LEVELS } as const;

@@ -30,7 +30,7 @@ describe("configDir", () => {
 const posix = process.platform !== "win32";
 let dir: string;
 beforeEach(async () => {
-  dir = await mkdtemp(path.join(tmpdir(), "doodad-finder-key-"));
+  dir = await mkdtemp(path.join(tmpdir(), "finder-kit-key-"));
 });
 afterEach(async () => {
   await rm(dir, { recursive: true, force: true });

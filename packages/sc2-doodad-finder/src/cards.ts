@@ -4,20 +4,13 @@
 // tilesets and Doodad Use phrases. Where a use came from (its `from`) stays out: it names a search,
 // not the doodad. An undescribed doodad's card is its name and id words alone.
 
+import type { FinderCard } from "@team-antioch/sc2-finder-kit/card.js";
 import { allDoodadEntries, type DoodadEntry, type DoodadSearchSources, idWords } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 
-export type CandidateCard = {
-  readonly id: string;
-  readonly name: string;
+export type CandidateCard = FinderCard & {
   readonly source: DoodadEntry["source"];
-  /** The card's text: what is embedded and what the ranker reads. */
-  readonly text: string;
   /** The entry the card was written from: its facets, for tags, and its look, for the page. */
   readonly entry: DoodadEntry;
-  /** The map dependency it needs, absent when the default Void (Mod) brings it in. */
-  readonly dependency?: string;
-  /** For a map's dependencies: whether its dependencies already bring it in. */
-  readonly provided?: boolean;
   /** A mod doodad its index has no description of for its current model. */
   readonly pending?: true;
 };

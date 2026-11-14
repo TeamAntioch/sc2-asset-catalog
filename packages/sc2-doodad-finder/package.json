@@ -50,9 +50,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@huggingface/transformers": "^4.3.2",
     "@team-antioch/sc2-asset-catalog": "0.1.2",
-    "@typesafe-ai/sdk": "^0.7.0",
-    "zod": "^4.0.0"
+    "@team-antioch/sc2-finder-kit": "0.1.2",
+    "@typesafe-ai/sdk": "^0.7.0"
   }
 }
