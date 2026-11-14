@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import type { ExtractedMusic } from "../src/catalog/extract-music.js";
 import { MUSIC_EXTRACTED_FILE } from "../src/catalog/extract-music.js";
-import { getMusicEntry, joinMusicCatalog, musicEntriesPlaying, musicIdWords, parseMusicExtracted, readMusicCatalog, searchMusic } from "../src/catalog/music-catalog.js";
+import { getMusicEntry, joinMusicCatalog, musicEntriesPlaying, musicIdWords, parseMusicExtracted, readMusicCatalog, searchMusic, unextractedNotesReport } from "../src/catalog/music-catalog.js";
 import { type MusicNote, parseMusicNotes } from "../src/catalog/music-notes.js";
 
 let dir: string | undefined;
@@ -114,6 +114,13 @@ describe("joining the notes to the extracted ids", () => {
     expect(catalog.unextractedNotes).toEqual(["orphan_note"]);
   });
 
+  it("reports the notes it left out, a few by name, and nothing when there are none", () => {
+    expect(unextractedNotesReport(catalog)).toBe("1 listening notes are for files no extracted music id plays, and are left out: orphan_note");
+    const many = joinMusicCatalog([], new Map(["a", "b", "c", "d", "e", "f", "g"].map((key) => [key, note()])));
+    expect(unextractedNotesReport(many, 3)).toBe("7 listening notes are for files no extracted music id plays, and are left out: a, b, c, …");
+    expect(unextractedNotesReport(joinMusicCatalog(EXTRACTED, new Map([["ruins_1", note()]])))).toBeUndefined();
+  });
+
   it("finds the entries that play a file by any spelling of its name", () => {
     expect(musicEntriesPlaying(catalog, "Assets\\Music\\RUINS_1.ogg").map((entry) => `${entry.id}:${entry.kind}`)).toEqual(["Alien_Approach:Soundtrack", "Map_Only_Cue:Soundtrack", "Alien_Approach:Sound"]);
   });
@@ -161,6 +168,17 @@ describe("searching", () => {
     expect(ids({ faction: "zerg" })).toEqual(["Alien_Approach:Soundtrack"]);
     expect(ids({ role: "cutscene" })).toEqual(["ZSpace02MusicMain:Soundtrack"]);
     expect(ids({ tension: [4, 5] })).not.toContain("Plain_Dread_Loop:Soundtrack");
+  });
+
+  it("reads ratings as the mean the card shows, and length as the range the card shows", () => {
+    const ids = (query: Parameters<typeof searchMusic>[1]) => searchMusic(catalog, query).filter((match) => match.entry.kind === "Soundtrack").map((match) => match.entry.id);
+    // Alien_Approach plays files rated 3 and 5 (mean 4), of 90 s and 30 s (card: 0:30-1:30).
+    expect(ids({ energy: [4, 4] })).toContain("Alien_Approach");
+    expect(ids({ energy: [5, 5] })).not.toContain("Alien_Approach");
+    expect(ids({ energy: [3, 3] })).not.toContain("Alien_Approach");
+    expect(ids({ minSeconds: 60, maxSeconds: 70 })).toContain("Alien_Approach");
+    expect(ids({ minSeconds: 100 })).not.toContain("Alien_Approach");
+    expect(ids({ maxSeconds: 20 })).not.toContain("Alien_Approach");
   });
 
   it("keeps the ids a map's dependencies bring in, counting Void Story as the Void campaign", () => {
