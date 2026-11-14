@@ -86,6 +86,8 @@ describe("tagMatches", () => {
     // What the default Void (Mod) brings needs nothing.
     expect(tagMatches(card("TenseApproach"), { facet: "map has", value: "Nova Covert Ops (Art Mod)" })).toBe(true);
     expect(KNOWN_DEPENDENCIES["Void (Campaign)"]).toBe(VOID_CAMPAIGN);
+    // Every dependency the catalog knows is one a map can say it has.
+    expect(Object.keys(KNOWN_DEPENDENCIES).sort()).toEqual(["Nova Covert Ops (Art Mod)", "Void (Campaign)", "Void Story (Campaign)"]);
   });
 
   it("hides what a map can't play unless the show tag says everything", () => {

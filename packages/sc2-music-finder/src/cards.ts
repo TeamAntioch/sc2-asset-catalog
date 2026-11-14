@@ -5,8 +5,8 @@
 // and its ratings and length. Where Blizzard used it stays on the page, out of the text.
 
 import type { FinderCard } from "@team-antioch/sc2-finder-kit/card.js";
-import { type MusicCatalog, type MusicEntry, musicIdWords } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
-import { musicFileKey, type MusicNote } from "@team-antioch/sc2-asset-catalog/catalog/music-notes.js";
+import { type MusicCatalog, type MusicEntry, factionsOfFeel, musicIdWords } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
+import { musicFileKey, musicFileName, type MusicNote } from "@team-antioch/sc2-asset-catalog/catalog/music-notes.js";
 
 /** What the cards are made from: the extracted ids joined to the notes, and the notes by file key (the join keeps only the heard files'). */
 export type MusicSources = { readonly catalog: MusicCatalog; readonly notes: ReadonlyMap<string, MusicNote> };
@@ -33,16 +33,9 @@ export type MusicCard = FinderCard & {
   readonly layer?: MusicLayerFields;
 };
 
-/** The factions a note's faction feel names, as the search matches them. */
-const FACTION_FEEL: Readonly<Record<string, string>> = { frontier: "terran", ancient: "protoss", swarm: "zerg" };
-
+/** The factions a note's faction feel names, as the search matches them (the catalog's rule, so a card and the keyword search agree). */
 export function factionsOf(notes: readonly MusicNote[]): string[] {
-  const found = new Set<string>();
-  for (const note of notes) {
-    const feel = note.faction_feel.toLowerCase();
-    for (const [word, faction] of Object.entries(FACTION_FEEL)) if (feel.includes(word)) found.add(faction);
-  }
-  return [...found];
+  return [...new Set(notes.flatMap((note) => factionsOfFeel(note.faction_feel)))];
 }
 
 const soundtrackIds = new WeakMap<MusicCatalog, ReadonlySet<string>>();
@@ -107,7 +100,7 @@ export function musicCards({ catalog, notes }: MusicSources, layerOf?: MusicLaye
       if (seen.has(key)) continue;
       seen.add(key);
       const note = notes.get(key);
-      pieces.push({ key, name: asset.replaceAll("\\", "/").split("/").at(-1)!.replace(/\.[A-Za-z0-9]{1,4}$/, ""), ...(note ? { note } : {}) });
+      pieces.push({ key, name: musicFileName(asset), ...(note ? { note } : {}) });
     }
     const layer = layerOf?.(entry);
     return {

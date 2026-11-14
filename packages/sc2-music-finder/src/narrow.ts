@@ -15,8 +15,8 @@
 //   show                       `everything` shows the silent, unplayable and map-local ids that are
 //                              left out by default
 
-import { dependencyName, packageDependency, providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
-import { type MusicQuery, searchMusic } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
+import { dependencyName, knownDependencies, providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+import { type MusicQuery, type OpenRange, searchMusic, secondsOverlap, withinRange } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
 import type { Tag } from "@team-antioch/sc2-finder-kit/narrow.js";
 
 import type { MusicCard, MusicSources } from "./cards.ts";
@@ -39,12 +39,7 @@ export type Facet = (typeof FACETS)[number];
 export const facetOf = (text: string): Facet | undefined => FACETS.find((facet) => facet === text.toLowerCase());
 
 /** The dependency names the map can say it has, with the dependency each is: the game's own, as the doodad finder knows them. */
-export const KNOWN_DEPENDENCIES: Readonly<Record<string, string>> = Object.fromEntries(
-  ["campaigns/void.sc2campaign", "campaigns/voidstory.sc2campaign", "mods/novastoryassets.sc2mod"].flatMap((pkg) => {
-    const dependency = packageDependency(pkg);
-    return dependency === undefined ? [] : [[dependencyName(dependency), dependency] as const];
-  }),
-);
+export const KNOWN_DEPENDENCIES: Readonly<Record<string, string>> = Object.fromEntries(knownDependencies().map((dependency) => [dependencyName(dependency), dependency] as const));
 
 /** The dependencies a `map has` value names, as the catalog knows them; names it doesn't know are left out. */
 export const dependenciesOf = (value: string): string[] =>
@@ -54,7 +49,7 @@ export const dependenciesOf = (value: string): string[] =>
     .filter((dependency): dependency is string => dependency !== undefined);
 
 /** A range of numbers, either end open. */
-export type Range = readonly [min: number | undefined, max: number | undefined];
+export type Range = OpenRange;
 
 /** A range as a tag value writes it: `3`, `2-4`, `40-`, `-120`; undefined for anything else. */
 export function parseRange(value: string): Range | undefined {
@@ -67,9 +62,6 @@ export function parseRange(value: string): Range | undefined {
   return undefined;
 }
 
-const within = (value: number | undefined, range: Range): boolean =>
-  value !== undefined && (range[0] === undefined || value >= range[0]) && (range[1] === undefined || value <= range[1]);
-
 /** Whether a tag matches a card, case aside. An unknown facet, or a value that isn't one, matches nothing. */
 export function tagMatches(card: MusicCard, tag: Tag): boolean {
   const facet = facetOf(tag.facet);
@@ -80,11 +72,11 @@ export function tagMatches(card: MusicCard, tag: Tag): boolean {
     case "tension":
     case "valence": {
       const range = parseRange(value);
-      return range !== undefined && within(entry[facet], range);
+      return range !== undefined && withinRange(entry[facet], range);
     }
     case "length": {
       const range = parseRange(value);
-      return range !== undefined && entry.seconds !== undefined && (range[0] === undefined || entry.seconds.max >= range[0]) && (range[1] === undefined || entry.seconds.min <= range[1]);
+      return range !== undefined && secondsOverlap(entry.seconds, range);
     }
     case "kind":
       return entry.kinds.some((kind) => kind.toLowerCase() === value);
