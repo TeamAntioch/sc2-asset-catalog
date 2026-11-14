@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import type { ExtractedMusic } from "../src/catalog/extract-music.js";
 import { MUSIC_EXTRACTED_FILE } from "../src/catalog/extract-music.js";
-import { getMusicEntry, joinMusicCatalog, musicEntriesPlaying, musicIdWords, parseMusicExtracted, readMusicCatalog, searchMusic, unextractedNotesReport } from "../src/catalog/music-catalog.js";
+import { factionsOfFeel, getMusicEntry, joinMusicCatalog, musicEntriesPlaying, musicIdWords, parseMusicExtracted, readMusicCatalog, searchMusic, secondsOverlap, unextractedNotesReport, withinRange } from "../src/catalog/music-catalog.js";
 import { type MusicNote, parseMusicNotes } from "../src/catalog/music-notes.js";
 
 let dir: string | undefined;
@@ -276,5 +276,29 @@ describe("reading the extracted music", () => {
 
   it("parses a notes file in the shape the shipped one has", () => {
     expect(parseMusicNotes(JSON.stringify({ about: "x", notes: { A: note() } }), "n.json").A?.kind).toBe("full cue");
+  });
+});
+
+describe("the shared matching rules", () => {
+  it("names the factions a faction feel carries, case aside", () => {
+    expect(factionsOfFeel("Ancient noble aliens")).toEqual(["protoss"]);
+    expect(factionsOfFeel("frontier humans, swarming horror").sort()).toEqual(["terran", "zerg"]);
+    expect(factionsOfFeel("none")).toEqual([]);
+  });
+
+  it("takes a value in a range with either end open, and never an unknown value", () => {
+    expect(withinRange(3, [2, 4])).toBe(true);
+    expect(withinRange(5, [2, 4])).toBe(false);
+    expect(withinRange(5, [2, undefined])).toBe(true);
+    expect(withinRange(1, [undefined, 4])).toBe(true);
+    expect(withinRange(undefined, [undefined, undefined])).toBe(false);
+  });
+
+  it("overlaps a file-length range with a wanted range", () => {
+    const seconds = { min: 10, max: 100 };
+    expect(secondsOverlap(seconds, [30, 60])).toBe(true);
+    expect(secondsOverlap(seconds, [101, undefined])).toBe(false);
+    expect(secondsOverlap(seconds, [undefined, 9])).toBe(false);
+    expect(secondsOverlap(undefined, [undefined, undefined])).toBe(false);
   });
 });

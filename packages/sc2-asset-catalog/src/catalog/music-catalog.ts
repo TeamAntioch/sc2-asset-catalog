@@ -196,7 +196,14 @@ export type MusicMatch = {
   readonly matched: readonly string[];
 };
 
-const FACTION_FEEL = { terran: "frontier", protoss: "ancient", zerg: "swarm" } as const;
+/** The feel word a note's faction feel carries for each race: the one definition the search and the finder's cards share. */
+export const FACTION_FEEL = { terran: "frontier", protoss: "ancient", zerg: "swarm" } as const;
+
+/** The races a note's faction feel names (it holds their feel words), case aside. */
+export function factionsOfFeel(feel: string): (keyof typeof FACTION_FEEL)[] {
+  const lower = feel.toLowerCase();
+  return (Object.keys(FACTION_FEEL) as (keyof typeof FACTION_FEEL)[]).filter((faction) => lower.includes(FACTION_FEEL[faction]));
+}
 /** English function words: they say nothing about a scene. Words that are only common in the catalog (builds, sounds) are not listed here: their document frequency lowers their weight. */
 const STOP_WORDS = new Set(
   "a an and are as at be been but by can could did do does each for from had has have he her him his how i if in into is it its just of on or our over she so some such than that the their them then there these they this through to under was we were what when where which while who will with would you your".split(" "),
@@ -212,7 +219,17 @@ function stem(word: string): string {
 
 const wordsOf = (text: string): string[] => text.toLowerCase().match(/[a-z]+/g) ?? [];
 
-const inRange = (value: number | undefined, range: RatingRange | undefined): boolean => range === undefined || (value !== undefined && value >= range[0] && value <= range[1]);
+/** A range of numbers, either end open. */
+export type OpenRange = readonly [min: number | undefined, max: number | undefined];
+
+/** Whether a known value lies in a range whose ends may be open; an unknown value is in none. */
+export const withinRange = (value: number | undefined, range: OpenRange): boolean => value !== undefined && (range[0] === undefined || value >= range[0]) && (range[1] === undefined || value <= range[1]);
+
+/** Whether an entry's files, shortest to longest, overlap a wanted range of seconds: its longest is at least the range's start and its shortest at most its end. No known length overlaps nothing. */
+export const secondsOverlap = (seconds: { readonly min: number; readonly max: number } | undefined, range: OpenRange): boolean =>
+  seconds !== undefined && (range[0] === undefined || seconds.max >= range[0]) && (range[1] === undefined || seconds.min <= range[1]);
+
+const inRange = (value: number | undefined, range: RatingRange | undefined): boolean => range === undefined || withinRange(value, range);
 
 /** How each kind of text counts toward a match: what a mapper would ask in ("mood", "use for") counts most. */
 const WEIGHTS = { mood: 3, useFor: 3, kind: 2, idWord: 2, style: 1.5, description: 1, other: 0.5 } as const;
@@ -292,9 +309,8 @@ export function searchMusic(catalog: MusicCatalog, query: MusicQuery = {}): Musi
     if (!query.includeMapLocal && entry.mapLocal !== undefined) continue;
     if (query.kinds && !entry.kinds.some((kind) => query.kinds!.includes(kind))) continue;
     if (!inRange(entry.energy, query.energy) || !inRange(entry.tension, query.tension) || !inRange(entry.valence, query.valence)) continue;
-    if (query.minSeconds !== undefined && (entry.seconds === undefined || entry.seconds.max < query.minSeconds)) continue;
-    if (query.maxSeconds !== undefined && (entry.seconds === undefined || entry.seconds.min > query.maxSeconds)) continue;
-    if (query.faction && !entry.notes.some((note) => note.faction_feel.toLowerCase().includes(FACTION_FEEL[query.faction!]))) continue;
+    if ((query.minSeconds !== undefined || query.maxSeconds !== undefined) && !secondsOverlap(entry.seconds, [query.minSeconds, query.maxSeconds])) continue;
+    if (query.faction && !entry.notes.some((note) => factionsOfFeel(note.faction_feel).includes(query.faction!))) continue;
     if (query.role !== undefined && entry.role !== query.role) continue;
     if (wanted && entry.dependency !== undefined && !providesDependency(wanted, entry.dependency)) continue;
     let score = 0;
