@@ -1,0 +1,131 @@
+// The Music Finder's narrowing (docs/adr/0001): for an ask, the catalog's keyword search (about 100
+// results) and the nearest cards by embedding (about 100), merged without duplicates into about
+// 200 by the kit. The page's filters are pinned tags of their own facets, so the kit's own
+// machinery keeps them: what each facet matches, and how the keyword search takes it, are here.
+//
+//   energy, tension, valence   `2-3`, or `4`: the card's rating, averaged over its files
+//   length                     `40-200`, `40-` or `-120`: seconds; a card with a file in that range
+//   kind                       full cue, ambient bed, stinger, loop, song, layer/stem, sound effect
+//   faction                    terran, protoss or zerg
+//   role                       what the id is for (victory, cutscene, ...)
+//   mood                       one of its moods
+//   map has                    the map's dependencies, such as `Void (Campaign)`, comma apart: the
+//                              cards that need another are left out
+//   show                       `everything` shows the silent, unplayable and map-local ids that are
+//                              left out by default
+
+import { packageDependency, providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+import { type MusicQuery, searchMusic } from "@team-antioch/sc2-asset-catalog/catalog/music-catalog.js";
+import type { Tag } from "@team-antioch/sc2-finder-kit/narrow.js";
+
+import type { MusicCard, MusicSources } from "./cards.ts";
+import { cardIdOf } from "./cards.ts";
+
+export type { Tag } from "@team-antioch/sc2-finder-kit/narrow.js";
+
+/** Facets that only limit what is shown: the page's controls pin them. */
+export const FILTER_FACETS = ["energy", "tension", "valence", "length", "map has", "show"] as const;
+
+/** The dependency names the map can say it has, with the dependency each is: the game's own, as the doodad finder knows them. */
+export const KNOWN_DEPENDENCIES: Readonly<Record<string, string>> = Object.fromEntries(
+  ["campaigns/void.sc2campaign", "campaigns/voidstory.sc2campaign", "mods/novastoryassets.sc2mod"].flatMap((pkg) => {
+    const dependency = packageDependency(pkg);
+    const name = dependency === undefined ? undefined : /^bnet:([^/]+)\//.exec(dependency)?.[1];
+    return dependency !== undefined && name !== undefined ? [[name, dependency] as const] : [];
+  }),
+);
+
+/** The name a dependency goes by on the page: `Void (Campaign)`. */
+export const dependencyName = (dependency: string): string => /^bnet:([^/]+)\//.exec(dependency)?.[1] ?? dependency;
+
+/** The dependencies a `map has` value names, as the catalog knows them; names it doesn't know are left out. */
+export const dependenciesOf = (value: string): string[] =>
+  value
+    .split(",")
+    .map((name) => KNOWN_DEPENDENCIES[name.trim()])
+    .filter((dependency): dependency is string => dependency !== undefined);
+
+/** A range as a tag value writes it: `3`, `2-4`, `40-`, `-120`; undefined for anything else. */
+export function parseRange(value: string): readonly [min: number | undefined, max: number | undefined] | undefined {
+  const text = value.trim();
+  const number = "(\\d+(?:\\.\\d+)?)";
+  const single = new RegExp(`^${number}$`).exec(text);
+  if (single) return [Number(single[1]), Number(single[1])];
+  const pair = new RegExp(`^${number}?\\s*-\\s*${number}?$`).exec(text);
+  if (pair && (pair[1] !== undefined || pair[2] !== undefined)) return [pair[1] === undefined ? undefined : Number(pair[1]), pair[2] === undefined ? undefined : Number(pair[2])];
+  return undefined;
+}
+
+const within = (value: number | undefined, range: readonly [number | undefined, number | undefined]): boolean =>
+  value !== undefined && (range[0] === undefined || value >= range[0]) && (range[1] === undefined || value <= range[1]);
+
+/** Whether a tag matches a card, case aside. An unknown facet, or a value that isn't one, matches nothing. */
+export function tagMatches(card: MusicCard, tag: Tag): boolean {
+  const facet = tag.facet.toLowerCase();
+  const value = tag.value.toLowerCase().trim();
+  const { entry } = card;
+  switch (facet) {
+    case "energy":
+    case "tension":
+    case "valence": {
+      const range = parseRange(value);
+      return range !== undefined && within(entry[facet], range);
+    }
+    case "length": {
+      const range = parseRange(value);
+      return range !== undefined && entry.seconds !== undefined && (range[0] === undefined || entry.seconds.max >= range[0]) && (range[1] === undefined || entry.seconds.min <= range[1]);
+    }
+    case "kind":
+      return entry.kinds.some((kind) => kind.toLowerCase() === value);
+    case "faction":
+      return card.factions.includes(value);
+    case "role":
+      return entry.role.toLowerCase() === value;
+    case "mood":
+      return card.pieces.some(({ note }) => note?.mood.some((mood) => mood.toLowerCase() === value));
+    case "map has":
+      return entry.dependency === undefined || providesDependency(dependenciesOf(tag.value), entry.dependency);
+    case "show":
+      return value === "everything" || (value === "playable" && !entry.unplayable && entry.mapLocal === undefined);
+    default:
+      return false;
+  }
+}
+
+/** The tags with `show: playable` pinned unless the page chose what to show: the default hides what a map can't play. */
+export const withDefaultShow = (tags: readonly Tag[] = []): Tag[] => (tags.some((tag) => tag.pinned && tag.facet.toLowerCase() === "show") ? [...tags] : [...tags, { facet: "show", value: "playable", pinned: true }]);
+
+/** The keyword search's query for an ask and the pinned tags it can take: the rest the kit checks on the results. */
+export function queryFor(ask: string, tags: readonly Tag[]): MusicQuery {
+  const pinned = tags.filter((tag) => tag.pinned);
+  const first = (facet: string) => pinned.find((tag) => tag.facet.toLowerCase() === facet);
+  const query: { -readonly [K in keyof MusicQuery]: MusicQuery[K] } = { words: ask };
+  for (const facet of ["energy", "tension", "valence"] as const) {
+    const range = first(facet) && parseRange(first(facet)!.value);
+    if (range) query[facet] = [range[0] ?? 1, range[1] ?? 5];
+  }
+  const length = first("length") && parseRange(first("length")!.value);
+  if (length?.[0] !== undefined) query.minSeconds = length[0];
+  if (length?.[1] !== undefined) query.maxSeconds = length[1];
+  const kind = first("kind");
+  if (kind) query.kinds = [kind.value.trim().toLowerCase()];
+  const faction = first("faction")?.value.trim().toLowerCase();
+  if (faction === "terran" || faction === "protoss" || faction === "zerg") query.faction = faction;
+  const role = first("role");
+  if (role) query.role = role.value.trim().toLowerCase();
+  const have = first("map has");
+  if (have) query.dependencies = dependenciesOf(have.value);
+  if (first("show")?.value.trim().toLowerCase() === "everything") {
+    query.includeUnplayable = true;
+    query.includeMapLocal = true;
+  }
+  return query;
+}
+
+/** The keyword search's matches for an ask, best first, as card ids. An ask with no word the search takes finds nothing. */
+export function keywordMatches({ catalog }: MusicSources, ask: string, tags: readonly Tag[]): { readonly id: string }[] {
+  if (!/[a-z0-9]/i.test(ask)) return [];
+  return searchMusic(catalog, queryFor(ask, tags))
+    .filter(({ matched }) => matched.length > 0)
+    .map(({ entry }) => ({ id: cardIdOf(entry, catalog) }));
+}

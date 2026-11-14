@@ -8,11 +8,12 @@ It's built on **sc2-asset-catalog**, a catalog of more than 2,400 doodads descri
 
 This project is not affiliated with or endorsed by Blizzard Entertainment. StarCraft II and its assets are Blizzard's. No game data ships here: on its first start the Finder builds the game's own fields into your cache folder from [SC2Mapster's SC2GameData](https://github.com/SC2Mapster/SC2GameData), and cards link pictures from the [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference) gallery by URL.
 
-Three npm packages:
+Four npm packages:
 
 | Package | What it is |
 | --- | --- |
 | [`@team-antioch/sc2-doodad-finder`](packages/sc2-doodad-finder) | The Finder: the page, the doodad cards and the `sc2-doodad-finder` command. |
+| [`@team-antioch/sc2-music-finder`](packages/sc2-music-finder) | The Music Finder: ask for music in plain words and read each track's listening notes, filter by energy, tension, length and the dependency your map has, and play it from your own extracted audio. The `sc2-music-finder` command. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
 | [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, and the extractor (`sc2-asset-catalog extract`). |
 
@@ -197,6 +198,6 @@ New and better descriptions and Doodad Uses are welcome: see [CONTRIBUTING.md](C
 
 Releases go through [Changesets](https://github.com/changesets/changesets) and the [release workflow](.github/workflows/release.yml), which publishes with npm trusted publishing: no npm token is stored anywhere. Once the repository variable `RELEASE` is `on`, each push to `main` opens or updates a version pull request from the changesets, and merging it publishes the new versions. Setting it up, once:
 
-1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit` when it is first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
-2. On npmjs.com, add a trusted publisher to each package (the kit's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
+1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit` and `@team-antioch/sc2-music-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder` and `packages/sc2-music-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
+2. On npmjs.com, add a trusted publisher to each package (the kit's and the Music Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
 3. Set the repository variable `RELEASE` to `on`.
