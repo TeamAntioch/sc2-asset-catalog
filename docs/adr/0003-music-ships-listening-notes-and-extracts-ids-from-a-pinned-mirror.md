@@ -10,6 +10,8 @@ The music search tool (sc2-adjutant#701) joins two things by file base name, as 
 
 **Joined by base name.** An id is an entry with the notes of the files it plays. An id whose files have no notes is still an entry, found by the words of its id. A note whose file no id plays is left out and reported.
 
+**How the keyword search weighs words.** A word counts by how few entries say it (its inverse document frequency over every entry, counted once per catalog), so one rare word of an ask ("alarm", in 33 entries) outweighs several common ones ("builds", in 536, "sounds", in 403): the stemmer keeps five letters, so each of those matches a third to a half of the catalog. Function words are ignored outright. An id is scored by its best file's notes, not by the words of all its files together. 119 ids play more than five noted files, and for a countdown ask 82 of the top 100 results were such pools, because the union of fifty files' words matches nearly any ask and crowded out the 970 ids with one file. Even so, a pool can hold one file that fits, so pools still reach the top (56 of 100 for that ask), and a track that only a pool plays can't rank far above the pool's other files. Whether an id should instead be scored by how many of its files fit (what a random pick would play) is open.
+
 ## Considered Options
 
 - **Compute the measurements in the finder from the user's audio.** Rejected. Without an extracted audio folder there'd be no length or energy filter, and extracting the audio is the one step a mapper has to do by hand.
