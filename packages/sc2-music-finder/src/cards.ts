@@ -90,6 +90,16 @@ export function cardText(entry: MusicEntry, pieces: readonly MusicPiece[], layer
   return lines.join("\n");
 }
 
+/**
+ * What the embeddings model embeds: the card's text with its name line cut to the kind (`a Soundtrack,
+ * cutscene`). The id's words drown the meaning in the vector, while the keyword search and the ranker
+ * still read them (research: docs/research/music-embeddings).
+ */
+export function embedText(text: string): string {
+  const [name = "", ...rest] = text.split("\n");
+  return [name.slice(name.indexOf("): ") + 3), ...rest].join("\n");
+}
+
 /** The card for every id the catalog holds, silent, unplayable and map-local ones too: the page's toggle shows or hides them. */
 export function musicCards({ catalog, notes }: MusicSources, layerOf?: MusicLayer): MusicCard[] {
   return catalog.entries.map((entry) => {
@@ -103,10 +113,12 @@ export function musicCards({ catalog, notes }: MusicSources, layerOf?: MusicLaye
       pieces.push({ key, name: musicFileName(asset), ...(note ? { note } : {}) });
     }
     const layer = layerOf?.(entry);
+    const text = cardText(entry, pieces, layer);
     return {
       id: cardIdOf(entry, catalog),
       name: entry.id,
-      text: cardText(entry, pieces, layer),
+      text,
+      embedText: embedText(text),
       entry,
       pieces,
       factions: factionsOf(pieces.flatMap(({ note }) => (note ? [note] : []))),
