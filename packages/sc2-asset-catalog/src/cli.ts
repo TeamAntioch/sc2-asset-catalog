@@ -4,6 +4,11 @@
 //     Builds the extracted fields (names, packages, categories, gallery pictures) from SC2GameData
 //     into the cache folder (the platform's by default). The Doodad Finder does this on its first start.
 //
+//   sc2-asset-catalog extract-music [--cache <folder>]
+//     Builds the music's extracted fields (every callable id, its files, dependency and where
+//     Blizzard's scripts use it) from a mirror of the game's data into the cache folder. The Music
+//     Finder does this on its first start.
+//
 //   sc2-asset-catalog setup-renderer [--cache <folder>]
 //     macOS: checks for Xcode (with its Metal toolchain), Homebrew and ImageMagick, builds the
 //     WhiteoutFlakes viewer into the cache folder and records where it is (renderer-setup.ts).
@@ -21,6 +26,7 @@ import { parseArgs } from "node:util";
 
 import { catalogCacheDir, catalogConfigDir, extractedDir } from "./catalog/catalog-dirs.js";
 import { extractCatalog } from "./catalog/extract-catalog.js";
+import { extractMusic } from "./catalog/extract-music.js";
 import { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbnails.js";
 import { checkRenderPlatform, findSc2, findViewer, rendererDir, type SetupSystem, setupRenderer, thisMachine } from "./catalog/renderer-setup.js";
 import { type RunViewer, whiteoutFlakesRenderer } from "./catalog/whiteoutflakes.js";
@@ -28,6 +34,7 @@ import { npxHint } from "./util/npx.js";
 
 export const CATALOG_USAGE = [
   "Usage: sc2-asset-catalog extract [--cache <folder>]",
+  "       sc2-asset-catalog extract-music [--cache <folder>]",
   "       sc2-asset-catalog setup-renderer [--cache <folder>]",
   "       sc2-asset-catalog render [doodad ids…] [--viewer <app>] [--sc2 <folder>] [--renderer <module>] [--cache <folder>] [--jobs n] [--force]",
 ].join("\n");
@@ -80,6 +87,10 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   const configDir = catalogConfigDir({ platform, env });
   if (command === "extract") {
     await extractCatalog({ extractedDir: extractedDir(cacheDir), log, ...(options.fetch ? { fetch: options.fetch } : {}) });
+    return;
+  }
+  if (command === "extract-music") {
+    await extractMusic({ extractedDir: extractedDir(cacheDir), log, env, ...(options.fetch ? { fetch: options.fetch } : {}) });
     return;
   }
   if (command === "setup-renderer") {
