@@ -6,8 +6,11 @@ import { providesDependency } from "@team-antioch/sc2-asset-catalog/catalog/dood
 import { type DoodadSearchSources, matchDoodads } from "@team-antioch/sc2-asset-catalog/catalog/doodad-search.js";
 import { type Finder as KitFinder, type FinderOptions as KitFinderOptions, openFinder as kitOpenFinder } from "@team-antioch/sc2-finder-kit/finder.js";
 
+import { jevRankBudget } from "@team-antioch/sc2-finder-kit/jev-ranker.js";
+
 import { type CandidateCard, candidateCards } from "./cards.ts";
 import { askWords, pinnedFacets, tagMatches } from "./narrow.ts";
+import { JEV_WORDING } from "./wording.ts";
 
 export { KEYWORD_RESULTS, NEAREST_MATCHES, NEAREST_RESULTS, type NarrowOptions, type Narrowing, vectorCacheFile } from "@team-antioch/sc2-finder-kit/finder.js";
 
@@ -24,5 +27,7 @@ export const openFinder = (options: FinderOptions): Promise<Finder> =>
       return words.length ? matchDoodads({ words, ...pinnedFacets(tags) }, sources) : [];
     },
     tagMatches,
+    // Jev refuses a request over its token limit (the kit's jev-ranker.ts); the doodads' cards are short enough that a default 200 never reaches it (tests/finder.test.ts).
+    rankBudget: jevRankBudget<CandidateCard>(JEV_WORDING),
     provides: (dependencies, card) => card.dependency === undefined || providesDependency(dependencies, card.dependency),
   });

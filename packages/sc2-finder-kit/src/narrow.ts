@@ -82,3 +82,31 @@ export function mergeNarrowing<C extends FinderCard>(
   scored.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
   return scored.slice(0, options.limit ?? DEFAULT_LIMIT);
 }
+
+/**
+ * What the ranker can be handed: a budget in whatever unit `cost` counts (Jev's is input tokens,
+ * docs/adr/0002), and what one card costs of it.
+ */
+export type RankBudget<C extends FinderCard = FinderCard> = {
+  readonly limit: number;
+  readonly cost: (card: C) => number;
+};
+
+/**
+ * The candidates the ranker is handed: the best-first list cut to the longest start of it that costs
+ * no more than the budget (at least one stays). The list is already the two searches' places
+ * merged by reciprocal rank, so what is cut is the tail of both searches alternately, never one
+ * list's whole tail; and a map's provided cards come first in each search, so they are last to go.
+ * `cost` is what the kept candidates cost; `cut` how many were dropped.
+ */
+export function fitToBudget<C extends FinderCard>(candidates: readonly Narrowed<C>[], budget: RankBudget<C>): { readonly kept: Narrowed<C>[]; readonly cut: number; readonly cost: number } {
+  let cost = 0;
+  let kept = 0;
+  for (const { card } of candidates) {
+    const next = cost + budget.cost(card);
+    if (next > budget.limit && kept > 0) break;
+    cost = next;
+    kept++;
+  }
+  return { kept: candidates.slice(0, kept), cut: candidates.length - kept, cost };
+}

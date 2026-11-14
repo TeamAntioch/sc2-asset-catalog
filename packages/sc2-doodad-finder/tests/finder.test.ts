@@ -4,11 +4,13 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { jevRankBudget } from "@team-antioch/sc2-finder-kit/jev-ranker.js";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { type Finder, openFinder } from "../src/finder.ts";
 import { fakeEmbedder } from "./fake-embedder.ts";
 import { sources, VOID_CAMPAIGN } from "./fixtures.ts";
+import { JEV_WORDING } from "../src/wording.ts";
 
 let dir: string | undefined;
 let finder: Finder | undefined;
@@ -78,5 +80,13 @@ describe("openFinder", () => {
     expect(reloads).toEqual([1]);
     expect(embedder.calls.flat()).toEqual([expect.stringContaining("used as: hiding spot on a catwalk")]);
     expect(ids(await finder.narrow("catwalk hiding spot"))[0]).toBe("SupplyCrate");
+  });
+});
+
+describe("the Doodad Finder's rank budget", () => {
+  it("never bites at the default 200: 200 cards of the longest real card text (337 characters) cost less than Jev's budget", () => {
+    const budget = jevRankBudget(JEV_WORDING);
+    const longest = { id: "Longest", name: "Longest", text: "x".repeat(337) };
+    expect(200 * budget.cost(longest)).toBeLessThan(budget.limit);
   });
 });

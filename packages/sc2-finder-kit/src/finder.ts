@@ -14,7 +14,7 @@ import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog
 import type { FinderCard, Tag } from "./card.ts";
 import type { Embedder } from "./embedder.ts";
 import { EmbeddingIndex, type Nearest } from "./embedding-index.ts";
-import { mergeNarrowing, type Narrowed, providedFirst } from "./narrow.ts";
+import { fitToBudget, mergeNarrowing, type Narrowed, providedFirst, type RankBudget } from "./narrow.ts";
 
 /** A model's vector cache: a file per model in the cache folder. */
 export const vectorCacheFile = (model: string, cacheDir: string = catalogCacheDir()): string => path.join(cacheDir, `vectors-${model.replace(/[^A-Za-z0-9.-]+/g, "_")}.bin`);
@@ -43,6 +43,11 @@ export type FinderOptions<C extends FinderCard, S> = {
   readonly tagMatches: (card: C, tag: Tag) => boolean;
   /** Whether a map's dependencies already bring a card in. */
   readonly provides: (dependencies: readonly string[], card: C) => boolean;
+  /**
+   * What the finder's ranker can take in one request. Each ask's candidates are cut to it before
+   * they are returned, lowest ranked first (see `fitToBudget`). None by default.
+   */
+  readonly rankBudget?: RankBudget<C>;
   readonly embedder: Embedder;
   /** The vector cache file. */
   readonly cacheFile: string;
@@ -63,6 +68,8 @@ export type NarrowOptions = {
 
 export type Narrowing<C extends FinderCard = FinderCard> = {
   readonly candidates: readonly Narrowed<C>[];
+  /** How many merged candidates the rank budget dropped (0 without one, or when all fit). */
+  readonly cut: number;
   /** Milliseconds: the keyword search, embedding the ask, the nearest cards, the merge, and all of it. */
   readonly timings: { readonly keyword: number; readonly embed: number; readonly nearest: number; readonly merge: number; readonly total: number };
 };
@@ -198,10 +205,12 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
       const embedDone = performance.now();
       const nearest = vector ? providedFirst(now.nearest(vector, NEAREST_MATCHES, pinned.length ? keeps : undefined), cards, NEAREST_RESULTS) : [];
       const nearestDone = performance.now();
-      const candidates = mergeNarrowing(keyword, nearest, cards, { tags, tagMatches: options.tagMatches, ...(limit !== undefined ? { limit } : {}) });
+      const merged = mergeNarrowing(keyword, nearest, cards, { tags, tagMatches: options.tagMatches, ...(limit !== undefined ? { limit } : {}) });
+      const { kept: candidates, cut } = options.rankBudget ? fitToBudget(merged, options.rankBudget) : { kept: merged, cut: 0 };
       const done = performance.now();
       return {
         candidates,
+        cut,
         timings: { keyword: keywordDone - started, embed: embedDone - keywordDone, nearest: nearestDone - embedDone, merge: done - nearestDone, total: done - started },
       };
     },

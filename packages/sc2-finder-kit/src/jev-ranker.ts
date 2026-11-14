@@ -6,6 +6,7 @@
 import { type Fetch, score, type SystemOneRequest, TypeSafeClient } from "@typesafe-ai/sdk";
 
 import type { FinderCard } from "./card.ts";
+import type { RankBudget } from "./narrow.ts";
 import { type Grade, type PayloadLog, type RankRequest, RankerError, type Ranker, type Ranking, tagText } from "./ranker.ts";
 
 /**
@@ -24,6 +25,26 @@ export type JevWording = {
 export const JEV_MODEL = "jev-latest";
 /** US dollars per input token; output is free. */
 export const JEV_INPUT_PRICE = 0.042 / 1e6;
+
+/**
+ * What one request to Jev can carry, as input tokens. Jev refuses a request over its limit with
+ * `400 max_tokens_exceeded` (docs/adr/0002). The Music Finder met it: its asks took 57k to 65.7k
+ * input tokens at 168 to 187 candidates and the ones with 189 to 198 candidates were refused, so
+ * the limit is somewhere about 65k. A request is cut to 55k estimated tokens, which leaves room for
+ * the estimate being off (it counts bytes, not tokens) and for the ask, tags and the state.
+ */
+export const JEV_TOKEN_BUDGET = 55_000;
+/** Bytes per token for the estimate: the measured 3.66 for the music's request, rounded down so the estimate runs high. */
+export const JEV_BYTES_PER_TOKEN = 3.4;
+/** The question's key (`"c123":`) and the comma after it. */
+const QUESTION_KEY_BYTES = 8;
+
+/** What a finder hands Jev: the budget, and each candidate's estimated tokens, counted from the question it will be sent as. */
+export function jevRankBudget<C extends FinderCard = FinderCard>(wording: JevWording, limit: number = JEV_TOKEN_BUDGET): RankBudget<C> {
+  // The question's levels are the same on every candidate: only the card's text varies.
+  const fixed = JSON.stringify(score({ question: wording.question, [wording.field]: "" }, wording.levels)).length + QUESTION_KEY_BYTES;
+  return { limit, cost: (card) => Math.ceil((fixed + JSON.stringify(card.text).length - 2) / JEV_BYTES_PER_TOKEN) };
+}
 
 export type JevOptions = {
   readonly apiKey: string;
