@@ -14,7 +14,7 @@ improve its products, and a billed project does not. Check Google's current term
 The model hears the audio with no file name, game or usage context, so a file's name can't
 steer it. Answers follow SCHEMA.
 """
-import sys, os, json, time, threading
+import sys, os, re, json, time, threading
 from concurrent.futures import ThreadPoolExecutor
 from google import genai
 from google.genai import types
@@ -82,6 +82,25 @@ def audio_part(path):
     return up, up.name
 
 
+# What is worth another try: Google's rate limit (429), its server errors (500, 502, 503, 504) and
+# the same as the status words the SDK's APIError carries, found by code or status first and only
+# then in the message, as whole words in any case (a file name or a count holding "500" isn't one).
+RETRY_CODES = {429, 500, 502, 503, 504}
+RETRY_WORDS = re.compile(r'\b(?:429|500|502|503|504)\b|RESOURCE_EXHAUSTED|UNAVAILABLE|DEADLINE_EXCEEDED|INTERNAL', re.I)
+
+
+def retryable(error):
+    code = getattr(error, 'code', None)
+    if isinstance(code, int) and code in RETRY_CODES:
+        return True
+    status = str(getattr(error, 'status', '') or '')
+    if status and RETRY_WORDS.search(status):
+        return True
+    if isinstance(error, (TimeoutError, ConnectionError)):
+        return True
+    return bool(RETRY_WORDS.search(str(error)))
+
+
 def describe(path):
     part, uploaded = audio_part(path)
     try:
@@ -91,13 +110,15 @@ def describe(path):
                     model=model, contents=[part, PROMPT],
                     config=types.GenerateContentConfig(response_mime_type='application/json',
                                                        response_schema=SCHEMA, temperature=0.2))
+                if not r.text:
+                    raise ValueError('Gemini answered with no text (blocked or empty)')
                 d = json.loads(r.text)
                 u = r.usage_metadata
-                d['_tokens'] = {'in': u.prompt_token_count, 'out': u.candidates_token_count}
+                # Token counts can be None (or the metadata missing): record 0 rather than fail a good answer.
+                d['_tokens'] = {'in': getattr(u, 'prompt_token_count', None) or 0, 'out': getattr(u, 'candidates_token_count', None) or 0}
                 return d
             except Exception as e:
-                msg = str(e)
-                if attempt < 5 and any(s in msg for s in ('429', '500', '503', 'RESOURCE_EXHAUSTED', 'UNAVAILABLE', 'deadline')):
+                if attempt < 5 and retryable(e):
                     time.sleep(10 * 2 ** attempt)
                     continue
                 raise

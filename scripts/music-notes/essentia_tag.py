@@ -55,6 +55,9 @@ for h in MULTI + list(BINARY) + REGRESS:
     m = meta(name)
     outname = m['schema']['outputs'][0]['name']
     heads[h] = (es.TensorflowPredict2D(graphFilename=pb(name), output=outname), m['classes'])
+    # A class name the model's metadata doesn't have would fail every file the same way: say so once, now.
+    if h in BINARY and BINARY[h] not in m['classes']:
+        sys.exit(f"{name}.json has classes {m['classes']}, not {BINARY[h]!r}: the models in {mdir} aren't the ones this script was written for")
 emo = es.TensorflowPredict2D(graphFilename=pb('emomusic-msd-musicnn-2'), output='model/Identity')
 emo_classes = meta('emomusic-msd-musicnn-2')['classes']
 
@@ -79,7 +82,7 @@ def tag(path):
     for h, cls in BINARY.items():
         model, classes = heads[h]
         p = model(emb).mean(axis=0)
-        r[cls] = round(float(p[classes.index(cls if cls != 'danceable' else 'danceable')]), 3)
+        r[cls] = round(float(p[classes.index(cls)]), 3)
     for h in REGRESS:
         model, _ = heads[h]
         r[h.split('_')[0]] = round(float(model(emb).mean()), 3)

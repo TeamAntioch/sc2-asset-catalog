@@ -69,7 +69,7 @@ async function open(model: string): Promise<Opened> {
 
 type CaseResult = {
   readonly case: NarrowingCase;
-  /** Each expected track as the card ids that play it; tracks no card plays are in `unknown`. */
+  /** Each expected track, in the ask's order, as the card ids that play it: none for a track no card plays (listed in `unknown`, and never found, so it counts against the hit rate). */
   readonly tracks: readonly (readonly string[])[];
   readonly unknown: readonly string[];
   readonly found: Hits;
@@ -117,16 +117,8 @@ async function main(): Promise<void> {
   const results: CaseResult[] = [];
   const totals: number[] = [];
   for (const testCase of cases) {
-    const tracks: string[][] = [];
-    const names: string[] = [];
-    const unknown: string[] = [];
-    for (const expected of testCase.targets) {
-      const ids = cardsFor(expected, finder.cards);
-      if (ids.length) {
-        tracks.push(ids);
-        names.push(expected);
-      } else unknown.push(expected);
-    }
+    const tracks = testCase.targets.map((expected) => cardsFor(expected, finder.cards));
+    const unknown = testCase.targets.filter((_, i) => tracks[i]!.length === 0);
     let found = new Set<string>();
     let narrowed: readonly Narrowed<MusicCard>[] = [];
     const caseTotals: number[] = [];
@@ -145,7 +137,7 @@ async function main(): Promise<void> {
       unknown,
       found: trackHits(tracks, found),
       top: trackHits(tracks.slice(0, 3), found),
-      missed: names.filter((_, i) => !tracks[i]!.some((id) => found.has(id))),
+      missed: testCase.targets.filter((_, i) => tracks[i]!.length > 0 && !tracks[i]!.some((id) => found.has(id))),
       merged: found.size,
       narrowed,
       narrowP50: percentile(caseTotals, 50),
@@ -190,12 +182,14 @@ async function main(): Promise<void> {
   const sum = (pick: (result: CaseResult) => Hits, of = results) => of.map(pick).reduce(addHits, { found: 0, of: 0 });
   const reviewed = results.filter((result) => result.case.reviewed);
   const unreviewed = results.filter((result) => !result.case.reviewed);
+  const unknownTracks = results.flatMap((result) => result.unknown.map((track) => `${result.case.from}: ${track}`));
   const p50 = percentile(totals, 50);
   const p95 = percentile(totals, 95);
   const failures = [
     ...(p95 > NARROWING_P95_MS ? [`narrowing p95 ${p95.toFixed(1)} ms is over ${NARROWING_P95_MS} ms`] : []),
     ...(warm > WARM_START_MS ? [`warm start ${Math.round(warm)} ms is over ${WARM_START_MS} ms`] : []),
     ...(jevErrors.length ? [`Jev failed on ${jevErrors.length} asks`] : []),
+    ...(unknownTracks.length ? [`${unknownTracks.length} expected tracks no card plays (counted as missed): ${unknownTracks.join(", ")}`] : []),
   ];
 
   if (values.json) {
@@ -216,7 +210,7 @@ async function main(): Promise<void> {
     log("");
     for (const result of results) {
       const missed = result.missed.length ? `; missed ${result.missed.join(", ")}` : "";
-      const unknown = result.unknown.length ? `; no card plays ${result.unknown.join(", ")}` : "";
+      const unknown = result.unknown.length ? `; no card plays ${result.unknown.join(", ")} (counted as missed)` : "";
       log(`${result.case.from}${result.case.reviewed ? "" : " (unreviewed)"} "${result.case.ask}": ${formatHits(result.found)} of its expected among ${result.merged}, first 3 ${formatHits(result.top)}${missed}${unknown}`);
     }
     log("");

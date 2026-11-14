@@ -1,9 +1,8 @@
 // What the notes tooling shares (repo tooling: it isn't in any npm package): a note built from
 // what Gemini wrote about a file and what was measured of it, and the notes file's layout.
 
-import path from "node:path";
-
-export const baseName = (asset) => path.posix.parse(asset.replaceAll("\\", "/")).name;
+// A file's key is made by the one rule the join uses (needs `npm run build` first, as the other tooling does).
+export { musicFileName as baseName } from "../../packages/sc2-asset-catalog/dist/catalog/music-notes.js";
 const round = (value, places) => (typeof value === "number" ? Number(value.toFixed(places)) : undefined);
 const strings = (list) => (Array.isArray(list) ? list.filter((item) => typeof item === "string" && item.trim()).map((item) => item.trim()) : []);
 
