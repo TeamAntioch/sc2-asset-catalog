@@ -5,6 +5,7 @@
 //   { "about": "…", "asks": [{ "ask": "press head", "object": "crushing press over a conveyor belt",
 //     "expected": ["SpaceDockArch", …], "from": "crushing press search, part name", "reviewed": true }] }
 
+import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
 import { parseJsonFile, TextSchema as Text } from "@team-antioch/sc2-asset-catalog/util/parse-json.js";
@@ -111,3 +112,24 @@ export const topHits = (ranked: readonly string[], targets: readonly string[], n
   const top = new Set(ranked.slice(0, n));
   return { found: targets.filter((id) => top.has(id)).length, of: Math.min(n, targets.length) };
 };
+
+/** The speed targets a finder's test command fails on. */
+export const NARROWING_P95_MS = 50;
+export const WARM_START_MS = 3000;
+
+/** How many of the ranked candidates the mapper sees first. */
+export const TOP_RANKED = 10;
+/** A first call's cost, guessed before any ranker has answered: well above what a 200-card ask costs. */
+export const FIRST_CALL_GUESS = 0.01;
+
+/**
+ * A warm start, in a process of its own so nothing is loaded yet: Node starting, the model, the
+ * sources, the cards and the cache. `command` is the CLI module that takes `--start-only --model`.
+ */
+export function warmStartMs(command: string, model: string): number {
+  const started = performance.now();
+  const run = spawnSync(process.execPath, [command, "--start-only", "--model", model], { encoding: "utf8" });
+  const ms = performance.now() - started;
+  if (run.status !== 0) throw new Error(`The warm start failed: ${run.stderr.trim()}`);
+  return ms;
+}

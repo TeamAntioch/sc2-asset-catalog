@@ -17,7 +17,8 @@ A finder in this repo is a small local web page that answers an ask in plain wor
 | `spend-cap.js`, `payload-log.js`, `settings.js`, `cache-dir.js` | The session's spend cap, the log of what each ask sent, the page's remembered settings, and where the model's weights go. |
 | `asker.js` | When an ask narrows and when it ranks, and cancelling the older one. |
 | `server.js` | `startFinderServer`: the process on 127.0.0.1 that serves the page and answers it, with its host and origin checks, the tray, the tray's objects and actions and the tick log. |
-| `tray.js`, `test-asks.js` | The tray, and the test-ask cases and the tick log's lines. |
+| `tray.js`, `test-asks.js` | The tray, and the test-ask cases and the tick log's lines, the test command's speed targets and its warm start. |
+| `load-together.js`, `is-main.js` | The start-up race between a finder's extraction and the model, and the check that a CLI module is the one running. |
 
 ## What a finder passes in
 
