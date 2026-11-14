@@ -43,6 +43,7 @@ code { font-size: 0.85rem; background: #efefec; padding: 0 0.25rem; border-radiu
 .level { font-weight: bold; color: #1a1a1a; }
 .badge { background: #f1e6c8; border-radius: 4px; padding: 0 0.35rem; }
 .badge.warn { background: #f3d2d2; }
+.badge.quiet { background: #eef0f2; color: #666; }
 .desc { margin: 0.4rem 0; }
 .moods { margin: 0.2rem 0; }
 .mood { display: inline-block; background: #eef0f2; border-radius: 4px; padding: 0 0.35rem; font-size: 0.8rem; margin-right: 0.2rem; }

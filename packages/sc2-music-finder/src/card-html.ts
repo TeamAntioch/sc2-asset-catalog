@@ -1,11 +1,11 @@
-// A candidate's card on the Finder's page: its id and kind, its dependency badge ("needs Void
-// (Campaign)"), its length, ratings and description, its moods, each file it plays with a play
+// A candidate's card on the Finder's page: its id and kind, its dependency badge on every card ("needs Void
+// (Campaign)", or quietly "in Void (Mod), the default"), its length, ratings and description, its moods, each file it plays with a play
 // button, an in-point and its timestamped sections, and where Blizzard used it. A card is plain
 // markup with data attributes the page's script reads: it plays from a section's start, and the
 // mapper's in-point goes into what the tray copies.
 
 import { escapeHtml } from "@team-antioch/sc2-asset-catalog/catalog/doodad-card-html.js";
-import { dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
+import { DEFAULT_DEPENDENCY_NAME, dependencyName } from "@team-antioch/sc2-asset-catalog/catalog/doodad-dependencies.js";
 
 import { type MusicCard, type MusicPiece, mmss } from "./cards.ts";
 import { levelName as levelNameOf } from "./wording.ts";
@@ -24,13 +24,19 @@ export const sectionSeconds = (start: string): number => {
   return parts.reduce((seconds, part) => seconds * 60 + Number(part), 0);
 };
 
-/** The badges a card wears: what a map needs to call it, and why it is shown when it normally wouldn't be. */
-export function badges(card: MusicCard): { readonly text: string; readonly warn: boolean }[] {
+export type Badge = { readonly text: string; readonly warn: boolean; readonly quiet: boolean };
+
+/**
+ * The badges a card wears: first the dependency that brings the id in (every card has one: the
+ * default `Void (Mod)` is said quietly, a campaign's is `needs ...`), then why it is shown when it
+ * normally wouldn't be.
+ */
+export function badges(card: MusicCard): Badge[] {
   const { entry } = card;
   return [
-    ...(entry.dependency !== undefined ? [{ text: `needs ${dependencyName(entry.dependency)}`, warn: false }] : []),
-    ...(entry.mapLocal !== undefined ? [{ text: `only inside ${entry.mapLocal}`, warn: true }] : []),
-    ...(entry.silent ? [{ text: "silent", warn: true }] : entry.empty ? [{ text: "plays no file", warn: true }] : entry.unplayable ? [{ text: "sound effect", warn: true }] : []),
+    entry.dependency !== undefined ? { text: `needs ${dependencyName(entry.dependency)}`, warn: false, quiet: false } : { text: `in ${DEFAULT_DEPENDENCY_NAME}, the default`, warn: false, quiet: true },
+    ...(entry.mapLocal !== undefined ? [{ text: `only inside ${entry.mapLocal}`, warn: true, quiet: false }] : []),
+    ...(entry.silent ? [{ text: "silent", warn: true, quiet: false }] : entry.empty ? [{ text: "plays no file", warn: true, quiet: false }] : entry.unplayable ? [{ text: "sound effect", warn: true, quiet: false }] : []),
   ];
 }
 
@@ -68,7 +74,7 @@ export function cardHtml(card: MusicCard, audio: (key: string) => AudioState): s
   return [
     `<header><label><input type="checkbox" class="tick" aria-label="Tick ${escapeHtml(id)}"> <span class="name">${escapeHtml(name)}</span></label> <span class="kind">${escapeHtml(entry.kind)}${id !== name ? " (same id as a Soundtrack)" : ""}</span></header>`,
     `<p class="facts"><span class="level"></span>${badges(card)
-      .map(({ text, warn }) => `<span class="badge${warn ? " warn" : ""}">${escapeHtml(text)}</span>`)
+      .map(({ text, warn, quiet }) => `<span class="badge${warn ? " warn" : quiet ? " quiet" : ""}">${escapeHtml(text)}</span>`)
       .join("")}${length ? `<span class="length">${escapeHtml(length)}</span>` : ""}${ratings ? `<span class="ratings">${escapeHtml(ratings)}</span>` : ""}</p>`,
     `<p class="desc">${description ? escapeHtml(description) : "no listening notes"}</p>`,
     moods.length ? `<p class="moods">${moods.map((mood) => `<span class="mood">${escapeHtml(mood)}</span>`).join(" ")}</p>` : "",
