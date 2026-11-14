@@ -1,11 +1,13 @@
 // The shipped listening notes (data/music-notes.json): they hold what we wrote and measured and
-// nothing from the game, and they name no campaign, mission or story.
+// nothing from the game. A test can only check their shape, links and paths; that they name no
+// campaign, mission or story is checked against names kept outside this repo (MUSIC_NOTES_DENYLIST,
+// see scripts/check-music-notes.mjs), by the last test here when that variable is set.
 import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
 import { MUSIC_NOTES_PATH } from "../src/catalog/catalog-dirs.js";
-import { MUSIC_NOTE_FIELDS, musicFileKey, parseMusicNotes, readMusicNotes } from "../src/catalog/music-notes.js";
+import { findDeniedNames, MUSIC_NOTE_FIELDS, musicFileKey, parseDenylist, parseMusicNotes, readMusicNotes } from "../src/catalog/music-notes.js";
 
 const text = readFileSync(MUSIC_NOTES_PATH, "utf8");
 const raw = JSON.parse(text) as { about: string; notes: Record<string, Record<string, unknown>> };
@@ -25,7 +27,7 @@ describe("the shipped notes", () => {
     for (const key of keys) expect(musicFileKey(key), key).toBe(key.toLowerCase());
   });
 
-  it("hold only our fields: nothing extracted from the game, no album or composer, no mission or story", () => {
+  it("hold only our fields: nothing extracted from the game, no album or composer, no mission or story field", () => {
     const allowed = new Set(MUSIC_NOTE_FIELDS);
     for (const [key, note] of Object.entries(raw.notes)) for (const field of Object.keys(note)) expect(allowed.has(field), `${key}.${field}`).toBe(true);
     for (const forbidden of ["id", "asset", "assets", "defined", "dependency", "package", "used_in", "usedIn", "mission", "mission_key", "album", "album_title", "composer", "origin", "model_tags", "sources", "description_src"]) {
@@ -77,5 +79,29 @@ describe("parsing a notes file", () => {
     const note = Object.values(raw.notes)[0]!;
     expect(() => parseMusicNotes(JSON.stringify({ about: "x", notes: { A: { ...note, energy: 6 } } }), "bad.json")).toThrow(/energy/);
     expect(() => parseMusicNotes(JSON.stringify({ about: "x", notes: { A: { ...note, sections: [{ start: "soon", description: "x" }] } } }), "bad.json")).toThrow(/sections/);
+  });
+});
+
+describe("names that must not ship", () => {
+  it("reads a denylist file, a term a line", () => {
+    expect(parseDenylist("# names\nHot Zone\n\n  Moloch  \r\n")).toEqual(["Hot Zone", "Moloch"]);
+  });
+
+  it("finds a note that names a term as a whole word, in any case, and no other", () => {
+    const notes = { a: { description: "A march for the hot zone." }, b: { description: "A hotzone of strings." }, c: { mood: ["Moloch's theme"] }, d: { description: "Calm." } };
+    expect(findDeniedNames(notes, ["Hot Zone", "moloch"])).toEqual([
+      { note: "a", term: "Hot Zone" },
+      { note: "c", term: "moloch" },
+    ]);
+  });
+
+  it("takes terms with regular-expression characters as they are", () => {
+    expect(findDeniedNames({ a: { description: "Halo (remix)" }, b: { description: "Haloo remix" } }, ["Halo (remix)"])).toEqual([{ note: "a", term: "Halo (remix)" }]);
+  });
+
+  // The names live outside the repo: set MUSIC_NOTES_DENYLIST to a file of them to run this.
+  it.skipIf(!process.env.MUSIC_NOTES_DENYLIST)("is not named by the shipped notes (names from MUSIC_NOTES_DENYLIST)", () => {
+    const terms = parseDenylist(readFileSync(process.env.MUSIC_NOTES_DENYLIST!, "utf8"));
+    expect(findDeniedNames(raw.notes, terms)).toEqual([]);
   });
 });

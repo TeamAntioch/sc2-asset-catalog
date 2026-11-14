@@ -115,3 +115,25 @@ export function readMusicNotes(file: string = MUSIC_NOTES_PATH): Map<string, Mus
   const notes = parseMusicNotes(readFileSync(file, "utf8"), path.basename(file));
   return new Map(Object.entries(notes).map(([key, note]) => [key.toLowerCase(), note]));
 }
+
+/** The terms a denylist file holds: one a line, blank lines and `#` comments skipped. */
+export const parseDenylist = (text: string): string[] =>
+  text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"));
+
+const escapeRegExp = (text: string): string => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Which notes name a denied term (a campaign's mission, character or place that must not ship),
+ * as whole words in any case: `{ note key, term }` pairs, in note order. The names themselves
+ * aren't in this repo: a contributor keeps them in a file of their own (`MUSIC_NOTES_DENYLIST`).
+ */
+export function findDeniedNames(notes: Readonly<Record<string, unknown>>, terms: readonly string[]): { readonly note: string; readonly term: string }[] {
+  const patterns = terms.map((term) => ({ term, pattern: new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(term)}($|[^\\p{L}\\p{N}])`, "iu") }));
+  return Object.entries(notes).flatMap(([note, value]) => {
+    const text = JSON.stringify(value);
+    return patterns.filter(({ pattern }) => pattern.test(text)).map(({ term }) => ({ note, term }));
+  });
+}

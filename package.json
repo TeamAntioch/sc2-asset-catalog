@@ -14,6 +14,7 @@
     "lint": "npm run build -w @team-antioch/sc2-asset-catalog && npm run build -w @team-antioch/sc2-finder-kit && npm run lint --workspaces",
     "test": "npm run build -w @team-antioch/sc2-asset-catalog && npm run build -w @team-antioch/sc2-finder-kit && npm test --workspaces",
     "smoke": "node scripts/smoke.mjs",
+    "check-music-notes": "node scripts/check-music-notes.mjs",
     "test-asks": "npm run build && node packages/sc2-doodad-finder/dist/cli/test-asks.js",
     "changeset": "changeset",
     "version-packages": "changeset version && npm install --package-lock-only",

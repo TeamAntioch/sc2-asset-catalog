@@ -120,6 +120,14 @@ export function joinMusicCatalog(extracted: readonly ExtractedMusic[], notes: Re
   return { entries, unextractedNotes: [...notes.keys()].filter((key) => !played.has(key)).sort() };
 }
 
+/** What to tell the user about notes whose file no extracted id plays (they're left out), or undefined when there are none. */
+export function unextractedNotesReport(catalog: MusicCatalog, show = 5): string | undefined {
+  const { unextractedNotes } = catalog;
+  if (!unextractedNotes.length) return undefined;
+  const names = unextractedNotes.slice(0, show).join(", ");
+  return `${unextractedNotes.length} listening notes are for files no extracted music id plays, and are left out: ${names}${unextractedNotes.length > show ? ", …" : ""}`;
+}
+
 /** The extracted music in `extractedDir` joined to the shipped notes (or those of `notesFile`). Throws saying to run `extract-music` when nothing is extracted. */
 export function readMusicCatalog({ extractedDir = extractedDirOf(), notesFile }: { readonly extractedDir?: string; readonly notesFile?: string } = {}): MusicCatalog {
   const file = path.join(extractedDir, MUSIC_EXTRACTED_FILE);
@@ -152,15 +160,24 @@ export type RatingRange = readonly [min: number, max: number];
 export type MusicQuery = {
   /** What the scene needs, in plain words: matched against moods, uses, descriptions and the words of the id. */
   readonly words?: string;
+  /**
+   * Ratings read as the card shows them: the mean over the files the id plays that have notes. An id
+   * whose files are rated 2 and 4 is a 3, so it fits 3-3 and not 4-5.
+   */
   readonly energy?: RatingRange;
   readonly tension?: RatingRange;
   readonly valence?: RatingRange;
-  /** Its files' length: every entry with a file at least `minSeconds` (its longest) and at most `maxSeconds` (its shortest). */
+  /**
+   * Length as the card shows it, as a range from its shortest file to its longest: an entry fits
+   * when that range overlaps `minSeconds` to `maxSeconds` (its longest file is at least
+   * `minSeconds`, its shortest at most `maxSeconds`). An id with files of 10 s and 100 s fits 30-60,
+   * since the card says "0:10-1:40"; it doesn't fit 120 and over.
+   */
   readonly minSeconds?: number;
   readonly maxSeconds?: number;
   /** Only entries with a file of one of these kinds. */
   readonly kinds?: readonly string[];
-  /** Only entries with a file whose faction feel mentions it: terran, protoss or zerg. */
+  /** Only entries with a file whose faction feel carries that race's feel words: terran "frontier", protoss "ancient", zerg "swarm". */
   readonly faction?: "terran" | "protoss" | "zerg";
   readonly role?: string;
   /** Only entries a map with these dependencies can play (see providesDependency); all of them when unset. */

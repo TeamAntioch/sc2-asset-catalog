@@ -27,6 +27,7 @@ import { parseArgs } from "node:util";
 import { catalogCacheDir, catalogConfigDir, extractedDir } from "./catalog/catalog-dirs.js";
 import { extractCatalog } from "./catalog/extract-catalog.js";
 import { extractMusic } from "./catalog/extract-music.js";
+import { readMusicCatalog, unextractedNotesReport } from "./catalog/music-catalog.js";
 import { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbnails.js";
 import { checkRenderPlatform, findSc2, findViewer, rendererDir, type SetupSystem, setupRenderer, thisMachine } from "./catalog/renderer-setup.js";
 import { type RunViewer, whiteoutFlakesRenderer } from "./catalog/whiteoutflakes.js";
@@ -91,6 +92,8 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   }
   if (command === "extract-music") {
     await extractMusic({ extractedDir: extractedDir(cacheDir), log, env, ...(options.fetch ? { fetch: options.fetch } : {}) });
+    const report = unextractedNotesReport(readMusicCatalog({ extractedDir: extractedDir(cacheDir) }));
+    if (report) log(report);
     return;
   }
   if (command === "setup-renderer") {

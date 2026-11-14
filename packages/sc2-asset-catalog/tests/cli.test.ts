@@ -155,7 +155,9 @@ describe("runCatalogCli", () => {
       fetch: (async (url: string | URL) => (table[String(url)] === undefined ? new Response("", { status: 404 }) : new Response(table[String(url)]))) as typeof globalThis.fetch,
     });
     expect(existsSync(path.join(dir, "cache", "extracted", MUSIC_EXTRACTED_FILE))).toBe(true);
-    expect(lines.at(-1)).toMatch(/1 music ids \(1 Soundtracks, 0 Sounds\), 1 files/);
+    expect(lines.some((line) => /1 music ids \(1 Soundtracks, 0 Sounds\), 1 files/.test(line))).toBe(true);
+    // The shipped notes are for far more files than this one id plays: they're left out, and it says so.
+    expect(lines.at(-1)).toMatch(/^\d+ listening notes are for files no extracted music id plays, and are left out: .*, …$/);
   });
 
   it("prints the usage for --help or no command", async () => {
