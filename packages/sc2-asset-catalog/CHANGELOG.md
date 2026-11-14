@@ -1,5 +1,12 @@
 # @team-antioch/sc2-asset-catalog
 
+## 0.1.3
+
+### Patch Changes
+
+- 8ed4b3a: Add Doodad Uses for 21 doodads: CharBones, DeadPrimalisk, DeadQueen, DeadTendrils, DOM_LabCrates, FireMedium, JarbanMinor_Crate, Korhal_Platform_BurntEdgePieces, Korhal_Platform_Debris, Korhal_SpacePort_Container_Destroyed, ShipPlating, Smoke_Pillar_Tall_DT, SmokeMedium, SpacePlatformWallDebris, SpacePlatformWallDebrisLarge, SpaceScrap, WreckedBattlecruiser, ZergBonePileMedium, ZergCarcasses, ZergCarcassesMedium, ZerusChrysalisSpike.
+- a98e4d6: Add Doodad Uses for 10 doodads: BattleStation_CliffStructures, BattleStation_MechBridgeDestroyed, Decal_Baked, DOM_LabConsoles, DominionLandingPad, Korhal_Platform_BurntEdgePieces, KorhalGeneratorCoreDoodadWorkUnnamed, SpaceDockEquipment, SpacePlatformGroundDecals, SpacePlatformWallDebris.
+
 ## 0.1.2
 
 ### Patch Changes

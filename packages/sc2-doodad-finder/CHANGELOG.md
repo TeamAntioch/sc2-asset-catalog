@@ -1,5 +1,13 @@
 # @team-antioch/sc2-doodad-finder
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [8ed4b3a]
+- Updated dependencies [a98e4d6]
+  - @team-antioch/sc2-asset-catalog@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
