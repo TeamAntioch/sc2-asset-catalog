@@ -13,9 +13,13 @@ const hash = (word: string): number => {
 };
 
 /** Words that mean one thing, as a real model would place them: "cover" near sandbags and crates. */
-const SYNONYMS: Record<string, string> = { cover: "sacks", hide: "sacks", behind: "sacks" };
+export const DOODAD_SYNONYMS: Readonly<Record<string, string>> = { cover: "sacks", hide: "sacks", behind: "sacks" };
 
-export function fakeEmbedder(model = "fake-model"): FakeEmbedder {
+/**
+ * The finders' tests share this one (the Doodad and Music Finders' import it from here: tests
+ * aren't in any published package). `synonyms` maps a word to the word it should land beside.
+ */
+export function fakeEmbedder(model = "fake-model", synonyms: Readonly<Record<string, string>> = DOODAD_SYNONYMS): FakeEmbedder {
   const calls: string[][] = [];
   return {
     model,
@@ -24,7 +28,7 @@ export function fakeEmbedder(model = "fake-model"): FakeEmbedder {
       calls.push([...texts]);
       return texts.map((text) => {
         const vector = new Float32Array(DIMENSIONS);
-        for (const word of text.toLowerCase().match(/[a-z0-9]+/g) ?? []) vector[hash(SYNONYMS[word] ?? word)]! += 1;
+        for (const word of text.toLowerCase().match(/[a-z0-9]+/g) ?? []) vector[hash(synonyms[word] ?? word)]! += 1;
         const norm = Math.hypot(...vector) || 1;
         return vector.map((value) => value / norm);
       });
