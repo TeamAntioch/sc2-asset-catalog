@@ -16,6 +16,12 @@ const DEPENDENCY_FOR_PACKAGE: Record<string, string> = {
   "mods/novastoryassets.sc2mod": NOVA_ASSETS,
 };
 
+/** The name of the dependency every map has by default; what the base mods need, and so what an id with no `dependency` needs. */
+export const DEFAULT_DEPENDENCY_NAME = "Void (Mod)";
+
+/** The dependencies the catalog knows by name, each once: what a map can say it has. */
+export const knownDependencies = (): string[] => [...new Set(Object.values(DEPENDENCY_FOR_PACKAGE))];
+
 const BASE_MODS = new Set(["core", "liberty", "swarm", "void"].map((mod) => `mods/${mod}.sc2mod`));
 
 /**
@@ -50,3 +56,6 @@ export function missingDoodadDependencies(types: Iterable<string>, have: readonl
   }
   return missing;
 }
+
+/** A dependency's name, as `bnet:Void (Campaign)/0.0/999,file:…` gives it; a note for an unknown one as it is. */
+export const dependencyName = (dependency: string): string => /^bnet:([^/]+)\//.exec(dependency)?.[1] ?? dependency;

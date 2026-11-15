@@ -1,0 +1,54 @@
+{
+  "name": "@team-antioch/sc2-music-finder",
+  "version": "0.1.2",
+  "description": "Ask for StarCraft II music in plain words and see ranked cards at once, with the listening notes, filters and a player: a local page that narrows with a keyword search and a local embeddings model, then ranks with Jev.",
+  "keywords": [
+    "starcraft",
+    "sc2",
+    "music",
+    "map-editor",
+    "galaxy-editor"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAntioch/sc2-asset-catalog.git",
+    "directory": "packages/sc2-music-finder"
+  },
+  "homepage": "https://github.com/TeamAntioch/sc2-asset-catalog#readme",
+  "bugs": "https://github.com/TeamAntioch/sc2-asset-catalog/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/start.d.ts",
+      "default": "./dist/start.js"
+    },
+    "./*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "sc2-music-finder": "bin/sc2-music-finder.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@team-antioch/sc2-asset-catalog": "0.1.2",
+    "@team-antioch/sc2-finder-kit": "0.1.2"
+  }
+}
