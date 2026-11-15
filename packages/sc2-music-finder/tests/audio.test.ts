@@ -1,13 +1,27 @@
 // The Audio folder (src/audio.ts): the index by base name, and the byte ranges the player seeks with.
-import { readdirSync } from "node:fs";
+import type { ReadStream } from "node:fs";
 import { mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
 import http from "node:http";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AUDIO_PREFIX, byteRange, indexAudioFolder, serveAudio } from "../src/audio.ts";
+
+// Every file stream the server opens, so a test can ask whether it let go of the file.
+const opened: ReadStream[] = [];
+vi.mock("node:fs", async (original) => {
+  const fs = await original<typeof import("node:fs")>();
+  return {
+    ...fs,
+    createReadStream: (...args: Parameters<typeof fs.createReadStream>) => {
+      const stream = fs.createReadStream(...args);
+      opened.push(stream);
+      return stream;
+    },
+  };
+});
 
 let dir: string;
 beforeEach(async () => {
@@ -113,12 +127,10 @@ describe("serveAudio", () => {
     }
   });
 
-  // Counts open files through /dev/fd, which Windows has no equivalent of.
-  it.skipIf(process.platform === "win32")("lets go of the file when the client hangs up part-way", async () => {
+  it("lets go of the file when the client hangs up part-way", async () => {
     const { server, port } = await serve(Buffer.alloc(32 * 1024 * 1024, 1));
-    const open = () => readdirSync("/dev/fd").length;
+    opened.length = 0;
     try {
-      const before = open();
       await new Promise<void>((resolve) => {
         const request = http.get({ host: "127.0.0.1", port, path: `${AUDIO_PREFIX}big` }, (response) => {
           response.once("data", () => {
@@ -129,7 +141,8 @@ describe("serveAudio", () => {
         });
         request.on("error", () => {});
       });
-      await expect.poll(open, { timeout: 2000, interval: 25 }).toBeLessThanOrEqual(before);
+      expect(opened).toHaveLength(1);
+      await expect.poll(() => opened[0]!.destroyed, { timeout: 2000, interval: 25 }).toBe(true);
     } finally {
       server.closeAllConnections();
       server.close();
