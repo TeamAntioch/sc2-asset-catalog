@@ -15,7 +15,6 @@
 // is extracted into the cache folder first if it isn't there, and the model's weights download
 // there the first time. A repo command only: it isn't published with the package.
 
-import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,25 +30,19 @@ import { payloadLog, payloadLogFile } from "../payload-log.ts";
 import { orderByFit, type Ranker, type RankerName } from "../ranker.ts";
 import { ensureCatalog, stockSources } from "../stock-sources.ts";
 import { isMainModule } from "./is-main.ts";
-import { addHits, formatHits, type Hits, hits, type NarrowingCase, percentile, readTestAsks, TICK_LOG_FILE, tickLogCases, topHits } from "../test-asks.ts";
+import { addHits, FIRST_CALL_GUESS, formatHits, type Hits, hits, type NarrowingCase, NARROWING_P95_MS, percentile, readTestAsks, TICK_LOG_FILE, TOP_RANKED, tickLogCases, topHits, WARM_START_MS, warmStartMs } from "../test-asks.ts";
 
 const USAGE = "Usage: npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--budget dollars] [--json]";
 
 /** The repo's test asks, from a checkout: packages/sc2-doodad-finder/{src,dist}/cli/ to the top. */
 const REPO_TEST_ASKS = fileURLToPath(new URL("../../../../test-asks.json", import.meta.url));
 
-/** The speed targets the command fails on. */
-export const NARROWING_P95_MS = 50;
-export const WARM_START_MS = 3000;
+/** The speed targets the command fails on (the narrowing's and the warm start's are the kit's). */
+export { NARROWING_P95_MS, WARM_START_MS };
 export const JEV_P50_MS = 300;
 export const JEV_P95_MS = 800;
 /** Reported only: Enter to the final order with Jev. */
 export const ENTER_P50_MS = 350;
-
-/** How many of the ranked candidates the mapper sees first. */
-const TOP_RANKED = 10;
-/** A first call's cost, guessed before any ranker has answered: well above what a 200-card ask costs. */
-const FIRST_CALL_GUESS = 0.01;
 
 /** This run's payload log. */
 const PAYLOAD_LOG = payloadLogFile();
@@ -67,16 +60,6 @@ async function open(model: string): Promise<Opened> {
   const sources = stockSources(cacheDir);
   const finder = await openFinder({ load: sources.load, embedder, cacheFile: vectorCacheFile(model) });
   return { finder, embedded: finder.embeddedOnOpen, ms: performance.now() - started };
-}
-
-/** A warm start, in a process of its own so nothing is loaded yet: Node starting, the model, the sources, the cards and the cache. */
-function warmStart(model: string): number {
-  const started = performance.now();
-  const self = fileURLToPath(import.meta.url);
-  const run = spawnSync(process.execPath, [self, "--start-only", "--model", model], { encoding: "utf8" });
-  const ms = performance.now() - started;
-  if (run.status !== 0) throw new Error(`The warm start failed: ${run.stderr.trim()}`);
-  return ms;
 }
 
 type CaseResult = {
@@ -184,7 +167,7 @@ async function main(): Promise<void> {
   log(`Model ${model}`);
   const opened = await open(model);
   log(`Opened in ${Math.round(opened.ms)} ms (${opened.finder.cards.size} cards, ${opened.embedded} embedded now)`);
-  const warm = warmStart(model);
+  const warm = warmStartMs(fileURLToPath(import.meta.url), model);
   log(`Warm start in a new process: ${Math.round(warm)} ms`);
 
   const asked = await readTestAsks(asksFile);

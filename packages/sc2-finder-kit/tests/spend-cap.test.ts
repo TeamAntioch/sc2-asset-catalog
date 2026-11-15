@@ -4,14 +4,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { type AskEvent, type Asker, createAsker } from "../src/asker.ts";
-import { candidateCards } from "../src/cards.ts";
 import type { Narrowing } from "../src/finder.ts";
 import type { Grade, Ranker, RankRequest } from "../src/ranker.ts";
 import { DEFAULT_BUDGET, spendCap } from "../src/spend-cap.ts";
-import { sources } from "./fixtures.ts";
+import { TOYS } from "./toy.ts";
 
-const CARDS = [...candidateCards(sources())];
-const narrow = async (): Promise<Narrowing> => ({ candidates: CARDS.map((card, i) => ({ id: card.id, card, score: 1 / (i + 1) })), timings: { keyword: 1, embed: 1, nearest: 1, merge: 1, total: 4 } });
+const CARDS = [...TOYS];
+const narrow = async (): Promise<Narrowing> => ({ candidates: CARDS.map((card, i) => ({ id: card.id, card, score: 1 / (i + 1) })), cut: 0, timings: { keyword: 1, embed: 1, nearest: 1, merge: 1, total: 4 } });
 
 /** Costs 40 cents a call, and grades the last card highest. */
 const calls: RankRequest[] = [];
@@ -36,6 +35,16 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
+describe("the narrowed event", () => {
+  it("carries how many candidates the rank budget cut, so a finder can say the list was trimmed", async () => {
+    const trimmed = async (): Promise<Narrowing> => ({ ...(await narrow()), cut: 7 });
+    asker = createAsker({ narrow: trimmed, emit: (event) => events.push(event) });
+    asker.ask({ text: "ball", mode: "enter", version: 1 });
+    await vi.advanceTimersByTimeAsync(400);
+    expect((events.find(({ type }) => type === "narrowed") as Extract<AskEvent, { type: "narrowed" }>).cut).toBe(7);
+  });
+});
+
 describe("the spend cap", () => {
   it("is $1.00 a session unless set", () => {
     expect(DEFAULT_BUDGET).toBe(1);
@@ -46,12 +55,12 @@ describe("the spend cap", () => {
   it("stops calling Jev once the spend reaches it, shows the narrowing's order and says why", async () => {
     const cap = spendCap(1);
     asker = createAsker({ narrow, ranker, budget: cap, emit: (event) => events.push(event) });
-    for (const [i, text] of ["press", "crate", "boulder", "light"].entries()) {
+    for (const [i, text] of ["ball", "cube", "ring", "light"].entries()) {
       asker.ask({ text, mode: "enter", version: i });
       await vi.advanceTimersByTimeAsync(400);
     }
     // 40 cents, 80 cents, then $1.20: past the dollar, the fourth ask isn't sent.
-    expect(calls.map(({ ask }) => ask)).toEqual(["press", "crate", "boulder"]);
+    expect(calls.map(({ ask }) => ask)).toEqual(["ball", "cube", "ring"]);
     expect(cap.spent).toBeCloseTo(1.2);
     const last = events.filter((event) => event.text === "light");
     expect(last.map(({ type }) => type)).toEqual(["narrowed", "capped"]);
@@ -65,7 +74,7 @@ describe("the spend cap", () => {
   it("refuses a ranking asked for directly once it is reached", async () => {
     const cap = spendCap(0);
     asker = createAsker({ narrow, ranker, budget: cap, emit: (event) => events.push(event) });
-    await expect(asker.ranked({ text: "press", mode: "enter", version: 1 })).rejects.toThrow(/spend cap/);
+    await expect(asker.ranked({ text: "ball", mode: "enter", version: 1 })).rejects.toThrow(/spend cap/);
     expect(calls).toEqual([]);
   });
 });

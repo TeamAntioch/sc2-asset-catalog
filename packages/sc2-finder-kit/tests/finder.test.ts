@@ -1,0 +1,93 @@
+// The kit's finder with toy cards: it narrows by what the finder's keyword search and embeddings
+// give, honours the finder's tags and dependencies, and writes the cards again on a reload.
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+
+import { afterEach, describe, expect, it } from "vitest";
+
+import { type Finder, type FinderOptions, openFinder } from "../src/finder.ts";
+import { fakeEmbedder } from "./fake-embedder.ts";
+import { type ToyCard, toyTagMatches, TOYS } from "./toy.ts";
+
+let dir: string | undefined;
+let open: Finder<ToyCard, readonly ToyCard[]> | undefined;
+afterEach(async () => {
+  open?.close();
+  open = undefined;
+  if (dir) await rm(dir, { recursive: true, force: true });
+  dir = undefined;
+});
+
+const start = async (cards: readonly ToyCard[] = TOYS, extra: Partial<Pick<FinderOptions<ToyCard, readonly ToyCard[]>, "rankBudget">> = {}) => {
+  dir = await mkdtemp(path.join(tmpdir(), "finder-kit-"));
+  let now = cards;
+  const finder = await openFinder<ToyCard, readonly ToyCard[]>({
+    load: async () => now,
+    cards: (sources) => sources,
+    keyword: (sources, ask) => {
+      const words = ask.toLowerCase().match(/[a-z]+/g) ?? [];
+      return sources.filter((card) => words.some((word) => card.text.toLowerCase().includes(word)));
+    },
+    tagMatches: toyTagMatches,
+    provides: (dependencies, card) => card.dependency === undefined || dependencies.includes(card.dependency),
+    embedder: fakeEmbedder(),
+    cacheFile: path.join(dir, "vectors.bin"),
+    ...extra,
+  });
+  open = finder;
+  return { finder, set: (next: readonly ToyCard[]) => void (now = next) };
+};
+
+describe("openFinder with toy cards", () => {
+  it("embeds every card on a cold start and finds a card by the finder's keyword search", async () => {
+    const { finder } = await start();
+    expect(finder.embeddedOnOpen).toBe(TOYS.length);
+    const { candidates } = await finder.narrow("hoop");
+    expect(candidates[0]!.id).toBe("GreenRing");
+  });
+
+  it("keeps only the cards a pinned tag matches, by the finder's own tag rule", async () => {
+    const { finder } = await start();
+    const { candidates } = await finder.narrow("round", { tags: [{ facet: "colour", value: "red", pinned: true }] });
+    expect(candidates.map(({ id }) => id).sort()).toEqual(["RedBall", "RedCube"]);
+  });
+
+  it("raises the cards an unpinned tag matches", async () => {
+    const { finder } = await start();
+    const plain = await finder.narrow("round");
+    const raised = await finder.narrow("round", { tags: [{ facet: "colour", value: "blue" }] });
+    expect(raised.candidates[0]!.id).toBe("BlueBall");
+    expect(plain.candidates.map(({ id }) => id)).toContain("BlueBall");
+  });
+
+  it("marks the cards a map's dependencies provide, and takes them first", async () => {
+    const { finder } = await start();
+    const { candidates } = await finder.narrow("round", { dependencies: [] });
+    expect(candidates.find(({ id }) => id === "RedCube")?.card.provided).toBe(false);
+    expect(candidates.find(({ id }) => id === "BlueBall")?.card.provided).toBe(true);
+    const withPack = await finder.narrow("round", { dependencies: ["Extra Pack"] });
+    expect(withPack.candidates.find(({ id }) => id === "GreenRing")?.card.provided).toBe(true);
+  });
+
+  it("cuts the candidates to the finder's rank budget, lowest ranked first, and says how many it cut", async () => {
+    const many = Array.from({ length: 30 }, (_, i): ToyCard => ({ id: `Ball${i}`, name: `Ball ${i}`, text: `Ball ${i}\nround ball; colour: red`, colour: "red" }));
+    const whole = await start(many);
+    const all = await whole.finder.narrow("round ball");
+    expect(all.cut).toBe(0);
+    expect(all.candidates).toHaveLength(30);
+    whole.finder.close();
+    const { finder } = await start(many, { rankBudget: { limit: 10, cost: () => 1 } });
+    const fit = await finder.narrow("round ball");
+    expect(fit.candidates).toHaveLength(10);
+    expect(fit.cut).toBe(20);
+    expect(fit.candidates.map(({ id }) => id)).toEqual(all.candidates.slice(0, 10).map(({ id }) => id));
+  });
+
+  it("writes the cards again on a reload, embedding only the changed ones", async () => {
+    const { finder, set } = await start();
+    set([...TOYS, { id: "PinkCone", name: "Pink Cone", text: "Pink Cone\npointed and pink; colour: pink", colour: "pink" }]);
+    expect(await finder.reload()).toEqual({ embedded: 1 });
+    expect(finder.cards.has("PinkCone")).toBe(true);
+  });
+});

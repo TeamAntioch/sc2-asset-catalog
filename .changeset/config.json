@@ -2,7 +2,13 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "@team-antioch/sc2-asset-catalog",
+      "@team-antioch/sc2-finder-kit",
+      "@team-antioch/sc2-doodad-finder"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",

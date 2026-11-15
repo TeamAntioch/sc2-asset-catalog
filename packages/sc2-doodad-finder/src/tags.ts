@@ -3,21 +3,14 @@
 // the narrowing and go to the ranker as context. The mapper can drop one, which hides it, or pin
 // one, which makes it a filter and keeps it whatever is ticked later.
 
+import type { ObjectTag, TagChoice, TagChoices } from "@team-antioch/sc2-finder-kit/card.js";
+
 import type { CandidateCard } from "./cards.ts";
-import type { Tag } from "./narrow.ts";
+
+export type { ObjectTag, TagChoice, TagChoices } from "@team-antioch/sc2-finder-kit/card.js";
 
 /** The facets tags are made from, in the order they're shown: what kind of thing, its story, where it fits. */
 export const TAG_FACETS = ["kind", "story", "biome", "tileset"] as const;
-
-export type TagChoice = { readonly facet: string; readonly value: string };
-
-export type TagChoices = {
-  readonly pinned?: readonly TagChoice[];
-  readonly dropped?: readonly TagChoice[];
-};
-
-/** A shown tag: pinned or not, and how many ticked cards have it. */
-export type ObjectTag = Tag & { readonly pinned: boolean; readonly count: number };
 
 const keyOf = ({ facet, value }: TagChoice): string => `${facet.toLowerCase()}\n${value.toLowerCase()}`;
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The clean-folder smoke test: packs both packages, installs the tarballs in an empty folder with no
+// The clean-folder smoke test: packs the three packages, installs the tarballs in an empty folder with no
 // sibling repos and no TypeSafe key, checks `npx sc2-doodad-finder --help` and `logout`, and that
 // `npx sc2-asset-catalog render` asks for setup-renderer (macOS) or refuses (elsewhere). Then it
 // starts the Finder with an empty cache folder. Its first start extracts the catalog from SC2GameData and downloads
@@ -37,7 +37,7 @@ const run = (command, args, cwd) => execFileSync(command, args, { cwd, stdio: ["
 
 let finder;
 try {
-  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-doodad-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
+  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-finder-kit", "@team-antioch/sc2-doodad-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
   const tarballs = (await readdir(packs)).filter((file) => file.endsWith(".tgz")).map((file) => path.join(packs, file));
   console.log(`Packed ${tarballs.map((file) => path.basename(file)).join(", ")}`);
   await writeFile(path.join(app, "package.json"), `${JSON.stringify({ name: "smoke", private: true, type: "module" })}\n`);
