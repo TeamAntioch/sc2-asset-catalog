@@ -23,6 +23,7 @@
       "types": "./dist/start.d.ts",
       "default": "./dist/start.js"
     },
+    "./cli/test-asks.js": null,
     "./*": "./dist/*",
     "./package.json": "./package.json"
   },
@@ -32,6 +33,7 @@
   "files": [
     "bin",
     "dist",
+    "!dist/cli/test-asks.*",
     "LICENSE",
     "README.md"
   ],
