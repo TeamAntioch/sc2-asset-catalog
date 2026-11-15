@@ -65,7 +65,8 @@ describe("openFinder", () => {
     expect(ids(char)).toEqual(["ZCharCrate"]);
   });
 
-  it("re-embeds within a second the one card whose Doodad Use changed in a watched file", async () => {
+  // macOS's file watcher sometimes reports a change a few milliseconds past the second (CI saw 1011 ms), so a miss is tried again; a real regression fails every try.
+  it("re-embeds within a second the one card whose Doodad Use changed in a watched file", { retry: 2 }, async () => {
     const usesFile = path.join(await tempDir(), "uses.json");
     await writeFile(usesFile, "[]");
     const load = async () => sources({ notes: { SupplyCrate: { uses: (JSON.parse(await readFile(usesFile, "utf8")) as string[]).map((use) => ({ use })) } } });
