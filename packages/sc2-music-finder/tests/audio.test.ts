@@ -113,7 +113,8 @@ describe("serveAudio", () => {
     }
   });
 
-  it("lets go of the file when the client hangs up part-way", async () => {
+  // Counts open files through /dev/fd, which Windows has no equivalent of.
+  it.skipIf(process.platform === "win32")("lets go of the file when the client hangs up part-way", async () => {
     const { server, port } = await serve(Buffer.alloc(32 * 1024 * 1024, 1));
     const open = () => readdirSync("/dev/fd").length;
     try {

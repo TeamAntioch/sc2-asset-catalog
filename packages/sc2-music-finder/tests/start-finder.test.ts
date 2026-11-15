@@ -291,8 +291,8 @@ describe("the CLI's arguments", () => {
     expect(parseFinderArgs(["--port", "0", "--budget", "2.5", "--tick-log", "ticks", "--audio", "sc2music", "--open"], cwd)).toEqual({
       port: 0,
       budget: 2.5,
-      tickLog: path.join(cwd, "ticks"),
-      audio: path.join(cwd, "sc2music"),
+      tickLog: path.resolve(cwd, "ticks"),
+      audio: path.resolve(cwd, "sc2music"),
       open: true,
     });
     expect(parseFinderArgs(["--audio", path.resolve("/abs")], cwd).audio).toBe(path.resolve("/abs"));
