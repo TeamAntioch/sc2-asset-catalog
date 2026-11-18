@@ -1,5 +1,5 @@
 {
-  "about": "Asks the test command runs (npm run test-asks): each ask with the doodads it should find, best first. The first ones come from the Search Parts of three Doodad Searches (each part asked by its name and by its line); the rest are typical mappers' asks. An ask marked reviewed: false hasn't had its expected ids checked by hand yet. Asks never name a map, campaign or story.",
+  "about": "Asks the test command runs (npm run test-asks): each ask with the doodads it should find, best first. The first ones come from the Search Parts of three Doodad Searches (each part asked by its name and by its line); the rest are typical mappers' asks. An ask marked reviewed: false hasn't had its expected ids checked by hand yet. Asks never name a map, campaign or story. The last asks are the typical mappers' asks written in Russian and Korean, with the expected ids of their English originals; they are unreviewed because the translations aren't checked by a native speaker.",
   "asks": [
     {
       "ask": "belt",
@@ -492,6 +492,260 @@
       ],
       "from": "typical mapper ask",
       "reviewed": true
+    },
+    {
+      "ask": "пальма",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "Russian translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "заснеженные сосны для ледяной карты",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "Russian translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "мёртвое дерево с голыми ветками",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "Russian translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "разбитый осадный танк",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "Russian translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "нефтяные бочки",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "Russian translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "уличный фонарь для городской дороги",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "Russian translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "водопад со скалы",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "Russian translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "статуя Кзел'нага",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "Russian translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "дорожная баррикада",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "Russian translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "большой светящийся кристалл протоссов",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "Russian translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "свисающие лианы джунглей",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "Russian translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "стена из мешков с песком для военного лагеря",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "Russian translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "куча костей",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "Russian translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "лава, стекающая по камням",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "Russian translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "야자수",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "Korean translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "얼음 맵을 위한 눈 덮인 소나무",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "Korean translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "앙상한 가지의 죽은 나무",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "Korean translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "파괴된 공성 전차",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "Korean translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "기름 드럼통",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "Korean translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "도시 도로의 가로등",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "Korean translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "절벽에서 떨어지는 폭포",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "Korean translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "젤나가 동상",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "Korean translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "도로 바리케이드",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "Korean translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "크고 빛나는 프로토스 수정",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "Korean translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "늘어진 정글 덩굴",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "Korean translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "군 야영지의 모래주머니 벽",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "Korean translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "뼈 더미",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "Korean translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "바위를 타고 흐르는 용암",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "Korean translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
     }
   ]
 }

@@ -75,7 +75,7 @@ export type Narrowing<C extends FinderCard = FinderCard> = {
   readonly cut: number;
   /** The ask as the searches ran it, when it was in another script and a translator was given: hand `english` to the ranker. */
   readonly translation?: Translation;
-  /** Milliseconds: translating the ask (when it was translated), the keyword search, embedding the ask, the nearest cards, the merge, and all of it. */
+  /** Milliseconds: translating the ask (when it was translated), the keyword search, embedding the ask, the nearest cards, the merge, and all of them: `total` leaves out translating, which is a network call and reported on its own. */
   readonly timings: { readonly translate?: number; readonly keyword: number; readonly embed: number; readonly nearest: number; readonly merge: number; readonly total: number };
 };
 
@@ -226,7 +226,7 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
           embed: embedDone - keywordDone,
           nearest: nearestDone - embedDone,
           merge: done - nearestDone,
-          total: done - started,
+          total: done - searchStarted,
         },
       };
     },
