@@ -6,7 +6,7 @@
 // timings and the estimated spend. It fails when the narrowing's p95 is over 50 ms, a warm start
 // over 3 s, Jev's p50 over 300 ms or its p95 over 800 ms, or a call fails.
 //
-//   npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--detect jev|vocabulary|none] [--budget dollars] [--json]
+//   npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--detect jev|vocabulary|none] [--translator-model <id>] [--budget dollars] [--json]
 //
 // Jev's are live calls, made only when this is run by hand, never by the test suite or CI: each
 // sends an ask (with its object and tags) and its candidates' cards. They stop before the
@@ -71,14 +71,22 @@ async function open(model: string, translator?: Translator, languageDetector?: L
  * Narrows each distinct ask once, untimed and one at a time, so the translator and the language
  * detector have answered (and remember it) before any narrowing is timed, and says what each did.
  */
-async function translateBeforeTiming(finder: Finder, asks: readonly string[], log: (line: string) => void): Promise<void> {
-  for (const ask of new Set(asks)) {
-    const { translation } = await finder.narrow(ask);
-    if (!translation) continue;
-    const checked = translation.detection ? ("error" in translation.detection ? ` (language check failed: ${translation.detection.error})` : ` (English ${translation.detection.pEnglish.toFixed(2)})`) : "";
-    if (translation.translated) log(`  "${ask}" -> "${translation.english}"${checked}`);
-    else log(`  "${ask}" left as typed${translation.error ? `: ${translation.error}` : ""}${checked}`);
+async function translateBeforeTiming(finder: Finder, asks: readonly string[], log: (line: string) => void): Promise<number[]> {
+  const times: number[] = [];
+  const distinct = [...new Set(asks)];
+  // Eight at a time: the calls are the network's, and the narrowing's part is a few milliseconds.
+  for (let from = 0; from < distinct.length; from += 8) {
+    const batch = await Promise.all(distinct.slice(from, from + 8).map(async (ask) => ({ ask, translation: (await finder.narrow(ask)).translation })));
+    for (const { ask, translation } of batch) {
+      if (!translation) continue;
+      const checked = translation.detection ? ("error" in translation.detection ? ` (language check failed: ${translation.detection.error})` : ` (English ${translation.detection.pEnglish.toFixed(2)})`) : "";
+      if (translation.translated) {
+        times.push(translation.ms);
+        log(`  "${ask}" -> "${translation.english}"${checked}`);
+      } else log(`  "${ask}" left as typed${translation.error ? `: ${translation.error}` : ""}${checked}`);
+    }
   }
+  return times;
 }
 
 type CaseResult = {
@@ -164,7 +172,7 @@ async function rankCases(ranker: Ranker, results: readonly CaseResult[], spend: 
 
 async function main(): Promise<void> {
   const { values } = parseArgs({
-    options: { asks: { type: "string" }, "tick-log": { type: "string" }, runs: { type: "string" }, model: { type: "string" }, "no-rank": { type: "boolean" }, translate: { type: "boolean" }, detect: { type: "string" }, budget: { type: "string" }, json: { type: "boolean" }, "start-only": { type: "boolean" }, help: { type: "boolean" } },
+    options: { asks: { type: "string" }, "tick-log": { type: "string" }, runs: { type: "string" }, model: { type: "string" }, "no-rank": { type: "boolean" }, translate: { type: "boolean" }, detect: { type: "string" }, "translator-model": { type: "string" }, budget: { type: "string" }, json: { type: "boolean" }, "start-only": { type: "boolean" }, help: { type: "boolean" } },
   });
   if (values.help) return void console.log(USAGE);
   const cwd = process.env.INIT_CWD ?? process.cwd();
@@ -189,8 +197,9 @@ async function main(): Promise<void> {
   if (values.translate) {
     const apiKey = process.env.VERCEL_API_GATEWAY_KEY?.trim();
     if (!apiKey) throw new Error(`--translate needs VERCEL_API_GATEWAY_KEY in the environment\n${USAGE}`);
-    translator = cachingTranslator(gatewayTranslator({ apiKey }));
-    log(`Translating asks in other scripts with ${TRANSLATOR_MODEL}`);
+    const translatorModel = values["translator-model"] ?? TRANSLATOR_MODEL;
+    translator = cachingTranslator(gatewayTranslator({ apiKey, model: translatorModel }));
+    log(`Translating asks in other languages with ${translatorModel}`);
   }
   // Which Latin-script asks are translated: those Jev calls another language (the default, with a Jev key), every one
   // the catalog's own words don't cover (`vocabulary`, no Jev), or none (only other scripts).
@@ -215,7 +224,8 @@ async function main(): Promise<void> {
   for (const { file, reason } of ticks.skipped) log(`Skipped ${file}: ${reason}`);
   if (!cases.length) throw new Error("No test cases: the test asks file has none and no tick log was given");
 
-  if (translator) await translateBeforeTiming(opened.finder, cases.map(({ ask }) => ask), log);
+  const translateTimes = translator ? await translateBeforeTiming(opened.finder, cases.map(({ ask }) => ask), log) : [];
+  if (translateTimes.length) log(`Translated ${translateTimes.length} asks: p50 ${Math.round(percentile(translateTimes, 50))} ms, p95 ${Math.round(percentile(translateTimes, 95))} ms`);
 
   const results: CaseResult[] = [];
   const totals: number[] = [];
