@@ -14,6 +14,7 @@ import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog
 import type { FinderCard, Tag } from "./card.ts";
 import type { Embedder } from "./embedder.ts";
 import { EmbeddingIndex, type Nearest } from "./embedding-index.ts";
+import { translateAsk, type Translation, type Translator } from "./translator.ts";
 import { fitToBudget, mergeNarrowing, type Narrowed, providedFirst, type RankBudget } from "./narrow.ts";
 
 /** A model's vector cache: a file per model in the cache folder. */
@@ -49,6 +50,8 @@ export type FinderOptions<C extends FinderCard, S> = {
    */
   readonly rankBudget?: RankBudget<C>;
   readonly embedder: Embedder;
+  /** Turns an ask in another script into English before it is searched (translator.ts). None by default: asks are searched as typed. */
+  readonly translator?: Translator;
   /** The vector cache file. */
   readonly cacheFile: string;
   /** Files and folders whose changes write the cards again; a folder is watched with everything in it. */
@@ -70,8 +73,10 @@ export type Narrowing<C extends FinderCard = FinderCard> = {
   readonly candidates: readonly Narrowed<C>[];
   /** How many merged candidates the rank budget dropped (0 without one, or when all fit). */
   readonly cut: number;
-  /** Milliseconds: the keyword search, embedding the ask, the nearest cards, the merge, and all of it. */
-  readonly timings: { readonly keyword: number; readonly embed: number; readonly nearest: number; readonly merge: number; readonly total: number };
+  /** The ask as the searches ran it, when it was in another script and a translator was given: hand `english` to the ranker. */
+  readonly translation?: Translation;
+  /** Milliseconds: translating the ask (when it was translated), the keyword search, embedding the ask, the nearest cards, the merge, and all of it. */
+  readonly timings: { readonly translate?: number; readonly keyword: number; readonly embed: number; readonly nearest: number; readonly merge: number; readonly total: number };
 };
 
 export type Finder<C extends FinderCard, S> = {
@@ -189,6 +194,9 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
     },
     async narrow(ask, { tags = [], dependencies, limit } = {}) {
       const started = performance.now();
+      const translation = await translateAsk(ask, options.translator);
+      const searched = translation?.english ?? ask;
+      const searchStarted = performance.now();
       const now = loaded;
       const cards = cardsFor(now, dependencies);
       const pinned = tags.filter((tag) => tag.pinned);
@@ -198,10 +206,10 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
         return card !== undefined && pinned.every((tag) => options.tagMatches(card, tag));
       };
       // Pinned tags the search can't take filter before the cut; then the map's provided matches first.
-      const matches = options.keyword(now.sources, ask, tags);
+      const matches = options.keyword(now.sources, searched, tags);
       const keyword = providedFirst(pinned.length ? matches.filter(({ id }) => keeps(id)) : matches, cards, KEYWORD_RESULTS);
       const keywordDone = performance.now();
-      const [vector] = ask.trim() ? await options.embedder.embed([ask], "query") : [];
+      const [vector] = searched.trim() ? await options.embedder.embed([searched], "query") : [];
       const embedDone = performance.now();
       const nearest = vector ? providedFirst(now.nearest(vector, NEAREST_MATCHES, pinned.length ? keeps : undefined), cards, NEAREST_RESULTS) : [];
       const nearestDone = performance.now();
@@ -211,7 +219,15 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
       return {
         candidates,
         cut,
-        timings: { keyword: keywordDone - started, embed: embedDone - keywordDone, nearest: nearestDone - embedDone, merge: done - nearestDone, total: done - started },
+        ...(translation ? { translation } : {}),
+        timings: {
+          ...(translation ? { translate: searchStarted - started } : {}),
+          keyword: keywordDone - searchStarted,
+          embed: embedDone - keywordDone,
+          nearest: nearestDone - embedDone,
+          merge: done - nearestDone,
+          total: done - started,
+        },
       };
     },
   };
