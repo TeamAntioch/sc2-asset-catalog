@@ -13,7 +13,7 @@ import { JEV_WORDING } from "./wording.ts";
 
 export { KEYWORD_RESULTS, NEAREST_MATCHES, NEAREST_RESULTS, type NarrowOptions, type Narrowing, vectorCacheFile } from "@team-antioch/sc2-finder-kit/finder.js";
 
-export type FinderOptions = Pick<KitFinderOptions<CandidateCard, DoodadSearchSources>, "load" | "embedder" | "cacheFile" | "watch" | "onReload" | "onError">;
+export type FinderOptions = Pick<KitFinderOptions<CandidateCard, DoodadSearchSources>, "load" | "embedder" | "translator" | "languageDetector" | "cacheFile" | "watch" | "onReload" | "onError">;
 
 export type Finder = KitFinder<CandidateCard, DoodadSearchSources>;
 
