@@ -6,7 +6,7 @@
 // timings and the estimated spend. It fails when the narrowing's p95 is over 50 ms, a warm start
 // over 3 s, Jev's p50 over 300 ms or its p95 over 800 ms, or a call fails.
 //
-//   npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--budget dollars] [--json]
+//   npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--detect jev|vocabulary|none] [--budget dollars] [--json]
 //
 // Jev's are live calls, made only when this is run by hand, never by the test suite or CI: each
 // sends an ask (with its object and tags) and its candidates' cards. They stop before the
@@ -22,7 +22,10 @@ import { parseArgs } from "node:util";
 
 import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog-dirs.js";
 import { cachingTranslator, gatewayTranslator, TRANSLATOR_MODEL } from "@team-antioch/sc2-finder-kit/gateway-translator.js";
-import { needsTranslation, type Translator } from "@team-antioch/sc2-finder-kit/translator.js";
+import { jevApiKey } from "@team-antioch/sc2-finder-kit/credentials.js";
+import { jevLanguageDetector } from "@team-antioch/sc2-finder-kit/jev-language-detector.js";
+import { cachingDetector, type LanguageDetector } from "@team-antioch/sc2-finder-kit/language-detector.js";
+import { type Translator } from "@team-antioch/sc2-finder-kit/translator.js";
 
 import { keySourceText, openRanker } from "../credentials.ts";
 import { FINDER_MODEL, localEmbedder } from "../embedder.ts";
@@ -34,7 +37,7 @@ import { ensureCatalog, stockSources } from "../stock-sources.ts";
 import { isMainModule } from "./is-main.ts";
 import { addHits, FIRST_CALL_GUESS, formatHits, type Hits, hits, type NarrowingCase, NARROWING_P95_MS, percentile, readTestAsks, TICK_LOG_FILE, TOP_RANKED, tickLogCases, topHits, WARM_START_MS, warmStartMs } from "../test-asks.ts";
 
-const USAGE = "Usage: npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--budget dollars] [--json]";
+const USAGE = "Usage: npm run test-asks -- [--asks <file>] [--tick-log <folder>] [--runs n] [--model <name>] [--no-rank] [--translate] [--detect jev|vocabulary|none] [--budget dollars] [--json]";
 
 /** The repo's test asks, from a checkout: packages/sc2-doodad-finder/{src,dist}/cli/ to the top. */
 const REPO_TEST_ASKS = fileURLToPath(new URL("../../../../test-asks.json", import.meta.url));
@@ -55,33 +58,26 @@ const TOP = 3;
 
 type Opened = { readonly finder: Finder; readonly embedded: number; readonly ms: number };
 
-async function open(model: string, translator?: Translator): Promise<Opened> {
+async function open(model: string, translator?: Translator, languageDetector?: LanguageDetector): Promise<Opened> {
   const started = performance.now();
   const cacheDir = catalogCacheDir();
   const [embedder] = await Promise.all([localEmbedder({ model }), ensureCatalog(cacheDir)]);
   const sources = stockSources(cacheDir);
-  const finder = await openFinder({ load: sources.load, embedder, ...(translator ? { translator } : {}), cacheFile: vectorCacheFile(model) });
+  const finder = await openFinder({ load: sources.load, embedder, ...(translator ? { translator } : {}), ...(languageDetector ? { languageDetector } : {}), cacheFile: vectorCacheFile(model) });
   return { finder, embedded: finder.embeddedOnOpen, ms: performance.now() - started };
 }
 
 /**
- * Translates each ask that needs it, one at a time, so the translator remembers it and no narrowing
- * waits on the network. A free Gateway account allows 5 calls a minute a model: a refused call is
- * tried again twice after 15 s; one still refused is reported, and its ask is searched as typed.
+ * Narrows each distinct ask once, untimed and one at a time, so the translator and the language
+ * detector have answered (and remember it) before any narrowing is timed, and says what each did.
  */
-async function translateBeforeTiming(translator: Translator, asks: readonly string[], log: (line: string) => void): Promise<void> {
-  const needed = [...new Set(asks.filter(needsTranslation))];
-  for (const ask of needed) {
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      try {
-        log(`  "${ask}" -> "${await translator.translate(ask, { signal: AbortSignal.timeout(20_000) })}"`);
-        break;
-      } catch (error) {
-        const reason = error instanceof Error ? error.message : String(error);
-        if (attempt === 3) log(`  "${ask}" not translated: ${reason}`);
-        else await new Promise((resolve) => setTimeout(resolve, 15_000));
-      }
-    }
+async function translateBeforeTiming(finder: Finder, asks: readonly string[], log: (line: string) => void): Promise<void> {
+  for (const ask of new Set(asks)) {
+    const { translation } = await finder.narrow(ask);
+    if (!translation) continue;
+    const checked = translation.detection ? ("error" in translation.detection ? ` (language check failed: ${translation.detection.error})` : ` (English ${translation.detection.pEnglish.toFixed(2)})`) : "";
+    if (translation.translated) log(`  "${ask}" -> "${translation.english}"${checked}`);
+    else log(`  "${ask}" left as typed${translation.error ? `: ${translation.error}` : ""}${checked}`);
   }
 }
 
@@ -168,7 +164,7 @@ async function rankCases(ranker: Ranker, results: readonly CaseResult[], spend: 
 
 async function main(): Promise<void> {
   const { values } = parseArgs({
-    options: { asks: { type: "string" }, "tick-log": { type: "string" }, runs: { type: "string" }, model: { type: "string" }, "no-rank": { type: "boolean" }, translate: { type: "boolean" }, budget: { type: "string" }, json: { type: "boolean" }, "start-only": { type: "boolean" }, help: { type: "boolean" } },
+    options: { asks: { type: "string" }, "tick-log": { type: "string" }, runs: { type: "string" }, model: { type: "string" }, "no-rank": { type: "boolean" }, translate: { type: "boolean" }, detect: { type: "string" }, budget: { type: "string" }, json: { type: "boolean" }, "start-only": { type: "boolean" }, help: { type: "boolean" } },
   });
   if (values.help) return void console.log(USAGE);
   const cwd = process.env.INIT_CWD ?? process.cwd();
@@ -196,7 +192,19 @@ async function main(): Promise<void> {
     translator = cachingTranslator(gatewayTranslator({ apiKey }));
     log(`Translating asks in other scripts with ${TRANSLATOR_MODEL}`);
   }
-  const opened = await open(model, translator);
+  // Which Latin-script asks are translated: those Jev calls another language (the default, with a Jev key), every one
+  // the catalog's own words don't cover (`vocabulary`, no Jev), or none (only other scripts).
+  const detect = values.detect ?? "jev";
+  if (!["jev", "vocabulary", "none"].includes(detect)) throw new Error(`--detect takes jev, vocabulary or none\n${USAGE}`);
+  let languageDetector: LanguageDetector | undefined;
+  if (translator && detect === "vocabulary") languageDetector = { detect: async () => ({ english: false, pEnglish: 0, cost: 0 }) };
+  if (translator && detect === "jev") {
+    const apiKey = jevApiKey();
+    if (apiKey) languageDetector = cachingDetector(jevLanguageDetector({ apiKey }));
+    else log("No Jev key (TYPESAFE_API_KEY or the saved key): asks in Latin script are searched as typed");
+  }
+  if (translator) log(`Latin-script asks: ${languageDetector ? (detect === "jev" ? "Jev says whether they are English" : "translated unless made of the catalog's words") : "searched as typed"}`);
+  const opened = await open(model, translator, languageDetector);
   log(`Opened in ${Math.round(opened.ms)} ms (${opened.finder.cards.size} cards, ${opened.embedded} embedded now)`);
   const warm = warmStartMs(fileURLToPath(import.meta.url), model);
   log(`Warm start in a new process: ${Math.round(warm)} ms`);
@@ -207,7 +215,7 @@ async function main(): Promise<void> {
   for (const { file, reason } of ticks.skipped) log(`Skipped ${file}: ${reason}`);
   if (!cases.length) throw new Error("No test cases: the test asks file has none and no tick log was given");
 
-  if (translator) await translateBeforeTiming(translator, cases.map(({ ask }) => ask), log);
+  if (translator) await translateBeforeTiming(opened.finder, cases.map(({ ask }) => ask), log);
 
   const results: CaseResult[] = [];
   const totals: number[] = [];
@@ -308,8 +316,14 @@ async function main(): Promise<void> {
     }
     log("");
     log(`Narrowing hit rate: ${formatHits(sum((r) => r.targets))} (reviewed asks ${formatHits(sum((r) => r.targets, reviewed))}, unreviewed ${formatHits(sum((r) => r.targets, unreviewed))})`);
-    const foreign = results.filter((result) => needsTranslation(result.case.ask));
-    if (foreign.length) log(`Narrowing hit rate, asks in other scripts${translator ? " (translated)" : " (as typed)"}: ${formatHits(sum((r) => r.targets, foreign))}, top ${TOP} ${formatHits(sum((r) => r.top, foreign))}`);
+    // The asks written in another language, by the language their `from` names ("Spanish translation of ask 23").
+    const languages = [...new Set(results.map((result) => /^(\w+) translation of ask/.exec(result.case.from)?.[1]).filter((name): name is string => name !== undefined))];
+    for (const language of languages) {
+      const own = results.filter((result) => result.case.from.startsWith(`${language} translation of ask`));
+      log(`Narrowing hit rate, ${language} asks${translator ? "" : " (as typed)"}: ${formatHits(sum((r) => r.targets, own))}`);
+    }
+    const foreign = results.filter((result) => /^\w+ translation of ask/.test(result.case.from));
+    if (foreign.length) log(`Narrowing hit rate, all asks in other languages: ${formatHits(sum((r) => r.targets, foreign))}, top ${TOP} ${formatHits(sum((r) => r.top, foreign))}`);
     log(`Narrowing hit rate, top ${TOP} of each ask: ${formatHits(sum((r) => r.top))}`);
     log(`Narrowing hit rate, with a Doodad Use: ${formatHits(sum((r) => r.accepted))}`);
     log(

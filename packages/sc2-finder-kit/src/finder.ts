@@ -14,6 +14,7 @@ import { catalogCacheDir } from "@team-antioch/sc2-asset-catalog/catalog/catalog
 import type { FinderCard, Tag } from "./card.ts";
 import type { Embedder } from "./embedder.ts";
 import { EmbeddingIndex, type Nearest } from "./embedding-index.ts";
+import { type LanguageDetector, vocabularyOf } from "./language-detector.ts";
 import { translateAsk, type Translation, type Translator } from "./translator.ts";
 import { fitToBudget, mergeNarrowing, type Narrowed, providedFirst, type RankBudget } from "./narrow.ts";
 
@@ -52,6 +53,8 @@ export type FinderOptions<C extends FinderCard, S> = {
   readonly embedder: Embedder;
   /** Turns an ask in another script into English before it is searched (translator.ts). None by default: asks are searched as typed. */
   readonly translator?: Translator;
+  /** Says whether an ask in Latin script the catalog's own words don't cover is English, so Spanish, German... are translated too (language-detector.ts). None by default: only asks in other scripts are translated. */
+  readonly languageDetector?: LanguageDetector;
   /** The vector cache file. */
   readonly cacheFile: string;
   /** Files and folders whose changes write the cards again; a folder is watched with everything in it. */
@@ -130,6 +133,12 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
   const first = await read();
   let loaded: Loaded = first;
   const embeddedOnOpen = first.embedded;
+  // The English words of the cards, for the language detector's gate, made once for each reading of the sources.
+  let words: { of: Loaded; vocabulary: ReadonlySet<string> } | undefined;
+  const vocabularyFor = (now: Loaded): ReadonlySet<string> => {
+    if (words?.of !== now) words = { of: now, vocabulary: vocabularyOf(now.cards.map((card) => `${card.name} ${card.text}`)) };
+    return words.vocabulary;
+  };
   // Cards marked for a map's dependencies, kept for the last ones asked for.
   let marked: { key: string; of: Loaded; cards: ReadonlyMap<string, C> } | undefined;
 
@@ -194,10 +203,10 @@ export async function openFinder<C extends FinderCard, S>(options: FinderOptions
     },
     async narrow(ask, { tags = [], dependencies, limit } = {}) {
       const started = performance.now();
-      const translation = await translateAsk(ask, options.translator);
+      const now = loaded;
+      const translation = await translateAsk(ask, options.translator, { detector: options.languageDetector, vocabulary: options.languageDetector ? vocabularyFor(now) : undefined });
       const searched = translation?.english ?? ask;
       const searchStarted = performance.now();
-      const now = loaded;
       const cards = cardsFor(now, dependencies);
       const pinned = tags.filter((tag) => tag.pinned);
       /** Whether every pinned tag matches a card, as the merge keeps it, so the nearest hundred are all ones it keeps. */

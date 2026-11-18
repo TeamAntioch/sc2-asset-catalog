@@ -1,5 +1,5 @@
 {
-  "about": "Asks the test command runs (npm run test-asks): each ask with the doodads it should find, best first. The first ones come from the Search Parts of three Doodad Searches (each part asked by its name and by its line); the rest are typical mappers' asks. An ask marked reviewed: false hasn't had its expected ids checked by hand yet. Asks never name a map, campaign or story. The last asks are the typical mappers' asks written in Russian and Korean, with the expected ids of their English originals; they are unreviewed because the translations aren't checked by a native speaker.",
+  "about": "Asks the test command runs (npm run test-asks): each ask with the doodads it should find, best first. The first ones come from the Search Parts of three Doodad Searches (each part asked by its name and by its line); the rest are typical mappers' asks. An ask marked reviewed: false hasn't had its expected ids checked by hand yet. Asks never name a map, campaign or story. The last asks are the typical mappers' asks written in Russian, Korean, Spanish, German, French, Portuguese and Polish, with the expected ids of their English originals; they are unreviewed because the translations aren't checked by native speakers.",
   "asks": [
     {
       "ask": "belt",
@@ -745,6 +745,641 @@
         "VolcanicSpire"
       ],
       "from": "Korean translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "palmera",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "Spanish translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "pinos nevados para un mapa de hielo",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "Spanish translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "árbol muerto con ramas desnudas",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "Spanish translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "tanque de asedio destruido",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "Spanish translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barriles de petróleo",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "Spanish translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "farola para una carretera de ciudad",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "Spanish translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cascada desde un acantilado",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "Spanish translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "estatua xel'naga",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "Spanish translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barricada de carretera",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "Spanish translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cristal protoss grande y brillante",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "Spanish translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lianas colgantes de la selva",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "Spanish translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "muro de sacos de arena para un campamento militar",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "Spanish translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "montón de huesos",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "Spanish translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lava que fluye por las rocas",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "Spanish translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Palme",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "German translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "verschneite Kiefern für eine Eiskarte",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "German translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "toter Baum mit kahlen Ästen",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "German translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "zerstörter Belagerungspanzer",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "German translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Ölfässer",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "German translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Straßenlaterne für eine Stadtstraße",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "German translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Wasserfall von einer Klippe",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "German translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Xel'Naga-Statue",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "German translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Straßensperre",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "German translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "großer leuchtender Protoss-Kristall",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "German translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "hängende Dschungelranken",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "German translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Sandsackmauer für ein Militärlager",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "German translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Knochenhaufen",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "German translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "Lava, die über Felsen fließt",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "German translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "palmier",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "French translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "pins enneigés pour une carte de glace",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "French translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "arbre mort aux branches nues",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "French translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "char de siège détruit",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "French translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barils de pétrole",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "French translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lampadaire pour une route de ville",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "French translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cascade au bord d'une falaise",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "French translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "statue xel'naga",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "French translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barricade routière",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "French translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "grand cristal protoss lumineux",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "French translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lianes de jungle suspendues",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "French translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "mur de sacs de sable pour un camp militaire",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "French translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "tas d'ossements",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "French translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lave coulant sur les rochers",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "French translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "palmeira",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "Portuguese translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "pinheiros nevados para um mapa de gelo",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "Portuguese translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "árvore morta com galhos secos",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "Portuguese translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "tanque de cerco destruído",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "Portuguese translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barris de petróleo",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "Portuguese translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "poste de luz para uma rua da cidade",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "Portuguese translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cachoeira em um penhasco",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "Portuguese translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "estátua xel'naga",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "Portuguese translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barricada de estrada",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "Portuguese translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cristal protoss grande e brilhante",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "Portuguese translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "cipós pendurados da selva",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "Portuguese translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "muro de sacos de areia para um acampamento militar",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "Portuguese translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "pilha de ossos",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "Portuguese translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lava escorrendo pelas rochas",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "Portuguese translation of ask 40: \"lava flowing down rocks\"",
+      "reviewed": false
+    },
+    {
+      "ask": "palma",
+      "expected": [
+        "Elsecaro_Palmtree",
+        "MarSaraTree",
+        "AiurTree"
+      ],
+      "from": "Polish translation of ask 23: \"palm tree\"",
+      "reviewed": false
+    },
+    {
+      "ask": "ośnieżone sosny na mapę lodową",
+      "expected": [
+        "HeavySnowTree",
+        "SnowTrees"
+      ],
+      "from": "Polish translation of ask 24: \"snowy pine trees for an ice map\"",
+      "reviewed": false
+    },
+    {
+      "ask": "martwe drzewo z nagimi gałęziami",
+      "expected": [
+        "MarSaraTreeDead",
+        "SnowTreeDead"
+      ],
+      "from": "Polish translation of ask 25: \"dead tree with bare branches\"",
+      "reviewed": false
+    },
+    {
+      "ask": "zniszczony czołg oblężniczy",
+      "expected": [
+        "Korhal_SiegeTank_Destroyed"
+      ],
+      "from": "Polish translation of ask 26: \"wrecked siege tank\"",
+      "reviewed": false
+    },
+    {
+      "ask": "beczki z ropą",
+      "expected": [
+        "PortZionBarrel",
+        "BraxisAlphaBarrels"
+      ],
+      "from": "Polish translation of ask 27: \"oil barrels\"",
+      "reviewed": false
+    },
+    {
+      "ask": "latarnia uliczna na miejską drogę",
+      "expected": [
+        "PortCity_StreetLightPost",
+        "DefendersCity_StreetLight",
+        "PortCity_StreetLight"
+      ],
+      "from": "Polish translation of ask 28: \"street lamp for a city road\"",
+      "reviewed": false
+    },
+    {
+      "ask": "wodospad ze skały",
+      "expected": [
+        "Waterfall",
+        "RockWaterfall"
+      ],
+      "from": "Polish translation of ask 29: \"waterfall off a cliff\"",
+      "reviewed": false
+    },
+    {
+      "ask": "posąg Xel'Naga",
+      "expected": [
+        "XelNaga_Wall_Statue"
+      ],
+      "from": "Polish translation of ask 30: \"xel'naga statue\"",
+      "reviewed": false
+    },
+    {
+      "ask": "barykada drogowa",
+      "expected": [
+        "Elsecaro_Barricade",
+        "TerranHalfWall",
+        "SpacePlatformBarrier"
+      ],
+      "from": "Polish translation of ask 31: \"road barricade\"",
+      "reviewed": false
+    },
+    {
+      "ask": "duży świecący kryształ Protossów",
+      "expected": [
+        "Aiur_PowerCrystal"
+      ],
+      "from": "Polish translation of ask 33: \"big glowing protoss crystal\"",
+      "reviewed": false
+    },
+    {
+      "ask": "zwisające pnącza dżungli",
+      "expected": [
+        "Vines",
+        "Aiur_Vines"
+      ],
+      "from": "Polish translation of ask 37: \"hanging jungle vines\"",
+      "reviewed": false
+    },
+    {
+      "ask": "mur z worków z piaskiem dla obozu wojskowego",
+      "expected": [
+        "JarbanMinor_Sandbags",
+        "NewFolsomSandbags"
+      ],
+      "from": "Polish translation of ask 38: \"sandbag wall for a military camp\"",
+      "reviewed": false
+    },
+    {
+      "ask": "sterta kości",
+      "expected": [
+        "Bonepile",
+        "MarSaraSkeletonLarge",
+        "ZergBonePileLarge"
+      ],
+      "from": "Polish translation of ask 39: \"pile of bones\"",
+      "reviewed": false
+    },
+    {
+      "ask": "lawa spływająca po skałach",
+      "expected": [
+        "Lavafall",
+        "VolcanicSpire"
+      ],
+      "from": "Polish translation of ask 40: \"lava flowing down rocks\"",
       "reviewed": false
     }
   ]
