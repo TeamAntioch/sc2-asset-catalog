@@ -1,5 +1,7 @@
 // The sets' cards (src/cards.ts): their text, the published sets with their gallery addresses, and
 // a host's own sets laid over them with pictures in a folder.
+import path from "node:path";
+
 import { readSetLooks, SET_GALLERY_URL } from "@team-antioch/sc2-asset-catalog/catalog/set-looks.js";
 import { describe, expect, it } from "vitest";
 
@@ -61,8 +63,8 @@ describe("a host's own sets", () => {
     expect(bar.name).toBe("Dive Bar Redressed");
     expect(bar.source).toBe("the author's campaign");
     expect(bar.pictureDir).toBe("/host/set-views");
-    expect(bar.pictures[0]).toMatchObject({ url: "/pictures/dive-bar/card/1.jpg", thumbnail: "/pictures/dive-bar/card/1.jpg", path: "/host/set-views/dive-bar/card/1.jpg" });
-    expect(bar.pictures[1]!.inGame).toEqual({ url: "/pictures/dive-bar/card/2-game.jpg", thumbnail: "/pictures/dive-bar/card/2-game.jpg", path: "/host/set-views/dive-bar/card/2-game.jpg" });
+    expect(bar.pictures[0]).toMatchObject({ url: "/pictures/dive-bar/card/1.jpg", thumbnail: "/pictures/dive-bar/card/1.jpg", path: path.join("/host/set-views", "dive-bar", "card/1.jpg") });
+    expect(bar.pictures[1]!.inGame).toEqual({ url: "/pictures/dive-bar/card/2-game.jpg", thumbnail: "/pictures/dive-bar/card/2-game.jpg", path: path.join("/host/set-views", "dive-bar", "card/2-game.jpg") });
     expect(cards.find((card) => card.id === "night-street")!.source).toBe(PUBLISHED_SOURCE);
   });
 
