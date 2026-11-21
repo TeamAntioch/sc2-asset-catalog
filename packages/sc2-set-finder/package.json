@@ -1,0 +1,57 @@
+{
+  "name": "@team-antioch/sc2-set-finder",
+  "version": "0.2.0",
+  "description": "Ask for a StarCraft II cinematic set in plain words (a ship's bridge, a throne room, a jungle clearing) and see ranked cards with their pictures: a local page that narrows Blizzard's campaign cutscene sets with a keyword search and a local embeddings model, then ranks with Jev.",
+  "keywords": [
+    "starcraft",
+    "sc2",
+    "cutscene",
+    "cinematic",
+    "map-editor",
+    "galaxy-editor"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAntioch/sc2-asset-catalog.git",
+    "directory": "packages/sc2-set-finder"
+  },
+  "homepage": "https://github.com/TeamAntioch/sc2-asset-catalog#readme",
+  "bugs": "https://github.com/TeamAntioch/sc2-asset-catalog/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/start.d.ts",
+      "default": "./dist/start.js"
+    },
+    "./cli/test-asks.js": null,
+    "./*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "sc2-set-finder": "bin/sc2-set-finder.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "!dist/cli/test-asks.*",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@team-antioch/sc2-asset-catalog": "0.2.0",
+    "@team-antioch/sc2-finder-kit": "0.2.0"
+  }
+}

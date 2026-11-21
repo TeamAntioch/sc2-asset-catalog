@@ -1,6 +1,6 @@
 # sc2-asset-catalog
 
-Find StarCraft II doodads and music by asking for them in plain words.
+Find StarCraft II doodads, music and cinematic sets by asking for them in plain words.
 
 The **Doodad Finder** is a small local web page for StarCraft II mappers. Type what you need ("a heavy press head over a conveyor", "snowy pine trees", "road barricade") and cards of matching doodads appear as you type, each with its gallery picture, its id, what it looks like and which dependency your map needs for it. Tick the ones you like, then copy their ids into the Editor.
 
@@ -8,12 +8,13 @@ It's built on **sc2-asset-catalog**, a catalog of more than 2,400 doodads descri
 
 This project is not affiliated with or endorsed by Blizzard Entertainment. StarCraft II and its assets are Blizzard's. No game data ships here: on its first start the Finder builds the game's own fields into your cache folder from [SC2Mapster's SC2GameData](https://github.com/SC2Mapster/SC2GameData), and cards link pictures from the [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference) gallery by URL.
 
-Four npm packages:
+Five npm packages:
 
 | Package | What it is |
 | --- | --- |
 | [`@team-antioch/sc2-doodad-finder`](packages/sc2-doodad-finder) | The Finder: the page, the doodad cards and the `sc2-doodad-finder` command. |
 | [`@team-antioch/sc2-music-finder`](packages/sc2-music-finder) | The Music Finder: ask for music in plain words and read each track's listening notes, filter by energy, tension, length and the dependency your map has, and play it from your own extracted audio. The `sc2-music-finder` command. |
+| [`@team-antioch/sc2-set-finder`](packages/sc2-set-finder) | The Set Finder: ask for a place to film a cutscene in and see Blizzard's campaign cutscene sets that fit, with pictures of each and the Cutscene Editor file it is in. The `sc2-set-finder` command. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
 | [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, and the extractor (`sc2-asset-catalog extract`). |
 
@@ -168,6 +169,16 @@ It narrows and ranks as the Doodad Finder does (keyword search plus a local embe
 
 The notes (`packages/sc2-asset-catalog/data/music-notes.json`) are all that ships of the music. The game's ids, files, dependencies and uses in Blizzard's scripts are extracted on your machine from a mirror of its data (about 170 MB, read and thrown away) on the first start, and no audio ships. How to get the music files out of your install on macOS and Windows, the options and what a card shows: the [Music Finder's README](packages/sc2-music-finder/README.md). Notes for tracks a patch adds, made from your own copy of the audio: [`scripts/music-notes/`](scripts/music-notes).
 
+## The Set Finder
+
+The **Set Finder** does the same for the cinematic sets: the pre-built locations Blizzard's campaign cutscenes are filmed in, such as a ship's bridge, a throne room or an asteroid field. Type where your scene is ("the bridge of a small starship", "a hall of sleeping warriors in stasis pods") and cards of sets appear, each with pictures of the set, what it looks like and could stand in for, its size and camera count and the Cutscene Editor file it is in. A set's own page shows each picture beside the same view filmed in game.
+
+```sh
+npx @team-antioch/sc2-set-finder --open
+```
+
+It narrows and ranks as the other finders do, over the sets' **looks**: our words and measurements of 77 sets made only from Blizzard's files (`packages/sc2-asset-catalog/data/set-looks.json`, [ADR 0005](docs/adr/0005-cinematic-sets-ship-our-looks-and-link-their-pictures.md)). Nothing is extracted on its first start, and the pictures are linked from the sc2-mapping-reference gallery. Its options and what a card shows: the [Set Finder's README](packages/sc2-set-finder/README.md).
+
 ## Platforms
 
 - **macOS:** CI-tested and tried by hand.
@@ -188,7 +199,7 @@ const { results } = searchDoodads({ words: ["crate"], biome: ["desert"], limit: 
 
 A search works out its candidates once per sources object, so keep the sources you read for later searches. `cachedStockDoodadSources()` does that for you: it reads them once per set of folders, until `forgetStockDoodadSources()` (call it when a source file changes). Pictures are looked for under the cache folder; `pictureFallback` (a function from a picture's path to another place to look) lets them be found elsewhere too.
 
-Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalog/catalog/<name>.js`. The Finder can be started from code with `startFinder` from `@team-antioch/sc2-doodad-finder`. Its options beyond `port`, `budget`, `tickLog` and `cacheDir` are for sc2-adjutant and may change.
+Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalog/catalog/<name>.js`. The Finder can be started from code with `startFinder` from `@team-antioch/sc2-doodad-finder`. Its options beyond `port`, `budget`, `tickLog` and `cacheDir` are for sc2-adjutant and may change. The Music Finder's `startMusicFinder` and the Set Finder's `startSetFinder` are the same, and the Set Finder's README says how a host lays its own sets over the published ones.
 
 ## Tests and the test asks
 
@@ -197,6 +208,8 @@ Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalo
 [`test-asks.json`](test-asks.json) holds typical asks, each with the doodads it should find. `npm run test-asks` runs the narrowing on each of them with the real model and reports how many of the expected doodads it found and how fast. It also reads a tick log when given one with `--tick-log <folder>`, so the asks you ticked cards from count as tests too. With a key saved by `login` or in `TYPESAFE_API_KEY`, it also has Jev rank every ask, with live calls made only when you run it, and stops before the spend passes `--budget` ($0.50 by default). `--no-rank` makes no calls. CI never calls Jev.
 
 [`test-music-asks.json`](test-music-asks.json) does the same for the Music Finder: scene needs, each with the music files it should find (by base name, or card ids). The first asks are tracks the author picked by ear for real scenes, reworded without any map or story, and are `reviewed`; the rest were chosen from the notes' own words and are not. `npm run test-music-asks` runs the narrowing on them with the real model and reports the hit rate and speed (it starts by extracting the music ids into the cache folder if they aren't there), and has Jev rank them too when a key is saved. It needs no audio.
+
+[`test-set-asks.json`](test-set-asks.json) does the same for the Set Finder: places to set a scene, each with the sets it should find, by set id. They were chosen from the looks' own words and are not yet `reviewed`. `npm run test-set-asks` runs them, and has Jev rank them too when a key is saved.
 
 ## Contributing
 
@@ -212,6 +225,6 @@ New and better descriptions, Doodad Uses and music listening notes are welcome: 
 
 Releases go through [Changesets](https://github.com/changesets/changesets) and the [release workflow](.github/workflows/release.yml), which publishes with npm trusted publishing: no npm token is stored anywhere. Once the repository variable `RELEASE` is `on`, each push to `main` opens or updates a version pull request from the changesets, and merging it publishes the new versions. Setting it up, once:
 
-1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit` and `@team-antioch/sc2-music-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder` and `packages/sc2-music-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
-2. On npmjs.com, add a trusted publisher to each package (the kit's and the Music Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
+1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit`, `@team-antioch/sc2-music-finder` and `@team-antioch/sc2-set-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`, `packages/sc2-music-finder` and `packages/sc2-set-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
+2. On npmjs.com, add a trusted publisher to each package (the kit's, the Music Finder's and the Set Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
 3. Set the repository variable `RELEASE` to `on`.

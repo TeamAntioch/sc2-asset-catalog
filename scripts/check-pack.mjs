@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Fails if any package would publish anything extracted from the game or rendered from it (the
 // extracted doodads, models, catalog fields or music ids, thumbnails or sheets), or a repo-only command (the
-// test commands, which read the repo's test-asks.json and test-music-asks.json, and the notes scripts in scripts/music-notes/ and the extractor in scripts/extract-music/), or would export one. Lists each package's files.
+// test commands, which read the repo's test-asks.json, test-music-asks.json and test-set-asks.json, and the notes scripts in scripts/music-notes/ and the extractor in scripts/extract-music/), or would export one. Lists each package's files.
 //
 //   node scripts/check-pack.mjs [--list]
 
@@ -13,11 +13,11 @@ import { fileURLToPath } from "node:url";
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const FORBIDDEN = [/(^|\/)doodads\.json$/, /doodad-extracted\.json$/, /doodad-models\.json$/, /extracted\.json$/, /music-extracted/, /thumbnails\//, /catalog-sheets\//, /\.(png|jpe?g|dds|m3)$/i, /(^|\/)tests?\//, /(^|\/)cli\/test-asks\./, /\.(py|ogg|wav|mp3)$/i, /music-notes\//, /extract-music\//, /\.cpp$/];
 /** Repo-only modules: each package's exports must shut them out (map them to null). */
-const NOT_EXPORTED = { "sc2-doodad-finder": ["./cli/test-asks.js"], "sc2-music-finder": ["./cli/test-asks.js"] };
+const NOT_EXPORTED = { "sc2-doodad-finder": ["./cli/test-asks.js"], "sc2-music-finder": ["./cli/test-asks.js"], "sc2-set-finder": ["./cli/test-asks.js"] };
 const list = process.argv.includes("--list");
 
 let failed = false;
-for (const folder of ["sc2-asset-catalog", "sc2-finder-kit", "sc2-doodad-finder", "sc2-music-finder"]) {
+for (const folder of ["sc2-asset-catalog", "sc2-finder-kit", "sc2-doodad-finder", "sc2-music-finder", "sc2-set-finder"]) {
   const output = JSON.parse(execFileSync("npm", ["pack", "--dry-run", "--json"], { cwd: path.join(ROOT, "packages", folder), encoding: "utf8", shell: process.platform === "win32", stdio: ["ignore", "pipe", "ignore"] }));
   // npm gives a list of packed packages, or (some versions, in a workspace) an object of them by name.
   const packed = Array.isArray(output) ? output[0] : Object.values(output)[0];

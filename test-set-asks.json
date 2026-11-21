@@ -1,0 +1,185 @@
+{
+  "about": "Asks the set test command runs (npm run test-set-asks): each ask with the sets it should find, best first, by set id. They are places a cutscene could be set, in plain words, and their expected sets were chosen from the shipped looks (packages/sc2-asset-catalog/data/set-looks.json), so they are marked reviewed: false until someone has checked them against the pictures. Asks never name a map, campaign, character or story.",
+  "asks": [
+    {
+      "ask": "the bridge of a small starship, two pilot seats facing a forward window",
+      "expected": [
+        "nova-bridge",
+        "d-nova-bridge"
+      ],
+      "from": "small ship bridge",
+      "reviewed": false
+    },
+    {
+      "ask": "the command deck of a big warship, where the captain takes a call",
+      "expected": [
+        "raynor-screen",
+        "communicator-ambient-bridge-probes"
+      ],
+      "from": "warship bridge",
+      "reviewed": false
+    },
+    {
+      "ask": "a long narrow corridor inside a ship, pipes along the walls",
+      "expected": [
+        "corridoor",
+        "valerianflagshipcorridors",
+        "main-set"
+      ],
+      "from": "ship corridor",
+      "reviewed": false
+    },
+    {
+      "ask": "inside a living creature, a chamber of flesh, bone and tentacles",
+      "expected": [
+        "foliage",
+        "smx1eggroom",
+        "zscripted-zadjutantintro-set",
+        "zsmbriefing-korhal02-set"
+      ],
+      "from": "inside a living ship",
+      "reviewed": false
+    },
+    {
+      "ask": "a fleet of warships gathering in open space",
+      "expected": [
+        "armada",
+        "golden-armada",
+        "smx3-cutscene-nova04-midcinematic-set"
+      ],
+      "from": "fleet in space",
+      "reviewed": false
+    },
+    {
+      "ask": "two people talking in a jungle clearing at night",
+      "expected": [
+        "kerrigan-zsm-zeratul",
+        "zeratul-zsm-zeratul"
+      ],
+      "from": "jungle clearing",
+      "reviewed": false
+    },
+    {
+      "ask": "a memorial park in a city with a soldier statue and a reflecting pool",
+      "expected": [
+        "trees"
+      ],
+      "from": "city park",
+      "reviewed": false
+    },
+    {
+      "ask": "the outside of a grand stone government building with columns",
+      "expected": [
+        "building-01",
+        "upper-building-01",
+        "upper-building-04"
+      ],
+      "from": "civic building exterior",
+      "reviewed": false
+    },
+    {
+      "ask": "a laboratory where a prisoner is strapped into a chair for an interrogation",
+      "expected": [
+        "b-wrangler-room",
+        "c-wrangler-room"
+      ],
+      "from": "interrogation lab",
+      "reviewed": false
+    },
+    {
+      "ask": "a ruler on a throne on a platform floating in space",
+      "expected": [
+        "alarak-bg"
+      ],
+      "from": "throne in space",
+      "reviewed": false
+    },
+    {
+      "ask": "a leader giving a speech to a crowd from a high balcony",
+      "expected": [
+        "courtyard-smx3-cutscene-mp03-020",
+        "cutscene-korhal02debrief-set"
+      ],
+      "from": "balcony speech",
+      "reviewed": false
+    },
+    {
+      "ask": "a luxurious private stateroom aboard a flagship, gilded, with portraits and a red carpet",
+      "expected": [
+        "e-valerian-bridge",
+        "valerian-s-ship"
+      ],
+      "from": "noble stateroom",
+      "reviewed": false
+    },
+    {
+      "ask": "a lone rock drifting in space under a green nebula",
+      "expected": [
+        "a-asteroids"
+      ],
+      "from": "asteroid",
+      "reviewed": false
+    },
+    {
+      "ask": "the cramped cockpit of a single-seat fighter, the pilot on the radio",
+      "expected": [
+        "viking-interior"
+      ],
+      "from": "fighter cockpit",
+      "reviewed": false
+    },
+    {
+      "ask": "a long hall of sleeping warriors in stasis pods",
+      "expected": [
+        "sets-guide",
+        "interior-cutscene-rohanaintro",
+        "starmap"
+      ],
+      "from": "stasis hall",
+      "reviewed": false
+    },
+    {
+      "ask": "an establishing shot of a space station in orbit",
+      "expected": [
+        "cybros-cutscene-aiur05victory",
+        "cybros-cutscene-purifier02intro"
+      ],
+      "from": "space station",
+      "reviewed": false
+    },
+    {
+      "ask": "an abandoned alien temple city overgrown with moss and vines",
+      "expected": [
+        "city",
+        "cutscene-aiur01debrief-set-cutscene-aiur01debrief"
+      ],
+      "from": "ruined temple city",
+      "reviewed": false
+    },
+    {
+      "ask": "troops riding in a dropship cabin before a landing on an icy world",
+      "expected": [
+        "planet-ice-background"
+      ],
+      "from": "dropship cabin",
+      "reviewed": false
+    },
+    {
+      "ask": "a clean white research lab with a walkway above heavy machinery",
+      "expected": [
+        "zdebrief-lab01-set"
+      ],
+      "from": "research lab",
+      "reviewed": false
+    },
+    {
+      "ask": "a city skyline at dusk seen from high above",
+      "expected": [
+        "zsm-mengskpalace-set",
+        "guided-models"
+      ],
+      "from": "city from above",
+      "reviewed": false
+    }
+  ]
+}

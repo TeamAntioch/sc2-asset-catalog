@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// The clean-folder smoke test: packs the four packages, installs the tarballs in an empty folder with no
+// The clean-folder smoke test: packs the five packages, installs the tarballs in an empty folder with no
 // sibling repos and no TypeSafe key, checks `npx sc2-doodad-finder --help` and `logout`, and that
 // `npx sc2-asset-catalog render` asks for setup-renderer (macOS) or refuses (elsewhere). Then it
 // starts the Finder with an empty cache folder. Its first start extracts the catalog from SC2GameData and downloads
 // the embeddings model; the test waits for the page, then asks for a doodad and checks the cards.
 // Then it does the same with the Music Finder, which extracts the music ids into the same cache
-// folder, and checks that it serves a file from an Audio folder and nothing outside it.
+// folder, and checks that it serves a file from an Audio folder and nothing outside it. Last the Set
+// Finder, which extracts nothing: it checks the published sets' cards, a set's page and an ask.
 // No Jev calls: TYPESAFE_API_KEY is removed from the Finder's environment, and its config folder is
 // a new empty one, so no key file a developer saved with `login` is found.
 //
@@ -39,7 +40,7 @@ const run = (command, args, cwd) => execFileSync(command, args, { cwd, stdio: ["
 
 let finder;
 try {
-  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-finder-kit", "@team-antioch/sc2-doodad-finder", "@team-antioch/sc2-music-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
+  for (const pkg of ["@team-antioch/sc2-asset-catalog", "@team-antioch/sc2-finder-kit", "@team-antioch/sc2-doodad-finder", "@team-antioch/sc2-music-finder", "@team-antioch/sc2-set-finder"]) run("npm", ["pack", "-w", pkg, "--pack-destination", packs], ROOT);
   const tarballs = (await readdir(packs)).filter((file) => file.endsWith(".tgz")).map((file) => path.join(packs, file));
   console.log(`Packed ${tarballs.map((file) => path.basename(file)).join(", ")}`);
   await writeFile(path.join(app, "package.json"), `${JSON.stringify({ name: "smoke", private: true, type: "module" })}\n`);
@@ -176,6 +177,57 @@ try {
   if (!musicNarrowed?.cards?.length) throw new Error("The music ask gave no cards");
   console.log(`"tense build under an alien approach" gave ${musicNarrowed.cards.length} cards, first ${musicNarrowed.cards.slice(0, 5).map((card) => card.id).join(", ")}`);
   if (!musicNarrowed.cards.some((card) => /class="desc"/.test(card.html) && !/no listening notes/.test(card.html))) throw new Error("No card shows listening notes");
+  finder.kill();
+
+  // The Set Finder, in the same cache folder: the model is there already, and the sets ship with the catalog.
+  const setBin = path.join(app, "node_modules", "@team-antioch", "sc2-set-finder", "bin", "sc2-set-finder.js");
+  const setHelp = execFileSync("npx", ["--no-install", "sc2-set-finder", "--help"], { cwd: app, env, encoding: "utf8", shell: win });
+  if (!setHelp.includes("Usage: sc2-set-finder")) throw new Error(`npx sc2-set-finder --help printed: ${setHelp}`);
+  console.log("npx sc2-set-finder --help works");
+  finder = spawn(process.execPath, [setBin, "--port", "0"], { cwd: app, env, stdio: ["ignore", "pipe", "pipe"] });
+  let setOutput = "";
+  const setUrl = await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`The Set Finder didn't start in ${START_TIMEOUT_MS / 1000} s:\n${setOutput}`)), START_TIMEOUT_MS);
+    const read = (chunk) => {
+      process.stdout.write(chunk);
+      setOutput += chunk;
+      const found = /The Set Finder is at (http:\/\/127\.0\.0\.1:\d+\/)/.exec(setOutput);
+      if (found) {
+        clearTimeout(timer);
+        resolve(found[1]);
+      }
+    };
+    finder.stdout.setEncoding("utf8").on("data", read);
+    finder.stderr.setEncoding("utf8").on("data", read);
+    finder.on("exit", (code) => reject(new Error(`The Set Finder exited with ${code} before it started:\n${setOutput}`)));
+  });
+  const setCount = Number(/^(\d+) cards/m.exec(setOutput)?.[1]);
+  if (!(setCount > 50)) throw new Error(`Expected over 50 set cards, got ${setCount}`);
+  if (!/Not ranking: no TypeSafe key/.test(setOutput)) throw new Error("Expected the Set Finder to say it isn't ranking without a key");
+  const setStatus = await (await fetch(new URL("/status", setUrl))).json();
+  if (setStatus.finder !== "set-finder") throw new Error(`/status said ${JSON.stringify(setStatus)}`);
+  const gallery = await (await fetch(new URL("/cards", setUrl))).json();
+  if (gallery.cards?.length !== setCount) throw new Error(`/cards gave ${gallery.cards?.length} cards, not ${setCount}`);
+  if (!gallery.cards.every((card) => /raw\.githubusercontent\.com\/TeamAntioch\/sc2-mapping-reference\/main\/public\/sets\//.test(card.html))) throw new Error("A set's card links no gallery picture");
+  const setPage = await fetch(new URL(`/set/${encodeURIComponent(gallery.cards[0].id)}`, setUrl));
+  if (setPage.status !== 200 || !/Plan and overview/.test(await setPage.text())) throw new Error(`/set/${gallery.cards[0].id} answered ${setPage.status}`);
+  const setController = new AbortController();
+  const setEvents = await fetch(new URL("/events", setUrl), { signal: setController.signal });
+  const setReader = setEvents.body.pipeThrough(new TextDecoderStream()).getReader();
+  const setAsked = await fetch(new URL("/ask", setUrl), { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: "the bridge of a small starship", mode: "enter" }) });
+  if (!setAsked.ok) throw new Error(`/ask answered ${setAsked.status}`);
+  let setBuffer = "";
+  let setNarrowed;
+  const setDeadline = Date.now() + 30_000;
+  while (!setNarrowed && Date.now() < setDeadline) {
+    const { value, done } = await setReader.read();
+    if (done) break;
+    setBuffer += value;
+    for (const block of setBuffer.split("\n\n").slice(0, -1)) if (/^event: narrowed$/m.test(block)) setNarrowed = JSON.parse(/^data: (.*)$/m.exec(block)[1]);
+  }
+  setController.abort();
+  if (!setNarrowed?.cards?.length) throw new Error("The set ask gave no cards");
+  console.log(`"the bridge of a small starship" gave ${setNarrowed.cards.length} sets, first ${setNarrowed.cards.slice(0, 5).map((card) => card.id).join(", ")}`);
   console.log("Smoke test passed");
 } finally {
   finder?.kill();
