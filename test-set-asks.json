@@ -132,7 +132,7 @@
       "ask": "a long hall of sleeping warriors in stasis pods",
       "expected": [
         "sets-guide",
-        "interior-cutscene-rohanaintro",
+        "interior",
         "starmap"
       ],
       "from": "stasis hall",
