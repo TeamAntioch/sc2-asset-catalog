@@ -1,6 +1,6 @@
 # @team-antioch/sc2-asset-catalog
 
-StarCraft II doodads described in words (look, kind, size, role, story, biome), what mappers have used them as (Doodad Uses), a keyword and facet search over them, listening notes for the game's music and their search, and extractors that build the game's own fields (names, packages, categories, tilesets, variations, gallery pictures) from SC2Mapster's SC2GameData into your cache folder. No game data ships in this package.
+StarCraft II doodads described in words (look, kind, size, role, story, biome), what mappers have used them as (Doodad Uses), a keyword and facet search over them, listening notes for the game's music and their search, the looks of the cinematic sets Blizzard's campaign cutscenes are filmed in, and extractors that build the game's own fields (names, packages, categories, tilesets, variations, gallery pictures) from SC2Mapster's SC2GameData into your cache folder. No game data ships in this package.
 
 ```sh
 npx @team-antioch/sc2-asset-catalog extract
@@ -29,6 +29,8 @@ const { entry } = searchMusic(catalog, { words: "tense build under an alien appr
 ```
 
 The listening notes (`data/music-notes.json`, CC BY 4.0) are what we wrote and measured of each music file, keyed by file base name: Gemini's description, mood, tension, valence, sections and uses, and our length, loudness and tempo. The audio itself is Blizzard's and never ships.
+
+The set looks (`data/set-looks.json`, CC BY 4.0) are what we wrote and measured of each cinematic set made only from Blizzard's files, keyed by set id: its look, facets, what it could stand in for, its size and camera count, with its name and Cutscene Editor files as keys. `readSetLooks()` (`@team-antioch/sc2-asset-catalog/catalog/set-looks.js`) loads them, and `setPictureUrl()` gives the address of each picture in the sc2-mapping-reference gallery, where they live (docs/adr/0005).
 
 `sc2-asset-catalog setup-renderer` builds the WhiteoutFlakes model viewer, and `sc2-asset-catalog render` then renders reference sheets with it (optional; Apple silicon macOS with StarCraft II, Xcode and Homebrew). `--renderer <module>` renders with a model renderer of your own instead. The WhiteoutFlakes notice is in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 

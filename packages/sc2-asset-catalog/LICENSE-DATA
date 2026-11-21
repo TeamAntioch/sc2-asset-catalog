@@ -1,14 +1,20 @@
-The doodad descriptions (packages/sc2-asset-catalog/data/doodad-descriptions.json) and the
-Doodad Uses (packages/sc2-asset-catalog/data/doodad-uses/) are licensed under the Creative
-Commons Attribution 4.0 International License (CC BY 4.0), below.
+The doodad descriptions (packages/sc2-asset-catalog/data/doodad-descriptions.json), the
+Doodad Uses (packages/sc2-asset-catalog/data/doodad-uses/), the music listening notes
+(packages/sc2-asset-catalog/data/music-notes.json) and the cinematic set looks
+(packages/sc2-asset-catalog/data/set-looks.json) are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0), below.
 
 Copyright (c) 2026 TeamAntioch and the sc2-asset-catalog contributors.
-Attribute as: "SC2 doodad descriptions and Doodad Uses from sc2-asset-catalog
-(https://github.com/TeamAntioch/sc2-asset-catalog), CC BY 4.0."
+Attribute as: "SC2 doodad descriptions, Doodad Uses, music listening notes and set looks from
+sc2-asset-catalog (https://github.com/TeamAntioch/sc2-asset-catalog), CC BY 4.0."
 
-They describe StarCraft II doodads in our own words, keyed by the game's doodad ids. StarCraft II
-and its assets are Blizzard Entertainment's; nothing of the game ships here, and this project is
-not affiliated with or endorsed by Blizzard Entertainment.
+They describe StarCraft II doodads, music and cutscene sets in our own words, keyed by the game's
+doodad ids, music file names and set names and files, and hold our own measurements of the music
+files (their length, loudness and tempo) and of the sets (their size and camera count). The music
+notes' words were written by Gemini, a model, from the audio, and the set looks' by an agent from
+pictures of each set. StarCraft II and its assets are Blizzard Entertainment's; nothing of the
+game ships here, and no audio or pictures, and this project is not affiliated with or endorsed by
+Blizzard Entertainment.
 
 The code is licensed separately, under the MIT License (LICENSE).
 

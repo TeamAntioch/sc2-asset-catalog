@@ -205,7 +205,7 @@ New and better descriptions, Doodad Uses and music listening notes are welcome: 
 ## Licences
 
 - The code is under the [MIT License](LICENSE).
-- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`) and the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses and music listening notes from sc2-asset-catalog, CC BY 4.0".
+- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`) and the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`) and the cinematic set looks (`packages/sc2-asset-catalog/data/set-looks.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses, music listening notes and set looks from sc2-asset-catalog, CC BY 4.0".
 - The built-in renderer runs [WhiteoutFlakes](https://github.com/FernandoS27/WhiteoutFlakes) by Fernando Sahmkow, under the BSD 3-Clause License. `setup-renderer` builds it from its source, and none of its code ships in the packages. Its notice is in [THIRD-PARTY-NOTICES.md](packages/sc2-asset-catalog/THIRD-PARTY-NOTICES.md).
 
 ## Releasing
