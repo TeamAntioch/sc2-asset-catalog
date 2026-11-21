@@ -16,6 +16,12 @@ export function isRunning(pid: number): boolean {
 const code = (error: unknown): string | undefined => (error as NodeJS.ErrnoException).code;
 
 /**
+ * Whether an error is Windows refusing a lock file another caller is deleting or moving: it can't be
+ * opened, linked over or renamed until that finishes, so the lock is still taken for now.
+ */
+const inFlux = (error: unknown): boolean => code(error) === "EPERM" || code(error) === "EBUSY";
+
+/**
  * Creates `lockPath` naming this process, unless it exists: true when this call made it. The pid is
  * written to a file of its own first and linked into place, so a lock is never seen empty.
  */
@@ -26,7 +32,7 @@ export async function createLock(lockPath: string): Promise<boolean> {
     await link(partial, lockPath);
     return true;
   } catch (error) {
-    if (code(error) === "EEXIST") return false;
+    if (code(error) === "EEXIST" || inFlux(error)) return false;
     throw error;
   } finally {
     await rm(partial, { force: true });
@@ -45,6 +51,7 @@ export async function removeIfStale(lockPath: string, { maxAgeMs }: { readonly m
     [seen, age] = await Promise.all([readFile(lockPath, "utf8"), stat(lockPath).then((info) => Date.now() - info.mtimeMs)]);
   } catch (error) {
     if (code(error) === "ENOENT") return true;
+    if (inFlux(error)) return false;
     throw error;
   }
   if (isRunning(Number(seen)) && (maxAgeMs === undefined || age <= maxAgeMs)) return false;
@@ -53,6 +60,7 @@ export async function removeIfStale(lockPath: string, { maxAgeMs }: { readonly m
     await rename(lockPath, aside);
   } catch (error) {
     if (code(error) === "ENOENT") return true;
+    if (inFlux(error)) return false;
     throw error;
   }
   try {
