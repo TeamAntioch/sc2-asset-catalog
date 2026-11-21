@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-finder-kit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "What the SC2 asset finders share: a local server and page shell, the embeddings model and its vector cache, the Jev ranker with its key file and spend cap, the ask timing, the tray and the test-ask cases. Built for the Doodad Finder and the Music Finder.",
   "keywords": [
     "starcraft",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",
-    "@team-antioch/sc2-asset-catalog": "0.2.0",
+    "@team-antioch/sc2-asset-catalog": "0.3.0",
     "@typesafe-ai/sdk": "^0.7.0",
     "zod": "^4.0.0"
   }

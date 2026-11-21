@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-set-finder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Ask for a StarCraft II cinematic set in plain words (a ship's bridge, a throne room, a jungle clearing) and see ranked cards with their pictures: a local page that narrows Blizzard's campaign cutscene sets with a keyword search and a local embeddings model, then ranks with Jev.",
   "keywords": [
     "starcraft",
@@ -51,7 +51,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@team-antioch/sc2-asset-catalog": "0.2.0",
-    "@team-antioch/sc2-finder-kit": "0.2.0"
+    "@team-antioch/sc2-asset-catalog": "0.3.0",
+    "@team-antioch/sc2-finder-kit": "0.3.0"
   }
 }
