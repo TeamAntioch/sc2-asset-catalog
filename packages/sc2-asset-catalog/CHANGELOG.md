@@ -1,5 +1,11 @@
 # @team-antioch/sc2-asset-catalog
 
+## 0.3.0
+
+### Minor Changes
+
+- 5813512: Add the cinematic sets' looks: `data/set-looks.json` holds what we wrote and measured of 77 sets from Blizzard's campaign cutscenes, read with `readSetLooks()` from `catalog/set-looks.js`, and `setPictureUrl()` gives each picture's address in the sc2-mapping-reference gallery.
+
 ## 0.2.0
 
 ### Minor Changes
