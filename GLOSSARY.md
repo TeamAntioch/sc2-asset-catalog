@@ -33,3 +33,9 @@
 **Listening notes.** Our words and measurements for a music file: what it sounds like (description, mood, tension, valence, timestamped sections, what it suits) and what we measured of it (duration, energy, loudness, tempo). Gemini wrote the words from the audio, and a person's correction replaces them. Listening notes ship keyed by file base name, under CC BY 4.0. The audio never does.
 
 **Audio folder.** A folder of the game's music `.ogg` files that the user extracted from their own install and gave the Music Finder with `--audio`. Files are matched by base name, wherever they sit in the folder. Without one, cards still search and say how to hear them.
+
+**Cinematic set.** One of the pre-built locations Blizzard's campaign cutscenes are filmed in: a cluster of scenery in a Cutscene Editor file, with its own cameras, such as a ship's bridge or an asteroid field. Known by its set id.
+
+**Set look.** Our words and measurements for a cinematic set: its kind, what the place looks like, its facets, what it could stand in for, the pictures that show it best and its size and camera count. An agent wrote the words from pictures of the set. Set looks ship in `data/set-looks.json`, under CC BY 4.0; the pictures are linked from the gallery.
+
+**Layer.** For a host such as sc2-adjutant: sets of its own, with their looks and where their pictures are, laid over the published sets in the Set Finder. A set with an id already there replaces it.

@@ -1,0 +1,15 @@
+{
+  // The sources import each other by their .ts names, as Node's type stripping runs them in a
+  // checkout; the build rewrites those to .js. transformers.js's own declarations don't check
+  // (they need the DOM's types and disagree with themselves), so declaration files go unchecked.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}
