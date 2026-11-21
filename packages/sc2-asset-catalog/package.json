@@ -36,6 +36,7 @@
     "data/doodad-descriptions.json",
     "data/doodad-uses",
     "data/music-notes.json",
+    "data/set-looks.json",
     "scripts/build-whiteoutflakes.sh",
     "LICENSE",
     "LICENSE-DATA",
