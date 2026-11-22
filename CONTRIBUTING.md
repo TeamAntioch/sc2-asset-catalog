@@ -4,7 +4,7 @@ The catalog gets better one description and one Doodad Use at a time, and the mu
 
 ## The one rule
 
-Descriptions, Doodad Uses and music notes are about the doodad or the track, in general words a mapper would use. **They never name a campaign, a map, a mission, a character or a story**, yours or anyone's. Write "drop hatch at the edge of a raised floor", not "the hatch where the hero escapes in my third mission". The same goes for `from` and for pull request titles that end up in the history.
+Descriptions, Doodad Uses, decal descriptions and music notes are about the doodad or the track, in general words a mapper would use. **They never name a campaign, a map, a mission, a character or a story**, yours or anyone's. Write "drop hatch at the edge of a raised floor", not "the hatch where the hero escapes in my third mission". The same goes for `from` and for pull request titles that end up in the history.
 
 ## Fixing or adding a description
 
@@ -99,6 +99,28 @@ A Doodad Use says what a doodad has worked as, in a mapper's words. It is often 
 | `from` | Optional. Where it came from and when, in general words: "crushing-press search, 2026-11-09". |
 
 Add to the end of a doodad's list, or start its file if it has none. A use that differs only in case or spacing from one already there is the same use.
+
+## Fixing or adding a decal description
+
+`packages/sc2-asset-catalog/data/decal-descriptions.json` maps each decal doodad's id to its variations, in variation order (the first is the Editor's 00):
+
+```json
+"BattleStation_Number_Decals": [
+  { "look": "pale stencilled number 0", "shows": ["number"], "glyphs": "number", "text": "0", "shape": "patch", "tiles": false, "use": "label" }
+]
+```
+
+| Field | What goes in it |
+| --- | --- |
+| `look` | What the variation shows, in a few words, written from its picture: "yellow-and-black hazard stripe, a quarter curve". |
+| `shows` | What it draws, from the list in `src/catalog/decal-catalog.ts`: `stripe`, `curve`, `corner`, `hazard-stripes`, `arrow`, `frame`, `hazard-sign`, `symbol`, `emblem`, `text`, `number`, `ornament`, `glow-line`, `light-strip`. |
+| `glyphs` | `none`, `number`, `letter`, `words`, or `script` for alien inscriptions, which read as ornament. |
+| `text` | The number, letter or words it reads, as painted. Needed for any glyphs but `none` and `script`. |
+| `shape` | `line`, `corner` (a turn or bend in a line) or `patch`. |
+| `tiles` | Whether copies laid end to end make a longer run. |
+| `use` | `marking` or `ornament`, which can go anywhere, or `label`, `sign` or `emblem`, which go only where they mean something. |
+
+`extract-decals` builds a numbered sheet of each decal doodad's variations to describe them from. The texture and the box in cells are read from the game, so they never go in the file. Keep the ids in order and the two-space indentation, as for the doodad descriptions.
 
 ## Fixing or adding a music note
 

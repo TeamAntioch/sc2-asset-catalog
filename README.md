@@ -16,7 +16,7 @@ Five npm packages:
 | [`@team-antioch/sc2-music-finder`](packages/sc2-music-finder) | The Music Finder: ask for music in plain words and read each track's listening notes, filter by energy, tension, length and the dependency your map has, and play it from your own extracted audio. The `sc2-music-finder` command. |
 | [`@team-antioch/sc2-set-finder`](packages/sc2-set-finder) | The Set Finder: ask for a place to film a cutscene in and see Blizzard's campaign cutscene sets that fit, with pictures of each and the Cutscene Editor file it is in. The `sc2-set-finder` command. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
-| [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, the cliff set and terrain texture descriptions and their search, and the extractors (`sc2-asset-catalog extract`, `extract-cliffs`, `extract-textures`). |
+| [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, the cliff set and terrain texture descriptions and their search, what every decal variation shows, and the extractors (`sc2-asset-catalog extract`, `extract-cliffs`, `extract-textures`). |
 
 ## Install and start
 

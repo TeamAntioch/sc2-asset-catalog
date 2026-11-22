@@ -12,6 +12,8 @@
 
 **Terrain texture.** One of the ground textures a tileset blends, known by its id (such as `AgriaDirt`). A tileset lists its blend textures in layer order. Its description (look, kind, tone and the roles it suits) ships in `data/texture-descriptions.json`, and its tilesets, file, name and gallery picture are extracted by `extract-textures`.
 
+**Decal description.** Our words for one variation of a decal doodad: its look, what it shows, its glyphs and the text it reads, its shape, whether it tiles end to end, and its use. A variation whose use is a marking or ornament, with no number, letter or words, can go anywhere. A label, sign or emblem goes only where it means something. Decal descriptions ship in `data/decal-descriptions.json`, under CC BY 4.0. Each variation's texture and box in cells are its extracted fields, read by `extract-decals` from a folder the user extracted from their own install.
+
 **Stock catalog.** The descriptions and Doodad Uses joined to the extracted fields by doodad id: what the Finder searches by default.
 
 **Gallery.** The doodad pictures in [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference), one angle each, with a Marine for scale. Cards link them by URL.

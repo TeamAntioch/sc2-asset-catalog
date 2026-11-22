@@ -1,9 +1,24 @@
 // @team-antioch/sc2-asset-catalog: StarCraft II doodads described in words, their Doodad Uses, the
-// keyword search over them, the cliff sets and terrain textures described in words and their search, the music's listening notes and their search, the extractors that build
+// keyword search over them, the cliff sets and terrain textures described in words and their search, what every decal variation shows and its search, the music's listening notes and their search, the extractors that build
 // the game's own fields into the user's cache, and the built-in renderer that draws its reference sheets on macOS. Every module is also
 // importable on its own, as @team-antioch/sc2-asset-catalog/catalog/<name>.js.
 
-export { catalogCacheDir, catalogConfigDir, CLIFF_DESCRIPTIONS_PATH, DOODAD_DESCRIPTIONS_PATH, DOODAD_USES_DIR, extractedDir, MUSIC_NOTES_PATH, PACKAGE_DATA_DIR } from "./catalog/catalog-dirs.js";
+export { catalogCacheDir, catalogConfigDir, CLIFF_DESCRIPTIONS_PATH, DECAL_DESCRIPTIONS_PATH, DOODAD_DESCRIPTIONS_PATH, DOODAD_USES_DIR, extractedDir, MUSIC_NOTES_PATH, PACKAGE_DATA_DIR } from "./catalog/catalog-dirs.js";
+export {
+  type DecalCatalog,
+  type DecalDescription,
+  type DecalMatch,
+  type DecalQuery,
+  type DecalVariation,
+  decalSheetPath,
+  type ExtractedDecalVariation,
+  findDecalVariations,
+  formatDecalVariations,
+  isScatterable,
+  joinDecalCatalog,
+  parseDecalDescriptions,
+  readDecalCatalog,
+} from "./catalog/decal-catalog.js";
 export { type DoodadCatalogEntry, type DoodadDescription, type ExtractedDoodad, joinDoodadCatalog, parseDoodadDescriptions, readDoodadCatalog } from "./catalog/doodad-catalog.js";
 export {
   type CliffCatalog,
@@ -43,6 +58,7 @@ export {
 } from "./catalog/doodad-search.js";
 export { extractCatalog, type ExtractCatalogOptions, type ExtractedCatalog, hasExtractedCatalog } from "./catalog/extract-catalog.js";
 export { type ExtractCliffsOptions, type ExtractedCliffCounts, extractCliffs } from "./catalog/extract-cliffs.js";
+export { extractDecals, type ExtractDecalsOptions, type ExtractedDecals } from "./catalog/extract-decals.js";
 export {
   type ExtractedMusic,
   type ExtractedMusicCounts,
