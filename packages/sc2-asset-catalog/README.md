@@ -18,6 +18,12 @@ The cliff sets' extracted fields (each tileset's cliff sets in order, and each s
 npx @team-antioch/sc2-asset-catalog extract-cliffs
 ```
 
+The terrain textures' extracted fields (each tileset's blend textures in layer order, and each texture's file, name and gallery picture) come from SC2GameData's TerrainData, TerrainTexData and GameStrings the same way. `readTextureCatalog()` joins them to our descriptions (`data/texture-descriptions.json`, CC BY 4.0: each texture's look, kind, tone and the roles it suits), `searchTextures()`, `lookUpTextures()` and `tilesetTextures()` search and list them, and `textureSheetTiles()` and `textureSheetSvg()` draw a labelled sheet of their gallery pictures:
+
+```sh
+npx @team-antioch/sc2-asset-catalog extract-textures
+```
+
 On Windows, type `npx.cmd` in place of `npx`: PowerShell's default policy refuses `npx`.
 
 ```js

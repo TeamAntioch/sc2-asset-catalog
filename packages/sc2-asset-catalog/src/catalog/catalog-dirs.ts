@@ -1,5 +1,5 @@
 // Where the catalog's files are. What we wrote ships in this package's data/: the doodad
-// descriptions, the Doodad Uses, the cliff set descriptions, the music's listening notes and the cinematic sets' looks (CC BY 4.0, LICENSE-DATA). What is extracted from the game is
+// descriptions, the Doodad Uses, the cliff set and terrain texture descriptions, the music's listening notes and the cinematic sets' looks (CC BY 4.0, LICENSE-DATA). What is extracted from the game is
 // never shipped: `extract` builds it from SC2GameData into the user's cache folder, which is
 // where each platform keeps caches: %LOCALAPPDATA% on Windows, ~/Library/Caches on macOS,
 // $XDG_CACHE_HOME (else ~/.cache) elsewhere, or SC2_ASSET_CATALOG_CACHE on any of them.
@@ -18,6 +18,9 @@ export const DOODAD_DESCRIPTIONS_PATH = path.join(PACKAGE_DATA_DIR, "doodad-desc
 
 /** The hand-written cliff set descriptions, keyed by cliff set id (cliff-catalog.ts). */
 export const CLIFF_DESCRIPTIONS_PATH = path.join(PACKAGE_DATA_DIR, "cliff-descriptions.json");
+
+/** The hand-written terrain texture descriptions, keyed by CTerrainTex id (texture-catalog.ts). */
+export const TEXTURE_DESCRIPTIONS_PATH = path.join(PACKAGE_DATA_DIR, "texture-descriptions.json");
 
 /** The listening notes for the game's music files, keyed by file base name (music-notes.ts). */
 export const MUSIC_NOTES_PATH = path.join(PACKAGE_DATA_DIR, "music-notes.json");

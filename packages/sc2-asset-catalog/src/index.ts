@@ -1,5 +1,5 @@
 // @team-antioch/sc2-asset-catalog: StarCraft II doodads described in words, their Doodad Uses, the
-// keyword search over them, the music's listening notes and their search, the extractors that build
+// keyword search over them, the cliff sets and terrain textures described in words and their search, the music's listening notes and their search, the extractors that build
 // the game's own fields into the user's cache, and the built-in renderer that draws its reference sheets on macOS. Every module is also
 // importable on its own, as @team-antioch/sc2-asset-catalog/catalog/<name>.js.
 
@@ -73,3 +73,35 @@ export { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbn
 export { DEFAULT_SC2_PATH, findSc2, findViewer, setupRenderer, type SetupRendererOptions } from "./catalog/renderer-setup.js";
 export { ModelNotFoundError, type RunViewer, whiteoutFlakesRenderer, type WhiteoutFlakesOptions } from "./catalog/whiteoutflakes.js";
 export { type CatalogCliOptions, runCatalogCli } from "./cli.js";
+export { TEXTURE_DESCRIPTIONS_PATH } from "./catalog/catalog-dirs.js";
+export { type ExtractedTextureCounts, type ExtractTexturesOptions, extractTextures } from "./catalog/extract-textures.js";
+export {
+  type ExtractedTexture,
+  type ExtractedTextures,
+  getTexture,
+  hasExtractedTextures,
+  joinTextureCatalog,
+  lookUpTextures,
+  parseTextureDescriptions,
+  readTextureCatalog,
+  searchTextures,
+  type TextureCatalog,
+  type TextureDescription,
+  type TextureEntry,
+  type TextureKind,
+  type TextureSearch,
+  type TextureSuit,
+  type TextureTone,
+  tilesetTextures,
+} from "./catalog/texture-catalog.js";
+export {
+  type PictureOptions,
+  type SheetOptions,
+  type SheetTile,
+  TEXTURE_GALLERY_URL,
+  texturePicture,
+  texturePictureDir,
+  texturePictureUrl,
+  textureSheetSvg,
+  textureSheetTiles,
+} from "./catalog/texture-pictures.js";

@@ -1,0 +1,5564 @@
+{
+  "AgriaConcrete": {
+    "look": "grey-olive concrete slabs, diagonal seams, stencilled markings",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AgriaCrops": {
+    "look": "green crop rows on brown soil, diagonal furrows",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "AgriaDirt": {
+    "look": "tan-brown packed dirt, fine even grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AgriaDirtRough": {
+    "look": "dark brown clumpy soil, coarse rough grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "AgriaFoliage": {
+    "look": "dense dark green leafy undergrowth, busy texture",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "AgriaGrassGreen": {
+    "look": "lush bright green grass, soft even grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "AgriaGrassYellow": {
+    "look": "dry yellow-olive grass, streaky blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "AgriaRock": {
+    "look": "grey-green weathered rock, mottled cracked surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "Aiur4City1": {
+    "look": "olive-gold metal floor, embossed interlacing curved ribbon pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Aiur4City2": {
+    "look": "dark olive diamond-tread metal plating, fine repeating texture",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Aiur4City3": {
+    "look": "dark bronze rough pebbled surface, dense granular grit",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "Aiur4City4": {
+    "look": "smooth olive-gold panel, faint embossed rounded chain-link motif",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Aiur4City5": {
+    "look": "olive-khaki surface etched with fine flowing curved lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "Aiur4City6": {
+    "look": "lush dark green grass, dense short blades, faint dirt flecks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "Aiur4City7": {
+    "look": "grey-khaki packed earth, smooth with faint pits and specks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Aiur4City8": {
+    "look": "dark olive-brown lumpy rock, rough mottled surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "Aiur4Temple1": {
+    "look": "dense green grass, fine mottled texture, darker patches",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "Aiur4Temple2": {
+    "look": "mossy olive stone floor, diagonal slabs with square inlays",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Aiur4Temple3": {
+    "look": "olive-brown small cobbles in tight diagonal herringbone weave",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "variety"
+    ]
+  },
+  "Aiur4Temple4": {
+    "look": "olive-grey fine pebbled stone, uniform rough grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "Aiur4Temple5": {
+    "look": "pale grey-olive smooth weathered stone, faint cracks and pits",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "Aiur4Temple6": {
+    "look": "dark slate stone floor engraved with Protoss arcs and circles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "Aiur4Temple7": {
+    "look": "olive-brown lumpy rock, rough mossy earth",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "Aiur4Temple8": {
+    "look": "dark grey stone slabs, cracked angular flagstone pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurCity1": {
+    "look": "olive-khaki diamond tread plate, dense raised metal pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurCity2": {
+    "look": "olive stone with interlaced curving carved bands, organic motif",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "AiurCity3": {
+    "look": "smooth khaki stone, faint sweeping curved etched lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurCity4": {
+    "look": "grey-olive mottled stone ground, fine crackled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "AiurCity5": {
+    "look": "brown-olive rough pebbly gravel, dense lumpy grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "AiurCity6": {
+    "look": "dark olive-black rough soil, pitted lumpy surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "AiurCity7": {
+    "look": "olive-khaki smooth packed earth, soft faint mottling",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "AiurCity8": {
+    "look": "khaki-gold stone floor, etched triangular lattice grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurCreepHoles": {
+    "look": "dark grey pitted organic surface, honeycomb holes",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "AiurDirt": {
+    "look": "dark olive-brown dirt, smooth faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "AiurGrass": {
+    "look": "deep green grass, fine even grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "AiurGrunge": {
+    "look": "near-black stained stone, faint cracks and grime",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "AiurLargeBricks": {
+    "look": "dark grey-green large stone blocks, diagonal, mossy seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "high"
+    ]
+  },
+  "AiurRock": {
+    "look": "olive-grey layered rock, flaky ridges",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "AiurSmallBricks": {
+    "look": "olive small stone cobbles, diagonal herringbone, mossy",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "AiurTemple1": {
+    "look": "dark olive-black rough soil, faint pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "AiurTemple2": {
+    "look": "dense dark green grass, fine leafy blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "AiurTemple3": {
+    "look": "mossy olive diagonal stone slabs with small square insets",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path"
+    ]
+  },
+  "AiurTemple4": {
+    "look": "olive mossy cobblestone, small irregular stones",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "variety"
+    ]
+  },
+  "AiurTemple5": {
+    "look": "mossy cobblestone with rounded gold-trimmed square frames",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "AiurTemple6": {
+    "look": "mossy cobbles with ornate curving gold inlays and rings",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "AiurTemple7": {
+    "look": "olive-grey fine pebbly gravel, even grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "AiurTemple8": {
+    "look": "pale grey-khaki packed earth, faint cracks and pebbles",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "AiurTempleJungle1": {
+    "look": "dense dark green grass, mottled with small dirt flecks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "AiurTempleJungle2": {
+    "look": "mossy grey-green stone tiles, diagonal grid, raised square studs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurTempleJungle3": {
+    "look": "olive-grey cobbled flagstones, small irregular stones in herringbone",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "variety"
+    ]
+  },
+  "AiurTempleJungle4": {
+    "look": "grey-olive fine pebbly gravel grit, uniform",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "AiurTempleJungle5": {
+    "look": "grey-khaki packed earth, smooth with faint specks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AiurTempleJungle6": {
+    "look": "dark grey-green damp earth, smooth, faint specks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "AiurTempleJungle7": {
+    "look": "olive-grey stone pavement of overlapping cracked slabs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "AiurTempleJungle8": {
+    "look": "near-black slate stone, faint angular etched lines",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "low"
+    ]
+  },
+  "AiurTiles": {
+    "look": "olive-grey stone tiles, diagonal grid, engraved lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AvernusDirt": {
+    "look": "dark charcoal dirt, fine grain, subtle mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "AvernusLargeTiles": {
+    "look": "dark grey-brown stone tiles, diagonal octagonal layout, faint cracks",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "AvernusMesh": {
+    "look": "dark brown metal mesh within octagonal frame lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "AvernusMetal": {
+    "look": "brown rusty metal, scuffed diagonal plate pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "AvernusPanels": {
+    "look": "reddish copper-brown panels, diagonal, triangular studs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "AvernusPlates": {
+    "look": "brown metal plates over ribbed grating, diagonal layout",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "AvernusRock": {
+    "look": "black slate rock, sharp diagonal fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "AvernusSmallTiles": {
+    "look": "dark grey-green fine diamond crosshatch tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BattleStation_1": {
+    "look": "dark charcoal metal floor, subtle diagonal diamond plating",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BattleStation_2": {
+    "look": "dark charcoal diagonal machinery panels, raised mechanical detail",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "BattleStation_3": {
+    "look": "black dense diagonal techno panels, greebled circuitry",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "BattleStation_4": {
+    "look": "dark grey grimy smudged metal plates, faint diagonal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BattleStation_5": {
+    "look": "dark maroon-brown metal plates, diagonal seams, faint glowing scratches",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BattleStation_6": {
+    "look": "black metal floor, large diagonal stepped plate outlines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BattleStation_7": {
+    "look": "black quilted diamond metal plating, fine diagonal grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BattleStation_8": {
+    "look": "dark brown diagonal panel grid with small hatch details",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "BelShirBricksLarge": {
+    "look": "mossy green stone bricks, diagonal herringbone, moss in joints",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path"
+    ]
+  },
+  "BelShirBricksLargeEx2": {
+    "look": "mossy olive large flagstones, irregular diagonal joints",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "high"
+    ]
+  },
+  "BelShirBricksSmall": {
+    "look": "mossy green small worn bricks, faint diagonal pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "variety"
+    ]
+  },
+  "BelShirBricksSmallEx2": {
+    "look": "dark olive small cobbles, dense diagonal pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path"
+    ]
+  },
+  "BelShirBrush": {
+    "look": "bright green dense short grass, uniform",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "BelShirBrushEx2": {
+    "look": "mottled green brush grass, clumpy soft patches",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "BelShirDirtDark": {
+    "look": "dark olive-green earth, smooth soft mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "BelShirDirtDarkEx2": {
+    "look": "dark olive-green earth, smooth faint ripples",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "BelShirDirtLight": {
+    "look": "olive-khaki dirt, soft diagonal streaks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BelShirDirtLightEx2": {
+    "look": "grey-green smooth earth, faint diagonal streaks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BelShirGrassDark": {
+    "look": "deep green grass, dense streaky blades",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BelShirGrassDarkEx2": {
+    "look": "very dark green grass, smooth faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "BelShirGrassLight": {
+    "look": "deep green grass, fine speckled blades",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BelShirGrassLightEx2": {
+    "look": "deep green grass, fine speckled grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BelShirSmallTiles": {
+    "look": "mossy green stone tiles with concentric diamond motifs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "BelShirSmallTilesEx2": {
+    "look": "mossy olive stone tiles, concentric diamond pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "BlackOpsLabA1": {
+    "look": "near-black panel, faint embossed interlocking ring pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA2": {
+    "look": "black floor with raised grey octagon lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BlackOpsLabA3": {
+    "look": "black diagonal quilted grid, faint diamond highlights",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA4": {
+    "look": "near-black plain fine-textured surface, barely visible grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA5": {
+    "look": "glossy black panel, thin faint diagonal seam lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA6": {
+    "look": "black panel with faint repeating diamond motif",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA7": {
+    "look": "plain matte charcoal-black surface, no pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BlackOpsLabA8": {
+    "look": "black panel with embossed angular circuit-like lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "BraxisAlphaDarkPlates": {
+    "look": "dark grey interlocking metal plates, diagonal jigsaw seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BraxisAlphaDarkPlatesEx2": {
+    "look": "near-black metal plating, faint diagonal crosshatch",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BraxisAlphaMesh": {
+    "look": "black floor under diagonal silver wire mesh grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "BraxisAlphaMeshEx2": {
+    "look": "dark metal mesh grating, raised diagonal diamond grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "BraxisAlphaMetal": {
+    "look": "mid-grey diagonal tiled metal plates, light scratches",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BraxisAlphaMetalDetail": {
+    "look": "dark grey-green dense diagonal machinery, circuitry greebles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "BraxisAlphaMetalDetailEx2": {
+    "look": "dark grey tech panels, circuitry detail, diagonal layout",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "BraxisAlphaMetalEx2": {
+    "look": "dark grey worn metal, subtle diamond tread pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "BraxisAlphaPlates": {
+    "look": "grey scuffed metal plates, diagonal seams, white scratch highlights",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BraxisAlphaPlatesEx2": {
+    "look": "grey-brown metal floor plates, diagonal seams, panel lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "BraxisAlphaRock": {
+    "look": "brown fractured rock, sharp diagonal ridges",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "BraxisAlphaRockEx2": {
+    "look": "reddish-brown streaked rock, rough veined surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "BraxisAlphaRust": {
+    "look": "rust-brown fine grainy earth, uniform",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "BraxisAlphaRustEx2": {
+    "look": "brown rust surface, smooth faint mottling",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "BraxisAlphaWreckedPlates": {
+    "look": "dark grey broken stacked metal plates, diagonal rubble",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "BraxisAlphaWreckedPlatesEx2": {
+    "look": "dark grey broken metal plates, uneven diagonal tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "CastanarGrating": {
+    "look": "dark metal grating panels framed by teal-green diagonal girders",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "CastanarGratingEx2": {
+    "look": "dark green metal grating in diagonal riveted frames",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "CastanarGrid": {
+    "look": "dark teal-grey quilted metal plates in diagonal grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CastanarGridEx2": {
+    "look": "dark teal-grey diamond quilted tile grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CastanarMesh": {
+    "look": "black metal mesh with raised octagon lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CastanarMeshEx2": {
+    "look": "black mesh with grey octagonal frame lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "CastanarMetal": {
+    "look": "teal-green riveted industrial panels, diagonal, hazard-stripe trim",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "CastanarMetalEx2": {
+    "look": "green-grey riveted metal plates, diagonal framed panels",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "CastanarPanels": {
+    "look": "grey-green beveled square panels in diagonal grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CastanarPanelsEx2": {
+    "look": "smooth grey-green stone panels, diagonal running bond",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CastanarRock": {
+    "look": "dark charcoal jagged rock, angular streaked fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "CastanarRockEx2": {
+    "look": "dark grey-green craggy rock, diagonal fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "CastanarSmallTiles": {
+    "look": "near-black floor, fine diagonal crosshatch tile grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CastanarSmallTilesEx2": {
+    "look": "dark charcoal fine diagonal crosshatch tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CastanarTiles": {
+    "look": "near-black smooth floor, thin pale diagonal seam lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CastanarTilesEx2": {
+    "look": "dark green-grey large tiles, faint diagonal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Char2_1": {
+    "look": "dark charcoal smooth dirt, faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Char2_2": {
+    "look": "dark charcoal dirt split by network of deep cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "Char2_3": {
+    "look": "flat grey-taupe ash, very smooth fine grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "Char2_4": {
+    "look": "dark brown cooled lava, swirling flow ridges, copper sheen",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "Char2_5": {
+    "look": "dark reddish-brown rough rock, jagged lumpy surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Char2_6": {
+    "look": "dark crust laced with glowing orange lava cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "Char2_7": {
+    "look": "dark grey metal panels, octagonal diagonal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Char2_8": {
+    "look": "black dense diagonal machinery panels, techno greebles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "CharDirt": {
+    "look": "dark grey-brown ashy dirt, soft mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CharDirtCracked": {
+    "look": "Char cracked volcanic dirt",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ],
+    "seen": false
+  },
+  "CharDirtCrackedEx2": {
+    "look": "dark grey smooth ashy dirt, fine uniform grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CharDirtEx2": {
+    "look": "dark brown-black clumped volcanic soil, rough chunks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "CharDirtLight": {
+    "look": "grey-brown ashy dirt, fine mottled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CharDirtLightEx2": {
+    "look": "dark charcoal-brown ash, smooth faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "CharDunes_1": {
+    "look": "flat smooth grey-brown dirt, nearly featureless",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "CharDunes_2": {
+    "look": "grey-brown sediment, soft streaky wind-swept blotches",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "CharDunes_3": {
+    "look": "dark olive-black ridged lava flow, rippled swirls",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "high"
+    ]
+  },
+  "CharDunes_4": {
+    "look": "black porous spongy rock, olive cell pattern",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CharDunes_5": {
+    "look": "dark grey-brown dirt with pale olive web of cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "CharDunes_6": {
+    "look": "dark charcoal dirt, soft diagonal streaks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CharDunes_7": {
+    "look": "near-black rock, faint wavy ridges",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "base"
+    ]
+  },
+  "CharDunes_8": {
+    "look": "black-olive crust studded with bumpy barnacle nodules",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CharLavaCracks": {
+    "look": "dark crimson rock with black crack network",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "CharLavaCracksEx2": {
+    "look": "black volcanic rock, crinkled glossy crust",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CharMud": {
+    "look": "dark olive-brown mud, damp mottled",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low"
+    ]
+  },
+  "CharMudEx2": {
+    "look": "dark maroon mud, cracked plate-like shapes",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low"
+    ]
+  },
+  "CharRedCracks": {
+    "look": "rust-brown ground with glowing orange vein cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "low"
+    ]
+  },
+  "CharRedCracksEx2": {
+    "look": "black rocky ground with faint dull red tint, rough",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CharRock": {
+    "look": "near-black rough rock, faint reddish streaks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "CharRockEx2": {
+    "look": "dark grey-black craggy rock, lumpy ridges",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "CharSponge": {
+    "look": "dark brown-black porous spongy crust",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CharSpongeEx2": {
+    "look": "brown-red rock with glowing orange lava vein cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "CompoundMansion_1": {
+    "look": "dark brown carpet-like surface, fine woven texture",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CompoundMansion_2": {
+    "look": "dark brown wood-like floor, faint diagonal grain",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CompoundMansion_3": {
+    "look": "plain warm grey smooth plaster or concrete, uniform",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CompoundMansion_4": {
+    "look": "near-black fine woven texture, uniform",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CompoundMansion_5": {
+    "look": "lush green lawn grass, fine even blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "CompoundMansion_6": {
+    "look": "dark brown packed earth, soft lumpy mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "CompoundMansion_7": {
+    "look": "pale marble floor with gold octagonal inlay lattice",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "accent",
+      "base"
+    ]
+  },
+  "CompoundMansion_8": {
+    "look": "grey-beige marble checkerboard diamonds",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "CompoundSewer_1": {
+    "look": "dark charcoal fine gritty grime, uniform",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "CompoundSewer_2": {
+    "look": "dark grey-olive worn diamond-pattern grating, grimy",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CompoundSewer_3": {
+    "look": "dark green-grey slimy cobbled stone, wet lumpy",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "CompoundSewer_4": {
+    "look": "black-grey cracked broken stone, rough rubble",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "CompoundSewer_5": {
+    "look": "olive-green mossy sludge, murky mottled muck",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low"
+    ]
+  },
+  "CompoundSewer_6": {
+    "look": "grey-olive damp mud, soft lumpy mottling",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low",
+      "base"
+    ]
+  },
+  "CompoundSewer_7": {
+    "look": "black floor with faint diagonal grid lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "CompoundSewer_8": {
+    "look": "dark olive-grey grimy diagonal metal plates, scuffed",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Cybros1": {
+    "look": "grey-olive metal panels, diagonal seams, vents and bolt details",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Cybros2": {
+    "look": "pale grey-green stone, curved interlocking groove pattern",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "Cybros3": {
+    "look": "grey-olive metal plates, offset diagonal blocks, bolted corners",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Cybros4": {
+    "look": "pale grey-green tiles, small circular scale pattern",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Cybros5": {
+    "look": "grey-olive metal panels, diagonal seams, small vents",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Cybros6": {
+    "look": "near-black metal, fine hexagonal micro-texture",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Cybros7": {
+    "look": "dark hexagonal floor panels, faint yellow-lit edges",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "Cybros8": {
+    "look": "flat near-black surface, almost featureless fine grain",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "DefendersCity_1": {
+    "look": "smooth dark charcoal concrete, faint pits",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DefendersCity_2": {
+    "look": "dark grey stone slabs, diagonal offset pavers, faint seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DefendersCity_3": {
+    "look": "charcoal quilted diamond plate grid, fine lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DefendersCity_4": {
+    "look": "dark grey worn concrete, faint ghosted diamond tiles, mottled",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "DefendersCity_5": {
+    "look": "dark charcoal asphalt, fine grain, near-uniform",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DefendersCity_6": {
+    "look": "charcoal cracked concrete, wide fracture network",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "DefendersCity_7": {
+    "look": "olive-green grass with patchy tan dirt spots",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "DefendersCity_8": {
+    "look": "dark grey broken stone rubble paving, angular fragments",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "DesertWorld1": {
+    "look": "Phaethon light desert dirt",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ],
+    "seen": false
+  },
+  "DesertWorld2": {
+    "look": "Phaethon cracked desert rock",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ],
+    "seen": false
+  },
+  "DesertWorld3": {
+    "look": "Phaethon rough desert rock",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ],
+    "seen": false
+  },
+  "DesertWorld4": {
+    "look": "Phaethon layered shale",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ],
+    "seen": false
+  },
+  "DesertWorld5": {
+    "look": "Phaethon dark desert dirt",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ],
+    "seen": false
+  },
+  "DesertWorld6": {
+    "look": "Phaethon dark sand",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ],
+    "seen": false
+  },
+  "DesertWorld7": {
+    "look": "Phaethon sand dunes, rippled",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ],
+    "seen": false
+  },
+  "DesertWorld8": {
+    "look": "Phaethon light sand",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ],
+    "seen": false
+  },
+  "DominionLab1": {
+    "look": "light grey-green panels, diagonal notched tile seams",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DominionLab2": {
+    "look": "dark slate small diagonal panels with square studs",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "DominionLab3": {
+    "look": "pale grey-green small interlocking diagonal tiles",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "DominionLab4": {
+    "look": "dark charcoal fine grid mesh, near uniform",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "DominionLab5": {
+    "look": "dark navy-black large interlocking diagonal panels",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "DominionLab6": {
+    "look": "dark grey-green panels with embossed octagon outlines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "DominionLab7": {
+    "look": "plain flat grey-brown dirt, nearly featureless",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "DominionLab8": {
+    "look": "dark grey cracked stone, fractured slab texture",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Elsecaro_1": {
+    "look": "pale sage-grey smooth ground, soft faint mottling",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "Elsecaro_2": {
+    "look": "dark charcoal rock, irregular fissure crack network",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Elsecaro_3": {
+    "look": "lush green grass, fine even blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Elsecaro_4": {
+    "look": "pale khaki diagonal mosaic tiles, small worn squares",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "Elsecaro_5": {
+    "look": "light taupe-grey smooth plaster-like ground, faint ripples",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "Elsecaro_6": {
+    "look": "grey-brown rough packed dirt with small pebbles",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "Elsecaro_7": {
+    "look": "pale beige-grey diagonal stone paving, varied tile shades",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "path"
+    ]
+  },
+  "Elsecaro_8": {
+    "look": "dark charcoal fine-speckled asphalt-like surface, very even",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ElsecaroCity_1": {
+    "look": "dark olive-green lumpy moss ground, fine clumps",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "ElsecaroCity_2": {
+    "look": "olive-green grass with yellow flecks, fine grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "ElsecaroCity_3": {
+    "look": "green lawn grass, even fine grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "ElsecaroCity_4": {
+    "look": "dark olive gravel, small pebbly speckle",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "ElsecaroCity_5": {
+    "look": "dark olive rough rocky earth, lumpy clods",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "ElsecaroCity_6": {
+    "look": "grey-brown packed dirt, faint pebbles and cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ElsecaroCity_7": {
+    "look": "dark grey-green cracked stone slabs, angular fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "ElsecaroCity_8": {
+    "look": "grey-taupe smooth dirt, faint mottled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Endion1": {
+    "look": "dark olive-brown dirt, fine lumpy grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Endion2": {
+    "look": "mossy green grass, soft fine speckle",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Endion3": {
+    "look": "dark brown packed earth, smooth with faint cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Endion4": {
+    "look": "olive-green moss with fine pebbly gravel speckles",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety"
+    ]
+  },
+  "Endion5": {
+    "look": "pale grey-beige hexagonal metal floor plates, studded",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Endion6": {
+    "look": "dark olive-brown rough rock, lumpy craggy surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Endion7": {
+    "look": "olive-grey stone slab, deep irregular cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "Endion8": {
+    "look": "olive-grey hexagonal stone pavers, mossy and worn",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "Generic_1": {
+    "look": "near-black floor, raised angular interlocking line pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Generic_2": {
+    "look": "near-black floor, embossed hexagon cube line pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Generic_3": {
+    "look": "near-black rough lumpy rock, faint highlights",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "HavenDirt": {
+    "look": "olive-brown dirt speckled with mossy green patches",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "HavenGrass": {
+    "look": "rich deep green grass, dense clumpy texture",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "HavenGrassDark": {
+    "look": "dark forest-green grass, streaky shadowed blades",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "HavenGrassLight": {
+    "look": "bright light-green grass, fine streaky blades",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "HavenGrassRocky": {
+    "look": "grey stones and gravel with moss between",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "HavenLeaves": {
+    "look": "vivid green dense leafy foliage, layered texture",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "HavenRockRough": {
+    "look": "grey-olive rough granular rock, crumbly speckled",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "HavenRockSmooth": {
+    "look": "Haven smooth rock",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ],
+    "seen": false
+  },
+  "HybridLabInner1": {
+    "look": "plain flat grey-brown dirt, nearly featureless",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabInner2": {
+    "look": "dark grey cracked stone slabs, fractured texture",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "HybridLabInner3": {
+    "look": "black tech panels, dense diagonal circuitry detail",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "HybridLabInner4": {
+    "look": "dark grey-green diagonal metal panels with teal-lit seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabInner5": {
+    "look": "dark grey plates, thin bright diagonal seam lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabInner6": {
+    "look": "black fine grid, nearly uniform",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabInner7": {
+    "look": "near-black panels with embossed octagon outlines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabInner8": {
+    "look": "black fine diagonal crosshatch grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabOuter1": {
+    "look": "grey-green metal panels, diagonal seams, round node joints",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabOuter2": {
+    "look": "grey-green large octagonal metal panels, bolted junction nodes",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabOuter3": {
+    "look": "dark grey-green diagonal machined panels, raised mechanical blocks",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "HybridLabOuter4": {
+    "look": "grey-green worn diagonal metal panels, scuffed tech seams",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabOuter5": {
+    "look": "grey-green clean interlocking stepped metal tiles",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabOuter6": {
+    "look": "dark grey octagonal metal panels, scratched highlights",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabOuter7": {
+    "look": "near-black metal floor, faint embossed octagon pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabOuter8": {
+    "look": "near-black metal grating, fine diagonal grid lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabXelNaga1": {
+    "look": "near-black fine metal grid, uniform dense mesh",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "HybridLabXelNaga2": {
+    "look": "dark charcoal metal panels, thick interlocking angular seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabXelNaga3": {
+    "look": "dark grey hexagonal grid plating, small even cells",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabXelNaga4": {
+    "look": "black metal panels, offset diagonal blocks, soft bevels",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabXelNaga5": {
+    "look": "dark slate-teal gravel, dense small stones",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "HybridLabXelNaga6": {
+    "look": "slate-teal concrete, heavy web of cracks",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "HybridLabXelNaga7": {
+    "look": "smooth slate-teal grey concrete, nearly featureless",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "HybridLabXelNaga8": {
+    "look": "dark slate-blue rock, cracked rounded slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "IceWorld1": {
+    "look": "pale blue-grey smooth ice, faint frosty swirls",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "IceWorld2": {
+    "look": "pale blue-grey ice with sharp dark crack network",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "IceWorld3": {
+    "look": "pale grey-green powdered snow, soft lumpy texture",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "IceWorld4": {
+    "look": "light grey crusty icy snow, ridged texture",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "variety",
+      "high"
+    ]
+  },
+  "IceWorld5": {
+    "look": "dark slate porous sponge crust, teal-tinged pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "IceWorld6": {
+    "look": "dark teal-slate rock, large smooth fractured plates",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "IceWorld7": {
+    "look": "smooth blue-grey ice, nearly uniform",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "IceWorld8": {
+    "look": "pale grey-green crumbled ice, dense small shards",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "variety"
+    ]
+  },
+  "IceWorldEx2_1": {
+    "look": "pale grey-blue packed snow, soft lumpy relief",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "IceWorldEx2_2": {
+    "look": "pale grey-blue cracked ice sheet, dark fracture lines",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "IceWorldEx2_3": {
+    "look": "pale grey snow, soft mottled drifts",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "IceWorldEx2_4": {
+    "look": "pale grey windblown snow, horizontal streaks",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "IceWorldEx2_5": {
+    "look": "dark blue-grey icy rock, rough dark lumps",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "IceWorldEx2_6": {
+    "look": "blue-grey frosted rock, rough crinkled surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "IceWorldEx2_7": {
+    "look": "dark grey fine gravel, uniform pebbly grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "IceWorldEx2_8": {
+    "look": "dark grey rock veined with pale blue ice cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "accent"
+    ]
+  },
+  "JarbanMinor_Jungle_1": {
+    "look": "dark olive-black clumpy undergrowth, lumpy leafy texture",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "JarbanMinor_Jungle_2": {
+    "look": "dark olive-brown fine soil, even subtle grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "JarbanMinor_Jungle_3": {
+    "look": "dark grey smooth rock face, faint cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "base"
+    ]
+  },
+  "JarbanMinor_Jungle_4": {
+    "look": "dark black-green tangled roots, olive vine highlights",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "variety"
+    ]
+  },
+  "JarbanMinor_Jungle_5": {
+    "look": "dark grey cracked crust, fine scaly polygon pattern",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "JarbanMinor_Jungle_6": {
+    "look": "dark grey dense lumpy pebbles, bubbly cobbled stones",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety"
+    ]
+  },
+  "JarbanMinor_Jungle_7": {
+    "look": "dark charcoal fine gritty ground, uniform",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "JarbanMinor_Jungle_8": {
+    "look": "weathered grey-brown wooden panels in diagonal plank frame grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "KorhalCity1": {
+    "look": "smooth taupe-grey dirt, almost featureless",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalCity2": {
+    "look": "grey stone paving, large diagonal tiles, worn edges",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalCity3": {
+    "look": "dark charcoal tiles, diagonal grid, thin light grout lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "KorhalCity4": {
+    "look": "grey small diagonal tiles, fine crosshatch grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "KorhalCity5": {
+    "look": "smooth dark charcoal dirt, nearly featureless",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "KorhalCity6": {
+    "look": "grey-olive concrete, broken by large cracks",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "KorhalCity7": {
+    "look": "bright green manicured grass, fine even grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "KorhalCity8": {
+    "look": "dark grey rubble and gravel, rough chunky stones",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "KorhalCityEx2_1": {
+    "look": "near-black smooth asphalt, featureless",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalCityEx2_2": {
+    "look": "dark grey diagonal offset stone slabs, faint seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalCityEx2_3": {
+    "look": "near-black quilted diamond grid plating",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalCityEx2_4": {
+    "look": "grey diagonal checker stone tiles, mixed light and dark squares",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "KorhalCityEx2_5": {
+    "look": "dark charcoal asphalt, fine grain, faint mottling",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalCityEx2_6": {
+    "look": "charcoal cracked concrete, wide fracture network",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "KorhalCityEx2_7": {
+    "look": "olive grass with patchy tan dirt spots",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "KorhalCityEx2_8": {
+    "look": "near-black crushed rock rubble, lumpy",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "KorhalOutskirts1": {
+    "look": "Korhal wastes light dirt",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ],
+    "seen": false
+  },
+  "KorhalOutskirts2": {
+    "look": "dark grey-brown rubble, broken rock fragments",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "KorhalOutskirts3": {
+    "look": "dark grey cracked stone slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "KorhalOutskirts4": {
+    "look": "dark brown dirt, soft mottled grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalOutskirts5": {
+    "look": "muted reddish-brown sand, faint ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalOutskirts6": {
+    "look": "grey-olive shattered concrete, heavy crack network",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "KorhalOutskirts7": {
+    "look": "dark olive-brown dry patchy grass",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "KorhalOutskirts8": {
+    "look": "grey worn large diagonal tiles, stains and cracks",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "KorhalPlatform1": {
+    "look": "dark grey small diagonal panels, faint worn pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalPlatform2": {
+    "look": "dark grey-green diagonal metal panels with teal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalPlatform3": {
+    "look": "black tech panels, dense circuitry detail",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "KorhalPlatform4": {
+    "look": "grey large diagonal panels, subtle cracks",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalPlatform5": {
+    "look": "near-black small panels, faint diagonal pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalPlatform6": {
+    "look": "charcoal interlocking diagonal panels",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalPlatform7": {
+    "look": "black quilted diagonal tile grid, fine light seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalPlatform8": {
+    "look": "black grating with octagonal frame lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "KorhalPlatformEx2_1": {
+    "look": "dark charcoal metal floor, subtle diagonal diamond plating",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalPlatformEx2_2": {
+    "look": "dark charcoal diagonal machinery panels, raised mechanical detail",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "KorhalPlatformEx2_3": {
+    "look": "black dense diagonal techno panels, greebled circuitry",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "KorhalPlatformEx2_4": {
+    "look": "dark grey grimy smudged metal plates, faint diagonal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalPlatformEx2_5": {
+    "look": "dark brown smooth leathery ground, faint grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "KorhalPlatformEx2_6": {
+    "look": "black metal floor, large diagonal stepped plate outlines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalPlatformEx2_7": {
+    "look": "black quilted diamond metal plating, fine diagonal grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "KorhalPlatformEx2_8": {
+    "look": "black metal floor, faint octagon-and-square outline pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalWastes_1": {
+    "look": "grey-brown dusty dirt, fine smooth even grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "KorhalWastes_2": {
+    "look": "dark charcoal rubble, rough clumpy debris",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "KorhalWastes_3": {
+    "look": "dark grey rough rock, flaky weathered slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "KorhalWastes_4": {
+    "look": "rusty brown dirt, mottled with small rivets/dimples",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "KorhalWastes_5": {
+    "look": "warm brown sand, rippled dune pattern",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "KorhalWastes_6": {
+    "look": "grey cracked concrete or rock, angular fracture lines",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "KorhalWastes_7": {
+    "look": "olive-yellow scrubby grass, patchy dry tufts",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "KorhalWastes_8": {
+    "look": "grey-blue weathered stone blocks, diagonal, chipped",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "high"
+    ]
+  },
+  "MarSaraBlackenedRock": {
+    "look": "dark brown scorched rock, ridged lumpy surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "MarSaraBlackenedRockEx2": {
+    "look": "dark brown scorched rock, lumpy uneven surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "low"
+    ]
+  },
+  "MarSaraConcrete": {
+    "look": "grey-khaki concrete, smooth with faint scratches",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MarSaraConcreteEx2": {
+    "look": "plain grey-olive concrete, faint speckle",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MarSaraDarkSand": {
+    "look": "dark brown sand, dense wavy wind ripples",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "MarSaraDarkSandEx2": {
+    "look": "very dark brown sand, fine wavy ripples",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "base"
+    ]
+  },
+  "MarSaraDirt": {
+    "look": "smooth tan-ochre dirt, fine uniform grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MarSaraDirtCracked": {
+    "look": "rust-red cracked clay dirt, lumpy chunks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "MarSaraDirtCrackedEx2": {
+    "look": "reddish-brown cracked dry earth, polygonal fissures",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "MarSaraDirtEx2": {
+    "look": "pale tan sandy dirt, soft undulating dunes",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "MarSaraPanels": {
+    "look": "dark brown metal panels, diagonal grid, rusty seams, hazard stripes",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "MarSaraPanelsEx2": {
+    "look": "brown-grey rusty metal panels in diagonal riveted frames",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "MarSaraRocky": {
+    "look": "brown rocky dirt with cracked flat stones embedded",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "MarSaraRockyEx2": {
+    "look": "rust-red dirt, small raised rocky bumps",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "base"
+    ]
+  },
+  "MarSaraSand": {
+    "look": "orange-tan sand, soft wind ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "MarSaraSandEx2": {
+    "look": "orange sand, wavy wind ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "MeinhoffConcrete": {
+    "look": "dark grey-green smooth concrete, faint blotches",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MeinhoffCraters": {
+    "look": "grey-black pitted cratered ground, rough bubbly holes",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "MeinhoffEx3_1": {
+    "look": "pale grey-green sand, wavy wind ripples",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "MeinhoffEx3_2": {
+    "look": "pale grey-green sand, fine bumpy grain",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "MeinhoffEx3_3": {
+    "look": "dark grey fine gravel, speckled even grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "MeinhoffEx3_4": {
+    "look": "dark grey porous rock, bright web of pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "MeinhoffEx3_5": {
+    "look": "dark charcoal rock, smooth layered folds",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "MeinhoffEx3_6": {
+    "look": "smooth dark slate-grey surface, faint speckle",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "MeinhoffEx3_7": {
+    "look": "dark green-grey metal plates, diagonal framed panels",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MeinhoffEx3_8": {
+    "look": "dark grey metal floor panels, diagonal bands, rust trim, detailed",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "MeinhoffGrating": {
+    "look": "grey diagonal metal squares, mixed vent and plate tiles",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "MeinhoffPanels": {
+    "look": "grey diagonal metal panels, dark seams, scuffs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MeinhoffRock": {
+    "look": "dark purple-grey craggy rock, rough relief",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "MeinhoffRoughSand": {
+    "look": "grey-green coarse speckled gritty sand",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "MeinhoffSandDunes": {
+    "look": "pale sage sand, dense wavy wind ripples",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "MeinhoffWhiteSand": {
+    "look": "pale grey-sage fine sand, smooth faint grain",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "MoebiusLab1": {
+    "look": "dark grey metal floor, diagonal seams, square tech insets",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MoebiusLab2": {
+    "look": "near-black floor, faint diamond lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "MoebiusLab3": {
+    "look": "dark grey interlocking plates, stepped diagonal pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MoebiusLab4": {
+    "look": "dark grey busy tech floor with machinery-like insets",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "MoebiusLab5": {
+    "look": "black metal floor, raised rounded-square diagonal lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "MoebiusLab6": {
+    "look": "black floor with thin grey octagon outline lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "MoebiusLab7": {
+    "look": "near-black fine diamond quilted plating",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "MoebiusLab8": {
+    "look": "black floor with faint diagonal circuit-like grooves",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "MonlythBricks": {
+    "look": "mossy olive flagstone bricks in diagonal herringbone",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "MonlythCracked": {
+    "look": "grey-green cracked crust, polygonal fissure network",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "MonlythDirt": {
+    "look": "grey-green fine dirt, soft faint grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "MonlythDunes": {
+    "look": "dark teal sand, dense wavy wind ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "MonlythPlates": {
+    "look": "olive-brown grimy stone slabs in diagonal metal-edged grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "MonlythRock": {
+    "look": "grey-green craggy rock, layered fractured faces",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "MonlythSand": {
+    "look": "blue-teal smooth sand, faint sweeping curved lines",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "MonlythTiles": {
+    "look": "olive-grey worn cracked diagonal stone tiles",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "NewFolsomConcrete": {
+    "look": "dark grey concrete slabs, diagonal seams, hairline cracks",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "NewFolsomDirt": {
+    "look": "dark charcoal dirt, fine rough grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "NewFolsomDirtCracked": {
+    "look": "dark maroon-brown cracked earth, rusty fissures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "NewFolsomGrating": {
+    "look": "brown metal plates and slatted grating, diagonal weave",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "NewFolsomMesh": {
+    "look": "dark brown mesh with copper octagonal frames",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "NewFolsomRock": {
+    "look": "dark maroon-brown jagged rock, diagonal fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "NewFolsomSand": {
+    "look": "dark brown sand, dense wavy ripples",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "NewFolsomTiles": {
+    "look": "dark grey worn tiles, faint diagonal crosshatch",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PortCity1": {
+    "look": "dark grey checkerboard of ribbed diagonal metal squares",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PortCity2": {
+    "look": "dark grey diagonal rectangular paving slabs, raised edges",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "PortCity3": {
+    "look": "dark charcoal dense diagonal tech panel pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "PortCity4": {
+    "look": "dark grey diagonal square metal tiles, small inset squares",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PortCity5": {
+    "look": "dark grey diagonal panel grid, stencilled markings",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "PortCity6": {
+    "look": "dark charcoal rough rubble dirt, lumpy debris",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "PortCity7": {
+    "look": "dark grey-olive fractured rock slabs, crack network",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "PortCity8": {
+    "look": "near-black smooth matte concrete, faint pitting",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PortCityB1": {
+    "look": "patchy green grass with bare tan dirt spots",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "PortCityB2": {
+    "look": "dark charcoal paving, raised diagonal square tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "PortCityB3": {
+    "look": "dark grey metal, faint diagonal diamond tread",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PortCityB4": {
+    "look": "dark grey checkerboard tread plates, ribbed diamonds",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "PortCityB5": {
+    "look": "very dark olive moss ground, fine lumpy clumps",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "PortCityB6": {
+    "look": "flat near-black surface, almost featureless",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PortCityB7": {
+    "look": "dark grey stained asphalt or concrete, blotchy",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PortCityB8": {
+    "look": "grey-olive packed dirt, faint pebbles and cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PortZionConveyorBelt": {
+    "look": "olive-green grass, streaky pale blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "PortZionDirt": {
+    "look": "grey-brown dirt, fine mottled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "PortZionDirtCracked": {
+    "look": "grey-olive dry dirt, polygonal crack network",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety"
+    ]
+  },
+  "PortZionGrating": {
+    "look": "dark rusty steel grating, crossed diagonal girders",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "PortZionJunk": {
+    "look": "rusty brown-grey scrap metal plates, jumbled diagonal",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "PortZionMesh": {
+    "look": "dark mesh panels framed by teal-green diagonal girders",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "PortZionRock": {
+    "look": "olive-grey layered rock, jagged streaky ridges",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "PortZionTiles": {
+    "look": "dark green marbled stone tiles, diagonal grid",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PrisonShip1": {
+    "look": "dark blue-grey large diagonal tiles with small square studs",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PrisonShip2": {
+    "look": "dark olive-grey interlocking panels, thin gold seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PrisonShip3": {
+    "look": "dark green-grey fine diagonal grid with square vent inserts",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PrisonShip4": {
+    "look": "dark grey large diagonal panels, notched seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PrisonShip5": {
+    "look": "near-black brown metal, faint fine diamond tread",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "PrisonShip6": {
+    "look": "black grating with teal-tinted octagonal frames",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "PrisonShip7": {
+    "look": "grey-green small diagonal tiles, rust stains",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "PrisonShip8": {
+    "look": "rusty brown dirt, smooth mottled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "ProtossBase1": {
+    "look": "olive-gold stone floor, raised stepped geometric line pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ProtossBase2": {
+    "look": "gold metal tiles, curved arcs and quatrefoil inlays",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "ProtossBase3": {
+    "look": "gold stone slabs, diagonal dark seams, blue glowing nodes",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "ProtossBase4": {
+    "look": "gold metal plates with large circular ring medallions",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "ProtossBase5": {
+    "look": "gold-khaki large angular plates, thin dark seams, small vents",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ProtossBase6": {
+    "look": "dark olive-bronze floor, embossed hexagon-cube pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ProtossBase7": {
+    "look": "pale gold smooth floor, faint etched geometric lines",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ProtossBase8": {
+    "look": "grey-olive diagonal stone slabs, orange glowing tech nodes",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "Purification_Desert_1": {
+    "look": "pale ochre sand, soft bumpy dunes",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "Purification_Desert_2": {
+    "look": "dark brown sand, rippled wind marks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "Purification_Desert_3": {
+    "look": "beige-grey metal plates, offset diagonal blocks, gold bolts",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Purification_Desert_4": {
+    "look": "olive-brown fine gravel, dense pebbly grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "Purification_Desert_5": {
+    "look": "tan-ochre sand, tight even wavy ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Purification_Desert_6": {
+    "look": "very dark brown-black ground, faint blotches",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "base"
+    ]
+  },
+  "Purification_Desert_7": {
+    "look": "pale grey stone, smooth with sweeping curved grooves",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "Purification_Desert_8": {
+    "look": "dark olive-bronze panels, woven curving bands pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "RedstoneDirt": {
+    "look": "mauve-brown dirt, fine smooth grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "RedstoneFossils": {
+    "look": "dark maroon pebbly crumbly ground, lumpy clusters",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety"
+    ]
+  },
+  "RedstoneLavaCracks": {
+    "look": "rust-red rock with glowing yellow crack veins",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "low"
+    ]
+  },
+  "RedstoneMud": {
+    "look": "dark plum-maroon mud, smooth with faint cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "base"
+    ]
+  },
+  "RedstonePanels": {
+    "look": "brown-grey metal panels, diagonal grid, rusty seams",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "RedstoneRock": {
+    "look": "deep crimson rock, streaky grainy surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "RedstoneRockyDirt": {
+    "look": "dark brown dirt scattered with small stones",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety"
+    ]
+  },
+  "RedstoneRough": {
+    "look": "dark brown rough ground, coarse flecked grit",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "ShadowCorps1": {
+    "look": "near-black rough dirt, soft crinkled grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "ShadowCorps2": {
+    "look": "near-black panel, faint diamond lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShadowCorps3": {
+    "look": "dark grey-brown worn stone blocks, irregular diagonal layout",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShadowCorps4": {
+    "look": "dark grey tech panels with mechanical detail, diagonal",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "ShadowCorps5": {
+    "look": "black interlocking diagonal panels",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShadowCorps6": {
+    "look": "black floor with thin grey octagon lattice lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShadowCorps7": {
+    "look": "black diamond-quilted tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShadowCorps8": {
+    "look": "black panels, embossed diagonal circuit lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "ShakurasBricks": {
+    "look": "near-black hexagonal stone tiles, cracked, light seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "ShakurasCity1": {
+    "look": "dark slate stone, flowing silver curved line inlays",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasCity2": {
+    "look": "dark violet-grey pebbly gravel, fine bumpy grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "ShakurasCity3": {
+    "look": "near-black stone, faint wavy interlaced carved bands",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "ShakurasCity4": {
+    "look": "deep navy smooth floor, faint triangular etched lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShakurasCity5": {
+    "look": "dark charcoal floor, faint stepped geometric line pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasCity6": {
+    "look": "dark purple-grey floor, embossed interlocking oval rings",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasCity7": {
+    "look": "dark slate floor, fine hexagonal tile pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasCity8": {
+    "look": "dark violet-grey smooth rock, faint pits and cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "ShakurasDirtCracked": {
+    "look": "blue-violet dirt, dense network of fine cracks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "ShakurasHextiles": {
+    "look": "dark charcoal hexagonal tiles, small even cells",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasRockCracked": {
+    "look": "dark purple rock, cracked rounded plates",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "ShakurasRockRough": {
+    "look": "dark grey-blue rough rock, grainy crumbly surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "ShakurasSand": {
+    "look": "periwinkle blue-violet sand, soft streaky ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShakurasSandDark": {
+    "look": "deep teal sand, streaky speckled grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "ShakurasStone": {
+    "look": "near-black slate stone, flaky angular facets",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "ShakurasTemple1": {
+    "look": "slate-blue sand, regular wavy wind ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "ShakurasTemple2": {
+    "look": "slate-blue packed earth, smooth with faint specks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "ShakurasTemple3": {
+    "look": "deep blue fine speckled grit, uniform",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "ShakurasTemple4": {
+    "look": "dark navy stone, faint cracked plates",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "low"
+    ]
+  },
+  "ShakurasTemple5": {
+    "look": "grey stone tiles, diagonal grid, raised square studs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "ShakurasTemple6": {
+    "look": "dark grey cobbled flagstones, small stones in herringbone",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path"
+    ]
+  },
+  "ShakurasTemple7": {
+    "look": "blue-grey metal floor, angular framed polygon panels",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "ShakurasTemple8": {
+    "look": "dark charcoal fine pebbly grit, uniform",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "Slayn1": {
+    "look": "dark grey-olive rough layered rock, flaky fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Slayn2": {
+    "look": "dark charcoal fine gritty dirt, uniform grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Slayn3": {
+    "look": "dark brown stone with dark triangular lattice inlay",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "Slayn4": {
+    "look": "dark grey stone, embossed octagon-and-square pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Slayn5": {
+    "look": "dark grey chipped stone, small angular flakes",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "Slayn6": {
+    "look": "near-black smooth surface, faint streaks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "Slayn7": {
+    "look": "dark grey weathered stone, smooth with small pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "Slayn8": {
+    "look": "dark grey subtle hexagon tile pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "SlaynGrass1": {
+    "look": "dark grey-olive layered rock, flaky fractured slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "SlaynGrass2": {
+    "look": "dark charcoal fine gritty ground, faint diagonal grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "SlaynGrass3": {
+    "look": "dark grey-olive layered rock, flaky fractured slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "SlaynGrass4": {
+    "look": "dark charcoal fine gritty ground, faint diagonal grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "SlaynGrass5": {
+    "look": "dark grey rough stone, sharp diagonal chipped facets",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "SlaynGrass6": {
+    "look": "near-black smooth dirt, faint streaks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "SlaynGrass7": {
+    "look": "dark grey smooth rock, faint pits and cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "SlaynGrass8": {
+    "look": "dark charcoal floor, faint hexagonal tile pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "SnowRefinery_1": {
+    "look": "pale blue-grey snow, lumpy drifted surface",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "SnowRefinery_2": {
+    "look": "pale blue-grey ice sheet, sharp dark cracks",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "variety",
+      "low"
+    ]
+  },
+  "SnowRefinery_3": {
+    "look": "pale grey-green snow, soft smudged clumps",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "SnowRefinery_4": {
+    "look": "pale grey snow, streaky wind-packed grain",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "SnowRefinery_5": {
+    "look": "dark blue-grey rock with frost, craggy lumps",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "SnowRefinery_6": {
+    "look": "dark olive-grey metal, diagonal diamond grid, gold studs",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "SnowRefinery_7": {
+    "look": "dark grey gravel, dense pebbly speckle",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "SnowRefinery_8": {
+    "look": "dark grey metal floor panels, diagonal plates with hatches",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "SpearOfAdun1": {
+    "look": "gold-tan sculpted metal, curved bands with quatrefoil rings",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "SpearOfAdun2": {
+    "look": "olive-gold metal with embossed rounded link motifs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "SpearOfAdun3": {
+    "look": "olive-gold metal etched with fine flowing curved lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "SpearOfAdun4": {
+    "look": "pale khaki metal floor, raised curved quarter-circle channels",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "SpearOfAdun5": {
+    "look": "dark olive-bronze metal, raised curved quarter-circle channels",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "SpearOfAdun6": {
+    "look": "charcoal metal, fine hexagonal honeycomb mesh",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "SpearOfAdun7": {
+    "look": "khaki hexagon floor tiles with grey-blue borders",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "SpearOfAdun8": {
+    "look": "dark olive metal, embossed interlacing curved ribbon pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Starship1": {
+    "look": "dark olive-khaki metal, sparse thin diagonal seams",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Starship2": {
+    "look": "golden khaki panels with curved Protoss arc seams",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "Starship3": {
+    "look": "khaki hexagon tiles with blue-grey borders",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "Starship4": {
+    "look": "dark grey small hexagon grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Starship5": {
+    "look": "plain olive-khaki smooth metal, featureless",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Starship6": {
+    "look": "dark olive interlocking diagonal plates",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "Starship7": {
+    "look": "steel-blue fine hexagon mesh",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "Starship8": {
+    "look": "golden khaki panels, curved arc seams, looks same as light",
+    "kind": "built",
+    "tone": "light",
+    "suits": [
+      "base",
+      "accent"
+    ],
+    "pictureUncertain": true
+  },
+  "TarsonisCity1": {
+    "look": "dark charcoal cracked rubble stone, broken chunks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "TarsonisCity2": {
+    "look": "dark grey small diagonal tiles, worn grimy paving",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TarsonisCity3": {
+    "look": "brown-grey diagonal parquet stone tiles, mixed shades",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "TarsonisCity4": {
+    "look": "dark charcoal smooth asphalt, near-featureless",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TarsonisCity5": {
+    "look": "olive-green mossy sludge, murky mottled muck",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low"
+    ]
+  },
+  "TarsonisCity6": {
+    "look": "grey-olive damp lumpy mud, soft mottling",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low",
+      "base"
+    ]
+  },
+  "TarsonisCity7": {
+    "look": "dark grey-brown rounded cobbles set in dark grout grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path"
+    ]
+  },
+  "TarsonisCity8": {
+    "look": "grey-brown diagonal paving, scattered darker square tiles",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "TarsonisConcrete": {
+    "look": "grey-beige concrete blocks, woven diagonal pattern, stains",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "base"
+    ]
+  },
+  "TarsonisCracks": {
+    "look": "khaki dry earth, deep crack network, parched",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "TarsonisDetail": {
+    "look": "brown-grey ruined tech plating, grates and debris, diagonal",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent"
+    ]
+  },
+  "TarsonisDirt": {
+    "look": "khaki-tan packed dirt, smooth fine grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TarsonisDirtRough": {
+    "look": "dark olive-brown rough dirt, clumpy grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety"
+    ]
+  },
+  "TarsonisGrass": {
+    "look": "patchy olive grass with dry tan dirt, scrubby",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "TarsonisInterior_1": {
+    "look": "dark brown fine woven carpet-like floor",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisInterior_2": {
+    "look": "near-black floor with faint fine square grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisInterior_3": {
+    "look": "near-black smooth concrete, faint pits",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TarsonisInterior_4": {
+    "look": "brown sand-like surface, dense wavy ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisInterior_5": {
+    "look": "olive-yellow grass or moss, dense mottled",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "TarsonisInterior_6": {
+    "look": "dark brown dirt, soft mottled",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisInterior_7": {
+    "look": "dark brown floor, faint diamond woven lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisInterior_8": {
+    "look": "dark charcoal floor, faint diagonal diamond tile grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "TarsonisPlating": {
+    "look": "grey and dark diagonal metal plates, checkerboard with grilles",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path",
+      "accent"
+    ]
+  },
+  "TarsonisRubble": {
+    "look": "grey-olive rubble, scattered broken stones and gravel",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "accent"
+    ]
+  },
+  "TyradorBigBricks": {
+    "look": "grey-olive paving, interlocking zigzag brick pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TyradorBricks": {
+    "look": "pale grey-green stone tiles, diagonal grid, faint ornate motif",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TyradorConcrete": {
+    "look": "grey-khaki concrete, smooth with faint scuffs",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TyradorConcreteCracked": {
+    "look": "grey concrete slab broken by crack lines",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "TyradorGrass": {
+    "look": "muted dark green grass, even fine texture",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "TyradorMarbleTiles": {
+    "look": "dark olive-grey marbled tiles, diagonal grid, scuffed",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "TyradorRubble": {
+    "look": "grey broken stone rubble and gravel, chunky",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high",
+      "accent"
+    ]
+  },
+  "TyradorSquareBricks": {
+    "look": "brown-khaki small bricks in fine diagonal rows",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "path"
+    ]
+  },
+  "UlaanDirt": {
+    "look": "dark slate-green dirt, smooth faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlaanDirtCracked": {
+    "look": "dark slate-teal dirt, fine pale crack network",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "UlaanGrunge": {
+    "look": "near-black cracked stone plates, grimy",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "UlaanPebbles": {
+    "look": "slate grey-green pebbles, dense fine gravel",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "UlaanRocky": {
+    "look": "dark teal-grey pebbles and small stones, dense",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "UlaanRoughRock": {
+    "look": "black slate rock, sharp angular facets",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "UlaanSand": {
+    "look": "blue-teal sand, smooth with faint diagonal ripples",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlaanStone": {
+    "look": "dark slate-grey stone, smooth with faint scratches",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "base"
+    ]
+  },
+  "UlnarCracks": {
+    "look": "dark charcoal cracked earth, deep black fissures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "UlnarDirt": {
+    "look": "dark charcoal dirt, fine rough grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarHull1": {
+    "look": "black hull plating engraved with Protoss arcs and eye shapes",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "UlnarHull2": {
+    "look": "black hull plating, ornate dark floral relief",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "UlnarHull3": {
+    "look": "near-black metal hull, fine hexagonal mesh grain",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarInner1": {
+    "look": "dark grey stone, faint scratched angular etchings",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarInner2": {
+    "look": "dark grey fine triangular lattice grid",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarInner3": {
+    "look": "dark grey stone with ornate engraved star motifs",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "UlnarInner4": {
+    "look": "dark slate stone engraved with Protoss arcs and circles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "accent"
+    ]
+  },
+  "UlnarInner5": {
+    "look": "dark green-black panels, embossed angular circuit lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarInner6": {
+    "look": "plain dark grey-green smooth stone, faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarInner7": {
+    "look": "dark green-grey fine pebbled stone, uniform rough grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "UlnarInner8": {
+    "look": "dark grey-green weathered stone, small pits and cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "UlnarJunk": {
+    "look": "dark grey scattered mechanical debris and tech scraps",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "UlnarOuter1": {
+    "look": "dark green-grey smooth stone, faint cracks and mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "UlnarOuter2": {
+    "look": "dark green-black floor, faint angular circuit-like lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarOuter3": {
+    "look": "grey stone floor, embossed hexagonal star-cube pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UlnarOuter4": {
+    "look": "dark teal stone, ornate eye-like curved carvings",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "UlnarOuter5": {
+    "look": "dark charcoal-green floor, faint angular shard engravings",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarOuter6": {
+    "look": "grey-green stone, overlapping angular triangle line pattern",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "UlnarOuter7": {
+    "look": "dark grey smooth mottled ground, soft faint grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarOuter8": {
+    "look": "near-black floor, fine diamond lattice etching",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UlnarPortal1": {
+    "look": "dark charcoal stone, faint angular etched lines",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarPortal2": {
+    "look": "dark charcoal panel, fine diagonal diamond lattice",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UlnarPortal3": {
+    "look": "dark grey stone, ornate star/cross engraved motifs",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "UlnarPortal4": {
+    "look": "dark slate stone, engraved interlocking circles and swirls",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "path"
+    ]
+  },
+  "UlnarPortal5": {
+    "look": "dark green-black panels, thin angular circuit seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UlnarPortal6": {
+    "look": "smooth dark grey stone, faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UlnarPortal7": {
+    "look": "dark green-grey fine gravel, dense pebbly grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety"
+    ]
+  },
+  "UlnarPortal8": {
+    "look": "dark grey-green stone, faint pits and cracks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "UlnarRock": {
+    "look": "black slate rock, sharp diagonal fractures",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "UlnarRubble": {
+    "look": "dark charcoal rubble, broken rock chunks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "UmojaEx3_1": {
+    "look": "grey stone tiles in a diagonal grid, notched corners",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UmojaEx3_2": {
+    "look": "charcoal diamond plate grid, a few lighter tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UmojaEx3_3": {
+    "look": "grey metal floor plates, angular panel seams with dark slots",
+    "kind": "built",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UmojaEx3_4": {
+    "look": "smooth dark grey concrete, near-featureless",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UmojaEx3_5": {
+    "look": "dark slate floor with thin silver diagonal seams",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "UmojaEx3_6": {
+    "look": "dark grey busy tech floor with machinery-like insets",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "accent"
+    ]
+  },
+  "UmojaEx3_7": {
+    "look": "dark slate fine crosshatch floor, faint markings",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "UmojaEx3_8": {
+    "look": "dark grey-brown rough rock, lumpy ridges",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Void1": {
+    "look": "grey-brown rough rocky dirt, fine crumbly grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "Void2": {
+    "look": "grey-brown rough rock, flaky layered surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "Void3": {
+    "look": "dark olive-grey smooth stone, small pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base"
+    ]
+  },
+  "Void4": {
+    "look": "brown jagged rock, dense diagonal ridges",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "Void5": {
+    "look": "grey-brown rough stone, scratched crumbly surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "base"
+    ]
+  },
+  "Void6": {
+    "look": "grey-olive rough lumpy rocky earth",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "Void7": {
+    "look": "brown-grey fine gravel, uniform pebbly grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "path"
+    ]
+  },
+  "Void8": {
+    "look": "dark grey-brown cracked stone slabs",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "path"
+    ]
+  },
+  "VolcanoIsle_1": {
+    "look": "dark olive-black lumpy volcanic soil, pitted",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "VolcanoIsle_2": {
+    "look": "dark olive-grey fine gravel, pebbly crust",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "VolcanoIsle_3": {
+    "look": "black volcanic rubble, rough broken chunks",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "VolcanoIsle_4": {
+    "look": "mossy green grass, patchy darker clumps",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "VolcanoIsle_5": {
+    "look": "dark charcoal smooth rock, small pits",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "high"
+    ]
+  },
+  "VolcanoIsle_6": {
+    "look": "dark brown-black smooth leathery ground, faint mottling",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "low"
+    ]
+  },
+  "VolcanoIsle_7": {
+    "look": "olive-brown dry mossy turf, coarse fibrous",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety"
+    ]
+  },
+  "VolcanoIsle_8": {
+    "look": "dark grey diagonal square metal tiles, occasional lighter tiles",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "XilDirt": {
+    "look": "pale khaki dirt, fine streaky grain",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base",
+      "path"
+    ]
+  },
+  "XilDirtCracked": {
+    "look": "pale khaki dirt, dark green-grey crack veins",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "variety"
+    ]
+  },
+  "XilDirtRocky": {
+    "look": "grey-olive dirt scattered with small rocks",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "variety",
+      "high"
+    ]
+  },
+  "XilGrass": {
+    "look": "green grass, streaky light blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "XilRockCracked": {
+    "look": "grey-green rock, dense crack network, mottled",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high",
+      "variety"
+    ]
+  },
+  "XilRockDark": {
+    "look": "dark green slate rock, layered flaky facets",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "XilSand": {
+    "look": "pale grey-beige sand, faint long diagonal ripples",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "base"
+    ]
+  },
+  "XilSandCracked": {
+    "look": "pale grey-beige sand crust, irregular crack plates",
+    "kind": "natural",
+    "tone": "light",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "Zerus1": {
+    "look": "smooth brown dirt, even faint grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Zerus2": {
+    "look": "reddish-brown crinkled dirt, fine rough grain",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "Zerus3": {
+    "look": "dark green lumpy algae moss, bubbly mottled surface",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "low",
+      "variety"
+    ]
+  },
+  "Zerus4": {
+    "look": "dark maroon-purple rough rock, speckled gritty",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "Zerus5": {
+    "look": "brown soil with tangled raised twisting roots",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "accent",
+      "variety"
+    ]
+  },
+  "Zerus6": {
+    "look": "dark purple-brown dense pebbles and pocked stones",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety"
+    ]
+  },
+  "Zerus7": {
+    "look": "vivid green grass, dense even blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "Zerus8": {
+    "look": "vivid green bubbly slime, lumpy glossy",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "low",
+      "accent"
+    ]
+  },
+  "ZhakulDasBricks": {
+    "look": "dark blue-grey stone bricks, diagonal irregular blocks",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "path",
+      "high"
+    ]
+  },
+  "ZhakulDasDarkRock": {
+    "look": "near-black green-tinged slate rock, angular facets",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "high"
+    ]
+  },
+  "ZhakulDasDirtCracked": {
+    "look": "dark teal-green dirt, crazed crack plates",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "variety",
+      "base"
+    ]
+  },
+  "ZhakulDasDirtRough": {
+    "look": "deep emerald green dirt, mottled rough grain",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "variety"
+    ]
+  },
+  "ZhakulDasGrass": {
+    "look": "bright green grass, streaky lush blades",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "base"
+    ]
+  },
+  "ZhakulDasLightRock": {
+    "look": "teal-green craggy rock, lumpy mottled surface",
+    "kind": "natural",
+    "tone": "mid",
+    "suits": [
+      "high"
+    ]
+  },
+  "ZhakulDasMercuryCracks": {
+    "look": "dark rock plates with glowing green crack veins",
+    "kind": "natural",
+    "tone": "dark",
+    "suits": [
+      "accent",
+      "low"
+    ]
+  },
+  "ZhakulDasTiles": {
+    "look": "near-black tiles, subtle interlocking geometric pattern",
+    "kind": "built",
+    "tone": "dark",
+    "suits": [
+      "base",
+      "path"
+    ]
+  }
+}
