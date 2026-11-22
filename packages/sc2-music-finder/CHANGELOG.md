@@ -1,5 +1,15 @@
 # @team-antioch/sc2-music-finder
 
+## 0.4.0
+
+### Patch Changes
+
+- Updated dependencies [0ed8f1e]
+- Updated dependencies [2aaef6b]
+- Updated dependencies [3c7a97e]
+  - @team-antioch/sc2-asset-catalog@0.4.0
+  - @team-antioch/sc2-finder-kit@0.4.0
+
 ## 0.3.1
 
 ### Patch Changes

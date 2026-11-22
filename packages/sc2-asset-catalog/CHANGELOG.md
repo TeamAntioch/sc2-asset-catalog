@@ -1,5 +1,13 @@
 # @team-antioch/sc2-asset-catalog
 
+## 0.4.0
+
+### Minor Changes
+
+- 0ed8f1e: Cliff sets join the catalog. `data/cliff-descriptions.json` describes 142 cliff sets (look, kind, tone and the ground each pairs with), and the new `extract-cliffs` command builds each tileset's cliff sets and each set's gallery picture from SC2GameData into the cache. `readCliffCatalog`, `getCliffSet`, `searchCliffSets`, `tilesetCliffSets`, `cliffSetKind`, `cliffSetNaming` and `cliffPictureUrl` read, search and link them. `galleryFileNames` takes a `folder` to list another of the gallery's folders.
+- 2aaef6b: The decal catalog: `data/decal-descriptions.json` says what every variation of every decal doodad shows (its look, glyphs and the text it reads, shape, whether it tiles and its use), with `readDecalCatalog`, `findDecalVariations`, `isScatterable` and `formatDecalVariations` to search it. The new `extract-decals <folder>` command reads each variation's texture and box in cells from the decals' model files, extracted from your own install with cascx, into the cache. With ImageMagick it also builds a picture of each variation and a numbered sheet of each decal doodad.
+- 3c7a97e: Terrain textures join the catalog. `data/texture-descriptions.json` describes 643 terrain textures (look, kind, tone and the palette roles each suits), and the new `extract-textures` command builds each tileset's blend textures and each texture's file, name and gallery picture from SC2GameData into the cache. `readTextureCatalog`, `getTexture`, `lookUpTextures`, `searchTextures` and `tilesetTextures` read, look up and search them. `texturePicture`, `texturePictureUrl`, `textureSheetTiles` and `textureSheetSvg` fetch their gallery pictures into the cache and draw a labelled sheet of them as SVG. Two textures that had been matched to another texture's picture, `KorhalWastes_1` and `UmojaEx3_1`, now have their own pictures, and their descriptions were rewritten from them.
+
 ## 0.3.1
 
 ### Patch Changes
