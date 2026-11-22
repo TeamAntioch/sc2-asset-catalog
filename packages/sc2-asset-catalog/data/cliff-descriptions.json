@@ -1,0 +1,854 @@
+{
+  "AgriaCliff0": {
+    "look": "grey-brown layered rock, terraced strata, soft rounded lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, grass, farmland"
+  },
+  "AgriaCliff1": {
+    "look": "dark grey metal bulkhead walls, ribbed panels, round corner pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "AgriaEx1Cliff0": {
+    "look": "grey-brown layered rock, terraced strata, soft rounded lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, grass, farmland"
+  },
+  "AgriaEx1Cliff1": {
+    "look": "dark grey metal bulkhead walls, ribbed panels, round corner pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "AiurCityCliff0": {
+    "look": "smooth tan stone walls, arched alcoves, domed corner caps",
+    "kind": "built",
+    "tone": "light",
+    "pairsWith": "protoss tiles, stone paving"
+  },
+  "AiurCliff0": {
+    "look": "dark mossy rock, crumbly mottled face, soft grassy lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "grass, moss, jungle dirt"
+  },
+  "AiurCliff1": {
+    "look": "tan carved stone blocks, crenellated block lip, stepped walls",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "ancient stone paving, temple tiles"
+  },
+  "AiurEx1Cliff0": {
+    "look": "dark mossy rock, crumbly mottled face, soft grassy lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "grass, moss, jungle dirt"
+  },
+  "AiurEx1Cliff1": {
+    "look": "tan carved stone blocks, crenellated block lip, stepped walls",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "ancient stone paving, temple tiles"
+  },
+  "AiurTempleCliff0": {
+    "look": "dark mossy rock wall, rough shadowed face, grassy lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "grass, moss, jungle dirt"
+  },
+  "AiurTempleCliff1": {
+    "look": "tan sandstone block walls, chunky block lip, terraced tiers",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "temple stone paving, ruins"
+  },
+  "AvernusCliff0": {
+    "look": "grey jagged rock, sheer faceted faces, dark hollow at foot",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "rock, gravel, ash"
+  },
+  "AvernusCliff1": {
+    "look": "dark rust-brown metal bulkheads, red-banded panels, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "AvernusEx1Cliff0": {
+    "look": "grey jagged rock, sheer faceted faces, dark hollow at foot",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "rock, gravel, ash"
+  },
+  "AvernusEx1Cliff1": {
+    "look": "dark rust-brown metal bulkheads, red-banded panels, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "BelShirCliff0": {
+    "look": "brown earthen bank, vertical ridged face, ochre sandy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, sand, jungle grass"
+  },
+  "BelShirCliff1": {
+    "look": "grey stone parapet walls, layered horizontal bands, rounded ramps",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "stone paving, concrete"
+  },
+  "BelShirEx1Cliff0": {
+    "look": "brown earthen bank, vertical ridged face, ochre sandy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, sand, jungle grass"
+  },
+  "BelShirEx1Cliff1": {
+    "look": "grey stone parapet walls, layered horizontal bands, rounded ramps",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "stone paving, concrete"
+  },
+  "BlackopsLabCliff0": {
+    "look": "black armoured metal walls, heavy panels, small lights",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, lab floor"
+  },
+  "BraxisAlphaCliff0": {
+    "look": "reddish-brown rock face, vertical ridges, ochre crumbly lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, dust"
+  },
+  "BraxisAlphaCliff1": {
+    "look": "dark grey industrial metal walls, orange-lit windows, pipes",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "BraxisAlphaEx1Cliff0": {
+    "look": "reddish-brown rock face, vertical ridges, ochre crumbly lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, dust"
+  },
+  "BraxisAlphaEx1Cliff1": {
+    "look": "dark grey industrial metal walls, orange-lit windows, pipes",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "CastanarCliff0": {
+    "look": "dark grey-black rock, sheer shadowed faces, pale thin lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "rock, gravel, ash"
+  },
+  "CastanarCliff1": {
+    "look": "dark grey metal panel walls, ribbed bulkheads, brown-trimmed ramps",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "CastanarEx1Cliff0": {
+    "look": "dark grey-black rock, sheer shadowed faces, pale thin lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "rock, gravel, ash"
+  },
+  "CastanarEx1Cliff1": {
+    "look": "dark grey metal panel walls, ribbed bulkheads, brown-trimmed ramps",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "Char2Cliff0": {
+    "look": "black volcanic rock, glowing red lava seam at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "Char2Cliff1": {
+    "look": "dark grey plated metal walls, banded panels, blocky lip",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, ash"
+  },
+  "CharCliff0": {
+    "look": "black volcanic rock, glowing red lava seam at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "CharEx1Cliff0": {
+    "look": "black volcanic rock, glowing red lava seam at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "CompoundFacilityCliff0": {
+    "look": "smooth grey concrete walls, plain flat lip, ribbed ramps",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "concrete, paving, tiles"
+  },
+  "CompoundFacilityCliff1": {
+    "look": "cream plaster walls, brown tiled top trim, mansion-like",
+    "kind": "built",
+    "tone": "light",
+    "pairsWith": "tiles, wood floors, paving"
+  },
+  "CybrossCliff0": {
+    "look": "pale cream protoss stone walls, gold inlays, domed caps",
+    "kind": "built",
+    "tone": "light",
+    "pairsWith": "protoss tiles, marble"
+  },
+  "Elsecaro_Manmade_Cliffs": {
+    "look": "pale tan stone walls, rounded top rail, columned faces",
+    "kind": "built",
+    "tone": "light",
+    "pairsWith": "stone paving, tiles"
+  },
+  "Elsecaro_Organic_Cliffs": {
+    "look": "dark mossy rock face, rough texture, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "grass, moss, dirt"
+  },
+  "EndionCliff0": {
+    "look": "grey-brown rock, horizontal stratified slabs, flat lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, sand"
+  },
+  "EndionCliff1": {
+    "look": "grey-green ribbed walls, gold trim, ornate buttresses",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "protoss tiles, stone paving"
+  },
+  "EndionProtossCliff1": {
+    "look": "tan-gold protoss stone walls, curved buttresses, domed caps",
+    "kind": "built",
+    "tone": "light",
+    "pairsWith": "protoss tiles, stone paving"
+  },
+  "HavenCliff0": {
+    "look": "brown rock, rough streaked face, mossy grassy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "grass, dirt, moss"
+  },
+  "HavenEx1Cliff0": {
+    "look": "brown rock, rough streaked face, mossy grassy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "grass, dirt, moss"
+  },
+  "HybridLabInnerCliff0": {
+    "look": "dark grey smooth rock, soft shadowed faces, plain lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "rock, dirt, snow"
+  },
+  "HybridLabInnerCliff1": {
+    "look": "dark metal walls, red-lit panels, heavy pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, lab floor"
+  },
+  "HybridLabOuterCliff0": {
+    "look": "dark grey metal walls, ribbed panels, small blue lights",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "HybridLabOuterCliff1": {
+    "look": "dark metal walls, teal-lit windows, industrial pipes",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "IceWorldCliff0": {
+    "look": "dark grey jagged rock, pale snowy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "snow, ice, rock"
+  },
+  "IceWorldCliff1": {
+    "look": "blue-grey icy rock, rounded snowy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "snow, ice"
+  },
+  "JarbanMinorJungleCliff0": {
+    "look": "dark streaked rock, rough mossy face, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "jungle grass, mud"
+  },
+  "JarbanMinorJungleCliff1": {
+    "look": "dark grey stone walls, spiked gothic finials, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "stone paving, dark tiles"
+  },
+  "KorhalCityEx2": {
+    "look": "pale grey concrete facades with windows, flat parapet",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "city paving, concrete"
+  },
+  "KorhalCliff1": {
+    "look": "dark charcoal concrete walls, plain flat top, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "KorhalEx1Cliff1": {
+    "look": "dark charcoal concrete walls, plain flat top, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "KorhalOutskirtsCliff0": {
+    "look": "grey-brown rough rock, mossy face, soft lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, scrub grass"
+  },
+  "KorhalOutskirtsCliff1": {
+    "look": "dark charcoal concrete walls, plain flat top, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "KorhalPlatformCliff0": {
+    "look": "dark grey industrial metal walls, orange-lit windows, pipes",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "KorhalPlatformEx2": {
+    "look": "dark metal walls, glowing red lights, heavy pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "MarSaraCliff0": {
+    "look": "red-brown earthy rock, vertical ridges, dusty ochre lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "desert dirt, sand"
+  },
+  "MarSaraCliff1": {
+    "look": "brown-grey metal bulkheads, rust-tan panels, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, dirt"
+  },
+  "MarSaraEx1Cliff0": {
+    "look": "red-brown earthy rock, vertical ridges, dusty ochre lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "desert dirt, sand"
+  },
+  "MarSaraEx1Cliff1": {
+    "look": "brown-grey metal bulkheads, rust-tan panels, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, dirt"
+  },
+  "MarSaraEx2Cliff0": {
+    "look": "dark reddish-brown rock, rough face, dusty lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "desert dirt, cracked earth"
+  },
+  "MarSaraEx2Cliff1": {
+    "look": "rusty brown metal walls, tan trim, ribbed panels",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, dirt"
+  },
+  "MeinhoffCliff0": {
+    "look": "dark grey-black rough rock, fuzzy jagged face",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, mud, ash"
+  },
+  "MeinhoffCliff1": {
+    "look": "grey metal walls, pale panel bands, round pylons",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "metal plating, concrete"
+  },
+  "MeinhoffEx1Cliff0": {
+    "look": "dark grey-black rough rock, fuzzy jagged face",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, mud, ash"
+  },
+  "MeinhoffEx1Cliff1": {
+    "look": "grey metal walls, pale panel bands, round pylons",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "metal plating, concrete"
+  },
+  "MoebiusLabCliff0": {
+    "look": "black armoured metal walls, red lights, heavy pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, lab floor"
+  },
+  "MoebiusLabCliff1": {
+    "look": "black metal walls, yellow hazard stripes, red lights",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, lab floor"
+  },
+  "MonlythCliff0": {
+    "look": "pale grey-tan rock, wavy layered strata, soft lip",
+    "kind": "natural",
+    "tone": "light",
+    "pairsWith": "sand, pale dirt"
+  },
+  "MonlythCliff1": {
+    "look": "weathered tan stone blocks, crenellated lip, ruined walls",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "ancient paving, ruins"
+  },
+  "MonlythEx1Cliff0": {
+    "look": "pale grey-tan rock, wavy layered strata, soft lip",
+    "kind": "natural",
+    "tone": "light",
+    "pairsWith": "sand, pale dirt"
+  },
+  "MonlythEx1Cliff1": {
+    "look": "weathered tan stone blocks, crenellated lip, ruined walls",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "ancient paving, ruins"
+  },
+  "NewFolsomCliff0": {
+    "look": "black rock walls, bright red lava at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "NewFolsomCliff1": {
+    "look": "dark grey concrete walls, plain flat lip, reddish floor",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, prison paving"
+  },
+  "NewFolsomEx1Cliff0": {
+    "look": "black rock walls, bright red lava at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "NewFolsomEx1Cliff1": {
+    "look": "dark grey concrete walls, plain flat lip, reddish floor",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, prison paving"
+  },
+  "PortCityCliff1": {
+    "look": "black rounded metal walls, smooth pipes, heavy pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, docks"
+  },
+  "PortZionCliff0": {
+    "look": "dark grey-brown rough rock, mossy face, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, grass, mud"
+  },
+  "PortZionCliff1": {
+    "look": "dark metal walls, blue-steel trim panels, pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, docks"
+  },
+  "PortZionEx1Cliff0": {
+    "look": "dark grey-brown rough rock, mossy face, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, grass, mud"
+  },
+  "PortZionEx1Cliff1": {
+    "look": "dark metal walls, blue-steel trim panels, pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, docks"
+  },
+  "ProtossBaseManmadeCliffs": {
+    "look": "gold protoss metal walls, curved buttresses, blue glowing orbs",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "protoss tiles, plating"
+  },
+  "ProtossBaseOrganicCliffs": {
+    "look": "tan-brown layered rock, pale sandy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "sand, dirt, grass"
+  },
+  "RedstoneCliff0": {
+    "look": "dark rock walls, glowing red lava at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "RedstoneCliff1": {
+    "look": "reddish-brown rusty metal bulkheads, banded panels",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, red dirt"
+  },
+  "RedstoneEx1Cliff0": {
+    "look": "dark rock walls, glowing red lava at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "ash, volcanic rock, lava"
+  },
+  "RedstoneEx1Cliff1": {
+    "look": "reddish-brown rusty metal bulkheads, banded panels",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, red dirt"
+  },
+  "ShadowCorpsPlatformCliff0": {
+    "look": "black rounded metal walls, smooth pipes, heavy pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "ShadowCorpsPlatformCliff1": {
+    "look": "black metal walls, yellow hazard trim, red lights",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, grating"
+  },
+  "ShakurasCliff0": {
+    "look": "dark charcoal rough rock, smoky face, pale lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark sand, ash, rock"
+  },
+  "ShakurasCliff1": {
+    "look": "dark purple-grey stone walls, spiked finials, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark protoss tiles, stone"
+  },
+  "ShakurasEx1Cliff0": {
+    "look": "dark charcoal rough rock, smoky face, pale lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark sand, ash, rock"
+  },
+  "ShakurasEx1Cliff1": {
+    "look": "dark purple-grey stone walls, spiked finials, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark protoss tiles, stone"
+  },
+  "ShakurasTempleCliff0": {
+    "look": "grey rock, vertical fluted faces, slabby pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "sand, pale rock"
+  },
+  "ShakurasTempleCliff1": {
+    "look": "dark grey stone walls, spiked gothic finials, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "temple stone paving, tiles"
+  },
+  "SlaynCliff0": {
+    "look": "pale grey-tan rock, vertical fluted faces, smooth lip",
+    "kind": "natural",
+    "tone": "light",
+    "pairsWith": "sand, pale dirt, grass"
+  },
+  "SlaynCliff1": {
+    "look": "dark grey stone walls, spiked gothic finials, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "temple stone paving, tiles"
+  },
+  "SnowRefineryCliff1": {
+    "look": "grey jagged rock, sheer faceted faces, pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "snow, rock, gravel"
+  },
+  "StarshipCliff0": {
+    "look": "gold protoss metal walls, curved panels, blue glowing orbs",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "protoss ship plating, tiles"
+  },
+  "TarsonisCityCliff0": {
+    "look": "red-brown brick walls, dark window bands, tiered towers",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "city paving, concrete"
+  },
+  "TarsonisCityCliff1": {
+    "look": "red-brown brick walls, plain parapet, horizontal bands",
+    "kind": "built",
+    "tone": "mid",
+    "pairsWith": "city paving, concrete"
+  },
+  "TarsonisCliff0": {
+    "look": "grey layered rock, stratified slabs, pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, gravel"
+  },
+  "TarsonisCliff1": {
+    "look": "dark grey-brown concrete walls, plain flat top",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "TarsonisEx1Cliff0": {
+    "look": "grey layered rock, stratified slabs, pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, gravel"
+  },
+  "TarsonisEx1Cliff1": {
+    "look": "dark grey-brown concrete walls, plain flat top",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "TheVoidCliff0": {
+    "look": "grey sheer rock, vertical striations, pale ledge lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "rock, void ground"
+  },
+  "TheVoidCliff1": {
+    "look": "dark rock studded with glowing red-orange crystals",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, void ground"
+  },
+  "TyphonCliff0": {
+    "look": "black rough rock, fuzzy jagged face",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, ash, rock"
+  },
+  "TyphonCliff1": {
+    "look": "dark grey-brown stone blocks, crenellated lip, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "stone paving, ruins"
+  },
+  "TyphonEx1Cliff0": {
+    "look": "black rough rock, fuzzy jagged face",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, ash, rock"
+  },
+  "TyphonEx1Cliff1": {
+    "look": "dark grey-brown stone blocks, crenellated lip, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "stone paving, ruins"
+  },
+  "TyradorCliff1": {
+    "look": "dark grey concrete walls, plain flat top, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "TyradorEx1Cliff1": {
+    "look": "dark grey concrete walls, plain flat top, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "concrete, asphalt, paving"
+  },
+  "UlaanCliff0": {
+    "look": "dark grey rock, sheer shadowed faces, pale lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "rock, gravel, dark dirt"
+  },
+  "UlaanCliff1": {
+    "look": "black stone walls, teal-green trim, spiked finials",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark protoss tiles, stone"
+  },
+  "UlaanEx1Cliff0": {
+    "look": "dark grey rock, sheer shadowed faces, pale lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "rock, gravel, dark dirt"
+  },
+  "UlaanEx1Cliff1": {
+    "look": "black stone walls, teal-green trim, spiked finials",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark protoss tiles, stone"
+  },
+  "UlnarCliff0": {
+    "look": "grey jagged rock, faceted faces, pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "rock, gravel, dirt"
+  },
+  "UlnarCliff1": {
+    "look": "grey metal bulkheads, brown-trimmed ramps, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "UlnarEx1Cliff0": {
+    "look": "grey jagged rock, faceted faces, pale lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "rock, gravel, dirt"
+  },
+  "UlnarEx1Cliff1": {
+    "look": "grey metal bulkheads, brown-trimmed ramps, round pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "UlnarInnerCliff0": {
+    "look": "dark blue-grey crystalline rock, blue glow at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, xel'naga ground"
+  },
+  "UlnarInnerCliff1": {
+    "look": "dark xel'naga stone walls, glowing teal circuit lines",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "xel'naga tiles, dark stone"
+  },
+  "UlnarOuterCliff0": {
+    "look": "dark blue-grey crystalline rock, blue glow at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, xel'naga ground"
+  },
+  "UlnarOuterCliff1": {
+    "look": "dark xel'naga stone walls, glowing teal circuit lines",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "xel'naga tiles, dark stone"
+  },
+  "UlnarPortalCliff0": {
+    "look": "dark blue-grey crystalline rock, blue glow at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, xel'naga ground"
+  },
+  "UlnarPortalCliff1": {
+    "look": "dark xel'naga stone walls, glowing teal circuit lines",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "xel'naga tiles, dark stone"
+  },
+  "ValhallaCliff0": {
+    "look": "dark grey rough rock, mottled face, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, snow, rock"
+  },
+  "ValhallaCliff1": {
+    "look": "dark metal bulkhead walls, grey-brown panels, pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "ValhallaEx1Cliff0": {
+    "look": "dark grey rough rock, mottled face, soft lip",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dirt, snow, rock"
+  },
+  "ValhallaEx1Cliff1": {
+    "look": "dark metal bulkhead walls, grey-brown panels, pylons",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "XilCliff0": {
+    "look": "grey-brown layered rock, blocky slabs, rubble",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, gravel"
+  },
+  "XilCliff1": {
+    "look": "grey metal-concrete layered walls, rounded parapet",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "XilEx1Cliff0": {
+    "look": "grey-brown layered rock, blocky slabs, rubble",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "dirt, rock, gravel"
+  },
+  "XilEx1Cliff1": {
+    "look": "grey metal-concrete layered walls, rounded parapet",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "metal plating, concrete"
+  },
+  "ZerusCliff0": {
+    "look": "dark grey jagged rock, mossy rim",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "jungle grass, moss, dirt"
+  },
+  "ZerusCliff1": {
+    "look": "brown earthy rock, reddish streaked face, grassy lip",
+    "kind": "natural",
+    "tone": "mid",
+    "pairsWith": "jungle grass, dirt"
+  },
+  "ZhakulDasCliff0": {
+    "look": "black rock, glowing cyan crystal pool at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, crystal ground"
+  },
+  "ZhakulDasCliff1": {
+    "look": "black stone block walls, chunky crenellated lip, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark stone paving, tiles"
+  },
+  "ZhakulDasEx1Cliff0": {
+    "look": "black rock, glowing cyan crystal pool at foot",
+    "kind": "natural",
+    "tone": "dark",
+    "pairsWith": "dark rock, crystal ground"
+  },
+  "ZhakulDasEx1Cliff1": {
+    "look": "black stone block walls, chunky crenellated lip, tiered",
+    "kind": "built",
+    "tone": "dark",
+    "pairsWith": "dark stone paving, tiles"
+  }
+}

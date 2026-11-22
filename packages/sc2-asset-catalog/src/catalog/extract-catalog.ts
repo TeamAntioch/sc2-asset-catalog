@@ -45,7 +45,7 @@ export const GALLERY_TREE_URL = "https://api.github.com/repos/TeamAntioch/sc2-ma
 export const GALLERY_GIT_URL = "https://github.com/TeamAntioch/sc2-mapping-reference.git";
 
 /** The gallery's folder of doodad pictures in sc2-mapping-reference. */
-const GALLERY_FOLDER = "public/doodads/";
+export const DOODAD_GALLERY_FOLDER = "public/doodads/";
 
 /** One package's files, as extractDoodads reads them, with its English object strings. */
 export type FetchedPackage = GameDataPackage & { readonly objectStrings?: string };
@@ -123,18 +123,18 @@ export function extractDoodadModels(packages: readonly GameDataPackage[], ids: I
 /** Folder entries of the gallery's listing that are its full-size doodad pictures (not the _tn thumbnails). */
 const isGalleryPicture = (file: string): boolean => !file.includes("/") && file.endsWith(".jpg") && !file.endsWith("_tn.jpg");
 
-/** The gallery's pictures among a listing of the repository's paths. */
-const galleryPictures = (paths: readonly string[]): string[] =>
-  paths.flatMap((file) => (file.startsWith(GALLERY_FOLDER) && isGalleryPicture(file.slice(GALLERY_FOLDER.length)) ? [file.slice(GALLERY_FOLDER.length)] : []));
+/** The pictures in one of the gallery's folders among a listing of the repository's paths. */
+const galleryPictures = (paths: readonly string[], folder: string): string[] =>
+  paths.flatMap((file) => (file.startsWith(folder) && isGalleryPicture(file.slice(folder.length)) ? [file.slice(folder.length)] : []));
 
-/** The gallery's pictures as GitHub's API lists the repository. */
-async function treeFileNames(fetch: typeof globalThis.fetch, env: Readonly<Record<string, string | undefined>>): Promise<string[]> {
+/** The pictures in one of the gallery's folders as GitHub's API lists the repository. */
+async function treeFileNames(fetch: typeof globalThis.fetch, env: Readonly<Record<string, string | undefined>>, folder: string): Promise<string[]> {
   const token = env.GITHUB_TOKEN?.trim();
   const response = await fetch(GALLERY_TREE_URL, { headers: { accept: "application/vnd.github+json", ...(token ? { authorization: `Bearer ${token}` } : {}) } });
   if (!response.ok) throw new Error(`GitHub's API answered HTTP ${response.status}`);
   const listing = (await response.json()) as { readonly truncated?: boolean; readonly tree?: readonly { readonly path?: string }[] };
   if (listing.truncated) throw new Error("GitHub's API cut the listing short");
-  return galleryPictures((listing.tree ?? []).map((entry) => entry.path ?? ""));
+  return galleryPictures((listing.tree ?? []).map((entry) => entry.path ?? ""), folder);
 }
 
 const run = promisify(execFile);
@@ -156,7 +156,8 @@ export const gitTreeFiles: ListGitTree = async (url, folder) => {
 };
 
 /**
- * The gallery's doodad pictures' file names, sorted: from GitHub's API (with GITHUB_TOKEN when it
+ * The file names of the pictures in one of the gallery's folders (`folder`, the doodads' by
+ * default), sorted: from GitHub's API (with GITHUB_TOKEN when it
  * is set), else, when the API refuses (its limit for unauthenticated calls is 60 an hour per
  * address) or cuts the listing short, as git lists the repository. Both list the files that are
  * there, so both give the same pictures. Throws when neither answers.
@@ -166,14 +167,15 @@ export async function galleryFileNames({
   listGitTree = gitTreeFiles,
   env = process.env,
   log = () => {},
-}: Pick<FetchOptions, "fetch" | "listGitTree" | "log"> & { readonly env?: Readonly<Record<string, string | undefined>> } = {}): Promise<string[]> {
+  folder = DOODAD_GALLERY_FOLDER,
+}: Pick<FetchOptions, "fetch" | "listGitTree" | "log"> & { readonly env?: Readonly<Record<string, string | undefined>>; readonly folder?: string } = {}): Promise<string[]> {
   let files: string[];
   try {
-    files = await treeFileNames(fetch, env);
+    files = await treeFileNames(fetch, env, folder);
   } catch (apiError) {
     log(`Listing the gallery through GitHub's API failed (${(apiError as Error).message}), so git lists it instead`);
     try {
-      files = galleryPictures(await listGitTree(GALLERY_GIT_URL, GALLERY_FOLDER));
+      files = galleryPictures(await listGitTree(GALLERY_GIT_URL, folder), folder);
     } catch (gitError) {
       throw new Error(
         `Couldn't list the sc2-mapping-reference gallery: ${(apiError as Error).message}, and git failed (${(gitError as Error).message.split("\n")[0]}). Set GITHUB_TOKEN, or install git, and try again`,

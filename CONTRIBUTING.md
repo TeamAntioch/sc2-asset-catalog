@@ -35,6 +35,28 @@ Nothing else goes in a description. Names, packages, categories and tilesets are
 
 A doodad without a description still turns up in searches, by its name and the words of its id, so describing one makes it findable by what it looks like.
 
+## Fixing or adding a cliff set description
+
+`data/cliff-descriptions.json` maps each cliff set id (such as `AgriaCliff0`) to its description, written from its [gallery picture](https://github.com/TeamAntioch/sc2-mapping-reference/tree/main/public/cliffs):
+
+```json
+"AgriaCliff0": {
+  "look": "grey-brown layered rock, terraced strata, soft rounded lip",
+  "kind": "natural",
+  "tone": "mid",
+  "pairsWith": "dirt, grass, farmland"
+}
+```
+
+| Field | What goes in it |
+| --- | --- |
+| `look` | What the walls look like, in a short phrase: material, colour, the lip at the top. |
+| `kind` | `natural` or `built`, as the picture shows. An id ending `Cliff0` is usually natural and `Cliff1` built, but not always, and `kind` says what the picture shows. |
+| `tone` | `light`, `mid` or `dark`. |
+| `pairsWith` | The ground it sits well beside, a few words separated by commas. |
+
+Nothing else goes in a description: the tilesets and the picture are extracted. Keep the ids in order and the two-space indentation.
+
 ## Adding a Doodad Use
 
 A Doodad Use says what a doodad has worked as, in a mapper's words. It is often something its name doesn't suggest: a crate that makes a good press head, or a rail that makes a slide. Each doodad's uses are a file of their own, `data/doodad-uses/doodads/<doodad id>.json`, a list of records:

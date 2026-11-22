@@ -12,6 +12,12 @@ The music's extracted fields (every id a map can play music with, its files, the
 npx @team-antioch/sc2-asset-catalog extract-music
 ```
 
+The cliff sets' extracted fields (each tileset's cliff sets in order, and each set's gallery picture) come from SC2GameData's TerrainData the same way. `readCliffCatalog()` joins them to our descriptions (`data/cliff-descriptions.json`, CC BY 4.0: each set's look, kind, tone and the ground it pairs with), and `searchCliffSets()` and `tilesetCliffSets()` search and list them:
+
+```sh
+npx @team-antioch/sc2-asset-catalog extract-cliffs
+```
+
 On Windows, type `npx.cmd` in place of `npx`: PowerShell's default policy refuses `npx`.
 
 ```js
