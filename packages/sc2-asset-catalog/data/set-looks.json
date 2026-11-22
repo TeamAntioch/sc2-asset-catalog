@@ -1915,8 +1915,8 @@
         "campaigns/swarmstory.sc2campaign/base.sc2data/Cutscenes/zLD_DropPodKorhal.SC2Cutscene"
       ]
     },
-    "interior-cutscene-rohanaintro": {
-      "name": "Interior (Cutscene_RohanaIntro)",
+    "interior": {
+      "name": "Interior",
       "kind": "room",
       "look": "A long, vaulted protoss hall lined with upright blue-glowing pods, ending in a round open balcony that looks out on the stacked hull tiers of a huge ship. The hall is a straight nave roughly 10 cells wide and 30 or more long, running north-south, with four bays down each side; each bay holds a tall dark pod with an oval pane of blue crystal-like glass, set on a raised plinth with small pointed posts in front. At the south end a short flight of steps climbs between two pointed blue arched panels to a large dark doorway; at the north end the floor widens into a circular platform with a patterned grille in the floor, a small ringed floor pedestal carrying a hovering device, and a low curved rail in front of the open view. Everything is pale ivory and grey-brown plating with cream inlaid line patterns on the floor, ribbed arches overhead and a few gold fins along the ceiling spine. The set's listed size (580 x 852 cells) comes from the far-off backdrop hull pieces, not the hall; no in-game capture exists, so the lighting mood is unknown.",
       "facets": [
