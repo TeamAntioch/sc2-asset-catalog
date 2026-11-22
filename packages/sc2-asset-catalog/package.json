@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-asset-catalog",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "StarCraft II doodads, cliff sets and terrain textures described in words, with Doodad Uses, a keyword search, and an extractor that builds names, packages and categories from SC2GameData into your cache.",
   "keywords": [
     "starcraft",

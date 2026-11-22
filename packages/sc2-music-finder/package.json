@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-music-finder",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Ask for StarCraft II music in plain words and see ranked cards at once, with the listening notes, filters and a player: a local page that narrows with a keyword search and a local embeddings model, then ranks with Jev.",
   "keywords": [
     "starcraft",
@@ -50,7 +50,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@team-antioch/sc2-asset-catalog": "0.3.1",
-    "@team-antioch/sc2-finder-kit": "0.3.1"
+    "@team-antioch/sc2-asset-catalog": "0.4.0",
+    "@team-antioch/sc2-finder-kit": "0.4.0"
   }
 }
