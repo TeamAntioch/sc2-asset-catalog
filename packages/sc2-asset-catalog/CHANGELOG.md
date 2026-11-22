@@ -1,5 +1,12 @@
 # @team-antioch/sc2-asset-catalog
 
+## 0.3.1
+
+### Patch Changes
+
+- 5cabf0a: The set `interior-cutscene-rohanaintro` is now `interior` (named "Interior"). Its pictures are in the gallery under both ids for now; use `interior`.
+- c27ccc7: File locks no longer fail on Windows when one caller opens a lock file while another is removing it.
+
 ## 0.3.0
 
 ### Minor Changes
