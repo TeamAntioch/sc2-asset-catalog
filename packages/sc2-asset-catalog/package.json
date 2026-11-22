@@ -35,6 +35,7 @@
   "files": [
     "bin",
     "dist",
+    "data/decal-descriptions.json",
     "data/doodad-descriptions.json",
     "data/doodad-uses",
     "data/cliff-descriptions.json",

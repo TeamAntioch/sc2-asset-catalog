@@ -1,0 +1,3466 @@
+{
+  "Aiur_City_Decals": [
+    {
+      "look": "dark Protoss trim band with horned ends",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss trim band with a V node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss trim band with a downward stub",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss trim band with an inscription",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss trim band with a V node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss trim band with an inscription",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss sweeping curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss sweeping curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss trim band with a V node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss trim band with an inscription",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss sweeping curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss sweeping curve, mirrored",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss blade wing",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss blade wing",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss blade wing",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss blade wing, mirrored",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss crescent shard",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss crescent shard",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss crescent shard",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss crescent shard, mirrored",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss vertical spine",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss vertical spine",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss bowed double band",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss bowed double band",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue Protoss chevron arc",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "dark Protoss chevron arc",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    }
+  ],
+  "BattleStation_Line_Decals": [
+    {
+      "look": "pale stripe bending 45° with a yellow inner stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe bending 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe turning 90° with a yellow inner stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin pale stripe turning 90° with a yellow inner stripe, a long arm",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe with a stepped bulge, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin pale stripe with angled ends",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin pale stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin pale stripe ending in a 90° turn with a yellow inner stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale double stripe with both ends turned down 45°: a bay's end",
+      "shows": [
+        "stripe",
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "wide pale double stripe bending 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale thick-and-thin double stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale thick-and-thin double stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "wide pale double stripe bending 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "wide pale double stripe bending 45° with hazard hatching",
+      "shows": [
+        "stripe",
+        "hazard-stripes",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale hazard hatching over a thin stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale chevron hatching over a thin stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "framed pale hazard hatching over a thin stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "short pale thick-and-thin double stripe",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "short pale stripe",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe bending 45° with a yellow outer stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe turning 90° with a yellow outer stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale double stripe bending 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "wide pale double stripe turning 90° through 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale double stripe bending 45° with hazard hatching",
+      "shows": [
+        "stripe",
+        "hazard-stripes",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe bending 45° with a yellow inner stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe bending 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale stripe turning 90° with a yellow inner stripe",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "pale double stripe bending 45°, mirrored",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "wide pale double stripe turning 90° through 45°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    }
+  ],
+  "BattleStation_Number_Decals": [
+    {
+      "look": "pale stencilled number 0",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "0",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 5",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "5",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 6",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "6",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 7",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "7",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 8",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "8",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencilled number 9",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "9",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    }
+  ],
+  "BattleStation_Symbol_Decals": [
+    {
+      "look": "white triangle over a bar: a direction marker",
+      "shows": [
+        "arrow",
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "orange triangle over a bar: a direction marker",
+      "shows": [
+        "arrow",
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "orange-and-white square frame: a landing or bay square",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "pale roundel with a diagonal bar",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "hexagonal badge: wrench and screwdriver on a gear (repair)",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: missiles",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: fuel canister with plus signs (refuelling)",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: a fighter over <P>",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "letter",
+      "text": "P",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: a vehicle marked 05",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "number",
+      "text": "05",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: a walker mech",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "hexagonal badge: a heavy mech under a lightning bolt",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    }
+  ],
+  "BattleStation_Text_Decals": [
+    {
+      "look": "pale stencil LAUNCH BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "LAUNCH BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil REFUEL DOCKS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "REFUEL DOCKS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil MECH CONSTRUCTION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MECH CONSTRUCTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil HANGAR BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "HANGAR BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil MISSILE SYSTEMS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MISSILE SYSTEMS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil REPAIR BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "REPAIR BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale stencil STATION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "STATION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    }
+  ],
+  "CradleofDeath_BlastRadius_Decal": [
+    {
+      "look": "BLAST RADIUS on a curved bar with arrows pointing down",
+      "shows": [
+        "text",
+        "arrow"
+      ],
+      "glyphs": "words",
+      "text": "BLAST RADIUS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "BLAST RADIUS on a curved bar with arrows pointing up",
+      "shows": [
+        "text",
+        "arrow"
+      ],
+      "glyphs": "words",
+      "text": "BLAST RADIUS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "Decal": [
+    {
+      "look": "yellow-and-black hazard stripe, a quarter curve",
+      "shows": [
+        "hazard-stripes",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "yellow-and-black hazard stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "faint grey stencilled number 0",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "0",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 5",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "5",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 6",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "6",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 7",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "7",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 8",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "8",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 9",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "9",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "yellow radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "yellow biohazard warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "yellow skull-and-crossbones warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "worn white arrow pointing one way",
+      "shows": [
+        "arrow"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white double-headed arrow",
+      "shows": [
+        "arrow"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white arrow turning left",
+      "shows": [
+        "arrow",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white arrow turning right",
+      "shows": [
+        "arrow",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white diagonal hatching in a narrow stripe",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white warning triangle with an exclamation mark",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil RESTRICTED",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "RESTRICTED",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil CAUTION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "CAUTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil OPERATIONS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "OPERATIONS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DOCKING BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DOCKING BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DO NOT ENTER",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DO NOT ENTER",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil NO PARKING",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "NO PARKING",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "Decal_Baked": [
+    {
+      "look": "yellow-and-black hazard stripe, a quarter curve",
+      "shows": [
+        "hazard-stripes",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "yellow-and-black hazard stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "faint grey stencilled number 0",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "0",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 5",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "5",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 6",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "6",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 7",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "7",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 8",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "8",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencilled number 9",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "9",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "yellow radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "yellow biohazard warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "yellow skull-and-crossbones warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "worn white arrow pointing one way",
+      "shows": [
+        "arrow"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white double-headed arrow",
+      "shows": [
+        "arrow"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white arrow turning left",
+      "shows": [
+        "arrow",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white arrow turning right",
+      "shows": [
+        "arrow",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white diagonal hatching in a narrow stripe",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white warning triangle with an exclamation mark",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil RESTRICTED",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "RESTRICTED",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil CAUTION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "CAUTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil OPERATIONS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "OPERATIONS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DOCKING BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DOCKING BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DO NOT ENTER",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DO NOT ENTER",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "faint grey stencil NO PARKING",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "NO PARKING",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "DecalProtoss": [
+    {
+      "look": "glowing blue vertical band with a ring node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue vertical band with a ring node and small inscriptions",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue stepped band",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue double stepped band",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue hexagon outline",
+      "shows": [
+        "frame",
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue quarter curve with notches",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "ornament"
+    }
+  ],
+  "DecalSpace": [
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white ring",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, straight",
+      "shows": [
+        "glow-line"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line with a bright end cap",
+      "shows": [
+        "glow-line"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, a quarter curve",
+      "shows": [
+        "glow-line",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, a tight quarter curve",
+      "shows": [
+        "glow-line",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white bay edge: a bar with raised ends",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white stripe over diagonal hazard hatching",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white arch",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white trapezoid frame with chevrons at its top",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "grey stencil MAXIMUM SECURITY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MAXIMUM SECURITY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "two parallel white stripes, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "grey stencil LOCKDOWN",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "LOCKDOWN",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey stencil MESS HALL",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MESS HALL",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil SOLITARY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "SOLITARY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil DANGER",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DANGER",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "INFIRMARY over a medical cross",
+      "shows": [
+        "text",
+        "symbol"
+      ],
+      "glyphs": "words",
+      "text": "INFIRMARY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil AIRLOCK",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "AIRLOCK",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey skull-and-crossbones warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey biohazard warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey Horde crest from Warcraft, an in-joke that reads wrong in a StarCraft setting",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "grey Alliance lion crest from Warcraft, an in-joke that reads wrong in a StarCraft setting",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    }
+  ],
+  "DecalSpace_Baked": [
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white ring",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, straight",
+      "shows": [
+        "glow-line"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line with a bright end cap",
+      "shows": [
+        "glow-line"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, a quarter curve",
+      "shows": [
+        "glow-line",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "glowing orange line, a tight quarter curve",
+      "shows": [
+        "glow-line",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white bay edge: a bar with raised ends",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white stripe over diagonal hazard hatching",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white arch",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "white trapezoid frame with chevrons at its top",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "grey stencil MAXIMUM SECURITY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MAXIMUM SECURITY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "two parallel white stripes, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "grey stencil LOCKDOWN",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "LOCKDOWN",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey stencil MESS HALL",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "MESS HALL",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil SOLITARY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "SOLITARY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil DANGER",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DANGER",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "INFIRMARY over a medical cross",
+      "shows": [
+        "text",
+        "symbol"
+      ],
+      "glyphs": "words",
+      "text": "INFIRMARY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey stencil AIRLOCK",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "AIRLOCK",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "grey skull-and-crossbones warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey biohazard warning triangle",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "grey Horde crest from Warcraft, an in-joke that reads wrong in a StarCraft setting",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "grey Alliance lion crest from Warcraft, an in-joke that reads wrong in a StarCraft setting",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    }
+  ],
+  "DOM_Decals": [
+    {
+      "look": "thick dark grey stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin white diagonal hatching, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "dark grey stripe narrowing from thick to thin",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "dark grey stripe widening from thin to thick",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin dark grey stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin dark grey stripe with a raised node",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thin dark grey stripe with a node and a yellow mark",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thick dark grey stripe bending 45°, a thin yellow line inside",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "thick dark grey stripe turning 90°",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "four dark grey corner brackets marking out a square",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "dark grey stripe turning 90° with a 45° chamfer",
+      "shows": [
+        "stripe",
+        "corner"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "CAUTION under a red warning triangle",
+      "shows": [
+        "text",
+        "hazard-sign"
+      ],
+      "glyphs": "words",
+      "text": "CAUTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "white stencil RESEARCH BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "RESEARCH BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "dark grey number 5",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "5",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "dark grey number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "dark grey number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "dark grey number 7",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "7",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "Dominion emblem in black and gold",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "yellow diagonal hazard hatching, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "yellow diagonal hazard hatching, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    }
+  ],
+  "MoebiusLabDecals": [
+    {
+      "look": "metal-framed badge: a robot arm and blocks",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "metal-framed badge: a chemistry flask",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "metal-framed shield with a stylised dagger",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "metal-framed Y badge",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "letter",
+      "text": "Y",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "metal-framed badge of interlocking letter shapes",
+      "shows": [
+        "emblem"
+      ],
+      "glyphs": "letter",
+      "text": "SP",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "metal bar with end tabs",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "short metal bar with end tabs",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "metal frame with two arched openings",
+      "shows": [
+        "frame"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "metal atom symbol",
+      "shows": [
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "emblem"
+    },
+    {
+      "look": "metal arrow pointing up",
+      "shows": [
+        "arrow"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "marking"
+    }
+  ],
+  "Protoss_Base_Decals": [
+    {
+      "look": "glowing blue trim band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue trim band with an eye-shaped node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue trim band with a ring node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue trim band with two arches",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue trim band dipping in the middle",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue sweeping blade curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue pillar motif around a ring",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue crescent-and-ring roundel",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing blue circuit band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    }
+  ],
+  "Purifier_City_Decals": [
+    {
+      "look": "glowing orange trim band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band with an eye-shaped node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band with a ring node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange sweeping blade curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange pillar motif around a ring",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange crescent-and-ring roundel",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange circuit band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band with two arches",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band dipping in the middle",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band with an eye-shaped node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange trim band with a ring node",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange sweeping blade curve",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange crescent-and-ring roundel",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing orange circuit band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "solid orange crescent shard",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "solid orange crescent shard",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "orange arc with a notched foot",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "orange arc with a notched foot",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "orange bowed double band",
+      "shows": [
+        "ornament",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    }
+  ],
+  "SpacePlatformCliffDecal": [
+    {
+      "look": "pale cliff-face panel number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 5",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "5",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 6",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "6",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 7",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "7",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 8",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "8",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 9",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "9",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel number 0",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "0",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel EXHAUST",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "EXHAUST",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel Operations Bay",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "Operations Bay",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale cliff-face panel DOCKING Module",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DOCKING Module",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "pale radiation roundel, a cliff-face panel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "pale warning triangle in a square sign, a cliff-face panel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "SpacePlatformGroundDecals": [
+    {
+      "look": "worn white number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil EXHAUST",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "EXHAUST",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil OPERATIONS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "OPERATIONS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DOCKING BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DOCKING BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "worn white warning triangle in a square sign",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "long black light strip with a yellow light at its centre",
+      "shows": [
+        "light-strip"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "black light strip with a yellow light at its centre",
+      "shows": [
+        "light-strip"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe with a notch",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white diagonal hatching, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "yellow-and-black hazard stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "faint grey stencil CAUTION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "CAUTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "SpacePlatformGroundDecals_Baked": [
+    {
+      "look": "worn white number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 2",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "2",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 3",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "3",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white number 4",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "4",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "bold pale stencil EXHAUST",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "EXHAUST",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil OPERATIONS",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "OPERATIONS",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "faint grey stencil DOCKING BAY",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "DOCKING BAY",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    },
+    {
+      "look": "worn white radiation roundel",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "worn white warning triangle in a square sign",
+      "shows": [
+        "hazard-sign"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    },
+    {
+      "look": "long black light strip with a yellow light at its centre",
+      "shows": [
+        "light-strip"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "black light strip with a yellow light at its centre",
+      "shows": [
+        "light-strip"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, a quarter curve",
+      "shows": [
+        "stripe",
+        "curve"
+      ],
+      "glyphs": "none",
+      "shape": "corner",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe, straight",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "worn white stripe with a notch",
+      "shows": [
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "white diagonal hatching, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "yellow-and-black hazard stripe, straight",
+      "shows": [
+        "hazard-stripes",
+        "stripe"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "marking"
+    },
+    {
+      "look": "faint grey stencil CAUTION",
+      "shows": [
+        "text"
+      ],
+      "glyphs": "words",
+      "text": "CAUTION",
+      "shape": "patch",
+      "tiles": false,
+      "use": "sign"
+    }
+  ],
+  "SpacePlatformGroundDecalsNoLOD": [
+    {
+      "look": "worn white number 1",
+      "shows": [
+        "number"
+      ],
+      "glyphs": "number",
+      "text": "1",
+      "shape": "patch",
+      "tiles": false,
+      "use": "label"
+    }
+  ],
+  "XelNaga_Base_Decals": [
+    {
+      "look": "glowing green band with arrow tips",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green band with a diamond at its centre",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green band with chevron cuts",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green diamond glyph",
+      "shows": [
+        "ornament",
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "thin glowing green lines running into a diamond",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green band with a raised hexagonal step",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green band broken by a gap",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing green band with an inscription",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "thin glowing green band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    }
+  ],
+  "XelNaga_Base_Decals_Amon": [
+    {
+      "look": "glowing red band with arrow tips",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red band with a diamond at its centre",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red band with chevron cuts",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red diamond glyph",
+      "shows": [
+        "ornament",
+        "symbol"
+      ],
+      "glyphs": "none",
+      "shape": "patch",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "thin glowing red lines running into a diamond",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red band with a raised hexagonal step",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red band broken by a gap",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "glowing red band with an inscription",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "script",
+      "shape": "line",
+      "tiles": false,
+      "use": "ornament"
+    },
+    {
+      "look": "thin glowing red band, straight",
+      "shows": [
+        "ornament"
+      ],
+      "glyphs": "none",
+      "shape": "line",
+      "tiles": true,
+      "use": "ornament"
+    }
+  ]
+}

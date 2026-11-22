@@ -18,6 +18,12 @@
 //     Blizzard's scripts use it) from a mirror of the game's data into the cache folder. The Music
 //     Finder does this on its first start.
 //
+//   sc2-asset-catalog extract-decals <folder> [--cache <folder>] [--no-sheets]
+//     Optional: reads the decals' model files from a folder extracted from your own install with
+//     cascx into their extracted fields (texture, box in cells, drawn as geometry), and with
+//     ImageMagick builds a picture of each variation and a numbered sheet of each decal doodad
+//     (extract-decals.ts). Needs `extract` first.
+//
 //   sc2-asset-catalog setup-renderer [--cache <folder>]
 //     macOS: checks for Xcode (with its Metal toolchain), Homebrew and ImageMagick, builds the
 //     WhiteoutFlakes viewer into the cache folder and records where it is (renderer-setup.ts).
@@ -36,6 +42,7 @@ import { parseArgs } from "node:util";
 import { catalogCacheDir, catalogConfigDir, extractedDir } from "./catalog/catalog-dirs.js";
 import { extractCatalog } from "./catalog/extract-catalog.js";
 import { extractCliffs } from "./catalog/extract-cliffs.js";
+import { extractDecals, type RunMagick } from "./catalog/extract-decals.js";
 import { extractMusic } from "./catalog/extract-music.js";
 import { extractTextures } from "./catalog/extract-textures.js";
 import { readMusicCatalog, unextractedNotesReport } from "./catalog/music-catalog.js";
@@ -49,6 +56,7 @@ export const CATALOG_USAGE = [
   "       sc2-asset-catalog extract-cliffs [--cache <folder>]",
   "       sc2-asset-catalog extract-textures [--cache <folder>]",
   "       sc2-asset-catalog extract-music [--cache <folder>]",
+  "       sc2-asset-catalog extract-decals <folder cascx extracted the decals into> [--cache <folder>] [--no-sheets]",
   "       sc2-asset-catalog setup-renderer [--cache <folder>]",
   "       sc2-asset-catalog render [doodad ids…] [--viewer <app>] [--sc2 <folder>] [--renderer <module>] [--cache <folder>] [--jobs n] [--force]",
 ].join("\n");
@@ -60,6 +68,8 @@ export type CatalogCliOptions = {
   /** For tests: the fetch extraction uses, and what builds a sheet. */
   readonly fetch?: typeof globalThis.fetch;
   readonly montage?: (renders: readonly string[], sheet: string) => Promise<void>;
+  /** For tests: what runs ImageMagick for `extract-decals`. */
+  readonly magick?: RunMagick;
   /** For tests: the environment, platform and processor the config folder and the renderer are worked out for (this process's by default). */
   readonly env?: Readonly<Record<string, string | undefined>>;
   readonly platform?: NodeJS.Platform;
@@ -91,6 +101,7 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
       sc2: { type: "string" },
       jobs: { type: "string" },
       force: { type: "boolean" },
+      "no-sheets": { type: "boolean" },
       help: { type: "boolean" },
     },
   });
@@ -122,6 +133,18 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
     } catch (error) {
       log(`The music was extracted, but its notes couldn't be read to report on them: ${(error as Error).message}`);
     }
+    return;
+  }
+  if (command === "extract-decals") {
+    const [storageDir, ...more] = ids;
+    if (storageDir === undefined || more.length > 0) throw new Error(`extract-decals takes one folder: the one cascx extracted the decals' model files and textures into\n${CATALOG_USAGE}`);
+    await extractDecals({
+      storageDir: path.resolve(cwd, storageDir),
+      cacheDir,
+      log,
+      ...(values["no-sheets"] ? { sheets: false } : {}),
+      ...(options.magick ? { magick: options.magick } : {}),
+    });
     return;
   }
   if (command === "setup-renderer") {

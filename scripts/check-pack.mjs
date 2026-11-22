@@ -11,7 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const FORBIDDEN = [/(^|\/)doodads\.json$/, /doodad-extracted\.json$/, /doodad-models\.json$/, /extracted\.json$/, /music-extracted/, /thumbnails\//, /catalog-sheets\//, /\.(png|jpe?g|dds|m3)$/i, /(^|\/)tests?\//, /(^|\/)cli\/test-asks\./, /\.(py|ogg|wav|mp3)$/i, /music-notes\//, /extract-music\//, /\.cpp$/];
+const FORBIDDEN = [/(^|\/)doodads\.json$/, /doodad-extracted\.json$/, /decal-extracted\.json$/, /doodad-models\.json$/, /extracted\.json$/, /music-extracted/, /thumbnails\//, /catalog-sheets\//, /\.(png|jpe?g|dds|m3)$/i, /(^|\/)tests?\//, /(^|\/)cli\/test-asks\./, /\.(py|ogg|wav|mp3)$/i, /music-notes\//, /extract-music\//, /\.cpp$/];
 /** Repo-only modules: each package's exports must shut them out (map them to null). */
 const NOT_EXPORTED = { "sc2-doodad-finder": ["./cli/test-asks.js"], "sc2-music-finder": ["./cli/test-asks.js"], "sc2-set-finder": ["./cli/test-asks.js"] };
 const list = process.argv.includes("--list");

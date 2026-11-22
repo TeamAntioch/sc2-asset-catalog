@@ -42,10 +42,21 @@ const { entry } = searchMusic(catalog, { words: "tense build under an alien appr
 
 The listening notes (`data/music-notes.json`, CC BY 4.0) are what we wrote and measured of each music file, keyed by file base name: Gemini's description, mood, tension, valence, sections and uses, and our length, loudness and tempo. The audio itself is Blizzard's and never ships.
 
+The decal descriptions (`data/decal-descriptions.json`, CC BY 4.0) say what every variation of every decal doodad shows: its look, its glyphs and the text it reads, its shape, whether it tiles, and whether it can go anywhere or only where it labels something (docs/adr/0006). `findDecalVariations()` filters them:
+
+```js
+import { findDecalVariations, formatDecalVariations } from "@team-antioch/sc2-asset-catalog";
+
+// Plain floor lane lines: no numbers, letters or words.
+console.log(formatDecalVariations(findDecalVariations({ glyphs: ["none"], use: ["marking"], shows: ["stripe"], tiles: true })));
+```
+
+`sc2-asset-catalog extract-decals <folder>` adds each variation's texture and box in cells, read from a folder of the decals' model files and textures that you extracted from your own install with cascx. With ImageMagick, it also builds a picture of each variation and a numbered sheet of each decal doodad in your cache folder. It's optional, and it needs `extract` first.
+
 The set looks (`data/set-looks.json`, CC BY 4.0) are what we wrote and measured of each cinematic set made only from Blizzard's files, keyed by set id: its look, facets, what it could stand in for, its size and camera count, with its name and Cutscene Editor files as keys. `readSetLooks()` (`@team-antioch/sc2-asset-catalog/catalog/set-looks.js`) loads them, and `setPictureUrl()` gives the address of each picture in the sc2-mapping-reference gallery, where they live (docs/adr/0005).
 
 `sc2-asset-catalog setup-renderer` builds the WhiteoutFlakes model viewer, and `sc2-asset-catalog render` then renders reference sheets with it (optional; Apple silicon macOS with StarCraft II, Xcode and Homebrew). `--renderer <module>` renders with a model renderer of your own instead. The WhiteoutFlakes notice is in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 The [Doodad Finder](https://www.npmjs.com/package/@team-antioch/sc2-doodad-finder) is the page built on it. More: the [repo's README](https://github.com/TeamAntioch/sc2-asset-catalog#readme).
 
-Not affiliated with or endorsed by Blizzard Entertainment. The code is under the MIT License (LICENSE). The descriptions, Doodad Uses and listening notes in `data/` are under CC BY 4.0 (LICENSE-DATA).
+Not affiliated with or endorsed by Blizzard Entertainment. The code is under the MIT License (LICENSE). The descriptions, Doodad Uses, decal descriptions, listening notes and set looks in `data/` are under CC BY 4.0 (LICENSE-DATA).

@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
+import { readDecalCatalog } from "../src/catalog/decal-catalog.js";
 import { readDoodadCatalog } from "../src/catalog/doodad-catalog.js";
 import { matchDoodads, readStockDoodadSources } from "../src/catalog/doodad-search.js";
 import { DOODAD_USES_DIR } from "../src/catalog/catalog-dirs.js";
@@ -23,6 +24,13 @@ describe.skipIf(!extracted)("a real extraction", () => {
     const { doodads } = readStockDoodadSources({ extractedDir: dir });
     expect(Object.keys(readDoodadUses(DOODAD_USES_DIR).doodad).filter((id) => !Object.hasOwn(doodads, id))).toEqual([]);
     expect(Object.keys(doodads).length).toBeGreaterThan(2500);
+  });
+
+  it("describes every variation of every decal doodad, and nothing that isn't one", () => {
+    const decals = Object.entries(stock()).filter(([, info]) => info.kind === "decal");
+    const described = readDecalCatalog({ extractedDir: dir });
+    expect(Object.keys(described).sort()).toEqual(decals.map(([id]) => id).sort());
+    for (const [id, info] of decals) expect(described[id], id).toHaveLength(info.variations);
   });
 
   it("knows the Editor-placed Bel'Shir doodads and their variation counts", () => {
