@@ -1,5 +1,15 @@
 # @team-antioch/sc2-set-finder
 
+## 0.3.1
+
+### Patch Changes
+
+- 5cabf0a: The set `interior-cutscene-rohanaintro` is now `interior` (named "Interior"). Its pictures are in the gallery under both ids for now; use `interior`.
+- Updated dependencies [5cabf0a]
+- Updated dependencies [c27ccc7]
+  - @team-antioch/sc2-asset-catalog@0.3.1
+  - @team-antioch/sc2-finder-kit@0.3.1
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @team-antioch/sc2-finder-kit
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [5cabf0a]
+- Updated dependencies [c27ccc7]
+  - @team-antioch/sc2-asset-catalog@0.3.1
+
 ## 0.3.0
 
 ### Patch Changes
