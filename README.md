@@ -16,7 +16,7 @@ Five npm packages:
 | [`@team-antioch/sc2-music-finder`](packages/sc2-music-finder) | The Music Finder: ask for music in plain words and read each track's listening notes, filter by energy, tension, length and the dependency your map has, and play it from your own extracted audio. The `sc2-music-finder` command. |
 | [`@team-antioch/sc2-set-finder`](packages/sc2-set-finder) | The Set Finder: ask for a place to film a cutscene in and see Blizzard's campaign cutscene sets that fit, with pictures of each and the Cutscene Editor file it is in. The `sc2-set-finder` command. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
-| [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, and the extractor (`sc2-asset-catalog extract`). |
+| [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, the cliff set descriptions and their search, and the extractors (`sc2-asset-catalog extract`, `extract-cliffs`). |
 
 ## Install and start
 
@@ -199,6 +199,16 @@ const { results } = searchDoodads({ words: ["crate"], biome: ["desert"], limit: 
 
 A search works out its candidates once per sources object, so keep the sources you read for later searches. `cachedStockDoodadSources()` does that for you: it reads them once per set of folders, until `forgetStockDoodadSources()` (call it when a source file changes). Pictures are looked for under the cache folder; `pictureFallback` (a function from a picture's path to another place to look) lets them be found elsewhere too.
 
+The cliff sets are searched the same way, after `npx @team-antioch/sc2-asset-catalog extract-cliffs`:
+
+```js
+import { catalogCacheDir, extractedDir, readCliffCatalog, searchCliffSets, tilesetCliffSets } from "@team-antioch/sc2-asset-catalog";
+
+const cliffs = readCliffCatalog({ extractedDir: extractedDir(catalogCacheDir()) });
+const walls = searchCliffSets(cliffs, { words: ["metal"], kind: "built", tone: "dark" });
+const [natural] = tilesetCliffSets(cliffs, "Agria");
+```
+
 Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalog/catalog/<name>.js`. The Finder can be started from code with `startFinder` from `@team-antioch/sc2-doodad-finder`. Its options beyond `port`, `budget`, `tickLog` and `cacheDir` are for sc2-adjutant and may change. The Music Finder's `startMusicFinder` and the Set Finder's `startSetFinder` are the same, and the Set Finder's README says how a host lays its own sets over the published ones.
 
 ## Tests and the test asks
@@ -218,7 +228,7 @@ New and better descriptions, Doodad Uses and music listening notes are welcome: 
 ## Licences
 
 - The code is under the [MIT License](LICENSE).
-- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`) and the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`) and the cinematic set looks (`packages/sc2-asset-catalog/data/set-looks.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses, music listening notes and set looks from sc2-asset-catalog, CC BY 4.0".
+- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the cliff set descriptions (`packages/sc2-asset-catalog/data/cliff-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`) and the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`) and the cinematic set looks (`packages/sc2-asset-catalog/data/set-looks.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses, music listening notes and set looks from sc2-asset-catalog, CC BY 4.0".
 - The built-in renderer runs [WhiteoutFlakes](https://github.com/FernandoS27/WhiteoutFlakes) by Fernando Sahmkow, under the BSD 3-Clause License. `setup-renderer` builds it from its source, and none of its code ships in the packages. Its notice is in [THIRD-PARTY-NOTICES.md](packages/sc2-asset-catalog/THIRD-PARTY-NOTICES.md).
 
 ## Releasing

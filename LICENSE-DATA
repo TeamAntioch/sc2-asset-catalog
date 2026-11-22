@@ -1,4 +1,5 @@
 The doodad descriptions (packages/sc2-asset-catalog/data/doodad-descriptions.json), the
+cliff set descriptions (packages/sc2-asset-catalog/data/cliff-descriptions.json), the
 Doodad Uses (packages/sc2-asset-catalog/data/doodad-uses/), the music listening notes
 (packages/sc2-asset-catalog/data/music-notes.json) and the cinematic set looks
 (packages/sc2-asset-catalog/data/set-looks.json) are licensed under the Creative Commons

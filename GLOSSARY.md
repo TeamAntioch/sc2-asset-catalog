@@ -8,6 +8,8 @@
 
 **Extracted fields.** A doodad's facts from the game: its Editor name, package, categories, tilesets, variations, model file, whether it blocks ground, and its gallery picture's file name. They're built into the user's cache folder from SC2GameData and the gallery's file list on the Finder's first start (or by `extract`), and never ship.
 
+**Cliff set.** A tileset's cliff walls, known by its id (such as `AgriaCliff0`). A tileset lists its cliff sets in order, the first its natural cliff. Its description (look, kind, tone and the ground it pairs with) ships in `data/cliff-descriptions.json`, and its tilesets and gallery picture are extracted by `extract-cliffs`.
+
 **Stock catalog.** The descriptions and Doodad Uses joined to the extracted fields by doodad id: what the Finder searches by default.
 
 **Gallery.** The doodad pictures in [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference), one angle each, with a Marine for scale. Cards link them by URL.

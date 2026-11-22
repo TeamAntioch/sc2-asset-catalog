@@ -1,11 +1,12 @@
 {
   "name": "@team-antioch/sc2-asset-catalog",
   "version": "0.3.1",
-  "description": "StarCraft II doodads described in words, with Doodad Uses, a keyword search, and an extractor that builds names, packages and categories from SC2GameData into your cache.",
+  "description": "StarCraft II doodads and cliff sets described in words, with Doodad Uses, a keyword search, and an extractor that builds names, packages and categories from SC2GameData into your cache.",
   "keywords": [
     "starcraft",
     "sc2",
     "doodads",
+    "cliffs",
     "map-editor",
     "galaxy-editor"
   ],
@@ -35,6 +36,7 @@
     "dist",
     "data/doodad-descriptions.json",
     "data/doodad-uses",
+    "data/cliff-descriptions.json",
     "data/music-notes.json",
     "data/set-looks.json",
     "scripts/build-whiteoutflakes.sh",

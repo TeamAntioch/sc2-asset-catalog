@@ -4,6 +4,10 @@
 //     Builds the extracted fields (names, packages, categories, gallery pictures) from SC2GameData
 //     into the cache folder (the platform's by default). The Doodad Finder does this on its first start.
 //
+//   sc2-asset-catalog extract-cliffs [--cache <folder>]
+//     Builds the cliff sets' extracted fields (each tileset's cliff sets, and each set's gallery
+//     picture) from SC2GameData into the cache folder, for the cliff catalog (cliff-catalog.ts).
+//
 //   sc2-asset-catalog extract-music [--cache <folder>]
 //     Builds the music's extracted fields (every callable id, its files, dependency and where
 //     Blizzard's scripts use it) from a mirror of the game's data into the cache folder. The Music
@@ -26,6 +30,7 @@ import { parseArgs } from "node:util";
 
 import { catalogCacheDir, catalogConfigDir, extractedDir } from "./catalog/catalog-dirs.js";
 import { extractCatalog } from "./catalog/extract-catalog.js";
+import { extractCliffs } from "./catalog/extract-cliffs.js";
 import { extractMusic } from "./catalog/extract-music.js";
 import { readMusicCatalog, unextractedNotesReport } from "./catalog/music-catalog.js";
 import { type ModelRenderer, renderCatalogSheets } from "./catalog/render-thumbnails.js";
@@ -35,6 +40,7 @@ import { npxHint } from "./util/npx.js";
 
 export const CATALOG_USAGE = [
   "Usage: sc2-asset-catalog extract [--cache <folder>]",
+  "       sc2-asset-catalog extract-cliffs [--cache <folder>]",
   "       sc2-asset-catalog extract-music [--cache <folder>]",
   "       sc2-asset-catalog setup-renderer [--cache <folder>]",
   "       sc2-asset-catalog render [doodad ids…] [--viewer <app>] [--sc2 <folder>] [--renderer <module>] [--cache <folder>] [--jobs n] [--force]",
@@ -90,6 +96,10 @@ export async function runCatalogCli(args: readonly string[], options: CatalogCli
   const configDir = catalogConfigDir({ platform, env });
   if (command === "extract") {
     await extractCatalog({ extractedDir: extractedDir(cacheDir), log, ...(options.fetch ? { fetch: options.fetch } : {}) });
+    return;
+  }
+  if (command === "extract-cliffs") {
+    await extractCliffs({ extractedDir: extractedDir(cacheDir), log, env, ...(options.fetch ? { fetch: options.fetch } : {}) });
     return;
   }
   if (command === "extract-music") {
