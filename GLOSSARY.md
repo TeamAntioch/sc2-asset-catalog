@@ -10,6 +10,8 @@
 
 **Cliff set.** A tileset's cliff walls, known by its id (such as `AgriaCliff0`). A tileset lists its cliff sets in order, the first its natural cliff. Its description (look, kind, tone and the ground it pairs with) ships in `data/cliff-descriptions.json`, and its tilesets and gallery picture are extracted by `extract-cliffs`.
 
+**Terrain texture.** One of the ground textures a tileset blends, known by its id (such as `AgriaDirt`). A tileset lists its blend textures in layer order. Its description (look, kind, tone and the roles it suits) ships in `data/texture-descriptions.json`, and its tilesets, file, name and gallery picture are extracted by `extract-textures`.
+
 **Stock catalog.** The descriptions and Doodad Uses joined to the extracted fields by doodad id: what the Finder searches by default.
 
 **Gallery.** The doodad pictures in [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference), one angle each, with a Marine for scale. Cards link them by URL.
