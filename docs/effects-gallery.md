@@ -79,7 +79,7 @@ An **effect tour**: a generated map whose script does what the contact sheet doe
 - **Timing and batches:**
   - Shots per effect: about 1,240 effects have a stock CModel and would be filmed, at about 4 frames each, which is about 5,000 shots.
   - Time per stop: with the settle shortened to what an effect needs (it doesn't scroll the camera far), about 3 to 4 s.
-  - Batches: 99 shots per `capture_shots` call means about 25 effects per batch, so about 50 batches of 2 minutes of start-up plus 6 minutes of stops. That is about **7 hours of game time**, unattended but holding the Mac's screen.
+  - Batches: 99 shots per `capture_shots` call means about 25 effects per batch, so about 50 batches of 2 minutes of start-up plus 6 minutes of stops. That is about **7 hours of game time**, unattended but holding the Mac's screen. (As built, the tour films its own map with no shot limit: 11 batches and about 4¾ hours. See below.)
   - One frame per effect (`stand` only) would take about 2 hours.
   - Raising the tour's shot limit for this tool (the script already takes 1024 stops) would cut the start-ups to about 6.
 - **Clips (later, optional):** macOS `screencapture -V <seconds>` and Windows.Graphics.Capture can both record video, so the host could record a 3 to 4 s clip per effect instead of stills. That is new host code on both platforms, and about 5,000 short clips are far heavier to host than stills. The stills as a filmstrip (birth → stand → moving → after-destroy → death) give most of what a clip would.
@@ -223,7 +223,7 @@ The kind comes cheaply from the parent template (`ImpactFX` → impact, `Missile
 | Template typo | no | no | **yes** | presents 3 |
 | Search by description | its frames feed it | its facts feed it | its kind feeds it | **yes** |
 | Needs the game | yes, for hours | an extracted folder | no | no |
-| Effort | 1 to 2 weeks, plus about 7 h of runs | 1 to 1½ weeks | 2 to 4 days | 1 to 2 weeks, plus descriptions |
+| Effort | 1 to 2 weeks, plus about 4¾ h of runs | 1 to 1½ weeks | 2 to 4 days | 1 to 2 weeks, plus descriptions |
 
 ## Recommendation
 
@@ -250,7 +250,7 @@ Clips, a light-ground pass and WhiteoutFlakes turntables are possible follow-ups
 | 4 | this repo | `extract` adds the CModels, parents and actor usage for `Assets/Effects` files, with the template-typo check | no | 2–4 days |
 | 5 | this repo | the animated emitter rates (which animations switch each emitter on) | no | 2–3 days |
 | 6 | sc2-adjutant | the effect tour: map generator, Galaxy script (spawn, move, destroy, bank-announced frames), a schedule from step 3's facts, capture through the existing host code | yes, a 25-effect test batch | 1–2 weeks |
-| 7 | sc2-adjutant | **ask first:** the full run, about 50 batches and about 7 h, with a check of dark, blank or cropped frames | yes | a day |
+| 7 | sc2-adjutant | **ask first:** the full run, 11 batches and about 4¾ h, with a check of dark, blank or cropped frames | yes | a day |
 | 8 | sc2-mapping-reference | **ask first:** the frames at 960 px and their thumbnails, about 350 MB | no | small |
 | 9 | this repo | `PROMPT.md` and the description batches, then `data/effect-descriptions.json` | no | about 60 agent batches |
 | 10 | this repo | `@team-antioch/sc2-effect-finder` on the kit, test asks and a README | no | 1 week |
