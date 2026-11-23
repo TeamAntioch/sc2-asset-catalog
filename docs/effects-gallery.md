@@ -6,7 +6,11 @@ Status: proposal, nothing built. Written 2026-11-23.
 
 Mappers pick StarCraft II effect models (charge-ups, impacts, auras, beams) from file names, because nothing shows what one looks like. A campaign team found out what that costs:
 
-- **The Yamato charge-up looked right in a still, and was wrong in play.** Its particles are emitted in world space, so they trailed behind a charging unit, and after a plain `Destroy` the particles already in the air stayed as a glowing spot.
+- **The Yamato charge-up looked right in a still, and was wrong in play.** It trailed behind a charging unit, and after a plain `Destroy` it left a glowing spot.
+
+  The team put this down to world-space particles. The file says otherwise. Read from the install on 2026-11-23, `YamatoMissileCharge.m3` has 6 particle systems and 5 ribbons, all old versions (`PAR_` v12, `RIB_` v6), and none has the world-space flag set. Its one animation is a 3.5 s Stand that plays once.
+
+  World-space emitters are in the Yamato missile (1 of 5) and its impact (6 of 9), and they're the norm, not the exception: 1,536 of the 2,043 effect files have at least one. So the trail came from another model or from how the actor was set up. The in-game test film agrees: the charge-up moved with its host and left nothing behind after a plain Destroy. Either way, a card has to show it, not leave it to be guessed.
 - **Another effect never drew,** because its CModel named a parent template with a typo in it.
 
 Neither failure shows in a picture of the model. The first is a flag inside the `.m3`. The second is in the game's data, not the model.
@@ -17,7 +21,7 @@ A worked example used throughout: `Assets/Effects/Terran/YamatoMissileCharge/Yam
 
 - It is the CModel `BattlecruiserYamatoAttackChargeModel` (`parent="OneShotSpellFX"`, liberty.sc2mod `ModelData.xml`), and `OneShotSpellFX`'s parent is `FX` (core.sc2mod).
 - Its actor has the same id: `CActorModel BattlecruiserYamatoAttackChargeModel parent="ModelAddition"`, attached at `SOpAttachCustomA`.
-- The actor is created on `Abil.Yamato.SourcePrepStart` and destroyed on `SourcePrepStop`, with no `HoldPosition` or kill-particles handling. That plain Destroy is what leaves the glow behind.
+- The actor is created on `Abil.Yamato.SourcePrepStart` and destroyed on `SourcePrepStop` with a plain `Destroy`.
 
 ## What a mapper needs from a card
 
@@ -81,6 +85,14 @@ An **effect tour**: a generated map whose script does what the contact sheet doe
 - **Clips (later, optional):** macOS `screencapture -V <seconds>` and Windows.Graphics.Capture can both record video, so the host could record a 3 to 4 s clip per effect instead of stills. That is new host code on both platforms, and about 5,000 short clips are far heavier to host than stills. The stills as a filmstrip (birth → stand → moving → after-destroy → death) give most of what a clip would.
 
 **Effort:** about 1 to 2 weeks in sc2-adjutant: the map generator, the effect tour script, a stop schedule built from the model data, timing tuning, then the long runs and a pass over dark, blank or cropped frames. It needs a StarCraft II install and Screen Recording permission, and the runs take most of a day.
+
+**Built and tested since (2026-11-23):** sc2-adjutant branch `adrianbw-effect-tour`, `npm run effect-tour` (`base`, `make` and `capture`).
+
+- **The run:** 1,313 effects (Glazes left out), 4,961 frames in 11 batches of 120. About 4 h 20 min in game, plus 1–2 minutes to start each batch.
+- **Map and host:** a flat 256×256 map with the pad at its centre, the effect attached to a Marine, and the camera fitted to the effect's bounds at a margin of 1.3, between 6 and 70 cells away.
+- **Frames:** each frame is held 1.5 s. Death is played with `AnimPlay`, because stopping the generic actor's animation bracket removes it at once.
+- **No freeze:** holding the game still for each frame (`GameSetGlobalTimeScale(0)`) loses frames, because the game doesn't write the bank while it is held. 15 of 38 frames were missed with it on, none with it off.
+- **Where the files came from:** stormex (built locally) extracted the 2,043 effect files from the install in 5 seconds.
 
 **What it shows:** what the effect really looks like, including particles, ribbons, lights, glow and animated materials, and its trailing and lingering in plain sight.
 
