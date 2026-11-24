@@ -24,11 +24,13 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./cli/test-asks.js": null,
     "./*": "./dist/*",
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "!dist/cli/test-asks.*",
     "LICENSE",
     "README.md"
   ],

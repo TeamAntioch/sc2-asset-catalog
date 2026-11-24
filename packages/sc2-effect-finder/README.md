@@ -20,4 +20,6 @@ console.log(effects.slice(0, 5).map(({ card }) => effectAnswer(card)));
 - **Tags.** `kind` (one or more of the look kinds, comma apart), `color`, `folder` (Protoss, Terran, Zerg, Neutral, Other, LensFlares) and `facet`. A pinned tag filters; the rest raise matches and go to Jev as context.
 - **Ranking.** `find` ranks with the `ranker` it was opened with, within the `cap`; a caller that ranks itself (the site, within its daily budget) uses `narrow` and the kit's `jevRanker` with `JEV_WORDING`.
 
+`npm run test-effect-asks` in the repo runs the narrowing on `test-effect-asks.json` (effects a mapper could want, each with the effects it should find) with the real model, and reports the hit rate, how many expected effects are in the first three and how fast. With a key it has Jev rank each ask too; `--no-rank` makes no calls.
+
 Not affiliated with or endorsed by Blizzard Entertainment. MIT License.

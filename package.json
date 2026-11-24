@@ -21,6 +21,7 @@
     "test-asks": "npm run build && node packages/sc2-doodad-finder/dist/cli/test-asks.js",
     "test-music-asks": "npm run build && node packages/sc2-music-finder/dist/cli/test-asks.js",
     "test-set-asks": "npm run build && node packages/sc2-set-finder/dist/cli/test-asks.js",
+    "test-effect-asks": "npm run build && node packages/sc2-effect-finder/dist/cli/test-asks.js",
     "changeset": "changeset",
     "version-packages": "changeset version && npm install --package-lock-only",
     "release": "npm run build && changeset publish"

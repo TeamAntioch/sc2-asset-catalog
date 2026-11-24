@@ -233,6 +233,8 @@ Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalo
 
 [`test-set-asks.json`](test-set-asks.json) does the same for the Set Finder: places to set a scene, each with the sets it should find, by set id. They were chosen from the looks' own words and are not yet `reviewed`. `npm run test-set-asks` runs them, and has Jev rank them too when a key is saved.
 
+[`test-effect-asks.json`](test-effect-asks.json) does the same for the Effect Finder: effects a mapper could want on an actor, each with the effects it should find, by the model's path. They were chosen from the looks' own words and are not yet `reviewed`. `npm run test-effect-asks` runs them, and has Jev rank them too when a key is saved.
+
 ## Contributing
 
 New and better descriptions, Doodad Uses and music listening notes are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Why the Finder works the way it does: [docs/adr/](docs/adr/). Terms: [GLOSSARY.md](GLOSSARY.md).
