@@ -132,6 +132,25 @@ The one rule applies here as everywhere: a note describes what the music sounds 
 
 Music Uses (what a track has worked as, as Doodad Uses are for doodads) aren't taken yet.
 
+## Fixing an effect look
+
+`packages/sc2-asset-catalog/data/effect-looks.json` says what each of the game's effect models looks like, keyed by the model's path (`"Assets/Effects/Protoss/Blink/Blink.m3": {…}`). An agent wrote each look from frames of the effect filmed in the game on a Marine, so it can be wrong: a burst over before any frame caught it, or an effect too small to make out. Check it against the effect's [gallery picture](https://github.com/TeamAntioch/sc2-mapping-reference/tree/main/public/effects) or the effect in the Editor, then edit it directly and open a pull request saying what you saw.
+
+| Field | What goes in it |
+| --- | --- |
+| `kind` | `burst`, `beam`, `projectile`, `aura`, `ground`, `trail`, `glow`, `object`, or `nothing` when nothing shows. `effect-looks.ts` says what each means. |
+| `look` | One to three plain sentences: what it shows, its shape, colours and size, how it moves and how it ends. |
+| `colors` | Its main colours, lower case. |
+| `size` | `tiny`, `small`, `medium`, `large` or `huge`, next to a Marine. Left out when `kind` is `nothing`. |
+| `moving` | What it did while its host slid sideways: `follows`, `stays`, `trails` or `unclear`. |
+| `afterDestroy` | What was left half a second after its actor was destroyed: `gone`, `lingers` or `unclear`. |
+| `facets` | Short lower-case search words. |
+| `suits` | What a mapper could use it for, in general words. |
+| `confidence` | `high`, `medium` or `low`. |
+| `problems` | What's wrong with its frames, if anything. |
+
+Nothing read from the model goes in a look: its animations, emitters, textures and bounds are the game's. The one rule holds even though many paths name a hero: write "a violet psionic slash", never the hero's name. Keep the paths in order and the two-space indentation.
+
 ## Checking your change
 
 ```sh

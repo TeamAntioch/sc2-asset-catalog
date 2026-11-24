@@ -42,6 +42,7 @@
     "data/texture-descriptions.json",
     "data/music-notes.json",
     "data/set-looks.json",
+    "data/effect-looks.json",
     "scripts/build-whiteoutflakes.sh",
     "LICENSE",
     "LICENSE-DATA",

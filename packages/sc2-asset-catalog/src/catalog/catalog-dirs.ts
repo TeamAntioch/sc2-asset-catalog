@@ -31,6 +31,9 @@ export const MUSIC_NOTES_PATH = path.join(PACKAGE_DATA_DIR, "music-notes.json");
 /** The cinematic sets' looks, keyed by set id (set-looks.ts). */
 export const SET_LOOKS_PATH = path.join(PACKAGE_DATA_DIR, "set-looks.json");
 
+/** The effect models' looks, keyed by model path (effect-looks.ts). */
+export const EFFECT_LOOKS_PATH = path.join(PACKAGE_DATA_DIR, "effect-looks.json");
+
 /** The Doodad Uses, one file per doodad under doodads/. */
 export const DOODAD_USES_DIR = path.join(PACKAGE_DATA_DIR, "doodad-uses");
 
