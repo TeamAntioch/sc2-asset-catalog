@@ -32,6 +32,8 @@ jobs:
       # Trusted publishing (OIDC) needs npm 11.5.1 or later; no NPM_TOKEN is used.
       - run: npm install -g npm@^11.5.1
       - run: npm ci
+      # No TURBO_TOKEN here, on purpose: what this job builds goes to npm, so it never takes a build
+      # from the Remote Cache, which any pull request's CI run can write to.
       - run: npm run build
       - run: npm test
       - run: node scripts/check-pack.mjs

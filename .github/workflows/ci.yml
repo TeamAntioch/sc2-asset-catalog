@@ -16,6 +16,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    # Turborepo's Remote Cache on Vercel. Pull requests from forks get no secrets, so they build
+    # everything with no cache.
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: team-antioch
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

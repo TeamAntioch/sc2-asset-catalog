@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["tsconfig.base.json"],
+  "envMode": "loose",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/test-*.json",
+        "$TURBO_ROOT$/scripts/**",
+        "!$TURBO_ROOT$/scripts/**/__pycache__/**",
+        "$TURBO_ROOT$/packages/sc2-finder-kit/tests/**",
+        "$TURBO_ROOT$/packages/sc2-asset-catalog/data/**"
+      ],
+      "env": [
+        "RUNNER_OS",
+        "SC2_ASSET_CATALOG_*",
+        "SC2_ADJUTANT_MODEL_CACHE",
+        "MUSIC_NOTES_DENYLIST",
+        "TYPESAFE_API_KEY",
+        "VERCEL_API_GATEWAY_KEY"
+      ]
+    }
+  }
+}
