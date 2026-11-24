@@ -233,6 +233,8 @@ Every module can also be imported on its own, as `@team-antioch/sc2-asset-catalo
 
 [`test-set-asks.json`](test-set-asks.json) does the same for the Set Finder: places to set a scene, each with the sets it should find, by set id. They were chosen from the looks' own words and are not yet `reviewed`. `npm run test-set-asks` runs them, and has Jev rank them too when a key is saved.
 
+[`test-effect-asks.json`](test-effect-asks.json) does the same for the Effect Finder: effects a mapper could want on an actor, each with the effects it should find, by the model's path. They were chosen from the looks' own words and are not yet `reviewed`. `npm run test-effect-asks` runs them, and has Jev rank them too when a key is saved.
+
 ## Contributing
 
 New and better descriptions, Doodad Uses and music listening notes are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md). Why the Finder works the way it does: [docs/adr/](docs/adr/). Terms: [GLOSSARY.md](GLOSSARY.md).
@@ -247,6 +249,6 @@ New and better descriptions, Doodad Uses and music listening notes are welcome: 
 
 Releases go through [Changesets](https://github.com/changesets/changesets) and the [release workflow](.github/workflows/release.yml), which publishes with npm trusted publishing: no npm token is stored anywhere. Once the repository variable `RELEASE` is `on`, each push to `main` opens or updates a version pull request from the changesets, and merging it publishes the new versions. Setting it up, once:
 
-1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit`, `@team-antioch/sc2-music-finder` and `@team-antioch/sc2-set-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`, `packages/sc2-music-finder` and `packages/sc2-set-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
-2. On npmjs.com, add a trusted publisher to each package (the kit's, the Music Finder's and the Set Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
+1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit`, `@team-antioch/sc2-music-finder`, `@team-antioch/sc2-set-finder` and `@team-antioch/sc2-effect-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`, `packages/sc2-music-finder`, `packages/sc2-set-finder` and `packages/sc2-effect-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
+2. On npmjs.com, add a trusted publisher to each package (the kit's and every finder's, the Effect Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
 3. Set the repository variable `RELEASE` to `on`.

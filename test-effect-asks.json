@@ -1,0 +1,200 @@
+{
+  "about": "Asks the effect test command runs (npm run test-effect-asks): each ask with the effects it should find, best first, by the model's path. They are effects a mapper could want on an actor, in plain words, and their expected effects were chosen from the shipped looks (packages/sc2-asset-catalog/data/effect-looks.json), then checked against the gallery's pictures; they stay reviewed: false until the author has checked them too. Asks never name a map, campaign, character or story.",
+  "asks": [
+    {
+      "ask": "a purple psionic blast hitting the target",
+      "expected": [
+        "Assets/Effects/Terran/PsionicLashImpact/PsionicLashImpact.m3",
+        "Assets/Effects/Protoss/HybridEnergyMissileImpact/HybridEnergyMissileImpact.m3",
+        "Assets/Effects/Zerg/KineticBlastImpact/KineticBlastImpact.m3",
+        "Assets/Effects/Zerg/HybridPsionicShockwave/HybridPsionicShockwave.m3"
+      ],
+      "from": "psionic blast",
+      "reviewed": false
+    },
+    {
+      "ask": "a blue force-field dome snapping up over a unit",
+      "expected": [
+        "Assets/Effects/Protoss/DragoonForceShield/DragoonForceShield.m3",
+        "Assets/Effects/Protoss/SentryShieldBubble/SentryShieldBubble.m3",
+        "Assets/Effects/Protoss/Sentry_Purifier_Energy_ForceField/Sentry_Purifier_Energy_ForceField.m3",
+        "Assets/Effects/Protoss/Mothership_Taldarim_Shield/Mothership_Taldarim_Shield.m3"
+      ],
+      "from": "force-field dome",
+      "reviewed": false
+    },
+    {
+      "ask": "a patch of burning ground with flames and smoke",
+      "expected": [
+        "Assets/Effects/Protoss/Colossus_FireBeam_GroundFire/Colossus_FireBeam_GroundFire.m3",
+        "Assets/Effects/Protoss/Mothership_Taldarim_Thermal_Lance_Beam_GroundFire/Mothership_Taldarim_Thermal_Lance_Beam_GroundFire.m3"
+      ],
+      "from": "burning ground",
+      "reviewed": false
+    },
+    {
+      "ask": "a jagged blue lightning bolt from one unit to another",
+      "expected": [
+        "Assets/Effects/Protoss/ArchonBeam/ArchonBeam.m3",
+        "Assets/Effects/Protoss/ArchonBeamSuper/ArchonBeamSuper.m3"
+      ],
+      "from": "lightning bolt",
+      "reviewed": false
+    },
+    {
+      "ask": "blood splattered on the ground where a soldier fell",
+      "expected": [
+        "Assets/Effects/Other/PhysicsImpactFleshLarge/PhysicsImpactFleshLarge.m3",
+        "Assets/Effects/Other/PhysicsImpactFleshMed/PhysicsImpactFleshMed.m3",
+        "Assets/Effects/Zerg/BloodImpactSmear/BloodImpactSmear.m3",
+        "Assets/Effects/Other/PhysicsImpactFleshMassive/PhysicsImpactFleshMassive.m3"
+      ],
+      "from": "blood splatter",
+      "reviewed": false
+    },
+    {
+      "ask": "a huge nuclear explosion with a mushroom cloud",
+      "expected": [
+        "Assets/Effects/Terran/Nuke/Nuke.m3",
+        "Assets/Effects/Terran/L800ETCNuke/L800ETCNuke.m3"
+      ],
+      "from": "nuclear blast",
+      "reviewed": false
+    },
+    {
+      "ask": "a nuke falling from the sky trailing smoke",
+      "expected": [
+        "Assets/Effects/Terran/NukeFalling/NukeFalling.m3"
+      ],
+      "from": "falling nuke",
+      "reviewed": false
+    },
+    {
+      "ask": "a unit trapped inside a blue crystal",
+      "expected": [
+        "Assets/Effects/Protoss/Arbiter_StasisField_Impact/Arbiter_StasisField_Impact.m3"
+      ],
+      "from": "frozen in crystal",
+      "reviewed": false
+    },
+    {
+      "ask": "green plus signs rising as a soldier is healed",
+      "expected": [
+        "Assets/Effects/Terran/MedicHeal/MedicHeal.m3",
+        "Assets/Effects/Zerg/RegenerativeBileBuff/RegenerativeBileBuff.m3"
+      ],
+      "from": "healing plus signs",
+      "reviewed": false
+    },
+    {
+      "ask": "a thin pale green healing beam from a dropship to a soldier",
+      "expected": [
+        "Assets/Effects/Terran/MedivacBeam/MedivacBeam.m3",
+        "Assets/Effects/Terran/MedivacBeamUpgrade/MedivacBeamUpgrade.m3"
+      ],
+      "from": "healing beam",
+      "reviewed": false
+    },
+    {
+      "ask": "a unit teleporting away in a flash of cyan light",
+      "expected": [
+        "Assets/Effects/Protoss/BlinkOut/BlinkOut.m3",
+        "Assets/Effects/Protoss/Stalker_Purifier_Collection_BlinkOut/Stalker_Purifier_Collection_BlinkOut.m3",
+        "Assets/Effects/Protoss/Stalker_Taldarim_Collection_BlinkOut/Stalker_Taldarim_Collection_BlinkOut.m3"
+      ],
+      "from": "blink out",
+      "reviewed": false
+    },
+    {
+      "ask": "a cage of glowing blue bars trapping a unit",
+      "expected": [
+        "Assets/Effects/Protoss/StasisField/StasisField.m3"
+      ],
+      "from": "cage of bars",
+      "reviewed": false
+    },
+    {
+      "ask": "green acid splashing onto the ground",
+      "expected": [
+        "Assets/Effects/Zerg/RoachMissileImpact/RoachMissileImpact.m3",
+        "Assets/Effects/Zerg/BileLauncherMissileImpact/BileLauncherMissileImpact.m3",
+        "Assets/Effects/Zerg/RoachMissileImpactEx1/RoachMissileImpactEx1.m3",
+        "Assets/Effects/Zerg/BioPlasmidMissileImpact/BioPlasmidMissileImpact.m3"
+      ],
+      "from": "acid splatter",
+      "reviewed": false
+    },
+    {
+      "ask": "a unit frozen in a block of ice",
+      "expected": [
+        "Assets/Effects/Protoss/FrozenAirUnit/FrozenAirUnit.m3",
+        "Assets/Effects/Protoss/FrozenProtossUnit/FrozenProtossUnit.m3",
+        "Assets/Effects/Zerg/FrozenZergGeneric/FrozenZergGeneric.m3",
+        "Assets/Effects/Zerg/FrozenZergDrone/FrozenZergDrone_00.m3"
+      ],
+      "from": "ice block",
+      "reviewed": false
+    },
+    {
+      "ask": "a puff of snow kicked up by a heavy landing",
+      "expected": [
+        "Assets/Effects/Other/PhysicsImpactSnowMed/PhysicsImpactSnowMed.m3",
+        "Assets/Effects/Other/PhysicsImpactSnowLarge/PhysicsImpactSnowLarge.m3",
+        "Assets/Effects/Other/PhysicsImpactSnowMassive/PhysicsImpactSnowMassive.m3"
+      ],
+      "from": "snow puff",
+      "reviewed": false
+    },
+    {
+      "ask": "molten lava splashing up",
+      "expected": [
+        "Assets/Effects/Other/PhysicsImpactLavaMed/PhysicsImpactLavaMed.m3",
+        "Assets/Effects/Other/PhysicsImpactLavaLarge/PhysicsImpactLavaLarge.m3",
+        "Assets/Effects/Other/PhysicsImpactLavaMassive/PhysicsImpactLavaMassive.m3"
+      ],
+      "from": "lava splash",
+      "reviewed": false
+    },
+    {
+      "ask": "a swirling vortex on the ground pulling things in",
+      "expected": [
+        "Assets/Effects/Protoss/SingularityAreaImpact/SingularityAreaImpact.m3",
+        "Assets/Effects/Protoss/Taldarim_Mothership_Black_Hole/Taldarim_Mothership_Black_Hole.m3"
+      ],
+      "from": "black hole",
+      "reviewed": false
+    },
+    {
+      "ask": "a thin red laser beam sweeping across the ground",
+      "expected": [
+        "Assets/Effects/Terran/LaserSightSplat/LaserSightSplat.m3",
+        "Assets/Effects/Protoss/ColossusBeam_Upgrade/ColossusBeam_Upgrade.m3",
+        "Assets/Effects/Protoss/TargetLockBeam/TargetLockBeam.m3"
+      ],
+      "from": "red laser",
+      "reviewed": false
+    },
+    {
+      "ask": "a unit warping in under stacked glowing blue panels",
+      "expected": [
+        "Assets/Effects/Protoss/ProtossUnitWarpIn/ProtossUnitWarpIn.m3",
+        "Assets/Effects/Protoss/ProtossDTLowWarpIn/ProtossDTLowWarpIn_00.m3",
+        "Assets/Effects/Protoss/ProtossDTLowWarpIn/ProtossDTLowWarpIn_01.m3",
+        "Assets/Effects/Terran/ToshTeleportIn/ToshTeleportIn.m3"
+      ],
+      "from": "warp in panels",
+      "reviewed": false
+    },
+    {
+      "ask": "an orange fireball explosion from a missile hit",
+      "expected": [
+        "Assets/Effects/Terran/Badger_AttackMissile_Impact/Badger_AttackMissile_Impact.m3",
+        "Assets/Effects/Terran/Xanthos_Missile_Impact/Xanthos_Missile_Impact.m3",
+        "Assets/Effects/Terran/OdinShoulderMissileImpact/OdinShoulderMissileImpact.m3",
+        "Assets/Effects/Terran/HunterKillerMissileImpact/HunterKillerMissileImpact.m3"
+      ],
+      "from": "missile explosion",
+      "reviewed": false
+    }
+  ]
+}
