@@ -8,13 +8,14 @@ It's built on **sc2-asset-catalog**, a catalog of more than 2,400 doodads descri
 
 This project is not affiliated with or endorsed by Blizzard Entertainment. StarCraft II and its assets are Blizzard's. No game data ships here: on its first start the Finder builds the game's own fields into your cache folder from [SC2Mapster's SC2GameData](https://github.com/SC2Mapster/SC2GameData), and cards link pictures from the [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference) gallery by URL.
 
-Five npm packages:
+Six npm packages:
 
 | Package | What it is |
 | --- | --- |
 | [`@team-antioch/sc2-doodad-finder`](packages/sc2-doodad-finder) | The Finder: the page, the doodad cards and the `sc2-doodad-finder` command. |
 | [`@team-antioch/sc2-music-finder`](packages/sc2-music-finder) | The Music Finder: ask for music in plain words and read each track's listening notes, filter by energy, tension, length and the dependency your map has, and play it from your own extracted audio. The `sc2-music-finder` command. |
 | [`@team-antioch/sc2-set-finder`](packages/sc2-set-finder) | The Set Finder: ask for a place to film a cutscene in and see Blizzard's campaign cutscene sets that fit, with pictures of each and the Cutscene Editor file it is in. The `sc2-set-finder` command. |
+| [`@team-antioch/sc2-effect-finder`](packages/sc2-effect-finder) | The Effect Finder: ask for an effect model in plain words ("a purple psionic blast", "burning ground") and get the game's effects that fit, from the effect looks, ranked by Jev. No page yet; sc2-mapping-reference's effect search is built on it. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
 | [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, the cliff set and terrain texture descriptions and their search, what every decal variation shows, what every effect model looks like, and the extractors (`sc2-asset-catalog extract`, `extract-cliffs`, `extract-textures`). |
 

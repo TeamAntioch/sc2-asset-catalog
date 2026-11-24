@@ -9,7 +9,8 @@
     "packages/sc2-finder-kit",
     "packages/sc2-doodad-finder",
     "packages/sc2-music-finder",
-    "packages/sc2-set-finder"
+    "packages/sc2-set-finder",
+    "packages/sc2-effect-finder"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
