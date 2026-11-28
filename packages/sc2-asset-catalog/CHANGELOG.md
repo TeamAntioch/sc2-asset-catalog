@@ -1,5 +1,11 @@
 # @team-antioch/sc2-asset-catalog
 
+## 0.6.0
+
+### Patch Changes
+
+- 3deea0c: Add Doodad Uses for 4 doodads: ArmoredDoor, Korhal_SpacePort_Container, SpaceArmoredDoor, SpaceCage.
+
 ## 0.5.0
 
 ### Minor Changes
