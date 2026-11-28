@@ -1,0 +1,52 @@
+{
+  "name": "@team-antioch/sc2-hots-effects",
+  "version": "0.5.0",
+  "description": "Heroes of the Storm's effect models described in words, for StarCraft II map makers: what each default skin's effect looks like, filmed in StarCraft II, keyed by the model's path.",
+  "keywords": [
+    "starcraft",
+    "sc2",
+    "heroes-of-the-storm",
+    "effects",
+    "map-editor",
+    "galaxy-editor"
+  ],
+  "license": "MIT AND CC-BY-4.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAntioch/sc2-asset-catalog.git",
+    "directory": "packages/sc2-hots-effects"
+  },
+  "homepage": "https://github.com/TeamAntioch/sc2-asset-catalog#readme",
+  "bugs": "https://github.com/TeamAntioch/sc2-asset-catalog/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./data/hots-effect-looks.json": "./data/hots-effect-looks.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "data/hots-effect-looks.json",
+    "LICENSE",
+    "LICENSE-DATA",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@team-antioch/sc2-asset-catalog": "0.5.0"
+  }
+}

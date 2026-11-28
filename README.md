@@ -8,7 +8,7 @@ It's built on **sc2-asset-catalog**, a catalog of more than 2,400 doodads descri
 
 This project is not affiliated with or endorsed by Blizzard Entertainment. StarCraft II and its assets are Blizzard's. No game data ships here: on its first start the Finder builds the game's own fields into your cache folder from [SC2Mapster's SC2GameData](https://github.com/SC2Mapster/SC2GameData), and cards link pictures from the [sc2-mapping-reference](https://github.com/TeamAntioch/sc2-mapping-reference) gallery by URL.
 
-Six npm packages:
+Seven npm packages:
 
 | Package | What it is |
 | --- | --- |
@@ -18,6 +18,7 @@ Six npm packages:
 | [`@team-antioch/sc2-effect-finder`](packages/sc2-effect-finder) | The Effect Finder: ask for an effect model in plain words ("a purple psionic blast", "burning ground") and get the game's effects that fit, from the effect looks, ranked by Jev. No page yet; sc2-mapping-reference's effect search is built on it. |
 | [`@team-antioch/sc2-finder-kit`](packages/sc2-finder-kit) | What finders share: the local server, the embeddings model and its cache, the Jev ranker with its key and spend cap, the tray and the test-ask cases. The Doodad Finder is built on it; so can another finder be. |
 | [`@team-antioch/sc2-asset-catalog`](packages/sc2-asset-catalog) | The library: the descriptions and Doodad Uses, the keyword search, the cliff set and terrain texture descriptions and their search, what every decal variation shows, what every effect model looks like, and the extractors (`sc2-asset-catalog extract`, `extract-cliffs`, `extract-textures`). |
+| [`@team-antioch/sc2-hots-effects`](packages/sc2-hots-effects) | Heroes of the Storm's effect models described in words: what each default skin's effect looks like, filmed in StarCraft II, keyed by the model's path, in the same shape as the catalog's effect looks. Data and a loader; no finder uses it yet. |
 
 ## Install and start
 
@@ -242,13 +243,13 @@ New and better descriptions, Doodad Uses and music listening notes are welcome: 
 ## Licences
 
 - The code is under the [MIT License](LICENSE).
-- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the cliff set descriptions (`packages/sc2-asset-catalog/data/cliff-descriptions.json`), the terrain texture descriptions (`packages/sc2-asset-catalog/data/texture-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`) and the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`) the cinematic set looks (`packages/sc2-asset-catalog/data/set-looks.json`) and the effect looks (`packages/sc2-asset-catalog/data/effect-looks.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses, music listening notes, set looks and effect looks from sc2-asset-catalog, CC BY 4.0".
+- The doodad descriptions (`packages/sc2-asset-catalog/data/doodad-descriptions.json`), the cliff set descriptions (`packages/sc2-asset-catalog/data/cliff-descriptions.json`), the terrain texture descriptions (`packages/sc2-asset-catalog/data/texture-descriptions.json`), the Doodad Uses (`packages/sc2-asset-catalog/data/doodad-uses/`), the music listening notes (`packages/sc2-asset-catalog/data/music-notes.json`), the cinematic set looks (`packages/sc2-asset-catalog/data/set-looks.json`), the effect looks (`packages/sc2-asset-catalog/data/effect-looks.json`) and the Heroes of the Storm effect looks (`packages/sc2-hots-effects/data/hots-effect-looks.json`) are under [CC BY 4.0](LICENSE-DATA). Attribute as "SC2 doodad descriptions, Doodad Uses, music listening notes, set looks, effect looks and HotS effect looks from sc2-asset-catalog, CC BY 4.0".
 - The built-in renderer runs [WhiteoutFlakes](https://github.com/FernandoS27/WhiteoutFlakes) by Fernando Sahmkow, under the BSD 3-Clause License. `setup-renderer` builds it from its source, and none of its code ships in the packages. Its notice is in [THIRD-PARTY-NOTICES.md](packages/sc2-asset-catalog/THIRD-PARTY-NOTICES.md).
 
 ## Releasing
 
 Releases go through [Changesets](https://github.com/changesets/changesets) and the [release workflow](.github/workflows/release.yml), which publishes with npm trusted publishing: no npm token is stored anywhere. Once the repository variable `RELEASE` is `on`, each push to `main` opens or updates a version pull request from the changesets, and merging it publishes the new versions. Setting it up, once:
 
-1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit`, `@team-antioch/sc2-music-finder`, `@team-antioch/sc2-set-finder` and `@team-antioch/sc2-effect-finder` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`, `packages/sc2-music-finder`, `packages/sc2-set-finder` and `packages/sc2-effect-finder`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
+1. Publish each package by hand once, so it exists on npm (0.1.0 for the first two; `@team-antioch/sc2-finder-kit`, `@team-antioch/sc2-music-finder`, `@team-antioch/sc2-set-finder`, `@team-antioch/sc2-effect-finder` and `@team-antioch/sc2-hots-effects` when they are first released): `npm ci` and `npm run build`, then `npm publish` in `packages/sc2-asset-catalog`, then `packages/sc2-finder-kit`, then `packages/sc2-doodad-finder`, `packages/sc2-music-finder`, `packages/sc2-set-finder`, `packages/sc2-effect-finder` and `packages/sc2-hots-effects`. Always build from the root first: packing doesn't build, because Changesets packs both packages at once and one package's build would empty the other's types mid-build.
 2. On npmjs.com, add a trusted publisher to each package (the kit's and every finder's, the Effect Finder's too): GitHub Actions, repository `TeamAntioch/sc2-asset-catalog`, workflow `release.yml`.
 3. Set the repository variable `RELEASE` to `on`.
