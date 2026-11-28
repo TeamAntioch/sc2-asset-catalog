@@ -1,6 +1,6 @@
 {
   "name": "@team-antioch/sc2-effect-finder",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Ask for a StarCraft II effect model in plain words (a purple psionic blast, a blue shield shimmer, burning ground) and get the game's effects that fit: the effect looks narrowed with a keyword search and a local embeddings model, then ranked by Jev.",
   "keywords": [
     "starcraft",
@@ -47,7 +47,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@team-antioch/sc2-asset-catalog": "0.5.0",
-    "@team-antioch/sc2-finder-kit": "0.5.0"
+    "@team-antioch/sc2-asset-catalog": "0.6.0",
+    "@team-antioch/sc2-finder-kit": "0.6.0"
   }
 }
