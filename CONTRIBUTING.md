@@ -151,6 +151,12 @@ Music Uses (what a track has worked as, as Doodad Uses are for doodads) aren't t
 
 Nothing read from the model goes in a look: its animations, emitters, textures and bounds are the game's. The one rule holds even though many paths name a hero: write "a violet psionic slash", never the hero's name. Keep the paths in order and the two-space indentation.
 
+## Fixing a Heroes of the Storm effect look
+
+`packages/sc2-hots-effects/data/hots-effect-looks.json` holds looks for Heroes of the Storm's effect models (the default skins), in the same fields as the effect looks above, keyed by the model's path (`"Assets/Effects/Storm_FX_..._Base_.../....m3": {…}`). Each was written by an agent from frames of the effect loaded into StarCraft II and filmed on a Marine, so a look describes the effect as StarCraft II draws it; a few models draw wrongly there, and their `problems` say so. There are no pictures to check against: check it against the effect in the Editor, then edit it directly and open a pull request saying what you saw.
+
+The one rule is stricter here, because every path names a hero and often an ability and a battleground: no hero, no ability written as a name, no place, no game or story. Write "a ring of green fire", never the ability's name.
+
 ## Checking your change
 
 ```sh

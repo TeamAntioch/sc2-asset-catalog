@@ -11,7 +11,8 @@
     "packages/sc2-doodad-finder",
     "packages/sc2-music-finder",
     "packages/sc2-set-finder",
-    "packages/sc2-effect-finder"
+    "packages/sc2-effect-finder",
+    "packages/sc2-hots-effects"
   ],
   "scripts": {
     "build": "turbo run build",
